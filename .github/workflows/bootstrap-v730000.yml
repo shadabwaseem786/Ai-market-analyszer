@@ -22,15 +22,14 @@ jobs:
       - name: Extract V730000 source
         run: |
           rm -rf /tmp/v730000_source
-          mkdir -p _v730000_source
-          unzip -q India-FNO-Catalyst-Monitor-V730000.zip -d _v730000_source
-          rsync -a --delete             --exclude='.github/'             --exclude='India-FNO-Catalyst-Monitor-V730000.zip'             _v730000_source/ ./
+          mkdir -p /tmp/v730000_source
+          unzip -q India-FNO-Catalyst-Monitor-V730000.zip -d /tmp/v730000_source
+          rsync -a             --exclude='.github/'             --exclude='India-FNO-Catalyst-Monitor-V730000.zip'             /tmp/v730000_source/ ./
 
       - name: Commit extracted source
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          rm -rf _v730000_source
           git add -A
           git diff --cached --quiet || git commit -m 'chore: bootstrap V730000 source tree'
           git push
