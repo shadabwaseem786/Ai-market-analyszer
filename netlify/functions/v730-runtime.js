@@ -33,17 +33,19 @@ exports.handler=async(event)=>{
   if(mr.statusCode!==200) return json(502,{version:"V730000-RECOVERY",error:"Market-data function failed"});
   const md=JSON.parse(mr.body||"{}"),cs=JSON.parse(cr.body||"{}");
   const markets=md.data||md.markets||md;
-  if(md.validCount===0) return json(503,{version:"V730000-RECOVERY",status:"DEGRADED",gate:"HOLD",error:"No valid market feeds"});
+  const marketClosed=String(md.marketSession||"").toUpperCase()==="CLOSED";
+  if(md.validCount===0 && !marketClosed) return json(503,{version:"V730000-RECOVERY",status:"DEGRADED",gate:"HOLD",error:"No valid market feeds"});
   const marketList=Object.entries(markets).filter(([k,v])=>v&&typeof v==="object"&&Number.isFinite(Number(v.score))).map(([symbol,v])=>({symbol,...v}));
   if(!marketList.length) return json(503,{version:"V730000-RECOVERY",status:"DEGRADED",gate:"HOLD",error:"Market feed contained no usable scored instruments"});
   const csummary=cs.summary||{};
   const catalystHealthy=catalystUsable(csummary);
-  if(!catalystHealthy) return json(503,{version:"V730000-RECOVERY",status:"DEGRADED",gate:"HOLD",error:"Catalyst feed is unavailable or lacks sufficient fresh evidence"}); if(!Number.isFinite(Number(csummary.catalystConfidence))) csummary.catalystConfidence=0; if(!Number.isFinite(Number(csummary.catalystRisk))) csummary.catalystRisk=100; if(!Number.isFinite(Number(csummary.catalystFreshness))) csummary.catalystFreshness=0;
+  if(!catalystHealthy && !marketClosed) return json(503,{version:"V730000-RECOVERY",status:"DEGRADED",gate:"HOLD",error:"Catalyst feed is unavailable or lacks sufficient fresh evidence"});
+  if(!catalystHealthy){csummary.catalystBias="NEUTRAL";csummary.catalystConfidence=0;csummary.catalystRisk=100;csummary.catalystHealth=0;csummary.catalystFreshness=0;csummary.count=0;} if(!Number.isFinite(Number(csummary.catalystConfidence))) csummary.catalystConfidence=0; if(!Number.isFinite(Number(csummary.catalystRisk))) csummary.catalystRisk=100; if(!Number.isFinite(Number(csummary.catalystFreshness))) csummary.catalystFreshness=0;
   const results=[];
   for(const m of marketList){
    const ar=ai.infer?ai.infer({score:m.score,confidence:m.confidence,agreementPct:m.agreementPct,riskScore:m.riskScore,dataHealth:m.dataHealth,catalystConfidence:csummary.catalystConfidence,catalystRisk:csummary.catalystRisk,catalystFreshness:csummary.catalystFreshness}):null;
    results.push({symbol:m.symbol,market:m,ai:ar,decision:combine(m,csummary,ar||{})});
   }
-  return json(200,{version:"V730000-RECOVERY",status:"INTEGRATED",generatedAt:new Date().toISOString(),results,catalyst:csummary,source:"market-data + catalyst-feed + ai-engine",notice:"Decision-support only; not a profitability guarantee or order-execution system."});
+  return json(200,{version:"V730000-RECOVERY",status:"INTEGRATED",marketSession:marketClosed?"CLOSED":(md.marketSession||"UNKNOWN"),generatedAt:new Date().toISOString(),results,catalyst:csummary,source:"market-data + catalyst-feed + ai-engine",notice:marketClosed?"Market closed: showing last validated snapshot; all actions remain HOLD/NO-TRADE until a fresh open-session feed is validated.":"Decision-support only; not a profitability guarantee or order-execution system."});
  }catch(e){return json(500,{version:"V730000-RECOVERY",status:"ERROR",error:e.message})}
 };
