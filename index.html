@@ -99,6 +99,14 @@ main.v730-newbie-mode #v990Validation{display:none!important}
 .v1000-details{margin-top:9px;font-size:12px;opacity:.8}
 @media(max-width:700px){.v1000-main{grid-template-columns:1fr}.v1000-engines{grid-template-columns:repeat(2,1fr)}}
 main.v730-newbie-mode #v1000ExpertCockpit{display:none!important}
+</style><style id="v1000-expert-accordion">
+.v1000-accordion{border:1px solid #294653;border-radius:13px;margin:10px 0;background:#0a1720}
+.v1000-accordion>summary{cursor:pointer;padding:13px 14px;font-weight:900;list-style:none}
+.v1000-accordion>summary::-webkit-details-marker{display:none}
+.v1000-accordion>summary:before{content:"+";display:inline-block;width:24px;font-size:18px}
+.v1000-accordion[open]>summary:before{content:"−"}
+.v1000-accordion>.card{margin:8px;border-color:#203d49}
+main.v730-newbie-mode .v1000-accordion{display:none!important}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V730000 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730LegacyBridges" aria-hidden="true" style="display:none"><span id="dataQuality"></span><span id="marketAgreement"></span><span id="catalystBreadth"></span><span id="finalGate"></span></div><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><section id="v730NewbiePanel" class="newbie-panel"><h2>🎯 Simple Decision</h2><div class="grid"><div>Decision <strong id="v730Decision">WAIT</strong></div><div>Confidence <strong id="v730Confidence">—</strong></div><div>Market <strong id="v730Market">—</strong></div><div>Data Health <strong id="v730Health">—</strong></div></div><p id="v730Reason">Validated decision-support output will appear here.</p></section><div id="v730SafeModeBanner" class="banner">🛡️ Safe mode: public feeds only. No broker, Dhan, Floot or order-execution dependency. Missing, stale or invalid data forces NO-TRADE.</div>
 <div class="grid"><div class="metric">MARKET STATUS<b id="market">CHECKING</b><small>India • IST</small></div><div class="metric">DATA HEALTH<b id="health">CHECKING</b><small id="healthSub">Validating 3/3 indexes</small></div><div class="metric">CATALYST FEED<b id="feed">CHECKING</b><small>Google News RSS</small></div><div class="metric">DECISION ENGINE<b class="warn">PAPER ONLY</b><small>Execution disabled</small></div></div>
@@ -297,6 +305,27 @@ function renderSelected(name){
  document.querySelectorAll("#rows tr").forEach(tr=>tr.classList.toggle("v940-selected-row",tr.dataset.instrument===name));
  const si=qv("v940SelectedInstrument");if(si)si.innerHTML="🎯 Selected instrument: <b>"+esc(name||"—")+"</b> <small>Tap any row to change the scope.</small>";
 }
+function reorganizeExpertSections(){
+ const main=document.querySelector("main.wrap"); if(!main||main.dataset.v1000Grouped)return;
+ const cockpit=document.getElementById("v1000ExpertCockpit"); if(!cockpit)return;
+ const cards=[...main.querySelectorAll(":scope > .card")];
+ const groups=[
+  {title:"🔬 Core Evidence Engines",match:/V22500 (Multi-Factor|Catalyst Intelligence|Data Reliability|Decision Fusion|Market Regime Matrix|Risk & Stability|AI Neural Intelligence)|Validation & Diagnostics/},
+  {title:"🧪 Research, Learning & Validation Labs",match:/V22500 (Learning|Historical|Research|ML Factory|OOS Training|AI Robustness|Model Intelligence)/},
+  {title:"🚀 Advanced Intelligence Stack",match:/V(51000|61000|71000|81000|83000|85000|91000|93000)/}
+ ];
+ let insert=cockpit;
+ for(const g of groups){
+  const d=document.createElement("details"); d.className="v1000-accordion"; d.open=false;
+  const s=document.createElement("summary"); s.textContent=g.title; d.appendChild(s);
+  const found=cards.filter(card=>g.match.test(card.querySelector("h2")?.textContent||""));
+  if(!found.length)continue;
+  found.forEach(card=>d.appendChild(card));
+  insert.insertAdjacentElement("afterend",d); insert=d;
+ }
+ main.dataset.v1000Grouped="1";
+}
+reorganizeExpertSections();
 document.querySelectorAll("#rows tr").forEach(tr=>{
  const cell=tr.children[0], name=cell?cell.textContent.trim():"";
  tr.dataset.instrument=name;
