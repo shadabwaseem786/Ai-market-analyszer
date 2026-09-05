@@ -1,0 +1,36 @@
+name: Bootstrap V730000 source
+
+on:
+  push:
+    paths:
+      - "India-FNO-Catalyst-Monitor-V730000.zip"
+      - ".github/workflows/bootstrap-v730000.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract V730000 source
+        run: |
+          rm -rf _v730000_source
+          mkdir -p _v730000_source
+          unzip -q India-FNO-Catalyst-Monitor-V730000.zip -d _v730000_source
+          rsync -a --delete             --exclude='.github/'             --exclude='India-FNO-Catalyst-Monitor-V730000.zip'             _v730000_source/ ./
+
+      - name: Commit extracted source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf _v730000_source
+          git add -A
+          git diff --cached --quiet || git commit -m 'chore: bootstrap V730000 source tree'
+          git push
