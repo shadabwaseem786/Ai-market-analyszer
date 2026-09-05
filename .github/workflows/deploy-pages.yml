@@ -23,18 +23,18 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
-      - name: Prepare V730000 site
+      - name: Prepare static site
         run: |
           rm -rf _site
           mkdir -p _site
-          unzip -q India-FNO-Catalyst-Monitor-V730000.zip -d _site
-          if [ -f _site/India-FNO-Catalyst-Monitor-V730000.zip ]; then
-            rm -f _site/India-FNO-Catalyst-Monitor-V730000.zip
-          fi
+          rsync -a             --exclude='.git/'             --exclude='.github/'             --exclude='*.zip'             --exclude='netlify/'             ./ _site/
           touch _site/.nojekyll
           test -f _site/index.html
+          test -f _site/data/market-data.json
+          test -f _site/data/catalyst-feed.json
+          test -f _site/data/v730-runtime.json
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -43,17 +43,6 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site
-
-      - name: Runtime integration audit
-        run: |
-          echo '--- Runtime references in deployed index.html ---'
-          grep -nEi 'netlify|market-data|catalyst-feed|v730-runtime|fetch|/api/|http' _site/index.html | head -n 250 || true
-          echo '--- Embedded build script ---'
-          cat _site/scripts/build-static.mjs || true
-          echo '--- Embedded refresh workflow ---'
-          cat _site/.github/workflows/refresh-data.yml || true
-          echo '--- Top-level deployed files ---'
-          find _site -maxdepth 2 -type f | sort | head -n 120
 
       - name: Deploy to GitHub Pages
         id: deployment
