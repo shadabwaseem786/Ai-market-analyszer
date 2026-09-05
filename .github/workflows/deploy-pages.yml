@@ -48,6 +48,8 @@ jobs:
         run: |
           echo '--- Runtime references in deployed index.html ---'
           grep -nEi 'netlify|market-data|catalyst-feed|v730-runtime|fetch|/api/|http' _site/index.html | head -n 250 || true
+          echo '--- Embedded refresh workflow ---'
+          cat _site/.github/workflows/refresh-data.yml || true
           echo '--- Top-level deployed files ---'
           find _site -maxdepth 2 -type f | sort | head -n 120
 
