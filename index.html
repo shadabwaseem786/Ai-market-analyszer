@@ -54,6 +54,16 @@ header h1 small{display:inline;font-size:12px;white-space:nowrap;overflow:hidden
  .v930-group>summary{padding:12px}
 }
 main.v730-newbie-mode .v930-control-center,main.v730-newbie-mode .v930-groups{display:none!important}
+</style><style id="v940-expert-decision-ui">
+.v940-decision-note{font-size:11px;opacity:.82;margin-top:7px}
+.v940-consensus{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.v940-consensus .metric{min-height:58px}
+.v940-why{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:10px}
+.v940-why div{padding:8px;border:1px solid #263f4b;border-radius:9px;font-size:11px}
+.v940-why b{display:block;font-size:14px;margin-top:3px}
+.v940-alert{margin-top:10px;padding:10px;border:1px dashed #765f35;border-radius:10px}
+@media(max-width:700px){.v940-consensus{grid-template-columns:repeat(2,1fr)}.v940-why{grid-template-columns:repeat(2,1fr)}}
+main.v730-newbie-mode .v940-decision-note,main.v730-newbie-mode .v940-consensus,main.v730-newbie-mode .v940-why,main.v730-newbie-mode .v940-alert{display:none}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V730000 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><section id="v730NewbiePanel" class="newbie-panel"><h2>🎯 Simple Decision</h2><div class="grid"><div>Decision <strong id="v730Decision">WAIT</strong></div><div>Confidence <strong id="v730Confidence">—</strong></div><div>Market <strong id="v730Market">—</strong></div><div>Data Health <strong id="v730Health">—</strong></div></div><p id="v730Reason">Validated decision-support output will appear here.</p></section><div class="banner">🛡️ Safe mode: public feeds only. No broker, Dhan, Floot or order-execution dependency. Missing, stale or invalid data forces NO-TRADE.</div>
 <div class="grid"><div class="metric">MARKET STATUS<b id="market">CHECKING</b><small>India • IST</small></div><div class="metric">DATA HEALTH<b id="health">CHECKING</b><small id="healthSub">Validating 3/3 indexes</small></div><div class="metric">CATALYST FEED<b id="feed">CHECKING</b><small>Google News RSS</small></div><div class="metric">DECISION ENGINE<b class="warn">PAPER ONLY</b><small>Execution disabled</small></div></div>
@@ -295,7 +305,22 @@ document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){V7
    const anchor=[...main.children].find(x=>x.classList&&x.classList.contains('card')&&/F&O Decision Board/.test(cardTitle(x)));
    const cc=document.createElement('section');cc.id='v930ControlCenter';cc.className='v930-control-center';
    cc.innerHTML='<div class="cc-title"><h2>🧠 Prediction Control Center</h2><span class="pill">EXPERT • UNIFIED EVIDENCE</span></div>'+
-     '<div class="v930-final">'+
+     '<div class="v940-decision-note">Decision first • underlying V22500–V93000 engines remain available below for audit.</div>
+<div class="v940-consensus">
+<div class="metric">Engine Agreement<b id="v940Agreement">—</b></div>
+<div class="metric">Trade Readiness<b id="v940Readiness">—</b></div>
+<div class="metric">Risk State<b id="v940Risk">—</b></div>
+<div class="metric">Data Integrity<b id="v940Data">—</b></div>
+</div>
+<div class="v940-why">
+<div>📊 Market<b id="v940Market">—</b></div>
+<div>📰 Catalyst<b id="v940Catalyst">—</b></div>
+<div>🤖 AI<b id="v940AI">—</b></div>
+<div>🧭 Regime<b id="v940Regime">—</b></div>
+<div>🛡️ Risk<b id="v940Risk2">—</b></div>
+</div>
+<div class="v940-alert"><b>⚠ What could invalidate the signal?</b><br><span id="v940Invalidation">Waiting for live validation gates…</span></div>
+<div class="v930-final">'+
      '<div class="metric"><small>FINAL AI SIGNAL</small><div id="v930Signal" class="main-signal warn">🟡 WAIT</div><small>Combined validated evidence</small></div>'+
      '<div class="metric">BUY Probability<b id="v930Prob">—</b></div>'+
      '<div class="metric">Confidence<b id="v930Conf">—</b></div>'+
@@ -344,6 +369,20 @@ document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){V7
      q('v930AIStream').textContent=txt('aiDirection')+' • '+txt('aiProb');
      q('v930RegimeStream').textContent=txt('regimeState')+' • '+txt('factorAgree');
      q('v930RiskStream').textContent=txt('signalStability')+' • '+txt('regimeRisk');
+     q('v940Agreement').textContent=txt('factorAgree');
+     q('v940Readiness').textContent=txt('actionQuality');
+     q('v940Risk').textContent=txt('regimeRisk')+' / '+txt('catalystRisk');
+     q('v940Data').textContent=txt('dq');
+     q('v940Market').textContent=txt('trend')+' • '+txt('momentum');
+     q('v940Catalyst').textContent=txt('fusionCat')+' • '+txt('fusionConf');
+     q('v940AI').textContent=txt('aiDirection')+' • '+txt('aiProb');
+     q('v940Regime').textContent=txt('regimeState')+' • '+txt('factorAgree');
+     q('v940Risk2').textContent=txt('signalStability');
+     const invalid=[];
+     if(/STALE|INVALID|ERROR|NO DATA/i.test(txt('dq')))invalid.push('data quality/freshness gate');
+     if(/HIGH|ELEVATED/i.test(txt('regimeRisk')+' '+txt('catalystRisk')))invalid.push('risk regime escalation');
+     if(/CONFLICT|LOW/i.test(txt('factorAgree')))invalid.push('engine agreement deterioration');
+     q('v940Invalidation').textContent=invalid.length?invalid.join(' • '):'Signal remains valid while data, consensus, catalyst and risk gates remain within thresholds.';
    }
    sync();setInterval(sync,2000);
  }
