@@ -28,6 +28,32 @@ header h1 small{display:inline;font-size:12px;white-space:nowrap;overflow:hidden
 .v730-news-more>summary:before{content:"+";display:inline-block;width:22px;font-size:18px}
 .v730-news-more[open]>summary:before{content:"−"}
 .v730-news-date{font-size:11px;opacity:.8;margin:2px 0 8px}
+</style><style id="v930-expert-control-center">
+.v930-control-center{border:1px solid #315b63;background:linear-gradient(180deg,#0d2028,#0a1720);border-radius:16px;padding:14px;margin:12px 0}
+.v930-control-center .cc-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.v930-control-center .cc-title h2{margin:0}
+.v930-final{display:grid;grid-template-columns:1.2fr repeat(4,1fr);gap:10px}
+.v930-final .metric{min-height:76px}
+.v930-final .main-signal{font-size:25px;font-weight:900;margin-top:5px}
+.v930-streams{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:10px}
+.v930-stream{padding:9px;border:1px solid #243f4a;border-radius:10px;background:#08151e;font-size:12px}
+.v930-stream b{display:block;margin-top:3px;font-size:14px}
+.v930-groups{margin:12px 0}
+.v930-group{border:1px solid #263f4b;border-radius:14px;background:#09161f;margin:10px 0;overflow:hidden}
+.v930-group>summary{cursor:pointer;list-style:none;padding:13px 14px;font-weight:900;display:flex;align-items:center;gap:8px}
+.v930-group>summary::-webkit-details-marker{display:none}
+.v930-group>summary:before{content:"+";font-size:20px;width:20px}
+.v930-group[open]>summary:before{content:"−"}
+.v930-group .v930-group-body{padding:0 10px 10px}
+.v930-group .card{margin:9px 0}
+.v930-version{display:inline-block;font-size:10px;padding:3px 7px;border:1px solid #3b5b68;border-radius:999px;opacity:.9;margin-left:5px;vertical-align:middle}
+@media(max-width:700px){
+ .v930-final{grid-template-columns:repeat(2,1fr)}
+ .v930-final .metric:first-child{grid-column:1/-1}
+ .v930-streams{grid-template-columns:repeat(2,1fr)}
+ .v930-group>summary{padding:12px}
+}
+main.v730-newbie-mode .v930-control-center,main.v730-newbie-mode .v930-groups{display:none!important}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V730000 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><section id="v730NewbiePanel" class="newbie-panel"><h2>🎯 Simple Decision</h2><div class="grid"><div>Decision <strong id="v730Decision">WAIT</strong></div><div>Confidence <strong id="v730Confidence">—</strong></div><div>Market <strong id="v730Market">—</strong></div><div>Data Health <strong id="v730Health">—</strong></div></div><p id="v730Reason">Validated decision-support output will appear here.</p></section><div class="banner">🛡️ Safe mode: public feeds only. No broker, Dhan, Floot or order-execution dependency. Missing, stale or invalid data forces NO-TRADE.</div>
 <div class="grid"><div class="metric">MARKET STATUS<b id="market">CHECKING</b><small>India • IST</small></div><div class="metric">DATA HEALTH<b id="health">CHECKING</b><small id="healthSub">Validating 3/3 indexes</small></div><div class="metric">CATALYST FEED<b id="feed">CHECKING</b><small>Google News RSS</small></div><div class="metric">DECISION ENGINE<b class="warn">PAPER ONLY</b><small>Execution disabled</small></div></div>
@@ -242,4 +268,85 @@ window.V730Runtime={
  }
 };
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){V730Runtime.refresh()},2500);setInterval(function(){V730Runtime.refresh()},60000)});
+</script><script id="v930-expert-control-center-js">
+(function(){
+ function clean(t){return String(t||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()}
+ function cardTitle(card){const h=card.querySelector('h2');return h?clean(h.textContent):''}
+ function versionize(card){
+   const h=card.querySelector('h2'); if(!h||h.dataset.v930Versionized)return;
+   const m=clean(h.textContent).match(/\b(V\d{4,6})\b/); if(!m)return;
+   h.innerHTML=h.innerHTML.replace(m[1],'<span class="v930-version">'+m[1]+'</span>');
+   h.dataset.v930Versionized='1';
+ }
+ function group(name,icon,matchers){
+   const main=document.querySelector('main.wrap'); if(!main)return;
+   const cards=[...main.children].filter(x=>x.classList&&x.classList.contains('card')&&matchers.some(re=>re.test(cardTitle(x))));
+   if(!cards.length)return;
+   const first=cards[0];
+   const d=document.createElement('details');d.className='v930-group';d.id='v930Group'+name.replace(/\W/g,'');d.open=false;
+   const s=document.createElement('summary');s.innerHTML=icon+' '+name+' <span class="pill">'+cards.length+' modules</span>';d.appendChild(s);
+   const body=document.createElement('div');body.className='v930-group-body';d.appendChild(body);
+   first.parentNode.insertBefore(d,first);
+   cards.forEach(card=>{versionize(card);body.appendChild(card)});
+ }
+ function install(){
+   if(document.getElementById('v930Groups'))return;
+   const main=document.querySelector('main.wrap'); if(!main)return;
+   const anchor=[...main.children].find(x=>x.classList&&x.classList.contains('card')&&/F&O Decision Board/.test(cardTitle(x)));
+   const cc=document.createElement('section');cc.id='v930ControlCenter';cc.className='v930-control-center';
+   cc.innerHTML='<div class="cc-title"><h2>🧠 Prediction Control Center</h2><span class="pill">EXPERT • UNIFIED EVIDENCE</span></div>'+
+     '<div class="v930-final">'+
+     '<div class="metric"><small>FINAL AI SIGNAL</small><div id="v930Signal" class="main-signal warn">🟡 WAIT</div><small>Combined validated evidence</small></div>'+
+     '<div class="metric">BUY Probability<b id="v930Prob">—</b></div>'+
+     '<div class="metric">Confidence<b id="v930Conf">—</b></div>'+
+     '<div class="metric">Signal Survival<b id="v930Survive">—</b></div>'+
+     '<div class="metric">Fusion Catalyst<b id="v930Cat">—</b></div>'+
+     '</div>'+
+     '<div class="v930-streams">'+
+     '<div class="v930-stream">📊 Market<b id="v930MarketStream">Waiting</b></div>'+
+     '<div class="v930-stream">📰 Catalyst<b id="v930CatalystStream">Waiting</b></div>'+
+     '<div class="v930-stream">🤖 AI Ensemble<b id="v930AIStream">Waiting</b></div>'+
+     '<div class="v930-stream">🧭 Regime<b id="v930RegimeStream">Waiting</b></div>'+
+     '<div class="v930-stream">🛡️ Risk / Stability<b id="v930RiskStream">Waiting</b></div>'+
+     '</div>';
+   if(anchor)anchor.parentNode.insertBefore(cc,anchor.nextSibling); else main.insertBefore(cc,main.firstChild);
+   const groups=document.createElement('div');groups.id='v930Groups';groups.className='v930-groups';
+   const firstModule=[...main.children].find(x=>x.classList&&x.classList.contains('card')&&/V22500/.test(cardTitle(x)));
+   if(firstModule)firstModule.parentNode.insertBefore(groups,firstModule);
+   groupInto(groups,'Core Decision Intelligence','📊',[/V22500 (Multi-Factor|Catalyst Intelligence|Data Reliability|Decision Fusion|Market Regime Matrix|Risk & Stability)/i]);
+   groupInto(groups,'AI & Learning','🤖',[/V22500 (AI Neural Intelligence|Learning & Model Governance)/i]);
+   groupInto(groups,'Research & Validation','🧪',[/V22500 (Historical AI Lab|Historical ML Lab|Research Validation|AI Research & Validation|ML Factory|OOS Training Lab|AI Robustness Layer|Research Factory|Model Intelligence Lab|Final AI Research Release)/i]);
+   groupInto(groups,'Advanced AI Evolution','🌌',[/V51000|V61000|V71000|V81000|V83000|V85000|V91000|V93000/i]);
+   groups.append(...[...main.children].filter(x=>x.classList&&x.classList.contains('card')&&/V22500|V51000|V61000|V71000|V81000|V83000|V85000|V91000|V93000/.test(cardTitle(x))));
+   function groupInto(parent,name,icon,matchers){
+     const cards=[...main.children].filter(x=>x.classList&&x.classList.contains('card')&&matchers.some(re=>re.test(cardTitle(x))));
+     if(!cards.length)return;
+     const d=document.createElement('details');d.className='v930-group';d.open=false;
+     const s=document.createElement('summary');s.innerHTML=icon+' '+name+' <span class="pill">'+cards.length+' modules</span>';d.appendChild(s);
+     const body=document.createElement('div');body.className='v930-group-body';d.appendChild(body);
+     parent.appendChild(d);
+     cards.forEach(card=>{versionize(card);body.appendChild(card)});
+   }
+   main.querySelectorAll('.card').forEach(versionize);
+   const guard=[...main.children].find(x=>x.classList&&x.classList.contains('card')&&/^🛡️ System Guardrails/.test(cardTitle(x)));
+   if(guard){versionize(guard)}
+   function sync(){
+     const q=id=>document.getElementById(id);
+     const txt=id=>q(id)?.textContent?.trim()||'—';
+     const gm=q('gmSignal'),gp=q('gmProb'),gc=q('gmConf'),gs=q('gmSurvive');
+     if(gm)q('v930Signal').textContent=gm.textContent;
+     if(gp)q('v930Prob').textContent=gp.textContent;
+     if(gc)q('v930Conf').textContent=gc.textContent;
+     if(gs)q('v930Survive').textContent=gs.textContent;
+     q('v930Cat').textContent=txt('fusionCat');
+     q('v930MarketStream').textContent=txt('trend')+' • '+txt('momentum');
+     q('v930CatalystStream').textContent=txt('fusionCat')+' • '+txt('fusionConf');
+     q('v930AIStream').textContent=txt('aiDirection')+' • '+txt('aiProb');
+     q('v930RegimeStream').textContent=txt('regimeState')+' • '+txt('factorAgree');
+     q('v930RiskStream').textContent=txt('signalStability')+' • '+txt('regimeRisk');
+   }
+   sync();setInterval(sync,2000);
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(install,50));
+})();
 </script></body></html>
