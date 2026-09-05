@@ -9,6 +9,17 @@
 .v730-market-selector button.active{outline:2px solid currentColor;background:#26364d;border-color:#7aa2d8}
 .v730-market-selector .status{font-size:12px;opacity:.8;margin-left:auto}
 @media(max-width:700px){.v730-market-selector{overflow-x:auto;flex-wrap:nowrap}.v730-market-selector button{flex:0 0 auto}.v730-market-selector .status{display:none}}
+</style><style id="v730-compact-header">
+header{padding:8px 12px}
+header .wrap{padding:4px 10px}
+header h1{display:flex;align-items:center;gap:7px;white-space:nowrap;overflow:hidden;font-size:20px;line-height:1.2}
+header h1 small{display:inline;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:700px){
+ header{padding:7px 8px}
+ header .wrap{padding:3px 6px}
+ header h1{font-size:17px;gap:5px}
+ header h1 small{font-size:10px}
+}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V730000 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><section id="v730NewbiePanel" class="newbie-panel"><h2>🎯 Simple Decision</h2><div class="grid"><div>Decision <strong id="v730Decision">WAIT</strong></div><div>Confidence <strong id="v730Confidence">—</strong></div><div>Market <strong id="v730Market">—</strong></div><div>Data Health <strong id="v730Health">—</strong></div></div><p id="v730Reason">Validated decision-support output will appear here.</p></section><div class="banner">🛡️ Safe mode: public feeds only. No broker, Dhan, Floot or order-execution dependency. Missing, stale or invalid data forces NO-TRADE.</div>
 <div class="grid"><div class="metric">MARKET STATUS<b id="market">CHECKING</b><small>India • IST</small></div><div class="metric">DATA HEALTH<b id="health">CHECKING</b><small id="healthSub">Validating 3/3 indexes</small></div><div class="metric">CATALYST FEED<b id="feed">CHECKING</b><small>Google News RSS</small></div><div class="metric">DECISION ENGINE<b class="warn">PAPER ONLY</b><small>Execution disabled</small></div></div>
