@@ -1,6 +1,6 @@
 {
   "version": "V14000",
-  "generatedAt": "2026-09-05T19:53:48.733Z",
+  "generatedAt": "2026-09-05T19:54:51.233Z",
   "validCount": 2,
   "total": 3,
   "marketSession": "CLOSED",
@@ -33,7 +33,7 @@
       "freshnessTier": "STALE",
       "rationale": "Trend:-25 • RSI:-15 • 20D momentum:-5.477683017554691 • Volatility:+5",
       "ts": "2026-09-04T03:45:00.000Z",
-      "ageMinutes": 2409,
+      "ageMinutes": 2410,
       "source": "Yahoo Finance",
       "provider": "query1.finance.yahoo.com",
       "currency": "INR",
@@ -69,7 +69,7 @@
       "freshnessTier": "STALE",
       "rationale": "Trend:-25 • Volatility:+5 • MACD:-5",
       "ts": "2026-09-04T03:45:00.000Z",
-      "ageMinutes": 2409,
+      "ageMinutes": 2410,
       "source": "Yahoo Finance",
       "provider": "query1.finance.yahoo.com",
       "currency": "INR",
@@ -84,12 +84,12 @@
       "score": null,
       "confidence": null,
       "quality": 0,
-      "error": "^CNXFINANCE @ query1.finance.yahoo.com: query1.finance.yahoo.com HTTP 404 | ^CNXFINANCE @ query2.finance.yahoo.com: query2.finance.yahoo.com HTTP 404 | NIFTY_FIN_SERVICE.NS @ query2.finance.yahoo.com: Stale market data (72969 min old) | NIFTY_FIN_SERVICE.NS @ query1.finance.yahoo.com: Stale market data (72969 min old)",
+      "error": "NIFTY_FIN_SERVICE.NS @ query1.finance.yahoo.com: Stale market data (72970 min old) | ^CNXFINANCE @ query1.finance.yahoo.com: query1.finance.yahoo.com HTTP 404 | NIFTY_FIN_SERVICE.NS @ query2.finance.yahoo.com: Stale market data (72970 min old) | ^CNXFINANCE @ query2.finance.yahoo.com: query2.finance.yahoo.com HTTP 404",
       "source": "Yahoo Finance"
     }
   },
   "errors": [
-    "FINNIFTY: ^CNXFINANCE @ query1.finance.yahoo.com: query1.finance.yahoo.com HTTP 404 | ^CNXFINANCE @ query2.finance.yahoo.com: query2.finance.yahoo.com HTTP 404 | NIFTY_FIN_SERVICE.NS @ query2.finance.yahoo.com: Stale market data (72969 min old) | NIFTY_FIN_SERVICE.NS @ query1.finance.yahoo.com: Stale market data (72969 min old)"
+    "FINNIFTY: NIFTY_FIN_SERVICE.NS @ query1.finance.yahoo.com: Stale market data (72970 min old) | ^CNXFINANCE @ query1.finance.yahoo.com: query1.finance.yahoo.com HTTP 404 | NIFTY_FIN_SERVICE.NS @ query2.finance.yahoo.com: Stale market data (72970 min old) | ^CNXFINANCE @ query2.finance.yahoo.com: query2.finance.yahoo.com HTTP 404"
   ],
   "guardrails": [
     "finite-values",

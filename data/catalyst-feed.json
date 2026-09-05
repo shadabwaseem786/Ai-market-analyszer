@@ -15,7 +15,7 @@
       "catalystScore": 73,
       "directionalStrength": 48,
       "confidence": 95,
-      "ageMinutes": 770,
+      "ageMinutes": 772,
       "tags": [
         "MACRO",
         "INDEX",
@@ -37,7 +37,7 @@
       "catalystScore": 71,
       "directionalStrength": 55,
       "confidence": 95,
-      "ageMinutes": 570,
+      "ageMinutes": 571,
       "tags": [
         "MACRO",
         "INDEX",
@@ -58,7 +58,7 @@
       "catalystScore": 69,
       "directionalStrength": 82,
       "confidence": 95,
-      "ageMinutes": 2462,
+      "ageMinutes": 2463,
       "tags": [
         "MACRO",
         "ENERGY",
@@ -79,7 +79,7 @@
       "catalystScore": 65,
       "directionalStrength": 62,
       "confidence": 90,
-      "ageMinutes": 742,
+      "ageMinutes": 743,
       "tags": [
         "MACRO",
         "INDEX",
@@ -100,7 +100,7 @@
       "catalystScore": 57,
       "directionalStrength": 55,
       "confidence": 87,
-      "ageMinutes": 5287,
+      "ageMinutes": 5288,
       "tags": [
         "MACRO",
         "INDEX",
@@ -122,7 +122,7 @@
       "catalystScore": 57,
       "directionalStrength": 55,
       "confidence": 87,
-      "ageMinutes": 4860,
+      "ageMinutes": 4861,
       "tags": [
         "MACRO",
         "INDEX",
@@ -143,7 +143,7 @@
       "catalystScore": 57,
       "directionalStrength": 55,
       "confidence": 87,
-      "ageMinutes": 3406,
+      "ageMinutes": 3407,
       "tags": [
         "MACRO",
         "INDEX",
@@ -164,7 +164,7 @@
       "catalystScore": 56,
       "directionalStrength": 31,
       "confidence": 86,
-      "ageMinutes": 1951,
+      "ageMinutes": 1952,
       "tags": [
         "MACRO",
         "BANKING",
@@ -185,7 +185,7 @@
       "catalystScore": 53,
       "directionalStrength": 31,
       "confidence": 84,
-      "ageMinutes": 4903,
+      "ageMinutes": 4904,
       "tags": [
         "MACRO",
         "BANKING",
@@ -206,7 +206,7 @@
       "catalystScore": 53,
       "directionalStrength": 37,
       "confidence": 84,
-      "ageMinutes": 8299,
+      "ageMinutes": 8300,
       "tags": [
         "MACRO",
         "INDEX",
@@ -227,7 +227,7 @@
       "catalystScore": 53,
       "directionalStrength": 37,
       "confidence": 84,
-      "ageMinutes": 8111,
+      "ageMinutes": 8112,
       "tags": [
         "MACRO",
         "BANKING",
@@ -249,7 +249,7 @@
       "catalystScore": 53,
       "directionalStrength": 37,
       "confidence": 84,
-      "ageMinutes": 6663,
+      "ageMinutes": 6664,
       "tags": [
         "MACRO",
         "INDEX",
@@ -271,7 +271,7 @@
       "catalystScore": 53,
       "directionalStrength": 31,
       "confidence": 84,
-      "ageMinutes": 3406,
+      "ageMinutes": 3407,
       "tags": [
         "MACRO",
         "BANKING",
@@ -292,7 +292,7 @@
       "catalystScore": 49,
       "directionalStrength": 49,
       "confidence": 78,
-      "ageMinutes": 3612,
+      "ageMinutes": 3613,
       "tags": [
         "MACRO",
         "RBI",
@@ -313,7 +313,7 @@
       "catalystScore": 49,
       "directionalStrength": 31,
       "confidence": 78,
-      "ageMinutes": 1838,
+      "ageMinutes": 1839,
       "tags": [
         "MACRO",
         "GEOPOLITICS"
@@ -333,7 +333,7 @@
       "catalystScore": 48,
       "directionalStrength": 49,
       "confidence": 78,
-      "ageMinutes": 7742,
+      "ageMinutes": 7743,
       "tags": [
         "MACRO",
         "ENERGY"
@@ -353,7 +353,7 @@
       "catalystScore": 46,
       "directionalStrength": 26,
       "confidence": 77,
-      "ageMinutes": 5219,
+      "ageMinutes": 5220,
       "tags": [
         "MACRO",
         "INDEX",
@@ -374,7 +374,7 @@
       "catalystScore": 46,
       "directionalStrength": 26,
       "confidence": 77,
-      "ageMinutes": 5267,
+      "ageMinutes": 5268,
       "tags": [
         "MACRO",
         "INDEX",
@@ -395,7 +395,7 @@
       "catalystScore": 46,
       "directionalStrength": 27,
       "confidence": 72,
-      "ageMinutes": 678,
+      "ageMinutes": 679,
       "tags": []
     },
     {
@@ -412,7 +412,7 @@
       "catalystScore": 46,
       "directionalStrength": 26,
       "confidence": 77,
-      "ageMinutes": 3992,
+      "ageMinutes": 3993,
       "tags": [
         "MACRO",
         "INDEX"
@@ -432,7 +432,7 @@
       "catalystScore": 45,
       "directionalStrength": 51,
       "confidence": 76,
-      "ageMinutes": 5248,
+      "ageMinutes": 5249,
       "tags": [
         "INDEX"
       ]
@@ -451,7 +451,7 @@
       "catalystScore": 42,
       "directionalStrength": 33,
       "confidence": 73,
-      "ageMinutes": 5225,
+      "ageMinutes": 5226,
       "tags": [
         "INDEX"
       ]
@@ -470,7 +470,7 @@
       "catalystScore": 42,
       "directionalStrength": 33,
       "confidence": 73,
-      "ageMinutes": 3913,
+      "ageMinutes": 3914,
       "tags": [
         "INDEX"
       ]
@@ -489,7 +489,7 @@
       "catalystScore": 42,
       "directionalStrength": 33,
       "confidence": 73,
-      "ageMinutes": 5419,
+      "ageMinutes": 5420,
       "tags": [
         "INDEX"
       ]
@@ -508,7 +508,7 @@
       "catalystScore": 41,
       "directionalStrength": 33,
       "confidence": 73,
-      "ageMinutes": 6852,
+      "ageMinutes": 6853,
       "tags": [
         "INDEX"
       ]
@@ -527,7 +527,7 @@
       "catalystScore": 41,
       "directionalStrength": 38,
       "confidence": 71,
-      "ageMinutes": 3831,
+      "ageMinutes": 3832,
       "tags": [
         "MACRO",
         "FX"
@@ -547,7 +547,7 @@
       "catalystScore": 40,
       "directionalStrength": 38,
       "confidence": 71,
-      "ageMinutes": 4839,
+      "ageMinutes": 4840,
       "tags": [
         "MACRO",
         "ENERGY"
@@ -567,7 +567,7 @@
       "catalystScore": 39,
       "directionalStrength": 15,
       "confidence": 70,
-      "ageMinutes": 3675,
+      "ageMinutes": 3676,
       "tags": [
         "INDEX"
       ]
@@ -586,7 +586,7 @@
       "catalystScore": 38,
       "directionalStrength": 15,
       "confidence": 70,
-      "ageMinutes": 5428,
+      "ageMinutes": 5429,
       "tags": [
         "INDEX"
       ]
@@ -605,7 +605,7 @@
       "catalystScore": 37,
       "directionalStrength": 20,
       "confidence": 68,
-      "ageMinutes": 5366,
+      "ageMinutes": 5367,
       "tags": [
         "MACRO",
         "GEOPOLITICS"
