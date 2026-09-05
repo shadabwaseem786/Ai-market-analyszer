@@ -128,6 +128,8 @@ function stabilityState(x){
 }
 function decision(x){
  if(!x||x.quality!==100||!Number.isFinite(x.score))return ["NO-TRADE","bad"];
+ // Hard instrument-level freshness gate: retained/old snapshots must never become a trade signal.
+ if((Number.isFinite(x.ageMinutes)&&x.ageMinutes>48*60)||x.freshnessTier==="STALE"||x.dataHealth<80)return ["NO-TRADE","bad"];
  const fs=fusionState(x), cb=catalystSummary.catalystBias, marketBias=x.bias||"NEUTRAL", agreement=(cb==="NEUTRAL"||marketBias==="NEUTRAL"||cb===marketBias),factorOK=!Number.isFinite(x.agreementPct)||x.agreementPct>=60;
  const strong=x.confidence>=65&&catalystSummary.catalystConfidence>=50;
  if(fs.state!=="ALIGNED"||!agreement||!factorOK)return [fs.state==="NO-TRADE"?"NO-TRADE":"WAIT","warn"];
@@ -154,7 +156,7 @@ function renderSelected(name){
   v22500AITitle:"🤖 V22500 AI Neural Intelligence — "+(name||"—")
  };
  Object.keys(hmap).forEach(id=>{const el=qv(id);if(el){const badge=el.querySelector(".scope-badge");el.textContent=hmap[id]+" ";if(badge)el.appendChild(badge)}});
- set("v730Decision", j.marketSession==="CLOSED"?"WAIT":decision(z)[0]||"WAIT");
+ const instDecision=j.marketSession==="CLOSED"?"WAIT":decision(z)[0]||"WAIT"; set("v730Decision",instDecision); set("v730Reason",instDecision==="NO-TRADE"?"Instrument data is stale/invalid or fails the freshness gate.":"Instrument-level factors are being combined with market-context catalysts and safety gates.");
  set("v730Confidence", Number.isFinite(z.confidence)?z.confidence+"%":"—");
  set("v730Market", name||"—");
  set("v730Health", Number.isFinite(z.dataHealth)?z.dataHealth+"%":"—");
