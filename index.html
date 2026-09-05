@@ -73,6 +73,14 @@ main.v730-newbie-mode .v940-decision-note,main.v730-newbie-mode .v940-consensus,
 .v940-selected small{opacity:.7;margin-left:8px}
 #rows tr{cursor:pointer}
 #rows tr.v940-selected-row{outline:2px solid #87b7d1;outline-offset:-2px}
+</style><style id="v970-unified-fusion">
+.v970-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:8px}
+.v970-grid>div{padding:10px;border:1px solid #263f4b;border-radius:9px;min-height:55px}
+.v970-grid small{display:block;opacity:.7;font-size:10px}
+.v970-grid b{display:block;font-size:15px;margin-top:5px}
+.v970-final b{font-size:21px}.v970-final span{display:block;font-size:11px;opacity:.75;margin-top:3px}
+@media(max-width:700px){.v970-grid{grid-template-columns:repeat(2,1fr)}.v970-final{grid-column:1/-1}}
+main.v730-newbie-mode #v970UnifiedFusion{display:none!important}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V730000 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730LegacyBridges" aria-hidden="true" style="display:none"><span id="dataQuality"></span><span id="marketAgreement"></span><span id="catalystBreadth"></span><span id="finalGate"></span></div><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><section id="v730NewbiePanel" class="newbie-panel"><h2>🎯 Simple Decision</h2><div class="grid"><div>Decision <strong id="v730Decision">WAIT</strong></div><div>Confidence <strong id="v730Confidence">—</strong></div><div>Market <strong id="v730Market">—</strong></div><div>Data Health <strong id="v730Health">—</strong></div></div><p id="v730Reason">Validated decision-support output will appear here.</p></section><div id="v730SafeModeBanner" class="banner">🛡️ Safe mode: public feeds only. No broker, Dhan, Floot or order-execution dependency. Missing, stale or invalid data forces NO-TRADE.</div>
 <div class="grid"><div class="metric">MARKET STATUS<b id="market">CHECKING</b><small>India • IST</small></div><div class="metric">DATA HEALTH<b id="health">CHECKING</b><small id="healthSub">Validating 3/3 indexes</small></div><div class="metric">CATALYST FEED<b id="feed">CHECKING</b><small>Google News RSS</small></div><div class="metric">DECISION ENGINE<b class="warn">PAPER ONLY</b><small>Execution disabled</small></div></div>
@@ -126,6 +134,27 @@ function stabilityState(x){
   return "STABLE";
  }catch(e){return "SESSION"};
 }
+function unifiedDecision(x){
+ if(!x||x.quality!==100||!Number.isFinite(x.score))return {signal:"NO-TRADE",score:null,reason:"Invalid instrument data"};
+ if((Number.isFinite(x.ageMinutes)&&x.ageMinutes>48*60)||x.freshnessTier==="STALE"||x.dataHealth<80)return {signal:"NO-TRADE",score:null,reason:"Stale/low-quality instrument data"};
+ const ai=window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[x.symbol];
+ const factor=Math.max(-100,Math.min(100,(x.score-50)*2));
+ const aiProb=ai&&Number.isFinite(ai.probability)?ai.probability:50;
+ const aiDir=ai?.direction||"NEUTRAL";
+ const aiSigned=(aiDir==="BULLISH"||aiDir==="BUY")?(aiProb):(aiDir==="BEARISH"||aiDir==="SELL"?-aiProb:0);
+ const cat=catalystSummary.catalystBias||"NEUTRAL";
+ const catSigned=cat==="BULLISH"?100:cat==="BEARISH"?-100:0;
+ const catAlign=(x.bias&&cat!=="NEUTRAL"&&x.bias===cat)?100:(x.bias&&cat!=="NEUTRAL"&&x.bias!==cat?-100:0);
+ const regimePenalty=x.regime==="HIGH-VOL"?20:x.regime==="TRANSITION"?10:0;
+ const riskPenalty=Number.isFinite(x.riskScore)?Math.max(0,Math.min(30,x.riskScore*.3)):0;
+ const score=Math.round(.45*factor+.25*aiSigned+.15*catAlign+.15*catSigned-regimePenalty-riskPenalty);
+ let signal=score>=35?"BUY":score<=-35?"SELL":"WAIT";
+ const gate=fusionState(x);
+ if(gate.state!=="ALIGNED")signal="WAIT";
+ if(signal==="BUY"&&ai&&ai.agreement==="CONFLICT")signal="WAIT";
+ if(signal==="SELL"&&ai&&ai.agreement==="CONFLICT")signal="WAIT";
+ return {signal,score,reason:gate.reason,factor,aiSigned,catAlign,catSigned};
+}
 function decision(x){
  if(!x||x.quality!==100||!Number.isFinite(x.score))return ["NO-TRADE","bad"];
  // Hard instrument-level freshness gate: retained/old snapshots must never become a trade signal.
@@ -158,7 +187,7 @@ function renderSelected(name){
   v22500AITitle:"🤖 V22500 AI Neural Intelligence — "+(name||"—")
  };
  Object.keys(hmap).forEach(id=>{const el=qv(id);if(el){const badge=el.querySelector(".scope-badge");el.textContent=hmap[id]+" ";if(badge)el.appendChild(badge)}});
- const instDecision=j.marketSession==="CLOSED"?"WAIT":decision(z)[0]||"WAIT"; set("v730Decision",instDecision); set("v730Reason",instDecision==="NO-TRADE"?"Instrument data is stale/invalid or fails the freshness gate.":"Instrument-level factors are being combined with market-context catalysts and safety gates.");
+ const instDecision=j.marketSession==="CLOSED"?"WAIT":unifiedDecision(z).signal||"WAIT"; set("v730Decision",instDecision); set("v730Reason",instDecision==="NO-TRADE"?"Instrument data is stale/invalid or fails the freshness gate.":"Instrument-level factors are being combined with market-context catalysts and safety gates.");
  set("v730Confidence", Number.isFinite(z.confidence)?z.confidence+"%":"—");
  set("v730Market", name||"—");
  set("v730Health", Number.isFinite(z.dataHealth)?z.dataHealth+"%":"—");
@@ -182,7 +211,15 @@ function renderSelected(name){
  set("v930Prob",Number.isFinite(z.score)?Math.max(0,Math.min(100,Math.round(50+z.score/2)))+"%":"—");
  set("v930Conf",Number.isFinite(z.confidence)?z.confidence+"%":"—");
  set("v930Cat",catalystSummary.catalystBias+" • "+catalystSummary.catalystConfidence+"%");
- set("v930Signal",decision(z)[0]==="WATCH-LONG"?"🟢 BUY":decision(z)[0]==="WATCH-SHORT"?"🔴 SELL":decision(z)[0]==="NO-TRADE"?"⛔ NO-TRADE":"🟡 WAIT");
+ const u=unifiedDecision(z);
+ set("v970Signal",u.signal==="BUY"?"🟢 BUY":u.signal==="SELL"?"🔴 SELL":u.signal==="NO-TRADE"?"⛔ NO-TRADE":"🟡 WAIT");
+ set("v970Score",u.score===null?"—":(u.score>0?"+":"")+u.score+"/100");
+ set("v970Factor",u.factor===undefined?"—":(u.factor>0?"+":"")+Math.round(u.factor));
+ const uai=window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[name];
+ set("v970AI",uai&&Number.isFinite(uai.probability)?(uai.direction||"NEUTRAL")+" "+Math.round(uai.probability)+"%":"—");
+ set("v970Catalyst",(catalystSummary.catalystBias||"NEUTRAL")+" "+(catalystSummary.catalystConfidence||0)+"%");
+ set("v970Risk",(z.regime||"—")+" / "+(Number.isFinite(z.riskScore)?Math.round(z.riskScore):"—"));
+ set("v930Signal",u.signal==="BUY"?"🟢 BUY":u.signal==="SELL"?"🔴 SELL":u.signal==="NO-TRADE"?"⛔ NO-TRADE":"🟡 WAIT");
  set("engineExplain",z?("<span class='pill'>"+esc(name)+" "+esc(z.bias||"NEUTRAL")+" • "+(Number.isFinite(z.confidence)?z.confidence+"% confidence":"—")+" • "+esc(z.rationale||"Factors neutral")+"</span>"):"No validated factor set available.");
  const ai=window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[name];
  if(ai){
