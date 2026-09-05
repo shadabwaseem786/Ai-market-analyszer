@@ -184,7 +184,7 @@ function renderSelected(name){
 document.querySelectorAll("#rows tr").forEach(tr=>{
  const cell=tr.children[0], name=cell?cell.textContent.trim():"";
  tr.dataset.instrument=name;
- tr.addEventListener("click",()=>{localStorage.setItem("v730_selected_instrument",name);renderSelected(name);});
+ tr.addEventListener("click",()=>{localStorage.setItem("v730_selected_instrument",name);renderSelected(name);const z=d[name]||{};if(z&&z.quality===100&&typeof runAI==="function")runAI(z).catch(()=>{});});
 });
 renderSelected(selectedName);
 if(arr.length){const z=d[selectedName]||arr[0];runAI(z).catch(()=>{});}
