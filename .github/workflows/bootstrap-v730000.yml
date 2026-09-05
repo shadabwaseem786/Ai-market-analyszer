@@ -21,7 +21,7 @@ jobs:
 
       - name: Extract V730000 source
         run: |
-          rm -rf _v730000_source
+          rm -rf /tmp/v730000_source
           mkdir -p _v730000_source
           unzip -q India-FNO-Catalyst-Monitor-V730000.zip -d _v730000_source
           rsync -a --delete             --exclude='.github/'             --exclude='India-FNO-Catalyst-Monitor-V730000.zip'             _v730000_source/ ./
