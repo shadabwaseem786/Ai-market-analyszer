@@ -1,0 +1,2 @@
+// V153000 Probability Calibration & Reliability Engine.
+function reliability(items=[]){const bins=Array.from({length:10},()=>({n:0,sumP:0,sumY:0}));for(const x of items){const p=Math.max(0,Math.min(.999999,Number(x.probability??.5))),i=Math.floor(p*10),y=Number(x.outcome||0);bins[i].n++;bins[i].sumP+=p;bins[i].sumY+=y;}return {version:"V153000",bins:bins.map((b,i)=>({...b,bin:i,meanProbability:b.n?b.sumP/b.n:null,empiricalRate:b.n?b.sumY/b.n:null})),researchOnly:true};} module.exports={reliability};

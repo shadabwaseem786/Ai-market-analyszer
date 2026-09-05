@@ -1,0 +1,2 @@
+// V329000 uncertainty-aware decision fusion.
+function fuse(inputs=[]){const usable=inputs.filter(Boolean);const raw=usable.reduce((s,x)=>s+Number(x.weight??1)*Number(x.score||0),0);const uncertainty=usable.length?usable.reduce((s,x)=>s+Number(x.uncertainty||0),0)/usable.length:1;const adjusted=raw*(1-Math.max(0,Math.min(1,uncertainty)));return {version:"V329000",rawScore:raw,uncertainty,adjustedScore:adjusted,bias:adjusted>.2?"BULLISH":adjusted<-.2?"BEARISH":"NEUTRAL",researchOnly:true};} module.exports={fuse};

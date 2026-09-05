@@ -1,0 +1,2 @@
+// V28400: probability bands with abstention.
+function classify(p,{strong=.7,weak=.55}={}){if(!Number.isFinite(p))return"ABSTAIN";if(p>=strong)return"STRONG";if(p>=weak)return"WEAK";if(p<=1-strong)return"STRONG_OPPOSITE";if(p<=1-weak)return"WEAK_OPPOSITE";return"ABSTAIN"}module.exports={classify};

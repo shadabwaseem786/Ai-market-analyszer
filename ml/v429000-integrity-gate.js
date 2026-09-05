@@ -1,0 +1,2 @@
+// V429000 real-time integrity gate.
+function gate(x={}){const pass=Number(x.quality??0)>=Number(x.minimumQuality??.8)&&Number(x.anomalyRate??0)<=Number(x.maxAnomalyRate??.05)&&x.sourceAvailable!==false&&!x.stale&&!x.clockSkew;return {version:"V429000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

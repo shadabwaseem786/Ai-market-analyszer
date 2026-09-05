@@ -1,0 +1,2 @@
+// V84400: multi-horizon consensus.
+function consensus(predictions={}){const vals=Object.values(predictions).map(Number).filter(Number.isFinite);if(!vals.length)return null;return vals.reduce((a,b)=>a+b,0)/vals.length}module.exports={consensus};

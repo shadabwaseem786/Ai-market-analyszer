@@ -1,0 +1,2 @@
+// V596000 OI/Volume/Price Interaction Engine.
+function analyze(items=[]){return {version:"V596000",items:items.map(x=>({...x,interaction:(Number(x.oiChange??0)*Number(x.priceChange??0))})),researchOnly:true};} module.exports={analyze};

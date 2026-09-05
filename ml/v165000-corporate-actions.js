@@ -1,0 +1,2 @@
+// V165000 Corporate-action adjustment contract.
+function adjust(rows=[],actions=[]){return rows.map(r=>{const a=actions.filter(x=>x.symbol===r.symbol&&new Date(x.date)<=new Date(r.timestamp)).sort((x,y)=>new Date(y.date)-new Date(x.date))[0];if(!a)return {...r,adjusted:true};const f=Number(a.priceFactor||1);return {...r,open:r.open*f,high:r.high*f,low:r.low*f,close:r.close*f,adjusted:true};});} module.exports={adjust};

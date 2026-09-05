@@ -1,0 +1,2 @@
+// V695000 Lead/Lag Relationship Engine.
+function analyze(relations=[]){return {version:"V695000",relations:relations.map(r=>({...r,leadLagScore:Number(r.leadLagScore??0)})),researchOnly:true};} module.exports={analyze};

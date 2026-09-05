@@ -1,0 +1,2 @@
+// V279000 F&O positioning synthesizer.
+function synthesize(x={}){const parts=[x.oiSignal,x.gammaSignal,x.ivSignal,x.flowSignal].filter(Boolean);const score=Number(x.oiScore||0)+Number(x.gammaScore||0)+Number(x.ivScore||0)+Number(x.flowScore||0);return {version:"V279000",signals:parts,score:+score.toFixed(5),bias:score>0?"BULLISH":score<0?"BEARISH":"NEUTRAL",researchOnly:true};} module.exports={synthesize};

@@ -1,0 +1,2 @@
+// V42400: deflated-Sharpe diagnostic contract.
+function adjust(sharpe,tests,skew=0,kurt=3){const penalty=Math.sqrt(Math.max(0,Math.log(Math.max(1,tests))));return{raw:sharpe,adjusted:Number(sharpe)-penalty,tests,skew,kurt}}module.exports={adjust};

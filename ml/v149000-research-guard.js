@@ -1,0 +1,3 @@
+// V149000 Anti-Hallucination Research Guard.
+function validate(x={}){const gates={source:x.sourceVerified===true,timestamp:x.timestampValid===true,data:x.dataSupported===true,calculation:x.calculationTraceable===true,uncertainty:x.uncertaintyDisclosed!==false};return {version:"V149000",status:Object.values(gates).every(Boolean)?"SUPPORTED":"BLOCKED",gates,unsupportedClaims:Object.values(x.unsupportedClaims||{}).filter(Boolean),researchOnly:true};}
+module.exports={validate};

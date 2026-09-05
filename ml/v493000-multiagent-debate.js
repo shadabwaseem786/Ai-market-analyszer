@@ -1,0 +1,2 @@
+// V493000 Bull/Bear/Critic debate.
+function debate(input={}){return {version:"V493000",agents:{bull:input.bull||null,bear:input.bear||null,critic:input.critic||null},researchOnly:true};} module.exports={debate};

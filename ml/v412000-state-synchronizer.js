@@ -1,0 +1,2 @@
+// V412000 Multi-engine state synchronization.
+function sync(states={}){const keys=Object.keys(states);return {version:"V412000",states,engines:keys.length,synchronized:keys.every(k=>states[k]!=null),researchOnly:true};} module.exports={sync};

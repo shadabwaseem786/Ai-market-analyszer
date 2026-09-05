@@ -1,0 +1,2 @@
+// V213000 Dynamic signal weighting with bounded adaptation.
+function adapt(signals=[],learning=.1){const avg=signals.length?signals.reduce((s,x)=>s+Number(x.performance||0),0)/signals.length:0;return signals.map(x=>({...x,adaptiveWeight:+Math.max(.05,Math.min(2,Number(x.baseWeight??1)*(1+learning*(Number(x.performance||0)-avg)))).toFixed(5)}));} module.exports={adapt};

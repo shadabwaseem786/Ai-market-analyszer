@@ -1,0 +1,2 @@
+// V42800: market-impact stress approximation.
+function estimate(size,adv,impactCoeff=.1){const participation=Math.abs(size)/(Math.abs(adv)||1);return{participation,impact:impactCoeff*Math.sqrt(participation)}}module.exports={estimate};

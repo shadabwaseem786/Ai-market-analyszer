@@ -1,0 +1,13 @@
+{
+  "version":"V18300",
+  "method":"purged_walk_forward",
+  "train_years":3,
+  "validation_months":6,
+  "test_months":6,
+  "purge_minutes":60,
+  "embargo_minutes":30,
+  "retrain_each_window":true,
+  "metrics":["accuracy","balanced_accuracy","precision","recall","f1","roc_auc","brier","log_loss","net_return","max_drawdown","sharpe","profit_factor","turnover"],
+  "robustness":["1x_cost","2x_cost","3x_cost","regime_breakdown","monthly_breakdown"],
+  "selection_rule":"Select models by out-of-sample calibrated performance and robustness, never by training score."
+}

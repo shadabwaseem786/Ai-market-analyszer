@@ -1,0 +1,2 @@
+// V33700: OOS feature-selection gate.
+function gate({selected=0,available=0,oosImprovement=0,minImprovement=.01}={}){return {selected,available,pass:selected>0&&selected<=available&&oosImprovement>=minImprovement,requireOOS:true}}module.exports={gate};

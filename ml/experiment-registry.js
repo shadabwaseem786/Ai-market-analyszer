@@ -1,0 +1,2 @@
+// V38900: experiment lineage registry contract.
+function register(x={}){return{id:x.id,model:x.model,dataset:x.dataset,features:x.features,seed:x.seed,commit:x.commit,status:"RESEARCH"}}module.exports={register};

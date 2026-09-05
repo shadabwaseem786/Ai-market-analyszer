@@ -1,0 +1,2 @@
+// V444000 Online Performance Tracking.
+function update(history=[],observation={}){const next=[...history,observation].slice(-1000);const n=next.length,correct=next.filter(x=>x.correct===true).length;return {version:"V444000",history:next,samples:n,rollingHitRate:n?correct/n:0,researchOnly:true};} module.exports={update};

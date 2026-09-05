@@ -1,0 +1,2 @@
+// V80000: self-supervised market-state representation contract. Research only.
+function encode(sequence=[]){const a=sequence.map(Number).filter(Number.isFinite);if(!a.length)return[];const m=a.reduce((s,x)=>s+x,0)/a.length;const v=Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/a.length)||1;return a.slice(-32).map(x=>(x-m)/v)}module.exports={encode};

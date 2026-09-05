@@ -1,0 +1,3 @@
+// V710000 Unified Market-State Intelligence Core — no autonomous execution.
+const stages=["GLOBAL_REGIME","INDIA_REGIME","SECTOR_ROTATION","LIQUIDITY_REGIME","VOLATILITY_REGIME","INSTITUTIONAL_FLOW_REGIME","TREND_RANGE_FUSION","REGIME_FORECAST","REGIME_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V710000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

@@ -1,0 +1,2 @@
+// V253000 Look-ahead bias detector.
+function detect(features=[],cutoff){const c=new Date(cutoff);const leaks=features.filter(f=>f.timestamp&&new Date(f.timestamp)>c);return {version:"V253000",leaks,count:leaks.length,detected:leaks.length>0,researchOnly:true};} module.exports={detect};

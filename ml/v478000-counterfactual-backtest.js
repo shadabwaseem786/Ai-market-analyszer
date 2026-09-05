@@ -1,0 +1,2 @@
+// V478000 Counterfactual Backtesting.
+function evaluate(rows=[]){const valid=rows.filter(r=>r.actual!=null&&r.counterfactual!=null),mae=valid.length?valid.reduce((s,r)=>s+Math.abs(Number(r.counterfactual)-Number(r.actual)),0)/valid.length:null;return {version:"V478000",samples:valid.length,counterfactualMAE:mae,researchOnly:true};} module.exports={evaluate};

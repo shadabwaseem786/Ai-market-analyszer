@@ -1,0 +1,2 @@
+// V263000 Specialist research-agent swarm.
+const roles=["MACRO","TECHNICAL","OPTIONS","CATALYST","CROSS_ASSET","REGIME","RISK","QUANT"];function dispatch(context={},agents=roles){return {version:"V263000",agents:agents.map(role=>({role,task:"independent research assessment",context})),independent:true,researchOnly:true};} module.exports={roles,dispatch};

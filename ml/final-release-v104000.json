@@ -1,0 +1,12 @@
+{
+ "version":"V104000",
+ "name":"Market Digital Twin & Shock Intelligence Layer",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V103000",
+ "layers":["market-digital-twin","shock-propagation","early-warning","multi-horizon-consistency","digital-twin-governor"],
+ "purpose":"Run bounded what-if scenarios and identify fragility before producing a research decision.",
+ "note":"A digital twin is a simulation abstraction, not a perfect replica of financial markets."
+}

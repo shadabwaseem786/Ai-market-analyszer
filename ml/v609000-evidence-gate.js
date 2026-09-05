@@ -1,0 +1,2 @@
+// V609000 Evidence Integrity Gate.
+function gate(m={}){const pass=!m.conflict&&!m.missingCriticalEvidence&&Number(m.evidenceQuality??0)>=Number(m.minimumQuality??.7)&&Number(m.informationGain??0)>=Number(m.minimumInformationGain??0);return {version:"V609000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

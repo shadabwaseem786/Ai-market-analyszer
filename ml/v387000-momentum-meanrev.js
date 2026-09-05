@@ -1,0 +1,2 @@
+// V387000 momentum / mean-reversion state.
+function classify(returns=[]){const a=returns.map(Number).filter(Number.isFinite);if(!a.length)return {version:"V387000",state:"UNKNOWN",researchOnly:true};const mean=a.reduce((s,x)=>s+x,0)/a.length;const trend=a.reduce((s,x,i)=>s+(i+1)*x,0);return {version:"V387000",mean,trend,state:trend>0?"MOMENTUM":trend<0?"MEAN_REVERSION_RISK":"NEUTRAL",researchOnly:true};} module.exports={classify};

@@ -1,0 +1,2 @@
+// V156000 Intraday Liquidity & Microstructure Brain.
+function analyze(x={}){const spread=Number(x.spreadBps||0),depth=Number(x.depth||0),imbalance=Number(x.imbalance||0),volume=Number(x.relativeVolume||0);const liquidity=Math.max(0,Math.min(100,70-spread*2+Math.min(20,depth/10)+Math.min(20,volume*5)));return {version:"V156000",liquidity:+liquidity.toFixed(2),spreadBps:spread,depth,imbalance,relativeVolume:volume,stress:liquidity<30?"HIGH":liquidity<55?"MODERATE":"LOW",researchOnly:true};} module.exports={analyze};

@@ -1,0 +1,2 @@
+// V491000 Meta-Reasoning Engine — research only.
+function reason(evidence=[],hypotheses=[]){return {version:"V491000",evidence,hypotheses:hypotheses.map(h=>({...h,support:evidence.filter(e=>e.hypothesis===h.id).length})),researchOnly:true};} module.exports={reason};

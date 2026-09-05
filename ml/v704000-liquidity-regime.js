@@ -1,0 +1,2 @@
+// V704000 Liquidity Regime Classifier.
+function classify(m={}){const x=Number(m.liquidityScore??0);return {version:"V704000",score:x,regime:x>.65?"ABUNDANT":x<.35?"STRESSED":"NORMAL",researchOnly:true};} module.exports={classify};

@@ -1,0 +1,1 @@
+{"version":"V33000","status":"RESEARCH_ONLY","executionDisabled":true,"newLayers":["purge_embargo","deflated_sharpe","calibration_curve","adversarial_robustness","fold_stability","market_impact","liquidity_filter","news_latency","shadow_deployment"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

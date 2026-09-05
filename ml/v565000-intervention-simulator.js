@@ -1,0 +1,2 @@
+// V565000 Intervention Simulator.
+function simulate(state={},interventions=[]){return {version:"V565000",state,results:interventions.map(i=>({intervention:i.name||"unnamed",delta:i.delta??null})),researchOnly:true};} module.exports={simulate};

@@ -1,0 +1,2 @@
+// V729000 Microstructure Integrity Gate.
+function gate(m={}){const pass=!m.fakeLiquidity&&!m.conflictingFlow&&!m.extremeSpread&&!m.dataGap;return {version:"V729000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

@@ -1,0 +1,2 @@
+// V291000 Episodic Market Memory — research only.
+function store(memory=[],episode={},limit=5000){return {version:"V291000",memory:[...memory,{...episode,id:episode.id||"E"+Date.now(),timestamp:episode.timestamp||new Date().toISOString()}].slice(-limit),researchOnly:true};} module.exports={store};

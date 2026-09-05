@@ -1,0 +1,2 @@
+// V28700: aleatoric/epistemic uncertainty contract.
+function decompose({total=0,ensemble=0}={}){const epistemic=Math.max(0,ensemble),aleatoric=Math.max(0,total-epistemic);return {total,epistemic,aleatoric}}module.exports={decompose};

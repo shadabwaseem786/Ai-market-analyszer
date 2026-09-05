@@ -1,0 +1,2 @@
+// V632000 Confidence Calibration Matrix.
+function calibrate(bins=[]){return {version:"V632000",bins:bins.map(b=>({...b,calibrationGap:Number(b.predicted??0)-Number(b.observed??0)})),researchOnly:true};} module.exports={calibrate};

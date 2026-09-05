@@ -1,0 +1,2 @@
+// V24000: combinatorial purged cross-validation planning.
+function plan(n,{train=5000,test=1000,embargo=60,step=1000}={}){const out=[];for(let a=0;a+train+test<=n;a+=step)out.push({train:[a,a+train],test:[a+train+embargo,a+train+embargo+test],embargo});return out}module.exports={plan};

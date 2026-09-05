@@ -1,0 +1,2 @@
+// V267000 Outcome-driven research feedback loop.
+function update(history=[],outcome={}){return {version:"V267000",history:[...history,outcome].slice(-1000),lastOutcome:outcome,researchOnly:true};} module.exports={update};

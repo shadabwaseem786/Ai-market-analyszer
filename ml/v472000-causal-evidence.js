@@ -1,0 +1,2 @@
+// V472000 Causal Evidence Scoring.
+function score(evidence=[]){return evidence.map(e=>({...e,score:Math.max(0,Math.min(1,Number(e.identification??0)*Number(e.temporalFit??1)*Number(e.sourceQuality??1)))}));} module.exports={score};

@@ -1,0 +1,2 @@
+// V34800: strict feature schema contract.
+function validate(row,schema){const errors=[];for(const [k,t] of Object.entries(schema||{})){if(!(k in row))errors.push("MISSING:"+k);else if(t==="number"&&!Number.isFinite(row[k]))errors.push("TYPE:"+k)}return{valid:errors.length===0,errors}}module.exports={validate};

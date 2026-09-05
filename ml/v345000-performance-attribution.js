@@ -1,0 +1,2 @@
+// V345000 model performance attribution.
+function attribute(records=[]){const out={};for(const r of records){const k=r.model||"UNKNOWN";(out[k]??=[]).push(Number(r.score||0));}return {version:"V345000",models:Object.fromEntries(Object.entries(out).map(([k,a])=>[k,{samples:a.length,mean:a.reduce((x,y)=>x+y,0)/a.length}])),researchOnly:true};} module.exports={attribute};

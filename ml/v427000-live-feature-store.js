@@ -1,0 +1,2 @@
+// V427000 live feature-store abstraction.
+function update(store={},features={}){return {version:"V427000",store:{...store,...features},updatedAt:new Date().toISOString(),researchOnly:true};} module.exports={update};

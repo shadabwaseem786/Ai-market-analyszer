@@ -1,0 +1,2 @@
+// V348000 model drift monitoring.
+function detect(reference=[],current=[],threshold=.2){const mean=a=>a.length?a.reduce((x,y)=>x+Number(y),0)/a.length:0;const d=mean(current)-mean(reference);return {version:"V348000",referenceMean:mean(reference),currentMean:mean(current),drift:d,detected:Math.abs(d)>threshold,researchOnly:true};} module.exports={detect};

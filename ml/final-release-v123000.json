@@ -1,0 +1,13 @@
+{
+ "version":"V123000",
+ "name":"Regime-Switching Market Brain",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V122000",
+ "layers":["regime-classification","regime-transition-detection","regime-confidence","regime-conditional-model-selection","feature-drift","regime-governor"],
+ "regimes":["TREND_BULL","TREND_BEAR","RANGE","HIGH_VOL","LOW_VOL","EVENT_DRIVEN","GLOBAL_RISK_OFF","EXPIRY","LIQUIDITY_STRESS"],
+ "purpose":"Detect market regimes and transitions so historical and predictive relationships are conditioned on the current state.",
+ "note":"Regime classification is probabilistic and should not be treated as certain."
+}

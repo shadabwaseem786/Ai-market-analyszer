@@ -1,0 +1,2 @@
+// V25100: forward-label contract prevents same-bar leakage.
+function label(rows,i,horizon=30){const j=i+horizon;if(j>=rows.length)return null;const c=+rows[i].close,n=+rows[j].close;return {entryIndex:i,exitIndex:j,return:n/c-1,direction:n>=c?1:0}}module.exports={label};

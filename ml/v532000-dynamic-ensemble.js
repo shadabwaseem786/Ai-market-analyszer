@@ -1,0 +1,2 @@
+// V532000 Dynamic Ensemble.
+function combine(models=[]){const active=models.filter(m=>m.enabled!==false);const total=active.reduce((s,m)=>s+Number(m.weight??1),0)||1;return {version:"V532000",models:active.map(m=>({...m,normalizedWeight:Number(m.weight??1)/total})),researchOnly:true};} module.exports={combine};

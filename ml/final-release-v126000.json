@@ -1,0 +1,13 @@
+{
+ "version":"V126000",
+ "name":"Real-Time Research Orchestrator",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V125000",
+ "layers":["change-detection","event-trigger-routing","state-snapshots","adaptive-compute","audit-trail","orchestrator-governor"],
+ "pipeline":["DATA_CHECK","CATALYST","MICROSTRUCTURE","CROSS_ASSET","REGIME","TEMPORAL","MODEL_COUNCIL","RED_TEAM","DECISION_GOVERNOR"],
+ "purpose":"Orchestrate market intelligence selectively in response to meaningful state changes while preserving auditable research-only execution.",
+ "note":"The orchestrator schedules analytical computation; it does not execute trades."
+}

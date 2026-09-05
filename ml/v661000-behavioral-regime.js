@@ -1,0 +1,2 @@
+// V661000 Behavioral Regime Detector — research only.
+function detect(m={}){const score=Number(m.behaviorScore??0);return {version:"V661000",score,regime:score>.6?"RISK_ON":score<-.6?"RISK_OFF":"NEUTRAL",researchOnly:true};} module.exports={detect};

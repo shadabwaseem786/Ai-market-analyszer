@@ -1,0 +1,2 @@
+// V40100: causal-impact guard; research diagnostic only.
+function score(pre,post,controlPre,controlPost){const d1=post-pre,d0=controlPost-controlPre;return{did:d1-d0,researchOnly:true}}module.exports={score};

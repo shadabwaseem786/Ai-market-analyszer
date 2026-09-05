@@ -1,0 +1,2 @@
+// V331000 Data Quality Intelligence.
+function audit(rows=[]){const n=rows.length,valid=rows.filter(Boolean).length;return {version:"V331000",rows:n,valid,completeness:n?valid/n:0,researchOnly:true};} module.exports={audit};

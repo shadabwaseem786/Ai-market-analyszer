@@ -1,0 +1,2 @@
+// V326000 prediction fragility analyzer.
+function analyze(base=0,perturbed=[]){const p=perturbed.map(Number).filter(Number.isFinite);const mean=p.length?p.reduce((a,b)=>a+b,0)/p.length:base;return {version:"V326000",base,perturbedMean:mean,fragility:Math.abs(base-mean),sampleSize:p.length,researchOnly:true};} module.exports={analyze};

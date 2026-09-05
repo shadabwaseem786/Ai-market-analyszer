@@ -1,0 +1,2 @@
+// V37800: hard research position/risk limit contract.
+function check(position,limit){return{position,limit,withinLimit:Math.abs(Number(position)||0)<=Math.abs(Number(limit)||0),executionDisabled:true}}module.exports={check};

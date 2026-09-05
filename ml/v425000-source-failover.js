@@ -1,0 +1,2 @@
+// V425000 source failover/redundancy selector.
+function select(sources=[]){const usable=sources.filter(s=>s&&s.healthy!==false).sort((a,b)=>Number(b.reliability??0)-Number(a.reliability??0));return {version:"V425000",selected:usable[0]||null,available:usable.length,researchOnly:true};} module.exports={select};

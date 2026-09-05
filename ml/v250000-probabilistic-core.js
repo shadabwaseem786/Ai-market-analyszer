@@ -1,0 +1,3 @@
+// V250000 Probabilistic Market Intelligence Core — no execution.
+const stages=["BAYESIAN_BELIEF","DISTRIBUTION_FUSION","CALIBRATION","UNCERTAINTY","UNCERTAINTY_TYPES","ENSEMBLE_ARBITRATION","RELIABILITY_MEMORY","FALSE_CONFIDENCE","RESEARCH_GATE","QUANT_RESEARCH","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V250000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={stages,run};

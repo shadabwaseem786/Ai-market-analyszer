@@ -1,0 +1,2 @@
+// V23000: immutable research release manifest.
+function create({version="V23000",commit,datasetHash,metrics,gates}){return {version,commit,datasetHash,metrics,gates,createdAt:new Date().toISOString(),execution:"DISABLED",status:Object.values(gates||{}).every(Boolean)?"RESEARCH_RELEASE":"BLOCKED"}} module.exports={create};

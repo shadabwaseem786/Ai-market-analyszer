@@ -1,0 +1,2 @@
+// V162000 Historical OHLCV ingestion contract.
+function ingest(rows=[]){return {version:"V162000",rows:rows.map(x=>({...x,timestamp:x.timestamp||null,symbol:x.symbol||null,adjusted:Boolean(x.adjusted)})),count:rows.length,researchOnly:true};} module.exports={ingest};

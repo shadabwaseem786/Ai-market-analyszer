@@ -1,0 +1,2 @@
+// V526000 Cross-Source Reconciliation.
+function reconcile(groups=[]){return {version:"V526000",groups:groups.map(g=>({...g,agreement:Number(g.agreement??0),reconciled:Number(g.agreement??0)>=.7})),researchOnly:true};} module.exports={reconcile};

@@ -1,0 +1,2 @@
+// V495000 Decision Decomposition.
+function decompose(decision={},factors=[]){return {version:"V495000",decision,factors:factors.map(f=>({...f,contribution:Number(f.weight??0)*Number(f.score??0)})),researchOnly:true};} module.exports={decompose};

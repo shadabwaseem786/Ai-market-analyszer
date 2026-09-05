@@ -1,0 +1,2 @@
+// V544000 Forecast Calibration Engine.
+function calibrate(predicted=[],actual=[]){const n=Math.min(predicted.length,actual.length);let err=0;for(let i=0;i<n;i++)err+=Math.abs(Number(predicted[i])-Number(actual[i]));return {version:"V544000",mae:n?err/n:null,observations:n,calibrated:n>0,researchOnly:true};} module.exports={calibrate};

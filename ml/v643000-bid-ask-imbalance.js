@@ -1,0 +1,2 @@
+// V643000 Bid/Ask Imbalance Engine.
+function score(levels=[]){const b=levels.reduce((s,x)=>s+Number(x.bid??0),0),a=levels.reduce((s,x)=>s+Number(x.ask??0),0);return {version:"V643000",bidVolume:b,askVolume:a,imbalance:b+a?(b-a)/(b+a):0,researchOnly:true};} module.exports={score};

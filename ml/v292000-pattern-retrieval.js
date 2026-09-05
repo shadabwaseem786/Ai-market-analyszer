@@ -1,0 +1,2 @@
+// V292000 Historical Pattern Retrieval.
+function retrieve(memory=[],query={},limit=10){const keys=["regime","direction","catalyst","volatility"];const score=e=>keys.reduce((s,k)=>s+(query[k]!=null&&e[k]===query[k]?1:0),0);return {version:"V292000",matches:memory.map(e=>({...e,_similarity:score(e)})).sort((a,b)=>b._similarity-a._similarity).slice(0,limit),researchOnly:true};} module.exports={retrieve};

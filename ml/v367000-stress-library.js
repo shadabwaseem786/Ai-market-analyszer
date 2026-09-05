@@ -1,0 +1,2 @@
+// V367000 stress-scenario library.
+const scenarios=[{name:"GLOBAL_RISK_OFF",shock:-1},{name:"INFLATION_SHOCK",shock:-.7},{name:"LIQUIDITY_SHOCK",shock:-.8},{name:"COMMODITY_SPIKE",shock:-.5},{name:"RISK_ON",shock:1}]; module.exports={scenarios};

@@ -1,0 +1,2 @@
+// V559000 Regime Confidence Gate.
+function gate(m={}){const pass=Number(m.confidence??0)>=Number(m.minimumConfidence??.7)&&Number(m.dataQuality??1)>=Number(m.minimumDataQuality??.7);return {version:"V559000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

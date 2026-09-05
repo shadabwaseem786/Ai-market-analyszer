@@ -1,0 +1,2 @@
+// V504000 Global-to-India Transmission.
+function map(shocks=[],links=[]){return {version:"V504000",paths:links.map(l=>({...l,transmitted:Number(l.weight??0)*Number(shocks.find(s=>s.id===l.source)?.shock??0)})),researchOnly:true};} module.exports={map};

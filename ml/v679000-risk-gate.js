@@ -1,0 +1,2 @@
+// V679000 Portfolio Risk Integrity Gate.
+function gate(m={}){const pass=!m.excessiveDrawdown&&!m.concentrationFailure&&!m.expiryRisk&&!m.overnightRisk&&Number(m.expectedValue??0)>0;return {version:"V679000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

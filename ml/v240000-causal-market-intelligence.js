@@ -1,0 +1,3 @@
+// V240000 Causal Market Intelligence Core — research only, never executes trades.
+const stages=["TEMPORAL_CAUSAL","DYNAMIC_GRAPH","CROSS_ASSET_NETWORK","GLOBAL_INDIA_TRANSMISSION","NEWS_ATTRIBUTION","CATALYST_REACTION","LATENT_STATE","FEEDBACK_LOOPS","CAUSAL_CONFIDENCE","QUANT_RESEARCH","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V240000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={stages,run};

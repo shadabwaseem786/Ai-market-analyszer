@@ -1,0 +1,2 @@
+// V473000 Intervention Simulator.
+function simulate(state={},interventions=[]){return {version:"V473000",state,interventions:interventions.map(i=>({...i,effect:Number(i.effect??0),counterfactualValue:Number(state[i.variable]??0)+Number(i.effect??0)})),researchOnly:true};} module.exports={simulate};

@@ -1,0 +1,2 @@
+// V31500: portfolio turnover diagnostic.
+function turnover(weights){let t=0,prev=0;for(const w of Object.values(weights||{})){const x=Math.abs(Number(w)||0);t+=Math.abs(x-prev);prev=x}return t}module.exports={turnover};

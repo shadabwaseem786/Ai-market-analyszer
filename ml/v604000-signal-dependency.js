@@ -1,0 +1,2 @@
+// V604000 Signal Dependency Detector.
+function detect(signals=[]){const groups={};for(const s of signals){const k=s.factor||s.source||"unknown";(groups[k]??=[]).push(s)}return {version:"V604000",groups,dependencies:Object.values(groups).filter(g=>g.length>1),researchOnly:true};} module.exports={detect};

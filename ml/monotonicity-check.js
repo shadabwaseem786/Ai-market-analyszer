@@ -1,0 +1,2 @@
+// V29400: feature monotonicity sanity check on model response.
+function check(points){const a=points.filter(x=>Number.isFinite(x.x)&&Number.isFinite(x.y)).sort((u,v)=>u.x-v.x);let violations=0;for(let i=1;i<a.length;i++)if(a[i].y<a[i-1].y)violations++;return {samples:a.length,violations,monotonic:violations===0}}module.exports={check};

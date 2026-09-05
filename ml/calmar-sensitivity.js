@@ -1,0 +1,2 @@
+// V41800: Calmar sensitivity diagnostic.
+function calc(returns,cost){const r=returns.map(x=>x-cost);let eq=1,peak=1,dd=0;for(const x of r){eq*=1+x;peak=Math.max(peak,eq);dd=Math.max(dd,(peak-eq)/peak)}return{ending:eq,maxDrawdown:dd,calmar:dd?((eq-1)/dd):null}}module.exports={calc};

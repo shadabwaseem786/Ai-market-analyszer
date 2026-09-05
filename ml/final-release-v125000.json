@@ -1,0 +1,13 @@
+{
+ "version":"V125000",
+ "name":"Quantitative Validation & Walk-Forward Lab",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V124000",
+ "layers":["holdout-split","walk-forward-evaluation","regime-stratified-validation","probability-calibration","stability-drawdown","model-promotion-gate"],
+ "metrics":["accuracy","Brier_score","MAE","calibration","max_drawdown","stability"],
+ "purpose":"Measure out-of-sample predictive validity and prevent unsupported model confidence.",
+ "note":"Thresholds are governance defaults, not claims of profitability or predictive certainty."
+}

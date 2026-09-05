@@ -1,0 +1,2 @@
+// V201000 Multi-Agent Market Debate — research-only.
+function debate(input={},agents=[]){const views=agents.map(a=>({name:a.name||"AGENT",thesis:a.thesis||"NEUTRAL",probability:Number(a.probability??.5),evidence:a.evidence||[]}));const p=views.length?views.reduce((s,x)=>s+x.probability,0)/views.length:.5;return {version:"V201000",views,consensusProbability:+p.toFixed(5),agreement:views.length?+(1-views.reduce((s,x)=>s+Math.abs(x.probability-p),0)/views.length).toFixed(5):0,researchOnly:true};} module.exports={debate};

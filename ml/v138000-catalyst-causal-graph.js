@@ -1,0 +1,2 @@
+// V138000 Catalyst-to-Price Causal Graph.
+function build(nodes=[],edges=[]){return {version:"V138000",nodes:nodes.map(n=>({...n,type:n.type||"UNKNOWN"})),edges:edges.map(e=>({...e,confidence:Math.max(0,Math.min(1,Number(e.confidence??.5)))})),pathTypes:["CATALYST","TRANSMISSION","SECTOR","INSTRUMENT","DERIVATIVE","VOLATILITY"],researchOnly:true};} module.exports={build};

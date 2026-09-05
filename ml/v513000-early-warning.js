@@ -1,0 +1,2 @@
+// V513000 Early Warning Detector.
+function detect(signals=[]){return {version:"V513000",warnings:signals.filter(s=>Number(s.risk??0)>=Number(s.threshold??.7)),researchOnly:true};} module.exports={detect};

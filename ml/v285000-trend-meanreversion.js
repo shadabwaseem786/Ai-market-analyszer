@@ -1,0 +1,2 @@
+// V285000 Trend / mean-reversion classifier.
+function classify(x={}){const t=Number(x.trend||0),mr=Number(x.meanReversion||0);return {version:"V285000",state:t>Math.abs(mr)?"TREND":Math.abs(mr)>Math.abs(t)?"MEAN_REVERSION":"MIXED",trend:t,meanReversion:mr,researchOnly:true};} module.exports={classify};

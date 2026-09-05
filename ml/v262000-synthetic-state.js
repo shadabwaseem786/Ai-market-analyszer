@@ -1,0 +1,2 @@
+// V262000 Synthetic market-state generator. No claims of realism without calibration.
+function generate(base={},variations=[]){return variations.map((v,i)=>({id:i+1,...base,...v,synthetic:true}));} module.exports={generate};

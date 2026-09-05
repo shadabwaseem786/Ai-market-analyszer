@@ -1,0 +1,1 @@
+{"version":"V32000","status":"RESEARCH_ONLY","executionDisabled":true,"newLayers":["interaction_stability","brier","oos_sharpe","drawdown","turnover","data_snooping","fold_integrity","alert_severity","model_card"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

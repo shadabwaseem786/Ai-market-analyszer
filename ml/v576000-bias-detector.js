@@ -1,0 +1,2 @@
+// V576000 Cognitive Bias Detector.
+function detect(text="",flags=[]){const t=String(text).toLowerCase();const hits=flags.filter(f=>t.includes(String(f).toLowerCase()));return {version:"V576000",hits,biasDetected:hits.length>0,researchOnly:true};} module.exports={detect};

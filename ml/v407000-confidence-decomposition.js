@@ -1,0 +1,2 @@
+// V407000 decision-confidence decomposition.
+function decompose(x={}){const parts={data:Number(x.data??0),model:Number(x.model??0),regime:Number(x.regime??0),scenario:Number(x.scenario??0),evidence:Number(x.evidence??0)};const vals=Object.values(parts);return {version:"V407000",components:parts,mean:vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0,researchOnly:true};} module.exports={decompose};

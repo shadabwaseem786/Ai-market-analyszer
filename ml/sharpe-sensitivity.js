@@ -1,0 +1,2 @@
+// V41700: Sharpe sensitivity to return/cost perturbations.
+function sensitivity(returns,costs){return costs.map(c=>{const r=returns.map(x=>x-c),m=r.reduce((s,x)=>s+x,0)/(r.length||1),sd=Math.sqrt(r.reduce((s,x)=>s+(x-m)**2,0)/(r.length||1));return{cost:c,sharpe:sd?m/sd:0}})}module.exports={sensitivity};

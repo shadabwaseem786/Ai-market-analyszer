@@ -1,0 +1,3 @@
+// V190000 India F&O Market Brain — market-specific orchestration, research only.
+const layers=["NSE_MICROSTRUCTURE","OI_INTELLIGENCE","POSITIONING","VOL_SURFACE","EXPIRY","INDEX_SECTOR_STOCK","GAP_OPEN","CATALYST_SURPRISE","MULTI_HORIZON","QUANT_RESEARCH"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const layer of layers){const fn=handlers[layer];if(typeof fn==="function")state=fn(state)||state;trace.push({layer,status:"COMPLETED"})}return {version:"V190000",state,trace,layers,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={layers,run};

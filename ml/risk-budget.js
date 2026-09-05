@@ -1,0 +1,2 @@
+// V30800: portfolio risk-budget allocation contract.
+function allocate(scores,budget=1){const a=scores.filter(x=>Number.isFinite(x.score)&&x.score>0),s=a.reduce((z,x)=>z+x.score,0);return Object.fromEntries(a.map(x=>[x.id,budget*x.score/s]))}module.exports={allocate};

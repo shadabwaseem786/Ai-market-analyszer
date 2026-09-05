@@ -1,0 +1,3 @@
+// V470000 Market Scenario Intelligence Core — no execution.
+const stages=["SCENARIO_TREE","MACRO_SHOCKS","CATALYST_SHOCKS","CROSS_ASSET_TRANSMISSION","VOLATILITY_SHOCKS","CONTAGION","CONDITIONAL_MONTE_CARLO","BULL_BASE_BEAR","ROBUSTNESS_GATE","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V470000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

@@ -1,0 +1,2 @@
+// V23300: expected-value decision gate including explicit costs.
+function evaluate({pWin=0,win=0,loss=0,cost=0}={}){const ev=pWin*win-(1-pWin)*Math.abs(loss)-Math.abs(cost);return {ev,action:ev>0?"POSITIVE_EV":"NO_TRADE",executionDisabled:true}}module.exports={evaluate};

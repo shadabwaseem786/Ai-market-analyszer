@@ -1,0 +1,2 @@
+// V479000 Causal Confidence Gate.
+function gate(x={}){const pass=!x.confounding&&!x.unresolvedGraph&&Number(x.evidenceScore??0)>=Number(x.minimumEvidence??.65)&&Number(x.robustness??0)>=Number(x.minimumRobustness??.7);return {version:"V479000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

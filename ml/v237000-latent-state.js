@@ -1,0 +1,2 @@
+// V237000 Latent market-state estimator.
+function estimate(observations=[]){const scores=observations.map(o=>Number(o.score||0));const mean=scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:0;return {version:"V237000",latentScore:+mean.toFixed(5),observationCount:scores.length,state:mean>20?"RISK_ON":mean<-20?"RISK_OFF":"TRANSITION",researchOnly:true};} module.exports={estimate};

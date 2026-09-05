@@ -1,0 +1,2 @@
+// V264000 Adversarial research arena.
+function challenge(thesis={},attacks=[]){return attacks.map((attack,i)=>({id:i+1,thesis,attack,requiredEvidence:attack.requiredEvidence||[],status:"UNTESTED"}));} module.exports={challenge};

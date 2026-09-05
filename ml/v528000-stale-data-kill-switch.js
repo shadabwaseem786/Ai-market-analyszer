@@ -1,0 +1,2 @@
+// V528000 Stale-Data Kill Switch.
+function check(metrics={}){const blocked=Boolean(metrics.stale)||Number(metrics.freshness??1)<Number(metrics.minimumFreshness??.5);return {version:"V528000",blocked,status:blocked?"BLOCKED":"CLEAR",researchOnly:true};} module.exports={check};

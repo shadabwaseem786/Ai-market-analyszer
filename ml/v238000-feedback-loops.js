@@ -1,0 +1,2 @@
+// V238000 Feedback-loop detector.
+function detect(edges=[]){const adj={};for(const e of edges)(adj[e.from]??=[]).push(e.to);const cycles=[];function dfs(start,node,path){if(path.length>8)return;if((adj[node]||[]).includes(start))cycles.push([...path,start]);for(const n of adj[node]||[])if(!path.includes(n))dfs(start,n,[...path,n]);}for(const n of Object.keys(adj))dfs(n,n,[n]);return {version:"V238000",cycles:[...new Set(cycles.map(JSON.stringify))].map(JSON.parse),researchOnly:true};} module.exports={detect};

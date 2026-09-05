@@ -1,0 +1,2 @@
+// V644000 Large-Order / Institutional Footprint Detector.
+function detect(trades=[],threshold=100000){return {version:"V644000",largeTrades:trades.filter(t=>Math.abs(Number(t.value??0))>=threshold),threshold,researchOnly:true};} module.exports={detect};

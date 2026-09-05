@@ -1,0 +1,2 @@
+// V34200: block bootstrap contract for autocorrelated returns.
+function blocks(values,size=10){const a=values.filter(Number.isFinite);const out=[];for(let i=0;i<a.length;i+=size)out.push(a.slice(i,i+size));return out.filter(x=>x.length)}module.exports={blocks};

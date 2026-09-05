@@ -1,0 +1,2 @@
+// V30300: calendar/seasonality diagnostic. Never used as a standalone trading signal.
+function profile(rows,key="weekday"){const out={};for(const r of rows||[]){const k=r[key];if(k==null)continue;(out[k]??=[]).push(Number(r.ret)||0)}return Object.fromEntries(Object.entries(out).map(([k,a])=>[k,{n:a.length,mean:a.reduce((s,x)=>s+x,0)/a.length}]))}module.exports={profile};

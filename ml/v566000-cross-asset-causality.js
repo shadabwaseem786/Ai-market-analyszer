@@ -1,0 +1,2 @@
+// V566000 Cross-Asset Causal Propagation.
+function propagate(shock=0,links=[]){return {version:"V566000",paths:links.map(l=>({...l,transmitted:Number(shock)*Number(l.weight??0)})),researchOnly:true};} module.exports={propagate};

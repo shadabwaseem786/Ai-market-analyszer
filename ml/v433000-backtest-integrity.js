@@ -1,0 +1,2 @@
+// V433000 backtest integrity checks.
+function audit(x={}){const checks={ordered:Boolean(x.ordered),timestampsUnique:x.timestampsUnique!==false,noFutureFeatures:x.noFutureFeatures!==false,completeLabels:x.completeLabels!==false,costsIncluded:x.costsIncluded===true};const passed=Object.values(checks).every(Boolean);return {version:"V433000",passed,checks,researchOnly:true};} module.exports={audit};

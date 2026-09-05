@@ -1,0 +1,2 @@
+// V708000 Regime Forecasting.
+function forecast(states=[]){return {version:"V708000",states,transitionProbability:states.length?Number(states.at(-1).transitionProbability??0):0,researchOnly:true};} module.exports={forecast};

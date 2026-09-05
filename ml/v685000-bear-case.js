@@ -1,0 +1,2 @@
+// V685000 Bear Case Generator.
+function generate(evidence=[]){return {version:"V685000",case:"BEAR",evidence:evidence.filter(e=>Number(e.direction??0)<0),researchOnly:true};} module.exports={generate};

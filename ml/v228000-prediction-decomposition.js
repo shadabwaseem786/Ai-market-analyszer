@@ -1,0 +1,2 @@
+// V228000 Prediction Decomposition Engine.
+function decompose(prediction={},components=[]){const total=components.reduce((s,c)=>s+Number(c.contribution||0),0);return {version:"V228000",prediction,components,totalContribution:+total.toFixed(6),researchOnly:true};} module.exports={decompose};

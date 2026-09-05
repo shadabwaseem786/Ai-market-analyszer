@@ -1,0 +1,2 @@
+// V602000 Evidence Quality Ranking.
+function rank(evidence=[]){return {version:"V602000",evidence:[...evidence].map(e=>({...e,qualityScore:Number(e.qualityScore??e.reliability??0)})).sort((a,b)=>b.qualityScore-a.qualityScore),researchOnly:true};} module.exports={rank};

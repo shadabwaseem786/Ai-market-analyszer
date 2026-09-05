@@ -1,0 +1,2 @@
+// V381000 Multi-timeframe intelligence.
+function fuse(frames=[]){const valid=frames.filter(f=>Number.isFinite(Number(f.score)));const score=valid.length?valid.reduce((s,f)=>s+Number(f.weight??1)*Number(f.score),0)/valid.reduce((s,f)=>s+Number(f.weight??1),0):0;return {version:"V381000",score,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",frames:valid.length,researchOnly:true};} module.exports={fuse};

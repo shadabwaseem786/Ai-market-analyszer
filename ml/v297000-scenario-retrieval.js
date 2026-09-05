@@ -1,0 +1,2 @@
+// V297000 Historical Scenario Retrieval.
+function retrieve(memory=[],scenario={},limit=8){return memory.map(e=>{const overlap=["regime","catalyst","direction","volatility"].filter(k=>scenario[k]!=null&&e[k]===scenario[k]).length;return {...e,_match:overlap}}).sort((a,b)=>b._match-a._match).slice(0,limit).map(e=>({...e,_match:e._match}));} module.exports={retrieve};

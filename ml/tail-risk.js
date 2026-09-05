@@ -1,0 +1,2 @@
+// V26700: tail-loss diagnostics for OOS returns.
+function analyze(returns){const a=returns.filter(Number.isFinite).sort((x,y)=>x-y);if(!a.length)return null;const q=p=>a[Math.min(a.length-1,Math.floor(p*(a.length-1)))];return {p01:q(.01),p05:q(.05),median:q(.5),p95:q(.95),worst:q(0)}}module.exports={analyze};

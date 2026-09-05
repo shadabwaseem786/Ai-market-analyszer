@@ -1,0 +1,2 @@
+// V525000 Data Corruption Detector.
+function detect(records=[]){return {version:"V525000",records:records.map(r=>({...r,corrupt:Boolean(r.invalid||r.checksumMismatch||r.schemaError)})),researchOnly:true};} module.exports={detect};

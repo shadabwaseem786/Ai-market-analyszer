@@ -1,0 +1,2 @@
+// V38500: tail co-movement diagnostic.
+function rate(a,b,q=.1){const n=Math.min(a.length,b.length);if(!n)return null;const ax=[...a].sort((x,y)=>x-y)[Math.floor(n*q)],bx=[...b].sort((x,y)=>x-y)[Math.floor(n*q)];let c=0;for(let i=0;i<n;i++)if(a[i]<=ax&&b[i]<=bx)c++;return c/n}module.exports={rate};

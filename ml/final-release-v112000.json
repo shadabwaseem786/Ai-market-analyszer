@@ -1,0 +1,12 @@
+{
+ "version":"V112000",
+ "name":"Market Meta-Learning Brain",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V111000",
+ "layers":["regime-conditioned-meta-learning","specialist-selection","bounded-performance-memory","transition-aware-selection","model-selection-uncertainty","meta-governor"],
+ "purpose":"Learn which research methods are more reliable under different market regimes without uncontrolled self-modification.",
+ "note":"Meta-learning ranks research methods; it does not guarantee predictive performance."
+}

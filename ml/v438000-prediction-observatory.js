@@ -1,0 +1,2 @@
+// V438000 prediction metric observatory.
+function summarize(rows=[]){const n=rows.length,correct=rows.filter(r=>r.correct===true).length;const returns=rows.map(r=>Number(r.return||0));const avg=n?returns.reduce((a,b)=>a+b,0)/n:0;const hit=n?correct/n:0;return {version:"V438000",samples:n,hitRate:hit,averageReturn:avg,totalReturn:returns.reduce((a,b)=>a+b,0),researchOnly:true};} module.exports={summarize};

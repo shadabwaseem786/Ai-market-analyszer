@@ -1,0 +1,28 @@
+{
+  "version": "V91000",
+  "name": "Autonomous Market Intelligence Core",
+  "status": "RESEARCH_ONLY",
+  "executionDisabled": true,
+  "primaryFocus": "BUY_SELL_PREDICTION",
+  "features": [
+    "autonomous_research_orchestration",
+    "champion_challenger",
+    "point_in_time_data_lineage",
+    "leakage_firewall",
+    "transaction_cost_engine",
+    "drawdown_risk",
+    "calibration_governor",
+    "regime_specialist_router",
+    "failure_learning",
+    "signal_quality_index"
+  ],
+  "universes": [
+    "NIFTY",
+    "BANKNIFTY",
+    "FINNIFTY"
+  ],
+  "certaintyPolicy": "No guaranteed accuracy; probabilities are calibrated and uncertainty-aware",
+  "promotion": "human_review_required",
+  "automaticTrading": false,
+  "buildRefresh": "2026-09-04T11:44:02.758Z"
+}

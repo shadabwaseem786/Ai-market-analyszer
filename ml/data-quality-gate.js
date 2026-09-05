@@ -1,0 +1,2 @@
+// V50700: hard gate for stale/missing/inconsistent inputs.
+function gate(data,{maxAgeMs=120000}={}){const now=Date.now();const ok=(data||[]).every(x=>x&&Number.isFinite(x.value)&&(!x.timestamp||now-Date.parse(x.timestamp)<=maxAgeMs)&&x.valid!==false);return{ok,reason:ok?"PASS":"DATA_QUALITY_FAIL"}}module.exports={gate};

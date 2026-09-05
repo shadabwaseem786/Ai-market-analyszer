@@ -1,0 +1,2 @@
+// V36500: options Greek sanity diagnostics for derivatives features.
+function check(x={}){return{deltaOk:Number.isFinite(x.delta)&&Math.abs(x.delta)<=1,gammaOk:Number.isFinite(x.gamma)&&x.gamma>=0,vegaOk:Number.isFinite(x.vega)&&x.vega>=0,thetaOk:Number.isFinite(x.theta)}}module.exports={check};

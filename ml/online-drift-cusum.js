@@ -1,0 +1,2 @@
+// V40100: sequential CUSUM drift contract.
+function detect(values,target=0,k=.5,h=5){let s=0;for(const v of values.filter(Number.isFinite)){s=Math.max(0,s+(v-target-k));if(s>h)return{alert:true,score:s}}return{alert:false,score:s}}module.exports={detect};

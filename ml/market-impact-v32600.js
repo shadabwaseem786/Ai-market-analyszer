@@ -1,0 +1,2 @@
+// V32600: market-impact sensitivity contract.
+function scenarios(notional,adv){const n=Math.max(0,Number(notional)||0),a=Math.max(1,Number(adv)||1);return [0.01,.05,.1,.2].map(p=>({participation:p,impactBps:10*Math.sqrt(p),notional:n,adv:a}))}module.exports={scenarios};

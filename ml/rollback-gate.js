@@ -1,0 +1,2 @@
+// V35900: explicit rollback recommendation gate.
+function evaluate({candidate=0,champion=0,maxDegradation=.05}={}){const degradation=champion-candidate;return{degradation,rollbackRecommended:degradation>maxDegradation,autoRollback:false}}module.exports={evaluate};

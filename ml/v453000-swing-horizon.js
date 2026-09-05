@@ -1,0 +1,2 @@
+// V453000 1-day / swing horizon models.
+function evaluate(predictions=[]){return {version:"V453000",predictions:predictions.filter(p=>/1d|swing|day/i.test(String(p.horizon||""))),researchOnly:true};} module.exports={evaluate};

@@ -1,0 +1,2 @@
+// V22500: final release gate.
+function release(checks){const failed=Object.entries(checks||{}).filter(([,v])=>v!==true).map(([k])=>k);return {version:"V22500",status:failed.length?"BLOCKED":"RESEARCH_RELEASE",failed,executionDisabled:true}} module.exports={release};

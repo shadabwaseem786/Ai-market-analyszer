@@ -1,0 +1,2 @@
+// V22700: shadow-model comparison without production mutation.
+function compare(primary,shadow){return {primary,shadow,delta:Number(shadow?.score||0)-Number(primary?.score||0),promotable:false,reason:"independent OOS validation required"}} module.exports={compare};

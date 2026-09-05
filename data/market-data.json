@@ -1,0 +1,59 @@
+{
+  "version": "V14000",
+  "generatedAt": "2026-09-05T17:43:18.062Z",
+  "validCount": 0,
+  "total": 3,
+  "marketSession": "CLOSED",
+  "data": {
+    "NIFTY": {
+      "symbol": "^NSEI",
+      "price": null,
+      "movePct": null,
+      "score": null,
+      "confidence": null,
+      "quality": 0,
+      "error": "^NSEI @ query1.finance.yahoo.com: fetch failed | ^NSEI @ query2.finance.yahoo.com: fetch failed",
+      "source": "Yahoo Finance"
+    },
+    "BANKNIFTY": {
+      "symbol": "^NSEBANK",
+      "price": null,
+      "movePct": null,
+      "score": null,
+      "confidence": null,
+      "quality": 0,
+      "error": "^NSEBANK @ query1.finance.yahoo.com: fetch failed | ^NSEBANK @ query2.finance.yahoo.com: fetch failed",
+      "source": "Yahoo Finance"
+    },
+    "FINNIFTY": {
+      "symbol": "NIFTY_FIN_SERVICE.NS",
+      "price": null,
+      "movePct": null,
+      "score": null,
+      "confidence": null,
+      "quality": 0,
+      "error": "NIFTY_FIN_SERVICE.NS @ query1.finance.yahoo.com: This operation was aborted | NIFTY_FIN_SERVICE.NS @ query2.finance.yahoo.com: This operation was aborted | ^CNXFINANCE @ query1.finance.yahoo.com: This operation was aborted | ^CNXFINANCE @ query2.finance.yahoo.com: This operation was aborted",
+      "source": "Yahoo Finance"
+    }
+  },
+  "errors": [
+    "NIFTY: ^NSEI @ query1.finance.yahoo.com: fetch failed | ^NSEI @ query2.finance.yahoo.com: fetch failed",
+    "BANKNIFTY: ^NSEBANK @ query1.finance.yahoo.com: fetch failed | ^NSEBANK @ query2.finance.yahoo.com: fetch failed",
+    "FINNIFTY: NIFTY_FIN_SERVICE.NS @ query1.finance.yahoo.com: This operation was aborted | NIFTY_FIN_SERVICE.NS @ query2.finance.yahoo.com: This operation was aborted | ^CNXFINANCE @ query1.finance.yahoo.com: This operation was aborted | ^CNXFINANCE @ query2.finance.yahoo.com: This operation was aborted"
+  ],
+  "guardrails": [
+    "finite-values",
+    "history>=60",
+    "timestamp-freshness<=48h",
+    "no-zero-price",
+    "FINNIFTY-fallback",
+    "anomaly-move-gate",
+    "dual-yahoo-host-fallback",
+    "regime-classification",
+    "raw-vs-adjusted-score",
+    "factor-consensus",
+    "confidence-calibration",
+    "feed-metadata",
+    "regime-quality"
+  ]
+}

@@ -1,0 +1,2 @@
+// V22200: uncertainty aggregation.
+function summarize(predictions){const p=predictions.map(Number).filter(Number.isFinite);if(!p.length)return null;const mean=p.reduce((a,b)=>a+b,0)/p.length;const variance=p.reduce((s,x)=>s+(x-mean)**2,0)/p.length;return {mean,variance,sd:Math.sqrt(variance),count:p.length,agreement:Math.max(0,1-Math.sqrt(variance)*2)}} module.exports={summarize};

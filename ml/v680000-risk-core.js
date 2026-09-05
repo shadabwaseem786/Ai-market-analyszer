@@ -1,0 +1,3 @@
+// V680000 F&O Risk Intelligence Core — no autonomous execution.
+const stages=["POSITION_RISK","DYNAMIC_INVALIDATION","POSITION_SIZING","DRAWDOWN_PROBABILITY","EXPECTED_VALUE","CORRELATION_RISK","GAP_OVERNIGHT_RISK","EXPIRY_GAMMA_RISK","PORTFOLIO_RISK_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V680000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

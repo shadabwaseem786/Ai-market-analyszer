@@ -1,0 +1,2 @@
+// V218000 Market narrative reconstruction.
+function build(events=[]){const ordered=[...events].sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));return {version:"V218000",timeline:ordered.map((e,i)=>({sequence:i+1,timestamp:e.timestamp,type:e.type||"EVENT",impact:e.impact??null,confidence:e.confidence??null})),researchOnly:true};} module.exports={build};

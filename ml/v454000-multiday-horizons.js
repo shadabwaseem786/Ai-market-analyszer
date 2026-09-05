@@ -1,0 +1,2 @@
+// V454000 multi-day horizon models.
+function evaluate(predictions=[]){return {version:"V454000",predictions:predictions.filter(p=>/2d|3d|5d|multi/i.test(String(p.horizon||""))),researchOnly:true};} module.exports={evaluate};

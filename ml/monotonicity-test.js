@@ -1,0 +1,2 @@
+// V37100: monotonic feature-response sanity contract.
+function check(rows,feature,target){const a=rows.filter(r=>Number.isFinite(r[feature])&&Number.isFinite(r[target])).sort((x,y)=>x[feature]-y[feature]);let violations=0;for(let i=1;i<a.length;i++)if(a[i][target]<a[i-1][target])violations++;return{n:a.length,violations,rate:a.length>1?violations/(a.length-1):0,researchOnly:true}}module.exports={check};

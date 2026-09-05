@@ -1,0 +1,2 @@
+// V40700: interaction stability across folds.
+function compare(folds){const keys=[...new Set(folds.flatMap(x=>Object.keys(x||{})))];return Object.fromEntries(keys.map(k=>[k,{min:Math.min(...folds.map(x=>Number(x[k])||0)),max:Math.max(...folds.map(x=>Number(x[k])||0))}]))}module.exports={compare};

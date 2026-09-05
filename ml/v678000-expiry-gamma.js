@@ -1,0 +1,2 @@
+// V678000 Expiry / Gamma Risk Intelligence.
+function assess(m={}){const gamma=Math.abs(Number(m.gamma??0)),days=Math.max(Number(m.daysToExpiry??1),0);return {version:"V678000",gammaRisk:gamma/(days+1),daysToExpiry:days,researchOnly:true};} module.exports={assess};

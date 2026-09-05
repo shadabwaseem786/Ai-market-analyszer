@@ -1,0 +1,2 @@
+// V575000 Prediction Falsification Engine.
+function test(thesis={},invalidators=[]){return {version:"V575000",thesis,invalidators:invalidators.map(x=>({condition:x,watch:true})),researchOnly:true};} module.exports={test};

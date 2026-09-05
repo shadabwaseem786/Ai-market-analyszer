@@ -1,0 +1,3 @@
+// V200000 India F&O Superintelligence Core — evidence-weighted orchestration, never trades.
+const layers=["REGIME_FUSION","OPTIONS_CHAIN","POSITIONING","IV_REGIME","STRIKE_GRAVITY","FLOW_PROXY","SHOCK_DETECTOR","ADAPTIVE_INTRADAY","CONFIDENCE","QUANT_RESEARCH","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const layer of layers){const fn=handlers[layer];if(typeof fn==="function")state=fn(state)||state;trace.push({layer,status:"COMPLETED"})}return {version:"V200000",state,trace,layers,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={layers,run};

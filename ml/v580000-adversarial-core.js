@@ -1,0 +1,3 @@
+// V580000 Adversarial Market Intelligence Core — no execution.
+const stages=["BULL_BEAR_DEBATE","BEAR_CASE","BULL_CASE","THESIS_BATTLE","FALSIFICATION","BIAS_DETECTION","ASSUMPTION_DETECTION","INDEPENDENT_REEVALUATION","ADVERSARIAL_GATE","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V580000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

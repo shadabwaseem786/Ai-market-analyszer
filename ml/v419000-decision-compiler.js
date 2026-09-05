@@ -1,0 +1,2 @@
+// V419000 unified decision compiler — research output only.
+function compile(x={}){const allowed=["BUY","SELL","WAIT","ABSTAIN"];const decision=x.gatePass&&allowed.includes(x.direction)?x.direction:"ABSTAIN";return {version:"V419000",decision,confidence:Number(x.confidence??0),reasonCodes:x.reasonCodes||[],researchOnly:true};} module.exports={compile};

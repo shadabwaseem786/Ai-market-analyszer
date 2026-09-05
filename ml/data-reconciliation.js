@@ -1,0 +1,2 @@
+// V38800: cross-source OHLC reconciliation.
+function compare(a,b,tol=.001){const keys=["open","high","low","close","volume"];const d={};for(const k of keys)if(Number.isFinite(a?.[k])&&Number.isFinite(b?.[k]))d[k]=Math.abs(a[k]-b[k]);return{diff:d,pass:Object.values(d).every(x=>x<=tol)}}module.exports={compare};

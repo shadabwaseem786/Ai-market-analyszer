@@ -1,0 +1,2 @@
+// V365000 tail-risk analyzer.
+function analyze(values=[],q=.05){const a=values.map(Number).filter(Number.isFinite).sort((x,y)=>x-y);if(!a.length)return {version:"V365000",var:null,cvar:null,researchOnly:true};const k=Math.max(0,Math.floor(q*(a.length-1))),tail=a.slice(0,k+1);return {version:"V365000",var:a[k],cvar:tail.reduce((s,x)=>s+x,0)/tail.length,researchOnly:true};} module.exports={analyze};

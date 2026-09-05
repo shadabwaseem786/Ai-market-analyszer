@@ -1,0 +1,2 @@
+// V39900: multi-gate model approval contract.
+function approve(x={}){const gates=["oos","cost","calibration","drift","risk"].map(k=>x[k]===true);return{passed:gates.filter(Boolean).length,total:gates.length,approved:gates.every(Boolean),autoDeploy:false}}module.exports={approve};

@@ -1,0 +1,2 @@
+// V41200: adaptive-window drift contract.
+function split(values,minSize=20){const n=values.length;if(n<2*minSize)return null;const cut=Math.floor(n/2);return{left:values.slice(0,cut),right:values.slice(cut),change:true}}module.exports={split};

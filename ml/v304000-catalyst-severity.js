@@ -1,0 +1,2 @@
+// V304000 catalyst severity engine.
+function score(e={}){const impact=Number(e.impact||0),novelty=Number(e.novelty||0),surprise=Number(e.surprise||0),breadth=Number(e.breadth||0);const s=.3*impact+.25*novelty+.25*surprise+.2*breadth;return {...e,version:"V304000",severity:Math.max(0,Math.min(1,s)),researchOnly:true};} module.exports={score};

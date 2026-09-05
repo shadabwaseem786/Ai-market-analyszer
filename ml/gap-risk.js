@@ -1,0 +1,2 @@
+// V36700: overnight/weekend gap-risk diagnostic.
+function gap(open,prevClose){if(!Number.isFinite(open)||!Number.isFinite(prevClose)||prevClose===0)return null;return(open-prevClose)/prevClose}module.exports={gap};

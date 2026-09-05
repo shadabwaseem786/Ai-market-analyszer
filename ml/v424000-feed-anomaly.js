@@ -1,0 +1,2 @@
+// V424000 feed anomaly detection.
+function detect(records=[]){const bad=records.filter(r=>r==null||r.value==null||r.timestamp==null);return {version:"V424000",anomalies:bad.length,anomalyRate:records.length?bad.length/records.length:0,researchOnly:true};} module.exports={detect};

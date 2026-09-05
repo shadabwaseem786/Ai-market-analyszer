@@ -1,0 +1,2 @@
+// V90500: risk-aware prediction evaluation.
+function stats(returns=[]){let eq=1,peak=1,maxDD=0;for(const r of returns){eq*=1+Number(r||0);peak=Math.max(peak,eq);maxDD=Math.max(maxDD,1-eq/peak)}return{equity:eq,maxDrawdown:maxDD}}module.exports={stats};

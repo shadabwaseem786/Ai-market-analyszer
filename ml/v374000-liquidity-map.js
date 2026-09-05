@@ -1,0 +1,2 @@
+// V374000 liquidity map scaffold.
+function map(levels=[]){return {version:"V374000",levels:levels.map(l=>({price:Number(l.price),liquidity:Number(l.liquidity||0),type:l.type||"UNKNOWN"})).sort((a,b)=>b.liquidity-a.liquidity),researchOnly:true};} module.exports={map};

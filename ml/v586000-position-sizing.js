@@ -1,0 +1,2 @@
+// V586000 Position-Sizing Research Engine — no orders.
+function size(capital=0,riskFraction=0.01,riskPerUnit=1){const risk=Number(capital)*Number(riskFraction);return {version:"V586000",theoreticalUnits:risk/Math.max(Number(riskPerUnit),1e-12),riskBudget:risk,researchOnly:true,executionDisabled:true};} module.exports={size};

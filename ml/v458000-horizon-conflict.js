@@ -1,0 +1,2 @@
+// V458000 Horizon Conflict Resolver.
+function resolve(predictions=[]){const ranked=[...predictions].sort((a,b)=>Number(b.confidence||0)-Number(a.confidence||0));const conflict=new Set(predictions.map(p=>p.direction).filter(Boolean)).size>1;return {version:"V458000",conflict,resolution:ranked[0]||null,researchOnly:true};} module.exports={resolve};

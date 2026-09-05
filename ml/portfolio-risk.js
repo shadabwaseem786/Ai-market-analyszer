@@ -1,0 +1,2 @@
+// V22300: research portfolio exposure/risk guard.
+function check({positions=[],maxGross=1,maxNet=.5}={}){const gross=positions.reduce((s,p)=>s+Math.abs(Number(p.weight)||0),0),net=positions.reduce((s,p)=>s+(Number(p.weight)||0),0);return {gross,net,allowed:gross<=maxGross&&Math.abs(net)<=maxNet,executionDisabled:true}} module.exports={check};

@@ -1,0 +1,2 @@
+// V35800: immutable research decision record contract.
+function record(x={}){return{timestamp:new Date().toISOString(),version:x.version,model:x.model,decision:x.decision,evidence:x.evidence||{},gate:x.gate||"UNKNOWN",executionDisabled:true}}module.exports={record};

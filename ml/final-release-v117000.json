@@ -1,0 +1,12 @@
+{
+ "version":"V117000",
+ "name":"Live Market Data Intelligence Fabric",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "extends":"V116000",
+ "layers":["feature-normalization","timestamp-synchronization","source-conflict-detection","stale-missing-audit","immutable-snapshots","data-governor"],
+ "features":["index","spot","futures","oi","pcr","iv","ivSkew","greeks","volume","breadth","liquidity","news","macro","sentiment"],
+ "purpose":"Prepare synchronized, auditable and quality-gated market evidence for downstream research intelligence.",
+ "note":"Connectors and credentials remain deployment-specific; this layer does not place orders."
+}

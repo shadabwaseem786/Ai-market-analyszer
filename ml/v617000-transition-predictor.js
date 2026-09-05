@@ -1,0 +1,2 @@
+// V617000 Early Transition Predictor — research only.
+function predict(features={}){return {version:"V617000",transitionScore:Number(features.transitionScore??0),likelyTransition:Number(features.transitionScore??0)>=Number(features.threshold??.7),researchOnly:true};} module.exports={predict};

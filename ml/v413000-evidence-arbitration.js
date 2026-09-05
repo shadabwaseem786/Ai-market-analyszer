@@ -1,0 +1,2 @@
+// V413000 evidence weight arbitration.
+function arbitrate(items=[]){return [...items].map(x=>({...x,weight:Number(x.weight??1)*Number(x.reliability??1)*Number(x.freshness??1)})).sort((a,b)=>b.weight-a.weight);}; module.exports={arbitrate};

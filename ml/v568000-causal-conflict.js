@@ -1,0 +1,2 @@
+// V568000 Causal Conflict Resolver.
+function resolve(relations=[]){const groups={};for(const r of relations){const k=r.target||"unknown";(groups[k]??=[]).push(r)}return {version:"V568000",groups:Object.entries(groups).map(([target,items])=>({target,relations:items,conflict:items.some(x=>Number(x.effect??0)>0)&&items.some(x=>Number(x.effect??0)<0)})),researchOnly:true};} module.exports={resolve};

@@ -1,0 +1,2 @@
+// V225000 Counterfactual Catalyst Reasoner.
+function compare(actual={},alternatives=[]){return {version:"V225000",actual,alternatives:alternatives.map(a=>({name:a.name,assumption:a.assumption,expectedImpact:a.expectedImpact??null})),researchOnly:true};} module.exports={compare};

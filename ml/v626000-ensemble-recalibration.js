@@ -1,0 +1,2 @@
+// V626000 Ensemble Recalibration.
+function recalibrate(models=[]){const total=models.reduce((s,m)=>s+Math.max(Number(m.weight??0),0),0);return {version:"V626000",models:models.map(m=>({...m,normalizedWeight:total?Math.max(Number(m.weight??0),0)/total:0})),researchOnly:true};} module.exports={recalibrate};

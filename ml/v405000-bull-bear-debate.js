@@ -1,0 +1,2 @@
+// V405000 structured bull/bear debate scaffold.
+function debate(bull=[],bear=[]){const sum=a=>a.reduce((s,x)=>s+Number(x.weight||0),0);return {version:"V405000",bullScore:sum(bull),bearScore:sum(bear),winner:sum(bull)>sum(bear)?"BULL":sum(bear)>sum(bull)?"BEAR":"TIE",researchOnly:true};} module.exports={debate};

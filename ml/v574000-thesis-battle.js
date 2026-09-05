@@ -1,0 +1,2 @@
+// V574000 Thesis Battle Engine.
+function battle(bull=[],bear=[]){const b=bull.length,r=bear.length;return {version:"V574000",bullCount:b,bearCount:r,winner:b>r?"BULL":r>b?"BEAR":"DRAW",researchOnly:true};} module.exports={battle};

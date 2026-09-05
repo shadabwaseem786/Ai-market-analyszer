@@ -1,0 +1,2 @@
+// V642000 Liquidity & Market-Impact Model.
+function estimate(m={}){const liquidity=Math.max(Number(m.liquidity??0),0),size=Math.max(Number(m.orderSize??0),0);return {version:"V642000",impact:liquidity?size/liquidity:null,researchOnly:true};} module.exports={estimate};

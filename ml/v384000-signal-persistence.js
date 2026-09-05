@@ -1,0 +1,2 @@
+// V384000 signal persistence.
+function analyze(signals=[]){const n=signals.length,positive=signals.filter(s=>Number(s.score||0)>0).length,negative=signals.filter(s=>Number(s.score||0)<0).length;return {version:"V384000",samples:n,persistence: n?Math.max(positive,negative)/n:0,direction:positive>=negative?"BULLISH":"BEARISH",researchOnly:true};} module.exports={analyze};

@@ -1,0 +1,2 @@
+// V483000 Similar-Market-State Search.
+function search(state={},states=[],k=10){const keys=Object.keys(state);const distance=s=>keys.reduce((d,key)=>d+Math.abs(Number(state[key]??0)-Number(s[key]??0)),0);return {version:"V483000",matches:[...states].sort((a,b)=>distance(a)-distance(b)).slice(0,k),researchOnly:true};} module.exports={search};

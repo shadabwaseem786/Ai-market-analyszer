@@ -1,0 +1,2 @@
+// V178000 Regime-Specific Performance Attribution.
+function attribute(results=[]){const g={};for(const r of results){const k=r.regime||"UNKNOWN";(g[k]??=[]).push(Number(r.score||0));}return {version:"V178000",regimes:Object.fromEntries(Object.entries(g).map(([k,v])=>[k,{n:v.length,mean:v.reduce((a,b)=>a+b,0)/v.length}])),researchOnly:true};} module.exports={attribute};

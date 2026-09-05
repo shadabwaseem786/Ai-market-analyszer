@@ -1,0 +1,2 @@
+// V657000 Causal Counterfactual Testing.
+function test(base={},counterfactuals=[]){return {version:"V657000",base,counterfactuals:counterfactuals.map(c=>({...c,delta:Number(c.outcome??0)-Number(base.outcome??0)})),researchOnly:true};} module.exports={test};

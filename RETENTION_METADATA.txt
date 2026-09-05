@@ -1,0 +1,5 @@
+RELEASE=V730000
+CANDIDATE_COMMIT=f49e3710b4420266fc7e272961d851a5de9cf667
+PINNED_BASELINE_SHA=735f8407d75b5e66977613573cf2ce071b69a8e4
+RETENTION_POLICY=preserve-unless-evidence-backed-supersession
+SUPERSESSION_GATE=superior+regression+capability+documentation

@@ -1,0 +1,2 @@
+// V42500: walk-forward stability aggregation.
+function aggregate(folds){const a=(folds||[]).map(Number).filter(Number.isFinite);return{folds:a.length,mean:a.length?a.reduce((s,x)=>s+x,0)/a.length:null,min:a.length?Math.min(...a):null,max:a.length?Math.max(...a):null}}module.exports={aggregate};

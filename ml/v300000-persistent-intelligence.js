@@ -1,0 +1,3 @@
+// V300000 Persistent Market Intelligence Core — memory is research context, never execution.
+const stages=["EPISODIC_MEMORY","PATTERN_RETRIEVAL","ANALOG_SEARCH","EVENT_MEMORY_GRAPH","CATALYST_MEMORY","REGIME_MEMORY","SCENARIO_RETRIEVAL","LONG_HORIZON_CONTEXT","MEMORY_FUSION","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V300000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={stages,run};

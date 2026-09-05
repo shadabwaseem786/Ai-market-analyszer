@@ -1,0 +1,2 @@
+// V70300: regime-gated mixture of experts.
+function combine(predictions={},gates={}){let s=0,w=0;for(const [k,p] of Object.entries(predictions)){const g=Number(gates[k])||0;s+=Number(p)*g;w+=g}return w?s/w:.5}module.exports={combine};

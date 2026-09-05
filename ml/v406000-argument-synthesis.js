@@ -1,0 +1,2 @@
+// V406000 argument synthesis.
+function synthesize(hypotheses=[],evidence=[]){return {version:"V406000",leadingHypothesis:hypotheses[0]||null,keyEvidence:evidence.slice(0,10),researchOnly:true};} module.exports={synthesize};

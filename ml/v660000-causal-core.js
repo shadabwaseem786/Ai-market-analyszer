@@ -1,0 +1,3 @@
+// V660000 Causal Market Intelligence Core — no autonomous execution.
+const stages=["CAUSAL_GRAPH","CATALYST_PROPAGATION","CROSS_ASSET_CAUSALITY","ROOT_CAUSE","CATALYST_AUTHENTICITY","FALSE_CATALYST_DETECTION","CAUSAL_COUNTERFACTUAL","SHOCK_PROPAGATION","CAUSAL_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V660000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

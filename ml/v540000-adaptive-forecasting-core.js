@@ -1,0 +1,3 @@
+// V540000 Adaptive Forecasting Intelligence Core — no execution.
+const stages=["MODEL_REGISTRY","DYNAMIC_ENSEMBLE","REGIME_MODEL_SELECTION","WEIGHT_OPTIMIZATION","ONLINE_PERFORMANCE","WALK_FORWARD_VALIDATION","MODEL_DRIFT","FORECAST_COMBINATION","MODEL_RELIABILITY_GATE","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V540000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

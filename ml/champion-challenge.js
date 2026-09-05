@@ -1,0 +1,2 @@
+// V82800: champion challenge with statistical gates.
+function challenge(champion,candidate){const c=champion||{},x=candidate||{};const pass=Number(x.oos)>=Number(c.oos)&&Number(x.costAdjusted)>=Number(c.costAdjusted)&&Number(x.brier)<=Number(c.brier)&&Number(x.stability)>=Number(c.stability);return{pass,selected:pass?"candidate":"champion",humanReviewRequired:true}}module.exports={challenge};

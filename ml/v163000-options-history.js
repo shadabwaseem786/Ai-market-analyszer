@@ -1,0 +1,2 @@
+// V163000 Historical options-chain ingestion.
+function ingest(rows=[]){return {version:"V163000",rows:rows.map(x=>({...x,timestamp:x.timestamp||null,symbol:x.symbol||null,expiry:x.expiry||null,strike:Number(x.strike),optionType:x.optionType||null,oi:Number(x.oi||0),volume:Number(x.volume||0),iv:Number(x.iv||0)})),count:rows.length,researchOnly:true};} module.exports={ingest};

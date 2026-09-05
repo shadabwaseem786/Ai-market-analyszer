@@ -1,0 +1,2 @@
+// V212000 Incremental feature state.
+function update(state={},ticks=[]){const out={...state};for(const t of ticks){if(!t.key)continue;out[t.key]={value:t.value,timestamp:t.timestamp,source:t.source||"stream"}}return {version:"V212000",state:out,updated:ticks.length,researchOnly:true};} module.exports={update};

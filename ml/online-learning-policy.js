@@ -1,0 +1,2 @@
+// V22400: governed adaptive-learning policy. No automatic model mutation.
+function policy({drift=0,oosHealthy=false,approval=false}={}){if(drift>.25)return "FREEZE";if(oosHealthy&&approval)return "RETRAIN_CANDIDATE";return "HOLD"} module.exports={policy};

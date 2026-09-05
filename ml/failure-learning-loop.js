@@ -1,0 +1,2 @@
+// V90800: convert validated historical failures into research cases.
+function learn(outcomes=[]){return outcomes.filter(x=>x&&x.correct===false).map(x=>({regime:x.regime,features:x.features,miss:x.actual-x.predicted,caseType:"FAILURE_CASE"}))}module.exports={learn};

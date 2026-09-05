@@ -1,0 +1,2 @@
+// V268000 Meta-learning controller: recommends research weight changes; does not self-promote models.
+function recommend(models=[]){return {version:"V268000",recommendations:models.map(m=>({model:m.model,weightAdjustment:Math.max(-.25,Math.min(.25,Number(m.reliability||0)-.5))})),automaticPromotion:false,researchOnly:true};} module.exports={recommend};

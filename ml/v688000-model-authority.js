@@ -1,0 +1,2 @@
+// V688000 Dynamic Model Authority.
+function rank(models=[]){return {version:"V688000",models:[...models].sort((a,b)=>Number(b.authority??b.score??0)-Number(a.authority??a.score??0)),researchOnly:true};} module.exports={rank};

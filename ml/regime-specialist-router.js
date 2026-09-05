@@ -1,0 +1,2 @@
+// V90700: route to specialists based on market regime.
+function route(regime){const map={TREND:["transformer","momentum"],RANGE:["mean_reversion","options"],VOLATILE:["options","stress"],EVENT:["event_graph","analog"],UNKNOWN:["ensemble"]};return map[regime]||map.UNKNOWN}module.exports={route};

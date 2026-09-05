@@ -1,0 +1,2 @@
+// V659000 Causal Integrity Gate.
+function gate(m={}){const pass=!m.falseCatalyst&&!m.unresolvedRootCause&&!m.graphConflict&&Number(m.causalConfidence??0)>=Number(m.minimumConfidence??.65);return {version:"V659000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

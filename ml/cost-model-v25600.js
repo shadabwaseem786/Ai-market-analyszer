@@ -1,0 +1,2 @@
+// V25600: explicit transaction-cost model contract.
+function estimate({turnover=0,brokerage=0,fees=0,slippageBps=0}={}){const slippage=turnover*slippageBps/10000;return {brokerage,fees,slippage,total:brokerage+fees+slippage}}module.exports={estimate};

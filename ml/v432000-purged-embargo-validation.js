@@ -1,0 +1,3 @@
+// V432000 Purged/embargoed time-series validation.
+// Removes observations around test boundaries to reduce leakage from overlapping labels.
+function split(rows=[],trainSize=100,testSize=20,purge=5,embargo=5){const out=[];for(let start=0;start+trainSize+purge+testSize<=rows.length;start+=testSize){const trainEnd=start+trainSize-purge;const testStart=start+trainSize;const testEnd=testStart+testSize;out.push({train:rows.slice(start,Math.max(start,trainEnd)),test:rows.slice(testStart,testEnd),embargo:rows.slice(testEnd,Math.min(rows.length,testEnd+embargo))});}return {version:"V432000",windows:out.length,splits:out,researchOnly:true};} module.exports={split};

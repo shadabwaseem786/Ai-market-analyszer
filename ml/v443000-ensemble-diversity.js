@@ -1,0 +1,2 @@
+// V443000 Ensemble Diversity Engine.
+function measure(models=[]){const families=new Set(models.map(m=>m.family||m.type||"UNKNOWN"));return {version:"V443000",modelCount:models.length,distinctFamilies:families.size,diversityRatio:models.length?families.size/models.length:0,researchOnly:true};} module.exports={measure};

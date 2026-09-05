@@ -1,0 +1,2 @@
+// V50200: empirical prediction-set coverage diagnostics.
+function coverage(predicted,actual,tol){let hit=0,n=Math.min(predicted.length,actual.length);for(let i=0;i<n;i++)if(Math.abs(predicted[i]-actual[i])<=tol)hit++;return n?hit/n:null}module.exports={coverage};

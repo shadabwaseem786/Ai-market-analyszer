@@ -1,0 +1,2 @@
+// V494000 Contradiction Resolution.
+function resolve(claims=[]){const groups={};for(const c of claims){const k=c.topic||"unknown";(groups[k]??=[]).push(c);}return {version:"V494000",groups,unresolved:Object.values(groups).filter(g=>new Set(g.map(x=>x.direction)).size>1).length,researchOnly:true};} module.exports={resolve};

@@ -1,0 +1,2 @@
+// V506000 Information Decay Model.
+function decay(ageHours=0,halfLifeHours=24){const h=Math.max(.0001,Number(halfLifeHours));return {version:"V506000",ageHours,remainingWeight:Math.pow(.5,Math.max(0,Number(ageHours))/h),researchOnly:true};} module.exports={decay};

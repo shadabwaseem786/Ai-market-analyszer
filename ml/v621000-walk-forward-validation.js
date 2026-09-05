@@ -1,0 +1,2 @@
+// V621000 Walk-Forward Validation — research only.
+function validate(windows=[]){return {version:"V621000",windows,validated:windows.filter(w=>w&&w.outOfSample!==false).length,researchOnly:true};} module.exports={validate};

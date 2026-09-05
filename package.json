@@ -1,0 +1,7 @@
+{
+  "name":"india-fno-catalyst-monitor-v730000",
+  "private":true,
+  "type":"commonjs",
+  "scripts":{"refresh-data":"node scripts/build-static.mjs"},
+  "engines":{"node":">=20"}
+}

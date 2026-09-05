@@ -1,0 +1,3 @@
+// V570000 Causal & Counterfactual Market Intelligence Core — no execution.
+const stages=["CAUSAL_GRAPH","CAUSE_EFFECT_CHAIN","CAUSAL_STRENGTH","COUNTERFACTUAL_SCENARIOS","INTERVENTION_SIMULATION","CROSS_ASSET_PROPAGATION","CAUSAL_LAG","CAUSAL_CONFLICT","CAUSAL_RELIABILITY_GATE","VALIDATION","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V570000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

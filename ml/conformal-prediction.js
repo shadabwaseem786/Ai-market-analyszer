@@ -1,0 +1,2 @@
+// V35100: conformal prediction interval contract.
+function interval(scores,alpha=.1){const a=scores.filter(Number.isFinite).sort((x,y)=>x-y);if(!a.length)return null;const q=a[Math.min(a.length-1,Math.floor((1-alpha)*(a.length-1)))];return{alpha,q,coverageTarget:1-alpha}}module.exports={interval};

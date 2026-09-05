@@ -1,0 +1,2 @@
+// V327000 distribution-shift detector.
+function detect(reference=[],current=[]){const a=reference.map(Number).filter(Number.isFinite),b=current.map(Number).filter(Number.isFinite);const ma=a.length?a.reduce((x,y)=>x+y,0)/a.length:0,mb=b.length?b.reduce((x,y)=>x+y,0)/b.length:0;return {version:"V327000",referenceMean:ma,currentMean:mb,meanShift:mb-ma,shiftDetected:Math.abs(mb-ma)>0.5,researchOnly:true};} module.exports={detect};

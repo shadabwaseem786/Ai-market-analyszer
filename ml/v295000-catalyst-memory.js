@@ -1,0 +1,2 @@
+// V295000 Catalyst recurrence memory.
+function summarize(events=[]){const groups={};for(const e of events){const k=e.catalyst||"UNKNOWN";(groups[k]??=[]).push(e)}return {version:"V295000",versionTag:"V295000",catalysts:Object.fromEntries(Object.entries(groups).map(([k,a])=>[k,{count:a.length,last:a[a.length-1],outcomes:a.map(x=>x.outcome).filter(Boolean)}])),researchOnly:true};} module.exports={summarize};

@@ -1,0 +1,2 @@
+// V512000 Multi-Source Event Correlation.
+function correlate(sources=[]){return {version:"V512000",clusters:sources.map((s,i)=>({...s,clusterId:s.clusterId||"C"+(i+1)})),researchOnly:true};} module.exports={correlate};

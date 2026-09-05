@@ -1,0 +1,2 @@
+// V40300: label-overlap purge contract.
+function purge(train,test,labelEnd){const cutoff=Math.min(...test.map(x=>new Date(x.time).getTime()));return train.filter(x=>new Date(labelEnd(x).getTime()).getTime()<cutoff)}module.exports={purge};

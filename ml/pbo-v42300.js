@@ -1,0 +1,2 @@
+// V42300: probability-of-backtest-overfitting contract.
+function estimate(inSample,outSample){const n=Math.min(inSample.length,outSample.length);if(!n)return null;let worse=0;for(let i=0;i<n;i++)if(outSample[i]<inSample[i])worse++;return{n,pbo:worse/n}}module.exports={estimate};

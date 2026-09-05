@@ -1,0 +1,2 @@
+// V322000 prediction interval engine.
+function interval(samples=[],level=.9){const a=samples.map(Number).filter(Number.isFinite).sort((x,y)=>x-y);if(!a.length)return {version:"V322000",lower:null,upper:null,level,researchOnly:true};const q=p=>a[Math.min(a.length-1,Math.max(0,Math.floor(p*(a.length-1))))];return {version:"V322000",lower:q((1-level)/2),upper:q(1-(1-level)/2),level,researchOnly:true};} module.exports={interval};

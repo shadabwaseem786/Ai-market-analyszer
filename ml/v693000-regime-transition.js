@@ -1,0 +1,2 @@
+// V693000 Regime Transition Predictor.
+function predict(history=[],transitionThreshold=.5){const last=history.at(-1)||{};return {version:"V693000",currentRegime:last.regime??"UNKNOWN",transitionProbability:Number(last.transitionProbability??0),transitionExpected:Number(last.transitionProbability??0)>=transitionThreshold,researchOnly:true};} module.exports={predict};

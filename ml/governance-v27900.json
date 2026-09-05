@@ -1,0 +1,1 @@
+{"version":"V27900","status":"RESEARCH_ONLY","executionDisabled":true,"controls":["rolling_drift","decision_journal","OOS_stacking","model_decay","risk_gate","audit"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"]}

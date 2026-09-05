@@ -1,0 +1,2 @@
+// V198000 Adaptive intraday prediction framework.
+function adapt(history=[],current={}){const recent=history.slice(-20),mean=recent.length?recent.reduce((s,x)=>s+Number(x.score||0),0)/recent.length:0;return {version:"V198000",adaptiveBaseline:+mean.toFixed(4),currentScore:Number(current.score||0),adjustedScore:+(Number(current.score||0)-mean*.15).toFixed(4),sampleSize:recent.length,researchOnly:true};} module.exports={adapt};

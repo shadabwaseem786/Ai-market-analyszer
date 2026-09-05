@@ -1,0 +1,2 @@
+// V235000 News-to-market causal attribution framework.
+function attribute(news=[],market=[]){return {version:"V235000",attributions:news.map(n=>({newsId:n.id,matchedObservations:market.filter(m=>m.timestamp>=n.timestamp&&m.timestamp<=new Date(new Date(n.timestamp).getTime()+Number(n.windowMinutes||60)*60000).toISOString()).map(m=>m.id),confidence:Number(n.confidence??0)})),researchOnly:true};} module.exports={attribute};

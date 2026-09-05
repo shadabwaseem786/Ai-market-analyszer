@@ -1,0 +1,3 @@
+// V144000 Options Surface Intelligence.
+function analyze(rows=[]){const r=rows.filter(x=>Number.isFinite(Number(x.strike))).sort((a,b)=>a.strike-b.strike);const iv=r.map(x=>Number(x.iv)||0);const avg=iv.length?iv.reduce((a,b)=>a+b,0)/iv.length:0;const skew=r.length?((Number(r[r.length-1].iv)||0)-(Number(r[0].iv)||0)):0;return {version:"V144000",strikes:r.length,averageIV:+avg.toFixed(3),skew:+skew.toFixed(3),termStructure:r.map(x=>({strike:x.strike,iv:Number(x.iv)||0,expiry:x.expiry||null})),researchOnly:true};}
+module.exports={analyze};

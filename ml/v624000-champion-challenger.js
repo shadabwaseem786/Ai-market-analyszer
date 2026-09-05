@@ -1,0 +1,2 @@
+// V624000 Champion/Challenger Framework — no automatic promotion.
+function compare(champion={},challenger={}){return {version:"V624000",champion,challenger,recommendPromotion:Number(challenger.score??0)>Number(champion.score??0),automaticPromotion:false,researchOnly:true};} module.exports={compare};

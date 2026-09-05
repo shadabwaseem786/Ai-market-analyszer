@@ -1,0 +1,2 @@
+// V234000 Global-to-India transmission model.
+function estimate(shocks=[],channels=[]){return {version:"V234000",shocks,channels:channels.map(c=>({...c,impact:+Number(c.weight||0)*Number(c.shock||0).toFixed(6)})),researchOnly:true};} module.exports={estimate};

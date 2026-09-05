@@ -1,0 +1,2 @@
+// V31400: OOS maximum drawdown diagnostic.
+function maxDrawdown(returns){let peak=0,equity=0,dd=0;for(const r of returns.filter(Number.isFinite)){equity+=r;peak=Math.max(peak,equity);dd=Math.max(dd,peak-equity)}return dd}module.exports={maxDrawdown};

@@ -1,0 +1,2 @@
+// V593000 Market Breadth Intelligence.
+function analyze(advancers=0,decliners=0){const total=Number(advancers)+Number(decliners),ratio=Number(decliners)?Number(advancers)/Number(decliners):null;return {version:"V593000",advanceDeclineRatio:ratio,breadth:total?(Number(advancers)-Number(decliners))/total:0,researchOnly:true};} module.exports={analyze};

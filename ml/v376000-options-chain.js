@@ -1,0 +1,2 @@
+// V376000 options-chain intelligence.
+function analyze(chain=[]){return {version:"V376000",calls:chain.filter(x=>x.type==="CE"),puts:chain.filter(x=>x.type==="PE"),total:chain.length,researchOnly:true};} module.exports={analyze};

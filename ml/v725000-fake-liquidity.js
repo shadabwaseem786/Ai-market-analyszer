@@ -1,0 +1,2 @@
+// V725000 Fake-Liquidity Anomaly Detection.
+function detect(events=[]){return {version:"V725000",anomalies:events.filter(e=>Number(e.cancelRate??0)>=.8&&Number(e.persistenceMs??0)<1000),researchOnly:true};} module.exports={detect};

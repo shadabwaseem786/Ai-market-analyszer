@@ -1,0 +1,2 @@
+// V681000 Multi-Model Ensemble — research only.
+function combine(models=[]){const total=models.reduce((s,m)=>s+Math.max(Number(m.weight??0),0),0);const score=models.reduce((s,m)=>s+Number(m.score??0)*Math.max(Number(m.weight??0),0),0);return {version:"V681000",ensembleScore:total?score/total:0,models,researchOnly:true};} module.exports={combine};

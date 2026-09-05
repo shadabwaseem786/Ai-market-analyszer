@@ -1,0 +1,2 @@
+// V251000 Walk-forward validation — research only.
+function validate(samples=[],trainSize=50,testSize=10,step=10){const windows=[];for(let s=0;s+trainSize+testSize<=samples.length;s+=step)windows.push({train:[s,s+trainSize],test:[s+trainSize,s+trainSize+testSize]});return {version:"V251000",windows,count:windows.length,researchOnly:true};} module.exports={validate};

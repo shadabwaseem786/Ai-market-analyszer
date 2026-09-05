@@ -1,0 +1,2 @@
+// V80300: graph representation for cross-asset/factor relationships.
+function propagate(nodes={},edges=[]){const score={...nodes};for(const e of edges){if(score[e.from]!==undefined)score[e.to]=(score[e.to]||0)+score[e.from]*(Number(e.weight)||0)}return score}module.exports={propagate};

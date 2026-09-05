@@ -1,0 +1,12 @@
+{
+ "version":"V114000",
+ "name":"Market Multiverse Scenario Engine",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V113000",
+ "layers":["competing-futures-generator","scenario-stress-propagation","scenario-invalidation","branch-convergence","scenario-entropy","multiverse-governor"],
+ "purpose":"Generate and compare competing plausible market futures instead of relying on a single deterministic forecast.",
+ "note":"Scenario probabilities are research estimates and are not guarantees."
+}

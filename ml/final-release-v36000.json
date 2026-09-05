@@ -1,0 +1,1 @@
+{"version":"V36000","status":"RESEARCH_ONLY","executionDisabled":true,"newLayers":["conformal_prediction","selective_prediction","quantile_loss","cvar","stress_correlation","permutation_importance","drift_consensus","decision_journal","rollback_gate"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

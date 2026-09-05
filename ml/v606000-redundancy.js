@@ -1,0 +1,2 @@
+// V606000 Redundant Signal Elimination.
+function filter(signals=[]){const seen=new Set(),out=[];for(const s of signals){const k=s.signature||s.name||JSON.stringify(s);if(!seen.has(k)){seen.add(k);out.push(s)}}return {version:"V606000",signals:out,removed:signals.length-out.length,researchOnly:true};} module.exports={filter};

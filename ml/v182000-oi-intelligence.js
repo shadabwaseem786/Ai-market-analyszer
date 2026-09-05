@@ -1,0 +1,2 @@
+// V182000 Open Interest / Change-in-OI intelligence.
+function analyze(rows=[]){return rows.map(x=>{const oi=Number(x.oi||0),d=Number(x.changeOI||0),vol=Number(x.volume||0);return {...x,oi,changeOI:d,volume:vol,oiVelocity:oi?d/oi:0,activityScore:+(Math.abs(d)+vol*.1).toFixed(3)}});} module.exports={analyze};

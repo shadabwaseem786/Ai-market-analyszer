@@ -1,0 +1,2 @@
+// V30900: machine-readable research dashboard summary.
+function summarize(x={}){return {version:x.version||"V30900",dataQuality:x.dataQuality,validation:x.validation,calibration:x.calibration,drift:x.drift,risk:x.risk,robustness:x.robustness,gate:x.gate,executionDisabled:true}}module.exports={summarize};

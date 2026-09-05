@@ -1,0 +1,2 @@
+// V554000 Regime Memory.
+function remember(history=[],current){return {version:"V554000",history:[...history,{regime:current,timestamp:new Date().toISOString()}].slice(-100),current,researchOnly:true};} module.exports={remember};

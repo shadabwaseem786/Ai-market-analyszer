@@ -1,0 +1,2 @@
+// V82300: unified state vector for retrieval/attention/graph models.
+function build(x={}){const keys=["trend","momentum","breadth","vix","oi","iv","pcr","fii","dii","usd","global","liquidity","sentiment"];return keys.map(k=>Number.isFinite(Number(x[k]))?Number(x[k]):0)}module.exports={build};

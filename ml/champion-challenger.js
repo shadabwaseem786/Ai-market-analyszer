@@ -1,0 +1,2 @@
+// V90100: statistically disciplined champion/challenger contract.
+function compare(c={},x={}){const gates={oos:(x.oos??-Infinity)>=(c.oos??-Infinity),cost:(x.costAdjusted??-Infinity)>=(c.costAdjusted??-Infinity),brier:(x.brier??Infinity)<=(c.brier??Infinity),stability:(x.stability??-Infinity)>=(c.stability??-Infinity),drawdown:(x.drawdown??Infinity)<=(c.drawdown??Infinity)};return{gates,pass:Object.values(gates).every(Boolean),requiresReview:true}}module.exports={compare};

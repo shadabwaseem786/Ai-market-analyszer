@@ -1,0 +1,2 @@
+// V395000 dynamic causal graph scaffold. Correlation is not asserted as causation.
+function update(graph={},observations=[]){return {version:"V395000",graph,observations,causalClaimsDisabled:true,researchOnly:true};} module.exports={update};

@@ -1,0 +1,2 @@
+// V161000 NSE/BSE F&O contract master abstraction.
+function normalize(rows=[]){return rows.filter(Boolean).map(x=>({symbol:x.symbol||null,underlying:x.underlying||x.symbol||null,expiry:x.expiry||null,strike:x.strike==null?null:Number(x.strike),optionType:x.optionType||null,lotSize:Number(x.lotSize||0),instrument:x.instrument||"UNKNOWN",validFrom:x.validFrom||null,validTo:x.validTo||null}));} module.exports={normalize};

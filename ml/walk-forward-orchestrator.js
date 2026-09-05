@@ -1,0 +1,2 @@
+// V60200: leakage-safe walk-forward experiment contract.
+function windows(n,train,test,step){const out=[];for(let s=0;s+train+test<=n;s+=step)out.push({train:[s,s+train],test:[s+train,s+train+test]});return out}module.exports={windows};

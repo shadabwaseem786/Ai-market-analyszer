@@ -1,0 +1,2 @@
+// V312000 USDINR transmission layer.
+function analyze(x={}){const ch=Number(x.change||0),beta=Number(x.beta||0);return {version:"V312000",change:ch,beta,impact:ch*beta,bias:ch>0?"INR_WEAKENING":ch<0?"INR_STRENGTHENING":"STABLE",researchOnly:true};} module.exports={analyze};

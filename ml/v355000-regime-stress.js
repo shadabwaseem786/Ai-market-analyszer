@@ -1,0 +1,2 @@
+// V355000 regime stress testing.
+function stress(model,regimes=[]){return {version:"V355000",results:regimes.map(r=>({regime:r.name,score:Number(r.score||0),pass:Number(r.score||0)>=Number(r.threshold||0)})),model,researchOnly:true};} module.exports={stress};

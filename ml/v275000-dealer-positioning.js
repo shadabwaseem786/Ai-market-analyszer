@@ -1,0 +1,2 @@
+// V275000 Dealer gamma / positioning research model.
+function estimate(levels=[]){const gamma=levels.reduce((s,l)=>s+Number(l.gamma||0)*Number(l.exposure||1),0);return {version:"V275000",gammaExposure:+gamma.toFixed(6),positioning:gamma>0?"POSITIVE_GAMMA":gamma<0?"NEGATIVE_GAMMA":"NEUTRAL",researchOnly:true};} module.exports={estimate};

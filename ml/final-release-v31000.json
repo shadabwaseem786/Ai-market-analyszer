@@ -1,0 +1,1 @@
+{"version":"V31000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["regime_inference","change_point","seasonality","slippage_distribution","data_lineage","latency_stress","position_sizing","risk_budget","research_dashboard"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

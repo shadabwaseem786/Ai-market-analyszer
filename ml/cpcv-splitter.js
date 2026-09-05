@@ -1,0 +1,2 @@
+// V36100: combinatorial purged cross-validation contract.
+function plan(nFolds=5,purge=1,embargo=1){const folds=[];for(let i=0;i<nFolds;i++)folds.push({test:i,purge,embargo});return{nFolds,purge,embargo,folds,researchOnly:true}}module.exports={plan};

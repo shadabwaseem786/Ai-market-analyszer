@@ -1,0 +1,2 @@
+// V484000 Institutional Behaviour Inference — probabilistic research, not actor identification.
+function infer(signals=[]){return {version:"V484000",signals:signals.map(s=>({...s,inferenceConfidence:Math.max(0,Math.min(1,Number(s.evidence??0)*Number(s.consistency??1)))})),researchOnly:true};} module.exports={infer};

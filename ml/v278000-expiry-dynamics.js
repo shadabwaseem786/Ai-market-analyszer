@@ -1,0 +1,2 @@
+// V278000 Expiry dynamics intelligence.
+function analyze(x={}){const dte=Number(x.daysToExpiry);const pinDistance=Math.abs(Number(x.spot||0)-Number(x.maxPain||0));return {version:"V278000",daysToExpiry:Number.isFinite(dte)?dte:null,pinDistance:+pinDistance.toFixed(4),nearExpiry:Number.isFinite(dte)&&dte<=1,maxPain:x.maxPain??null,researchOnly:true};} module.exports={analyze};

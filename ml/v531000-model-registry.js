@@ -1,0 +1,2 @@
+// V531000 Model Registry — research only.
+function register(models=[]){return {version:"V531000",models:models.map(m=>({...m,enabled:m.enabled!==false})),researchOnly:true};} module.exports={register};

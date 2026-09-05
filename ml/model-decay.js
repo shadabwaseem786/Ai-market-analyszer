@@ -1,0 +1,2 @@
+// V34700: rolling performance decay detector.
+function detect(scores,window=20,threshold=.2){if(scores.length<2*window)return null;const avg=a=>a.reduce((s,x)=>s+x,0)/a.length;const old=avg(scores.slice(-2*window,-window)),now=avg(scores.slice(-window));return{old,now,decay:old-now,alert:old!==0&&(old-now)/Math.abs(old)>threshold}}module.exports={detect};

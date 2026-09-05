@@ -1,0 +1,2 @@
+// V417000 dynamic confidence aggregation.
+function aggregate(parts=[]){const total=parts.reduce((s,p)=>s+Number(p.weight??1),0);const confidence=total?parts.reduce((s,p)=>s+Number(p.weight??1)*Number(p.confidence??0),0)/total:0;return {version:"V417000",confidence,components:parts.length,researchOnly:true};} module.exports={aggregate};

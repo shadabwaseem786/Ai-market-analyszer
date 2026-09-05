@@ -1,0 +1,2 @@
+// V185000 Expiry-day behaviour engine.
+function classify(x={}){const dte=Math.max(0,Number(x.dte||0)),hour=Number(x.hour??12),vol=Number(x.volatility||0);const expiry=dte===0;return {version:"V185000",expiryDay:expiry,phase:!expiry?"NON_EXPIRY":hour<10?"OPEN":hour<13?"MIDDAY":hour<15?"AFTERNOON":"CLOSE",volatility:vol,stress:expiry&&vol>70?"HIGH":"NORMAL",researchOnly:true};} module.exports={classify};

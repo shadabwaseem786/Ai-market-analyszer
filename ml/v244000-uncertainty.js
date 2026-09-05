@@ -1,0 +1,2 @@
+// V244000 Uncertainty decomposition.
+function decompose(x={}){const total=Math.max(0,Number(x.total||0)),model=Math.max(0,Number(x.model||0)),data=Math.max(0,Number(x.data||0));return {version:"V244000",total,model,data,residual:Math.max(0,total-model-data),researchOnly:true};} module.exports={decompose};

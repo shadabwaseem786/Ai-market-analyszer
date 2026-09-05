@@ -1,0 +1,2 @@
+// V707000 Trend/Range/Transition Fusion.
+function classify(m={}){const t=Number(m.trendScore??0),r=Number(m.rangeScore??0),tr=Number(m.transitionScore??0);const vals={TREND:t,RANGE:r,TRANSITION:tr};const regime=Object.entries(vals).sort((a,b)=>b[1]-a[1])[0]?.[0]||"UNKNOWN";return {version:"V707000",scores:vals,regime,researchOnly:true};} module.exports={classify};

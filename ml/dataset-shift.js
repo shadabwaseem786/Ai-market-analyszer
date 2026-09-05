@@ -1,0 +1,2 @@
+// V39800: train-vs-live distribution shift contract.
+function compare(train,live){const keys=[...new Set([...Object.keys(train||{}),...Object.keys(live||{})])];return Object.fromEntries(keys.map(k=>[k,{train:train?.[k],live:live?.[k]}]))}module.exports={compare};

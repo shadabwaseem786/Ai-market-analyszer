@@ -1,0 +1,2 @@
+// V572000 Bear-Case Generator.
+function generate(signal={},risks=[]){return {version:"V572000",base:signal,bearCase:risks.map(r=>({risk:r,invalidates:true})),researchOnly:true};} module.exports={generate};

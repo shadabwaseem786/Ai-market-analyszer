@@ -1,0 +1,2 @@
+// V369000 scenario-aware consensus.
+function consensus(scenarios=[]){const score=scenarios.reduce((s,x)=>s+Number(x.probability||0)*Number(x.score||0),0);return {version:"V369000",score,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",scenarios:scenarios.length,researchOnly:true};} module.exports={consensus};

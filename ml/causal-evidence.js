@@ -1,0 +1,2 @@
+// V50600: causal-evidence registry; requires independent validation before use.
+function rank(evidence){return(evidence||[]).filter(x=>x&&x.independent===true).sort((a,b)=>(b.strength||0)-(a.strength||0))}module.exports={rank};

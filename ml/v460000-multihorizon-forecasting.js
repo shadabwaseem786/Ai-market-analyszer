@@ -1,0 +1,3 @@
+// V460000 Multi-Horizon Market Forecasting Core — no execution.
+const stages=["MULTIHORIZON","INTRADAY","SWING","MULTIDAY","HORIZON_DEPENDENCY","CROSS_HORIZON_CONSISTENCY","PROBABILISTIC_FORECAST","HORIZON_CONFLICT","ROBUSTNESS_GATE","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V460000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

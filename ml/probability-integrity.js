@@ -1,0 +1,2 @@
+// V40600: probability integrity checks.
+function check(rows){const a=rows.filter(x=>Number.isFinite(x.p));return{n:a.length,valid:a.every(x=>x.p>=0&&x.p<=1),nan:rows.length-a.length}}module.exports={check};

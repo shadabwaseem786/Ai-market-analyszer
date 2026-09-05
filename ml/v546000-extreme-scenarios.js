@@ -1,0 +1,2 @@
+// V546000 Extreme-Scenario Generator.
+function generate(base=0,shocks=[]){return {version:"V546000",scenarios:shocks.map(s=>({name:s.name||"scenario",value:Number(base)+Number(s.delta??0),probability:Number(s.probability??0)})),researchOnly:true};} module.exports={generate};

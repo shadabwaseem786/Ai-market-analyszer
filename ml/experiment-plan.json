@@ -1,0 +1,14 @@
+{
+ "version":"V20200",
+ "experiments":[
+  {"universe":"NIFTY","horizons":[5,15,30,60]},
+  {"universe":"BANKNIFTY","horizons":[5,15,30,60]},
+  {"universe":"FINNIFTY","horizons":[5,15,30,60]}
+ ],
+ "models":["logistic_baseline","gradient_boosting","random_forest","mlp","ensemble"],
+ "validation":"purged_walk_forward+CPCV",
+ "stress":["0.5x","1x","2x","3x"],
+ "calibration":"brier+reliability",
+ "promotion":"OOS-only",
+ "execution":"disabled"
+}

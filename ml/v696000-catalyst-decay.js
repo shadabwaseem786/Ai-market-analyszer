@@ -1,0 +1,2 @@
+// V696000 Catalyst Decay Model.
+function decay(m={}){const age=Math.max(Number(m.ageHours??0),0),halfLife=Math.max(Number(m.halfLifeHours??1),1);return {version:"V696000",remainingInfluence:Math.pow(.5,age/halfLife),ageHours:age,researchOnly:true};} module.exports={decay};

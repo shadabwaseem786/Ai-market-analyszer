@@ -1,0 +1,2 @@
+// V29100: experiment reproducibility manifest.
+function manifest({seed=42,datasetHash,codeCommit,configHash}={}){return {version:"V29100",seed,datasetHash,codeCommit,configHash,createdAt:new Date().toISOString()}}module.exports={manifest};

@@ -1,0 +1,2 @@
+// V41400: two-sample KS-style drift contract.
+function distance(a,b){const x=a.filter(Number.isFinite).sort((p,q)=>p-q),y=b.filter(Number.isFinite).sort((p,q)=>p-q);let i=0,j=0,d=0;while(i<x.length&&j<y.length){if(x[i]<=y[j])i++;else j++;d=Math.max(d,Math.abs(i/x.length-j/y.length))}return d}module.exports={distance};

@@ -1,0 +1,2 @@
+// V70100: retrieval-augmented market memory.
+function retrieve(memory=[],query={},k=10){return memory.map(x=>({...x,similarity:Number(x.similarity)||0})).sort((a,b)=>b.similarity-a.similarity).slice(0,k)}module.exports={retrieve};

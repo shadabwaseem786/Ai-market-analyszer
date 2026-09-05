@@ -1,0 +1,2 @@
+// V80500: synthetic scenario generation for robustness testing, never as ground truth.
+function scenarios(base={},n=100){const out=[];for(let i=0;i<n;i++){const shock=(i%21-10)/100;out.push({...base,priceShock:shock,volShock:-shock*.8})}return out}module.exports={scenarios};

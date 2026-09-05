@@ -1,0 +1,2 @@
+// V27400: market-shift detector contract.
+function detect(current,baseline,{threshold=.2}={}){const d=Math.abs((current?.volatility||0)-(baseline?.volatility||0));return {distance:d,shifted:d>threshold}}module.exports={detect};

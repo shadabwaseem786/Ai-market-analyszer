@@ -1,0 +1,2 @@
+// V84700: ranked evidence explanation contract.
+function explain(factors=[]){return factors.filter(x=>x&&Number.isFinite(x.contribution)).sort((a,b)=>Math.abs(b.contribution)-Math.abs(a.contribution)).slice(0,10)}module.exports={explain};

@@ -1,0 +1,3 @@
+// V520000 Real-Time Market Early-Warning Core — no execution.
+const stages=["EVENT_FUSION","MULTISOURCE_CORRELATION","EARLY_WARNING","ANOMALY_DETECTION","SHOCKWAVE_DETECTION","EVENT_VELOCITY","CATALYST_ESCALATION","EMERGING_REGIME","CONFIDENCE_GATE","VALIDATION","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V520000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

@@ -1,0 +1,2 @@
+// V631000 Probabilistic Uncertainty Engine — research only.
+function assess(m={}){const p=Number(m.probability??.5);const entropy=-(p*Math.log2(Math.max(p,1e-12))+(1-p)*Math.log2(Math.max(1-p,1e-12)));return {version:"V631000",probability:p,entropy,uncertainty:entropy,researchOnly:true};} module.exports={assess};

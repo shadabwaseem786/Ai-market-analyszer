@@ -1,0 +1,2 @@
+// V40400: validation-driven early stopping.
+function choose(history,patience=5){let best=-Infinity,wait=0,idx=0;history.forEach((v,i)=>{if(v>best){best=v;wait=0;idx=i}else wait++});return{best,epoch:idx,stop:wait>=patience}}module.exports={choose};

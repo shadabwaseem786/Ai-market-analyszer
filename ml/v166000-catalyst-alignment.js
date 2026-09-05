@@ -1,0 +1,2 @@
+// V166000 Event/news timestamp alignment.
+function align(events=[],marketRows=[]){return marketRows.map(r=>({...r,events:events.filter(e=>e.symbol===r.symbol&&new Date(e.availableAt||e.timestamp)<=new Date(r.timestamp))}));} module.exports={align};

@@ -1,0 +1,1 @@
+{"version":"V24900","status":"RESEARCH_ONLY","executionDisabled":true,"checks":["session_alignment","leakage_audit","bootstrap_robustness","drift_alerts","OOS_validation","cost_stress","model_governance"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"horizons":[5,15,30,60]}

@@ -1,0 +1,2 @@
+// V354000 bootstrap confidence interval scaffold.
+function interval(values=[],alpha=.05){const a=values.map(Number).filter(Number.isFinite).sort((x,y)=>x-y);if(!a.length)return {version:"V354000",lower:null,upper:null};const q=p=>a[Math.floor(Math.max(0,Math.min(1,p))*(a.length-1))];return {version:"V354000",lower:q(alpha/2),upper:q(1-alpha/2),alpha,researchOnly:true};} module.exports={interval};

@@ -1,0 +1,2 @@
+// V40800: reliability-bin diagnostics.
+function bins(rows,n=10){const out=[];for(let i=0;i<n;i++){const a=rows.filter(x=>x.p>=i/n&&x.p<(i+1)/n);if(a.length)out.push({bin:i,count:a.length,p:a.reduce((s,x)=>s+x.p,0)/a.length,y:a.reduce((s,x)=>s+x.y,0)/a.length})}return out}module.exports={bins};

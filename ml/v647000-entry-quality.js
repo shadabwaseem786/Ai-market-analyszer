@@ -1,0 +1,2 @@
+// V647000 Entry-Quality Scoring.
+function score(m={}){const components=["spread","liquidity","slippage","flow","alignment"].map(k=>Number(m[k]??0));const value=components.length?components.reduce((a,b)=>a+b,0)/components.length:0;return {version:"V647000",entryQuality:value,components,researchOnly:true};} module.exports={score};

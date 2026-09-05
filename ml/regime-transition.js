@@ -1,0 +1,2 @@
+// V23800: Markov-style regime transition estimator.
+function estimate(regimes){const counts={};for(let i=1;i<regimes.length;i++){const k=regimes[i-1]+"->"+regimes[i];counts[k]=(counts[k]||0)+1}return counts}module.exports={estimate};

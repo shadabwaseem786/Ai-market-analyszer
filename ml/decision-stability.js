@@ -1,0 +1,2 @@
+// V82500: signal stability across time/horizon perturbations.
+function stability(signals=[]){if(!signals.length)return 0;const mode=signals.sort((a,b)=>signals.filter(x=>x===b).length-signals.filter(x=>x===a).length)[0];return signals.filter(x=>x===mode).length/signals.length}module.exports={stability};

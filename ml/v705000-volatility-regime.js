@@ -1,0 +1,2 @@
+// V705000 Volatility Regime Classifier.
+function classify(m={}){const x=Math.max(Number(m.volatility??0),0);return {version:"V705000",volatility:x,regime:x>=Number(m.highThreshold??.7)?"HIGH":x<=Number(m.lowThreshold??.3)?"LOW":"NORMAL",researchOnly:true};} module.exports={classify};

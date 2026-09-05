@@ -1,0 +1,2 @@
+// V726000 Absorption & Exhaustion Detector.
+function detect(m={}){const absorption=Number(m.absorptionScore??0),exhaustion=Number(m.exhaustionScore??0);return {version:"V726000",absorption,exhaustion,state:absorption>exhaustion?"ABSORPTION":exhaustion>absorption?"EXHAUSTION":"BALANCED",researchOnly:true};} module.exports={detect};

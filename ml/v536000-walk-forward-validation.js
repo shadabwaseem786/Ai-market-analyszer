@@ -1,0 +1,2 @@
+// V536000 Walk-Forward Validation.
+function validate(predictions=[],actuals=[]){const n=Math.min(predictions.length,actuals.length),errors=[];for(let i=0;i<n;i++)errors.push(Math.abs(Number(predictions[i])-Number(actuals[i])));const mae=n?errors.reduce((a,b)=>a+b,0)/n:null;return {version:"V536000",mae,observations:n,validated:n>0,researchOnly:true};} module.exports={validate};

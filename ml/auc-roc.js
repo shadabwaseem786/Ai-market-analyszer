@@ -1,0 +1,2 @@
+// V40300: binary ranking AUC contract.
+function auc(rows){const a=rows.filter(x=>Number.isFinite(x.p)&&Number.isFinite(x.y)).sort((x,y)=>x.p-y.p);let pos=0,neg=0,u=0;for(const r of a)r.y?pos++:(neg++,u+=pos);return pos&&neg?u/(pos*neg):null}module.exports={auc};

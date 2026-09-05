@@ -1,0 +1,9 @@
+{
+ "version":"V19500",
+ "research_pipeline":["dataset_manifest","quality_gate","feature_factory","multi_horizon_labels","purged_walk_forward","model_tournament","oos_evaluation","calibration","regime_stress","cost_sensitivity","drift_monitor","model_registry","abstention_policy"],
+ "promotion":"OOS-only",
+ "abstention":{"enabled":true,"reason_codes":["LOW_CONFIDENCE","HIGH_UNCERTAINTY","MODEL_DISAGREEMENT","DRIFT","DATA_QUALITY"]},
+ "models":["logistic","random_forest","gradient_boosting","mlp","ensemble"],
+ "horizons":[5,15,30,60],
+ "status":"research-only"
+}

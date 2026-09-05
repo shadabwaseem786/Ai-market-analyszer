@@ -1,0 +1,2 @@
+// V667000 Narrative Momentum Detector.
+function score(items=[]){return {version:"V667000",items:[...items].map(x=>({...x,momentum:Number(x.momentum??0)})).sort((a,b)=>b.momentum-a.momentum),researchOnly:true};} module.exports={score};

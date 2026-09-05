@@ -1,0 +1,2 @@
+// V476000 Counterfactual Outcome Generator.
+function generate(actual={},alternatives=[]){return {version:"V476000",actual,alternatives:alternatives.map(a=>({...a,delta:Number(a.outcome??0)-Number(actual.outcome??0)})),researchOnly:true};} module.exports={generate};

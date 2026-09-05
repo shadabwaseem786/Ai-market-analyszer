@@ -1,0 +1,2 @@
+// V90000: research-loop orchestration. Research only; no execution or silent promotion.
+function cycle(state={}){return{stages:["ingest","validate","represent","generate","train","walk_forward","cost_adjust","calibrate","stress","red_team","compare_champion","explain","review"],championProtected:true,autoTrading:false,autoPromotion:false,cycleId:Date.now().toString(36),state}}module.exports={cycle};

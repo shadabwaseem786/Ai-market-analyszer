@@ -1,0 +1,2 @@
+// V232000 Dynamic causal graph.
+function update(graph={},observations=[]){const nodes=new Map((graph.nodes||[]).map(n=>[n.id,{...n}]));for(const o of observations)nodes.set(o.id,{...(nodes.get(o.id)||{}),...o});return {version:"V232000",nodes:[...nodes.values()],edges:graph.edges||[],researchOnly:true};} module.exports={update};

@@ -1,0 +1,2 @@
+// V451000 Multi-Horizon Prediction Engine — research only.
+function build(horizons=[],predictions={}){return {version:"V451000",horizons:horizons.map(h=>({horizon:h,prediction:predictions[h]??null})),researchOnly:true};} module.exports={build};

@@ -1,0 +1,2 @@
+// V80100: cross-asset attention contract. Inputs must be time-aligned before use.
+function attend(query,assets={}){const out={};for(const [k,v] of Object.entries(assets)){const a=(v||[]).map(Number).filter(Number.isFinite);out[k]=a.length?a.slice(-1)[0]:null}return{query,aligned:out,timeAlignedRequired:true}}module.exports={attend};

@@ -1,0 +1,2 @@
+// V28300: transaction-cost sensitivity grid.
+function grid(base={}){const c=Number(base.cost||1),s=Number(base.slippage||1);return [0.5,1,1.5,2,3].map(x=>({multiplier:x,cost:c*x,slippage:s*x}))}module.exports={grid};

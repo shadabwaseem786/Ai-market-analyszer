@@ -1,0 +1,2 @@
+// V353000 cost-aware validation.
+function evaluate(records=[],cost=0){const net=records.reduce((s,r)=>s+Number(r.return||0)-cost,0);return {version:"V353000",net,records:records.length,cost,researchOnly:true};} module.exports={evaluate};

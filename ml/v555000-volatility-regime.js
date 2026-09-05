@@ -1,0 +1,2 @@
+// V555000 Volatility Regime Engine.
+function classify(v=0,low=.3,high=.7){v=Number(v);return {version:"V555000",regime:v>=high?"HIGH":v<=low?"LOW":"NORMAL",value:v,researchOnly:true};} module.exports={classify};

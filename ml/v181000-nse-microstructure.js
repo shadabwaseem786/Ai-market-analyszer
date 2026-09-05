@@ -1,0 +1,2 @@
+// V181000 NSE microstructure research abstraction.
+function analyze(x={}){const spread=Number(x.spreadBps||0),depth=Number(x.depth||0),rv=Number(x.relativeVolume||0),imb=Number(x.imbalance||0);return {version:"V181000",spreadBps:spread,depth,relativeVolume:rv,orderImbalance:imb,liquidityScore:+Math.max(0,Math.min(100,75-spread*2+Math.min(15,depth/10)+Math.min(10,rv*4))).toFixed(2),researchOnly:true};} module.exports={analyze};

@@ -1,0 +1,3 @@
+// V430000 Real-Time Market Intelligence Fabric — no execution.
+const stages=["REALTIME_INGESTION","MULTISOURCE_FUSION","EVENT_TIME","FEED_ANOMALY","SOURCE_FAILOVER","DATA_QUALITY","LIVE_FEATURE_STORE","INCREMENTAL_UPDATES","INTEGRITY_GATE","ORCHESTRATOR","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V430000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

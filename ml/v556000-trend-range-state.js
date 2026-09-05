@@ -1,0 +1,2 @@
+// V556000 Trend/Range State Engine.
+function classify(trend=0,threshold=.3){trend=Number(trend);return {version:"V556000",state:trend>=threshold?"TREND_UP":trend<=-threshold?"TREND_DOWN":"RANGE",strength:Math.min(1,Math.abs(trend)),researchOnly:true};} module.exports={classify};

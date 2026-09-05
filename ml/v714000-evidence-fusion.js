@@ -1,0 +1,2 @@
+// V714000 Multi-Source Evidence Fusion.
+function fuse(sources=[]){const valid=sources.filter(s=>s&&s.valid!==false);const weights=valid.map(s=>Math.max(Number(s.weight??1),0));const total=weights.reduce((a,b)=>a+b,0);return {version:"V714000",sources:valid,fusedConfidence:total?weights.reduce((a,w,i)=>a+w*Number(valid[i].confidence??0),0)/total:0,researchOnly:true};} module.exports={fuse};

@@ -1,0 +1,2 @@
+// V84300: layered false-positive firewall.
+function gate(x={}){const failures=[x.dataQuality<.8,x.modelAgreement<.65,x.stability<.65,x.calibration<.7,x.stressSurvival<.65,x.drift>.35].filter(Boolean).length;return{pass:failures===0,failures,reason:failures?"EVIDENCE_CONFLICT_OR_RISK":"PASS"}}module.exports={gate};

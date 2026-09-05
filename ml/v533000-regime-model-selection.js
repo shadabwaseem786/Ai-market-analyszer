@@ -1,0 +1,2 @@
+// V533000 Regime-Aware Model Selection.
+function select(models=[],regime){return {version:"V533000",selected:models.filter(m=>!m.regimes||m.regimes.includes(regime)).sort((a,b)=>Number(b.validationScore??0)-Number(a.validationScore??0)),regime,researchOnly:true};} module.exports={select};

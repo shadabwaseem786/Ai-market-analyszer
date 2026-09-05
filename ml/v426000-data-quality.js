@@ -1,0 +1,2 @@
+// V426000 real-time data quality scoring.
+function score(x={}){const completeness=Number(x.completeness??0),freshness=Number(x.freshness??0),consistency=Number(x.consistency??0),validity=Number(x.validity??0);const quality=(completeness+freshness+consistency+validity)/4;return {version:"V426000",quality,components:{completeness,freshness,consistency,validity},researchOnly:true};} module.exports={score};

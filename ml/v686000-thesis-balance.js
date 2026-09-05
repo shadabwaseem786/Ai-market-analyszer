@@ -1,0 +1,2 @@
+// V686000 Thesis Balance Engine.
+function balance(bull=[],bear=[]){const sum=a=>a.reduce((s,x)=>s+Math.abs(Number(x.weight??0)),0);const b=sum(bull),r=sum(bear);return {version:"V686000",bullWeight:b,bearWeight:r,balance:b+r?(b-r)/(b+r):0,researchOnly:true};} module.exports={balance};

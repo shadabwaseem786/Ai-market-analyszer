@@ -1,0 +1,2 @@
+// V392000 Company–Sector–Index relationship graph.
+function build(companies=[],sectors=[],indices=[]){return {version:"V392000",companies,sectors,indices,relationships:companies.flatMap(c=>[...(c.sectors||[]).map(s=>({company:c.id,sector:s,type:"BELONGS_TO"})),...(c.indices||[]).map(i=>({company:c.id,index:i,type:"CONSTITUENT_OF"}))]),researchOnly:true};} module.exports={build};

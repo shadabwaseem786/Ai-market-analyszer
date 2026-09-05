@@ -1,0 +1,2 @@
+// V692000 Sequence Pattern Intelligence.
+function analyze(sequence=[]){const diffs=sequence.slice(1).map((x,i)=>Number(x)-Number(sequence[i]));return {version:"V692000",length:sequence.length,diffs,trend:diffs.reduce((s,x)=>s+x,0),researchOnly:true};} module.exports={analyze};

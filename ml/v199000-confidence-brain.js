@@ -1,0 +1,2 @@
+// V199000 Unified probability/confidence brain.
+function combine(signals=[]){const s=signals.filter(x=>Number.isFinite(Number(x.probability)));if(!s.length)return {version:"V199000",probability:.5,confidence:0,researchOnly:true};const p=s.reduce((a,x)=>a+Number(x.probability),0)/s.length,disp=s.reduce((a,x)=>a+(Number(x.probability)-p)**2,0)/s.length;return {version:"V199000",probability:+p.toFixed(5),confidence:+Math.max(0,Math.min(100,(1-Math.sqrt(disp))*100)).toFixed(2),signalCount:s.length,dispersion:+disp.toFixed(6),researchOnly:true};} module.exports={combine};

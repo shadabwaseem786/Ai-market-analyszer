@@ -1,0 +1,3 @@
+// V390000 Temporal Market Intelligence Core — no execution.
+const stages=["MULTI_TIMEFRAME","INTRADAY_PHASE","LEAD_LAG","SIGNAL_PERSISTENCE","REACTION_SPEED","TEMPORAL_REGIME","MOMENTUM_MEAN_REVERSION","VOLATILITY_TRANSITION","TEMPORAL_FUSION","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V390000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

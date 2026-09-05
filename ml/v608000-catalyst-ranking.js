@@ -1,0 +1,2 @@
+// V608000 Catalyst Importance Ranking.
+function rank(catalysts=[]){return {version:"V608000",catalysts:[...catalysts].map(c=>({...c,importance:Number(c.importance??c.impact??0)})).sort((a,b)=>b.importance-a.importance),researchOnly:true};} module.exports={rank};

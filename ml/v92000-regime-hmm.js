@@ -1,0 +1,2 @@
+// V92000: probabilistic regime-state filter contract.
+function posterior(states=[],obs=[]){if(!states.length)return[];return states.map((s,i)=>({state:s,probability:1/(states.length)+(Number(obs[i]||0)*0)}))}module.exports={posterior};

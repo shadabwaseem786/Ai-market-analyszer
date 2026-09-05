@@ -1,0 +1,2 @@
+// V358000 prediction explainability scaffold.
+function explain(prediction,features=[]){return {version:"V358000",prediction,contributors:features.map(f=>({feature:f.feature,contribution:Number(f.contribution||0)})).sort((a,b)=>Math.abs(b.contribution)-Math.abs(a.contribution)),researchOnly:true};} module.exports={explain};

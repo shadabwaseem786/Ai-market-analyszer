@@ -1,0 +1,2 @@
+// V728000 Price–Volume–Flow Divergence.
+function detect(m={}){const p=Number(m.priceChange??0),v=Number(m.volumeChange??0),f=Number(m.flowChange??0);return {version:"V728000",divergence:(p>0&&f<0)||(p<0&&f>0)||(v>0&&Math.sign(p)!==Math.sign(f)),researchOnly:true};} module.exports={detect};

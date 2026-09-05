@@ -1,0 +1,2 @@
+// V398000 state transition forecasting scaffold.
+function forecast(states=[],transitionMatrix={}){const current=states.at(-1)||"UNKNOWN";const next=Object.entries(transitionMatrix[current]||{}).sort((a,b)=>Number(b[1])-Number(a[1]));return {version:"V398000",current,next:next.map(([state,probability])=>({state,probability:Number(probability)})),researchOnly:true};} module.exports={forecast};

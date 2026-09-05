@@ -1,0 +1,2 @@
+// V676000 Multi-Position Correlation Risk.
+function assess(positions=[]){let risk=0;for(let i=0;i<positions.length;i++)for(let j=i+1;j<positions.length;j++)risk+=Math.abs(Number(positions[i].weight??0)*Number(positions[j].weight??0)*Number(positions[i].correlationWith?.[positions[j].id]??0));return {version:"V676000",correlationRisk:risk,researchOnly:true};} module.exports={assess};

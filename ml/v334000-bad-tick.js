@@ -1,0 +1,2 @@
+// V334000 anomaly / bad-tick detector.
+function detect(values=[],z=5){const a=values.map(Number).filter(Number.isFinite);if(a.length<3)return {version:"V334000",anomalies:[],researchOnly:true};const m=a.reduce((s,x)=>s+x,0)/a.length,sd=Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/a.length)||1;return {version:"V334000",anomalies:a.map((x,i)=>({index:i,value:x,z:(x-m)/sd})).filter(x=>Math.abs(x.z)>z),researchOnly:true};} module.exports={detect};

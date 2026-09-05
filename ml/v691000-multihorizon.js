@@ -1,0 +1,2 @@
+// V691000 Multi-Horizon Forecast Engine — research only.
+function forecast(horizons=[],models={}){return {version:"V691000",horizons:horizons.map(h=>({...h,prediction:models[h.name]??h.prediction??null})),researchOnly:true};} module.exports={forecast};

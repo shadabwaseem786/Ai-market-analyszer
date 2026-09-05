@@ -1,0 +1,2 @@
+/* V70000: unified time-series foundation-model orchestration contract. Research only. */
+function route(state={}){const regime=state.regime||"UNKNOWN";return{experts:["transformer","temporal_cnn","gradient_boosting","regime_moe","analog_retrieval","causal_event"],regime,mixture:regime==="TREND"?["transformer","gradient_boosting"]:regime==="RANGE"?["temporal_cnn","mean_reversion"]:["ensemble","analog_retrieval"],executionDisabled:true}}module.exports={route};

@@ -1,0 +1,2 @@
+// V37500: multi-feature regime shift consensus.
+function detect(signals,min=.5){const a=signals.filter(Boolean),ratio=a.length?a.filter(Boolean).length/a.length:0;return{ratio,shift:ratio>=min,n:a.length}}module.exports={detect};

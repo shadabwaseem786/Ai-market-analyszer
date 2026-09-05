@@ -1,0 +1,2 @@
+// V396000 market state representation.
+function encode(x={}){return {version:"V396000",regime:x.regime||"UNKNOWN",volatility:x.volatility??null,liquidity:x.liquidity??null,momentum:x.momentum??null,macroBias:x.macroBias||"UNKNOWN",microBias:x.microBias||"UNKNOWN",timestamp:x.timestamp||null,researchOnly:true};} module.exports={encode};

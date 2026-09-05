@@ -1,0 +1,2 @@
+// V577000 Hidden-Assumption Detector.
+function detect(assumptions=[]){return {version:"V577000",assumptions,missingAssumptions:assumptions.filter(a=>!a.tested),researchOnly:true};} module.exports={detect};

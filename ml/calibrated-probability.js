@@ -1,0 +1,2 @@
+// V50100: probability calibration. Never claims certainty.
+function calibrate(p,n=1000){p=Number(p);if(!Number.isFinite(p))return null;const shrink=1/Math.sqrt(Math.max(1,n));return Math.max(0,Math.min(1,p*(1-shrink)+.5*shrink))}module.exports={calibrate};

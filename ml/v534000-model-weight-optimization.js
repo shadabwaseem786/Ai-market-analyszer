@@ -1,0 +1,2 @@
+// V534000 Model Weight Optimization.
+function optimize(models=[]){const ranked=[...models].sort((a,b)=>Number(b.validationScore??0)-Number(a.validationScore??0));const total=ranked.reduce((s,m)=>s+Math.max(0,Number(m.validationScore??0)),0)||1;return {version:"V534000",models:ranked.map(m=>({...m,optimizedWeight:Math.max(0,Number(m.validationScore??0))/total})),researchOnly:true};} module.exports={optimize};

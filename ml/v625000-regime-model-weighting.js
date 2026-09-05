@@ -1,0 +1,2 @@
+// V625000 Regime-Specific Model Weighting.
+function weight(models=[],regime="UNKNOWN"){return {version:"V625000",regime,models:models.map(m=>({...m,weight:Number(m.regimeWeights?.[regime]??m.weight??0)})),researchOnly:true};} module.exports={weight};

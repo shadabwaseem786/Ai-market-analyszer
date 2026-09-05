@@ -1,0 +1,2 @@
+// V587000 Time-Horizon Optimizer.
+function choose(horizons=[]){return {version:"V587000",selected:horizons.filter(h=>h.reliable!==false).sort((a,b)=>Number(b.score??0)-Number(a.score??0))[0]??null,researchOnly:true};} module.exports={choose};

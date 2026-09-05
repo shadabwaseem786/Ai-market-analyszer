@@ -1,0 +1,2 @@
+// V449000 Adaptive Ensemble Orchestrator.
+function build(models=[],weights={}){const active=models.filter(m=>m.enabled!==false&&!m.degraded).map(m=>({...m,weight:Number(weights[m.id]??m.weight??1)}));const total=active.reduce((s,m)=>s+m.weight,0)||1;return {version:"V449000",models:active.map(m=>({...m,normalizedWeight:m.weight/total})),researchOnly:true,automaticPromotion:false};} module.exports={build};

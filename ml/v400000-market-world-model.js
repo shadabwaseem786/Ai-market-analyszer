@@ -1,0 +1,3 @@
+// V400000 INDIA F&O MARKET WORLD MODEL — research/analysis only.
+const stages=["KNOWLEDGE_GRAPH","ENTITY_RELATIONSHIPS","GLOBAL_DEPENDENCIES","EVENT_ENTITY_GRAPH","DYNAMIC_CAUSAL_GRAPH","MARKET_STATE","WORLD_MEMORY","STATE_TRANSITIONS","WORLD_FUSION","UNCERTAINTY","ROBUSTNESS","EXPLAINABILITY","FINAL_RESEARCH_GATE"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V400000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

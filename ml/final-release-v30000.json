@@ -1,0 +1,1 @@
+{"version":"V30000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["data_integrity","leakage","walk_forward","CPCV","ensemble","calibration","ablation","drift","uncertainty","tail_risk","cost_stress","risk","retraining_trigger","audit"],"promotion":"explicit-gate-only","auto_trading":false,"universes":["NIFTY","BANKNIFTY","FINNIFTY"]}

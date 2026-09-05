@@ -1,0 +1,2 @@
+// V517000 Catalyst Escalation Engine.
+function assess(catalysts=[]){return {version:"V517000",catalysts:catalysts.map(c=>({...c,escalationScore:Number(c.impact??0)*Number(c.velocity??1)*Number(c.persistence??1)})),researchOnly:true};} module.exports={assess};

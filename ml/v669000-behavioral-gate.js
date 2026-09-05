@@ -1,0 +1,2 @@
+// V669000 Behavioral Integrity Gate.
+function gate(m={}){const pass=!m.herding&&!m.bullTrap&&!m.bearTrap&&!m.sentimentConflict&&Number(m.behaviorConfidence??0)>=Number(m.minimumConfidence??.6);return {version:"V669000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

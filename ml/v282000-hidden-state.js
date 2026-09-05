@@ -1,0 +1,2 @@
+// V282000 Hidden-state model approximation for regime research.
+function infer(observations=[],states=["RISK_ON","NEUTRAL","RISK_OFF"]){const score=observations.reduce((s,o)=>s+Number(o.signal||0),0);const state=score>1?"RISK_ON":score<-1?"RISK_OFF":"NEUTRAL";return {version:"V282000",state,score,states,researchOnly:true};} module.exports={infer};

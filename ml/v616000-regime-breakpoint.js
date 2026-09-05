@@ -1,0 +1,2 @@
+// V616000 Regime Breakpoint Detector.
+function detect(series=[],threshold=1){const breaks=[];for(let i=1;i<series.length;i++)if(Math.abs(Number(series[i])-Number(series[i-1]))>=threshold)breaks.push(i);return {version:"V616000",breakpoints:breaks,researchOnly:true};} module.exports={detect};

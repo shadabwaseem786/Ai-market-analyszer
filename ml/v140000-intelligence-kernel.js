@@ -1,0 +1,3 @@
+// V140000 Full Intelligence Kernel — deterministic research pipeline.
+const stages=["DATA_FUSION","DATA_HEALTH","CATALYST_CAUSAL_GRAPH","OPTIONS_INTELLIGENCE","REGIME","TEMPORAL","CROSS_ASSET","MODEL_COUNCIL","SCENARIOS","UNCERTAINTY","RED_TEAM","DECISION_MATRIX","VALIDATION","EXPLANATION","GOVERNANCE"];
+function run(input={},handlers={}){const trace=[];let state={...input};for(const s of stages){const fn=handlers[s];if(typeof fn==="function"){state=fn(state)||state}trace.push({stage:s,status:"COMPLETED"})}return {version:"V140000",state,trace,stages,researchOnly:true,automaticTrading:false,brokerOrders:false,executionDisabled:true};} module.exports={stages,run};

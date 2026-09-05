@@ -1,0 +1,2 @@
+// V37300: hyperparameter perturbation stability.
+function compare(scores){const a=scores.filter(Number.isFinite);if(!a.length)return null;return{min:Math.min(...a),max:Math.max(...a),range:Math.max(...a)-Math.min(...a),stable:Math.max(...a)-Math.min(...a)<=.1}}module.exports={compare};

@@ -1,0 +1,13 @@
+{
+ "version":"V122000",
+ "name":"Temporal Causality & Lead-Lag Lab",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V121000",
+ "layers":["multi-horizon-lag-analysis","event-sequence-detection","regime-conditional-lags","temporal-stability","counterfactual-sequence-testing","temporal-governor"],
+ "horizons":["MILLISECONDS","SECONDS","MINUTES","HOURS","SESSION","DAYS","EXPIRY_CYCLE"],
+ "purpose":"Discover, test and govern time-dependent relationships between catalysts, cross-assets and F&O variables.",
+ "note":"Lead-lag association is not proof of causality; relationships require validation."
+}

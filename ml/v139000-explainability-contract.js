@@ -1,0 +1,2 @@
+// V139000 Prediction Explanation contract.
+function explain(d={}){return {version:"V139000",action:d.action||"WAIT",confidence:Number(d.confidence||0),why:d.drivers||[],against:d.conflicts||[],invalidators:d.invalidators||[],scenario:d.scenario||null,dataHealth:d.dataHealth||null,modelConsensus:d.modelConsensus||null,researchOnly:true};} module.exports={explain};

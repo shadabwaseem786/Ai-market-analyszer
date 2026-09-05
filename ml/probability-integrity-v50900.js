@@ -1,0 +1,2 @@
+// V50900: prevents unsupported near-certainty displays.
+function integrity(p,{max=.995}={}){p=Math.max(0,Math.min(1,Number(p)||0));return{raw:p,display:Math.min(p,max),capped:p>max,warning:p>max?"PROBABILITY_CAP_APPLIED":null}}module.exports={integrity};

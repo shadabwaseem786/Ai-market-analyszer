@@ -1,0 +1,2 @@
+// V33100: guarded online-learning contract. No automatic model replacement.
+function evaluate({drift=false,minSamples=false,validationPass=false}={}){return {eligible:!drift&&minSamples&&validationPass,autoUpdate:false,reason:drift?"DRIFT":!minSamples?"INSUFFICIENT_SAMPLES":!validationPass?"VALIDATION_REQUIRED":"ELIGIBLE"}}module.exports={evaluate};

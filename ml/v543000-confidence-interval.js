@@ -1,0 +1,2 @@
+// V543000 Confidence Interval Engine.
+function interval(mean=0,std=0,n=0,z=1.96){const se=Number(n)>0?Number(std)/Math.sqrt(Number(n)):Number(std);return {version:"V543000",lower:Number(mean)-z*se,upper:Number(mean)+z*se,researchOnly:true};} module.exports={interval};

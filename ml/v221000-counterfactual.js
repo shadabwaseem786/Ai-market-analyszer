@@ -1,0 +1,2 @@
+// V221000 Counterfactual Market Simulator — research-only.
+function simulate(base={},changes=[]){return changes.map(c=>({...base,...c,scenario:c.name||"SCENARIO"})).map((s,i)=>({...s,scenarioId:i+1}));} module.exports={simulate};

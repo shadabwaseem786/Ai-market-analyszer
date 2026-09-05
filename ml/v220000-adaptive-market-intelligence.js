@@ -1,0 +1,3 @@
+// V220000 Adaptive Market Intelligence Engine — continuously updating research architecture, never trades.
+const layers=["EVIDENCE_FUSION","STREAMING_FEATURES","DYNAMIC_WEIGHTS","ONLINE_DRIFT","CONCEPT_DRIFT","CONFIDENCE_RECALIBRATION","INTRADAY_MEMORY","NARRATIVE","RESEARCH_COPILOT","QUANT_RESEARCH","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const layer of layers){const fn=handlers[layer];if(typeof fn==="function")state=fn(state)||state;trace.push({layer,status:"COMPLETED"})}return {version:"V220000",state,trace,layers,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={layers,run};

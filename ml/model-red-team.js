@@ -1,0 +1,2 @@
+// V60600: adversarial robustness checks.
+function stress(model,scenarios=[]){return scenarios.map(s=>({name:s.name,output:model(s),passed:s.expected===undefined||model(s)===s.expected}))}module.exports={stress};

@@ -1,0 +1,2 @@
+// V717000 Conflicting-Data Resolver.
+function resolve(conflicts=[]){return {version:"V717000",resolved:conflicts.map(c=>({...c,resolution:c.resolution??"ABSTAIN_UNTIL_VERIFIED"})),researchOnly:true};} module.exports={resolve};

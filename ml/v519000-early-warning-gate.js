@@ -1,0 +1,2 @@
+// V519000 Early-Warning Confidence Gate.
+function gate(x={}){const pass=!x.dataIntegrityFailure&&!x.falsePositiveRisk&&Number(x.confidence??0)>=Number(x.minimumConfidence??.7);return {version:"V519000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

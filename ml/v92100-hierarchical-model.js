@@ -1,0 +1,2 @@
+// V92100: hierarchical universe model: shared + instrument-specific components.
+function combine(shared=0,specific=0,alpha=.6){return alpha*Number(shared)+(1-alpha)*Number(specific)}module.exports={combine};

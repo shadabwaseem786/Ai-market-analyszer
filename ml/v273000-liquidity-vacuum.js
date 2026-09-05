@@ -1,0 +1,2 @@
+// V273000 Liquidity / vacuum detector.
+function detect(x={}){const depth=Number(x.depth||0),baseline=Number(x.baselineDepth||1);const ratio=depth/baseline;return {version:"V273000",depthRatio:+ratio.toFixed(5),vacuum:ratio<Number(x.threshold||.35),researchOnly:true};} module.exports={detect};

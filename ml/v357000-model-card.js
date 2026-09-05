@@ -1,0 +1,2 @@
+// V357000 model-card generator.
+function generate(meta={}){return {version:"V357000",model:meta.model||"UNKNOWN",purpose:meta.purpose||"",data:meta.data||{},validation:meta.validation||{},limitations:meta.limitations||[],risks:meta.risks||[],researchOnly:true};} module.exports={generate};

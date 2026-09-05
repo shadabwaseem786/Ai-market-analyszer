@@ -1,0 +1,2 @@
+// V469000 Scenario Robustness Gate.
+function gate(x={}){const pass=!x.criticalScenario&&!x.unresolvedConflict&&!x.dataIntegrityFailure&&Number(x.robustness??0)>=Number(x.minimumRobustness??.7);return {version:"V469000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

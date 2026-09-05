@@ -1,0 +1,2 @@
+// V22800: stability-first feature selection.
+function select(ranked,{minDelta=0}={}){return ranked.filter(x=>Number(x.delta)>=minDelta&&Number(x.stability||0)>=.8).map(x=>x.feature)} module.exports={select};

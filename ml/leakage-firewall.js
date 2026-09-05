@@ -1,0 +1,2 @@
+// V90300: hard feature leakage checks.
+function check(features=[]){const bad=features.filter(f=>f&&((f.availableAt&&f.labelTime&&new Date(f.availableAt)>new Date(f.labelTime))||f.usesFuture===true));return{pass:bad.length===0,violations:bad.map(x=>x.name||"UNKNOWN")}}module.exports={check};

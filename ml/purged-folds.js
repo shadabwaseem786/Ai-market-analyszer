@@ -1,0 +1,2 @@
+// V25200: purged walk-forward folds with embargo.
+function folds(n,{train=5000,test=1000,embargo=60,step=1000}={}){const out=[];for(let s=0;s+train+embargo+test<=n;s+=step)out.push({train:[s,s+train],purge:[s+train,s+train+embargo],test:[s+train+embargo,s+train+embargo+test]});return out}module.exports={folds};

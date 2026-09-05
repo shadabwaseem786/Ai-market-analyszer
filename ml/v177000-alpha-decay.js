@@ -1,0 +1,2 @@
+// V177000 Alpha Decay & Feature Stability Monitor.
+function analyze(history=[]){if(history.length<2)return {version:"V177000",status:"INSUFFICIENT_DATA",researchOnly:true};const first=Number(history[0].score||0),last=Number(history.at(-1).score||0),decay=first?((first-last)/Math.abs(first))*100:0;return {version:"V177000",decayPct:+decay.toFixed(2),status:decay>30?"DECAYING":decay<-10?"IMPROVING":"STABLE",researchOnly:true};} module.exports={analyze};

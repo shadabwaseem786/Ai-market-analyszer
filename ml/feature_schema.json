@@ -1,0 +1,15 @@
+{
+  "version":"V18100",
+  "base_grain":"1min",
+  "groups":{
+    "price":["return_1m","return_5m","return_15m","return_30m","atr","realized_vol","range_pct"],
+    "trend":["ema_9","ema_21","ema_50","adx","slope_20"],
+    "momentum":["rsi_14","roc_10","macd_hist","stoch"],
+    "microstructure":["volume_z","range_z","gap_from_vwap"],
+    "derivatives":["fut_basis","fut_oi_change","call_oi_change","put_oi_change","pcr_oi","pcr_volume","iv_proxy"],
+    "regime":["vol_regime","trend_regime","vix_level","vix_change"],
+    "cross_asset":["nifty_return","banknifty_return","finnifty_return","bank_vs_nifty_rel"],
+    "catalyst":["catalyst_confidence","catalyst_risk","catalyst_breadth","catalyst_freshness"]
+  },
+  "alignment":"Features at t may only use information available at or before t."
+}

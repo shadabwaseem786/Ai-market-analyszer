@@ -1,0 +1,2 @@
+// V33900: simplified research risk-of-ruin diagnostic.
+function estimate(winRate,payoff,riskPerTrade=.01){const q=1-winRate;const edge=winRate*payoff-q;return {edge,riskPerTrade,warning:edge<=0?"NEGATIVE_EDGE":"RESEARCH_ONLY"}}module.exports={estimate};

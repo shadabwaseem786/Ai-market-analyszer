@@ -1,0 +1,2 @@
+// V318000 causal shock propagation scaffold.
+function propagate(shock={},edges=[]){const affected=edges.filter(e=>e.from===shock.source).map(e=>({...e,estimatedImpact:Number(shock.magnitude||0)*Number(e.beta||0)}));return {version:"V318000",shock,affected,researchOnly:true};} module.exports={propagate};

@@ -1,0 +1,2 @@
+// V306000 event reaction forecasting scaffold.
+function forecast(event={},history=[]){const outcomes=history.filter(h=>h.eventKey===event.eventKey).map(h=>h.outcome).filter(Boolean);return {version:"V306000",eventKey:event.eventKey||"UNKNOWN",historicalOutcomes:outcomes,baseRate:outcomes.length?outcomes.filter(x=>x===event.expectedDirection).length/outcomes.length:null,researchOnly:true};} module.exports={forecast};

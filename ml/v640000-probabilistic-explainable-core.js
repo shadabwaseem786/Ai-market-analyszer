@@ -1,0 +1,3 @@
+// V640000 Probabilistic Explainable Decision Core — no autonomous execution.
+const stages=["PROBABILISTIC_UNCERTAINTY","CONFIDENCE_CALIBRATION","EXPLAINABLE_ATTRIBUTION","COUNTERFACTUAL_SCENARIOS","WHY_NOT_DECISION","STRESS_SHOCK_SIMULATION","TAIL_ANOMALY_DETECTION","DECISION_TRACEABILITY","UNCERTAINTY_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V640000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

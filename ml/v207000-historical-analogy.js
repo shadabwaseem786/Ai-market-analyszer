@@ -1,0 +1,2 @@
+// V207000 Historical analogy engine.
+function match(current={},history=[]){return history.map(h=>{const keys=["regime","volatilityBand","trendBand","expiryPhase"];let matches=keys.filter(k=>current[k]!=null&&current[k]===h[k]).length;return {...h,similarity:+(matches/keys.length).toFixed(3)}}).sort((a,b)=>b.similarity-a.similarity);} module.exports={match};

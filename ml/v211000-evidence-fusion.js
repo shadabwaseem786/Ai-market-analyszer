@@ -1,0 +1,2 @@
+// V211000 Streaming evidence fusion — research only.
+function fuse(evidence=[]){const a=evidence.filter(e=>Number.isFinite(Number(e.weight)));const w=a.reduce((s,e)=>s+Math.max(0,Number(e.weight)),0);const score=w?a.reduce((s,e)=>s+Number(e.score||0)*Math.max(0,Number(e.weight)),0)/w:0;return {version:"V211000",score:+score.toFixed(5),evidenceCount:a.length,coverage:+Math.min(1,a.length/20).toFixed(3),researchOnly:true};} module.exports={fuse};

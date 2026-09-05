@@ -1,0 +1,2 @@
+// V60400: distribution-drift monitoring contract.
+function psi(expected=[],actual=[],bins=10){if(!expected.length||!actual.length)return null;const q=a=>a.slice().sort((x,y)=>x-y);const e=q(expected),a=q(actual);let d=0;for(let i=1;i<=bins;i++){const pe=(e[Math.floor(i*e.length/bins)-1]??e.at(-1));const pa=(a[Math.floor(i*a.length/bins)-1]??a.at(-1));if(Number.isFinite(pe)&&Number.isFinite(pa)&&pe!==0)d+=Math.abs((pa-pe)/Math.abs(pe))}return d/bins}module.exports={psi};

@@ -1,0 +1,2 @@
+// V40600: ensemble diversity diagnostic.
+function diversity(preds){const n=preds.length;if(n<2)return 0;let s=0,c=0;for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){s+=Math.abs((preds[i]||0)-(preds[j]||0));c++}return c?s/c:0}module.exports={diversity};

@@ -1,0 +1,12 @@
+{
+ "version":"V121000",
+ "name":"Event Graph & Catalyst Memory",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V120000",
+ "layers":["event-graph","regime-conditioned-catalyst-memory","transmission-path-scoring","historical-event-analogues","time-aware-memory","event-graph-governor"],
+ "purpose":"Represent catalysts as connected events with transmission paths and regime-conditioned historical memory.",
+ "note":"Historical analogues support research inference and do not establish future causality."
+}

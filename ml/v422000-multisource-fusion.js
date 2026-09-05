@@ -1,0 +1,2 @@
+// V422000 multi-source fusion.
+function fuse(sources=[]){return {version:"V422000",sources:sources.map(s=>({name:s.name,records:s.records||[],reliability:Number(s.reliability??1)})),researchOnly:true};} module.exports={fuse};

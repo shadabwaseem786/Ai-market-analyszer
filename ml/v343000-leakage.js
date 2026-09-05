@@ -1,0 +1,2 @@
+// V343000 leakage detection.
+function detect(features=[],targetTimestamp){const leaked=features.filter(f=>f?.timestamp&&targetTimestamp&&new Date(f.timestamp)>new Date(targetTimestamp));return {version:"V343000",leakageDetected:leaked.length>0,count:leaked.length,items:leaked,researchOnly:true};} module.exports={detect};

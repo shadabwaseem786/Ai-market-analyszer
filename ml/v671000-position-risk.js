@@ -1,0 +1,2 @@
+// V671000 Position Risk Engine — research only.
+function assess(p={}){const exposure=Math.abs(Number(p.quantity??0)*Number(p.price??0));const capital=Math.max(Number(p.capital??0),0);return {version:"V671000",exposure,exposureRatio:capital?exposure/capital:null,researchOnly:true};} module.exports={assess};

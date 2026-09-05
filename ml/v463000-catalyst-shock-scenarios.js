@@ -1,0 +1,2 @@
+// V463000 Catalyst Shock Scenario Engine.
+function generate(catalysts=[]){return {version:"V463000",scenarios:catalysts.map((c,i)=>({id:"CAT-"+(i+1),catalyst:c,domain:"CATALYST"})),researchOnly:true};} module.exports={generate};

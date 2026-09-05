@@ -1,0 +1,2 @@
+// V35700: multi-signal drift consensus.
+function consensus(signals,minAgree=.5){const a=signals.filter(Boolean),ratio=a.length?a.filter(x=>x.drift).length/a.length:0;return{ratio,alert:ratio>=minAgree,signals:a.length}}module.exports={consensus};

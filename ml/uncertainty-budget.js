@@ -1,0 +1,2 @@
+// V36900: uncertainty budget aggregation.
+function aggregate(parts){const a=Object.entries(parts||{}).filter(([,v])=>Number.isFinite(v));return{total:a.reduce((s,[,v])=>s+Math.abs(v),0),components:Object.fromEntries(a)}}module.exports={aggregate};

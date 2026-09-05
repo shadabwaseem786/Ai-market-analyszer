@@ -1,0 +1,2 @@
+// V82900: canonical explainable prediction object.
+function card(x={}){return{instrument:x.instrument,signal:x.signal,probability:x.probability,confidence:x.confidence,uncertainty:x.uncertainty,regime:x.regime,topFactors:x.topFactors||[],analogEvidence:x.analogEvidence||[],bullBear:x.bullBear||null,stressSurvival:x.stressSurvival||null,stability:x.stability||null,abstain:x.abstain===true,asOf:x.asOf||new Date().toISOString(),researchOnly:true,automaticExecution:false}}module.exports={card};

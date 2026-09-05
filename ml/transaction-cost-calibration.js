@@ -1,0 +1,2 @@
+// V39600: realized-vs-assumed transaction cost calibration.
+function compare(assumed,realized,tol=.2){const ratio=assumed?realized/assumed:null;return{assumed,realized,ratio,withinTolerance:ratio!=null&&Math.abs(ratio-1)<=tol}}module.exports={compare};

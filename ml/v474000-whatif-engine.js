@@ -1,0 +1,2 @@
+// V474000 What-if Engine.
+function evaluate(base={},scenarios=[]){return {version:"V474000",base,scenarios:scenarios.map(s=>({...s,delta:Number(s.expectedOutcome??0)-Number(base.expectedOutcome??0)})),researchOnly:true};} module.exports={evaluate};

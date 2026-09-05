@@ -1,0 +1,2 @@
+// V219000 Unified Research Copilot.
+function answer(context={},question=""){const risks=context.risks||[],evidence=context.evidence||[];return {version:"V219000",question,summary:context.summary||"Evidence-weighted research context assembled.",evidenceCount:evidence.length,risks,requiredChecks:["point-in-time integrity","out-of-sample validation","calibration","regime stability"],researchOnly:true};} module.exports={answer};

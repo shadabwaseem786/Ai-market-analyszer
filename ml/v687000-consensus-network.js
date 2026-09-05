@@ -1,0 +1,2 @@
+// V687000 Model Consensus Network.
+function consensus(models=[]){const votes=models.map(m=>m.vote).filter(Boolean);const counts=votes.reduce((o,v)=>(o[v]=(o[v]||0)+1,o),{});const winner=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||"ABSTAIN";return {version:"V687000",winner,counts,agreement:votes.length?(counts[winner]||0)/votes.length:0,researchOnly:true};} module.exports={consensus};

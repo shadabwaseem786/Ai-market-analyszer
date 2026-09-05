@@ -1,0 +1,2 @@
+// V256000 Backtest reality-gap analyzer.
+function compare(backtest={},live={}){const b=Number(backtest.return||0),l=Number(live.return||0);return {version:"V256000",backtest:b,live:l,gap:+(b-l).toFixed(6),absGap:+Math.abs(b-l).toFixed(6),researchOnly:true};} module.exports={compare};

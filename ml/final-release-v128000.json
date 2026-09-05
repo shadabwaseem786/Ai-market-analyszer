@@ -1,0 +1,12 @@
+{
+ "version":"V128000",
+ "name":"Online Learning & Drift Adaptation Engine",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V127000",
+ "layers":["error-attribution","drift-detection","shadow-challenger","bounded-calibration","validated-learning-memory","learning-governor"],
+ "purpose":"Learn from validated prediction outcomes while isolating challengers and preventing uncontrolled self-modification.",
+ "note":"Online adaptation is bounded and governed; no live trading or automatic production promotion is permitted."
+}

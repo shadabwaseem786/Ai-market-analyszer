@@ -1,0 +1,2 @@
+// V508000 Signal-to-Noise Optimizer.
+function optimize(signals=[]){return {version:"V508000",signals:signals.filter(s=>Number(s.signal??0)>Number(s.noise??0)),removed:signals.filter(s=>Number(s.signal??0)<=Number(s.noise??0)),researchOnly:true};} module.exports={optimize};

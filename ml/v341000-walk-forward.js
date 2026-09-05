@@ -1,0 +1,2 @@
+// V341000 Walk-forward validation — research only.
+function validate(folds=[]){const scores=folds.map(f=>Number(f.score)).filter(Number.isFinite);return {version:"V341000",folds:scores.length,mean:scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:null,min:scores.length?Math.min(...scores):null,max:scores.length?Math.max(...scores):null,researchOnly:true};} module.exports={validate};

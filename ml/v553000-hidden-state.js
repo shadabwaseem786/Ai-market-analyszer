@@ -1,0 +1,2 @@
+// V553000 Hidden-State Market Model.
+function infer(observations=[],states=[]){return {version:"V553000",states,observations,posterior:states.map(s=>({state:s,probability:states.length?1/states.length:0})),researchOnly:true};} module.exports={infer};

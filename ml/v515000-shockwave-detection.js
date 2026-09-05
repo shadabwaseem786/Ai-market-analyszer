@@ -1,0 +1,2 @@
+// V515000 Shockwave Detection.
+function detect(series=[]){const out=[];for(let i=1;i<series.length;i++){const delta=Number(series[i])-Number(series[i-1]);out.push({index:i,delta,shock:Math.abs(delta)});}return {version:"V515000",shockwaves:out.sort((a,b)=>b.shock-a.shock),researchOnly:true};} module.exports={detect};

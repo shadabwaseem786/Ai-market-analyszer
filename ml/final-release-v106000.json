@@ -1,0 +1,12 @@
+{
+ "version":"V106000",
+ "name":"Self-Evolving Research Laboratory",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V105000",
+ "layers":["walk-forward-validation","calibration-monitoring","drift-detection","challenger-generation","governed-research-governor"],
+ "improvementPolicy":"Candidates must beat an incumbent out-of-sample and remain calibrated/stable; human review is required before adoption.",
+ "note":"Self-evolving refers to controlled research experimentation, not autonomous self-modifying production AI."
+}

@@ -1,0 +1,1 @@
+{"version":"V23400","scope":"research-only","universes":["NIFTY","BANKNIFTY","FINNIFTY"],"layers":["ensemble","threshold_validation","decision_cost","health"],"execution":"disabled","model_auto_replacement":false}

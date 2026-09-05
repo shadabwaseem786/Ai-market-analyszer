@@ -1,0 +1,2 @@
+// V34900: composite research-quality score; not a trading signal.
+function score(x={}){const parts=[x.validation,x.calibration,x.robustness,x.costStress,x.dataQuality].filter(Number.isFinite);return parts.length?parts.reduce((s,v)=>s+v,0)/parts.length:null}module.exports={score};

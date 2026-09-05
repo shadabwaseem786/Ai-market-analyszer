@@ -1,0 +1,3 @@
+// V700000 Temporal Market Intelligence Core — no autonomous execution.
+const stages=["MULTI_HORIZON","SEQUENCE_INTELLIGENCE","REGIME_TRANSITION","EARLY_SIGNAL","LEAD_LAG","CATALYST_DECAY","EVENT_REACTION","TEMPORAL_REVERSAL","TEMPORAL_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V700000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

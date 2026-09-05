@@ -1,0 +1,2 @@
+// V38400: conditional drawdown stress diagnostic.
+function max(returns,threshold=0){let e=0,p=0,dd=0;for(const r of returns.filter(Number.isFinite)){e+=r;p=Math.max(p,e);if(r<=threshold)dd=Math.max(dd,p-e)}return dd}module.exports={max};

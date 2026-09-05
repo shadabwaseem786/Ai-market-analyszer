@@ -1,0 +1,2 @@
+// V26500: ensemble diversity diagnostics.
+function diversity(predictions){const a=predictions.filter(x=>Number.isFinite(x.probability));if(a.length<2)return null;let d=0,n=0;for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++){d+=Math.abs(a[i].probability-a[j].probability);n++}return {models:a.length,meanPairwiseDisagreement:n?d/n:0}}module.exports={diversity};

@@ -1,0 +1,2 @@
+// V223000 Probabilistic Decision Tree.
+function evaluate(node={},depth=0){if(!node.children?.length)return {path:node.name||"ROOT",probability:Number(node.probability??1)};return node.children.flatMap(c=>{const r=evaluate(c,depth+1);return Array.isArray(r)?r:[r]}).map(r=>({...r,probability:+(Number(node.probability??1)*r.probability).toFixed(8)}));} module.exports={evaluate};

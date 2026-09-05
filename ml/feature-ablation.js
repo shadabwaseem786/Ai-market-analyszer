@@ -1,0 +1,2 @@
+// V29600: OOS feature-group ablation contract.
+function compare(full,ablated){if(!Number.isFinite(full)||!Number.isFinite(ablated))return null;return {full,ablated,delta:full-ablated,materialImpact:Math.abs(full-ablated)}}module.exports={compare};

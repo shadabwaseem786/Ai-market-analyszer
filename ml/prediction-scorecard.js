@@ -1,0 +1,2 @@
+// V70800: calibrated scorecard; never maps score to guaranteed accuracy.
+function score(x={}){const parts=[x.calibration,x.oos,x.costAdjusted,x.stability,x.dataQuality,x.adversarialSurvival];const valid=parts.filter(Number.isFinite);return valid.length?valid.reduce((a,b)=>a+b,0)/valid.length:null}module.exports={score};

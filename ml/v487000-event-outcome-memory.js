@@ -1,0 +1,2 @@
+// V487000 Event-to-Outcome Memory Graph.
+function link(events=[],outcomes=[]){const links=[];for(const e of events)for(const o of outcomes)if(e.id&&o.eventId===e.id)links.push({eventId:e.id,outcomeId:o.id,delta:o.delta??null});return {version:"V487000",links,researchOnly:true};} module.exports={link};

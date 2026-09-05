@@ -1,0 +1,2 @@
+// V202000 Bull vs Bear adversarial reasoner.
+function contest(bull={},bear={}){const bp=Number(bull.probability??.5),br=Number(bear.probability??.5);return {version:"V202000",bull:{thesis:bull.thesis||"",evidence:bull.evidence||[]},bear:{thesis:bear.thesis||"",evidence:bear.evidence||[]},winner:bp>br?"BULL":br>bp?"BEAR":"TIE",spread:+Math.abs(bp-br).toFixed(5),researchOnly:true};} module.exports={contest};

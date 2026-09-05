@@ -1,0 +1,2 @@
+// V416000 predictive chain fusion.
+function fuse(chains=[]){const steps=chains.flatMap(c=>c.steps||[]);return {version:"V416000",chains:chains.length,steps,consistency:steps.length?steps.filter(s=>s.consistent!==false).length/steps.length:0,researchOnly:true};} module.exports={fuse};

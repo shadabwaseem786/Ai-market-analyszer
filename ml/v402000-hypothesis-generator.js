@@ -1,0 +1,2 @@
+// V402000 hypothesis generator.
+function generate(observations=[]){return observations.map((o,i)=>({id:"H"+(i+1),statement:o.hypothesis||"UNSPECIFIED",evidence:o.evidence||[],prior:Number(o.prior??.5),researchOnly:true}));} module.exports={generate};

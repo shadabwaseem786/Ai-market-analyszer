@@ -1,0 +1,2 @@
+// V27500: rolling distribution-shift monitor.
+function rolling(values,window=100){const a=values.filter(Number.isFinite);return a.length<window?null:{mean:a.slice(-window).reduce((s,x)=>s+x,0)/window,window}}module.exports={rolling};

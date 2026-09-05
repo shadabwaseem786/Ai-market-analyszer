@@ -1,0 +1,2 @@
+// V364000 multi-step path simulation.
+function simulate(start,steps=[],transition){let value=Number(start),path=[value];for(const step of steps){value=typeof transition==="function"?Number(transition(value,step)):value+Number(step||0);path.push(value)}return {version:"V364000",path,researchOnly:true};} module.exports={simulate};

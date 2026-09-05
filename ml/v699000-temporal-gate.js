@@ -1,0 +1,2 @@
+// V699000 Temporal Integrity Gate.
+function gate(m={}){const pass=!m.horizonConflict&&!m.transitionRisk&&!m.catalystExpired&&!m.temporalReversal&&Number(m.temporalConfidence??0)>=Number(m.minimumConfidence??.6);return {version:"V699000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

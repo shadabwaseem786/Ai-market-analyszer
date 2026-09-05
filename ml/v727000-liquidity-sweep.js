@@ -1,0 +1,2 @@
+// V727000 Liquidity Sweep Detection.
+function detect(m={}){return {version:"V727000",sweep:Math.abs(Number(m.sweepScore??0))>=Number(m.threshold??.7),direction:Number(m.sweepScore??0)>=0?"UP":"DOWN",researchOnly:true};} module.exports={detect};

@@ -1,0 +1,2 @@
+// V614000 Momentum Acceleration Detector.
+function detect(series=[]){const out=[];for(let i=1;i<series.length;i++)out.push(Number(series[i])-Number(series[i-1]));return {version:"V614000",changes:out,acceleration:out.length?out[out.length-1]-out[0]:0,researchOnly:true};} module.exports={detect};

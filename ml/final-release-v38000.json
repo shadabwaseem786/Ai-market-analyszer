@@ -1,0 +1,1 @@
+{"version":"V38000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["monotonicity","causal_leakage","hyperparameter_stability","ensemble_weight_stability","regime_shift","portfolio_concentration","correlation_break","position_limit","kill_switch"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

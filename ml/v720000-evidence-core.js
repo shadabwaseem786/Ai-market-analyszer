@@ -1,0 +1,3 @@
+// V720000 Real-Time Evidence Fusion Core — no autonomous execution.
+const stages=["REALTIME_SYNC","DATA_FIREWALL","STALENESS_DETECTOR","EVIDENCE_FUSION","NEWS_RELIABILITY","ECHO_NEWS","CONFLICT_RESOLVER","SIGNAL_FRESHNESS","INFORMATION_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V720000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

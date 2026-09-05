@@ -1,0 +1,2 @@
+// V558000 Event-Driven Regime Engine.
+function classify(eventIntensity=0,threshold=.7){eventIntensity=Number(eventIntensity);return {version:"V558000",eventRegime:eventIntensity>=threshold?"EVENT_DRIVEN":"NORMAL_EVENT_FLOW",intensity:eventIntensity,researchOnly:true};} module.exports={classify};

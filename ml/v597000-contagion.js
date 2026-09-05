@@ -1,0 +1,2 @@
+// V597000 Cross-Asset Contagion Detector.
+function detect(links=[],threshold=.7){return {version:"V597000",alerts:links.filter(x=>Math.abs(Number(x.correlation??0))>=threshold),threshold,researchOnly:true};} module.exports={detect};

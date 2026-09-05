@@ -1,0 +1,2 @@
+// V35500: stress-period correlation stability.
+function compare(normal,stress){const corr=(a,b)=>{const n=Math.min(a.length,b.length);if(n<2)return 0;const ma=a.slice(0,n).reduce((s,x)=>s+x,0)/n,mb=b.slice(0,n).reduce((s,x)=>s+x,0)/n;let xy=0,xx=0,yy=0;for(let i=0;i<n;i++){xy+=(a[i]-ma)*(b[i]-mb);xx+=(a[i]-ma)**2;yy+=(b[i]-mb)**2}return xx&&yy?xy/Math.sqrt(xx*yy):0};return{normal:corr(normal.x||[],normal.y||[]),stress:corr(stress.x||[],stress.y||[])}}module.exports={compare};

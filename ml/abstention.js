@@ -1,0 +1,2 @@
+// V26300: uncertainty-aware abstention policy.
+function decide({probability=0.5,uncertainty=1,threshold=.15}={}){const edge=Math.abs(probability-.5);return {action:edge>=threshold&&uncertainty<.25?"RESEARCH_SIGNAL":"ABSTAIN",reason:edge<threshold?"weak_edge":uncertainty>=.25?"high_uncertainty":"qualified",executionDisabled:true}}module.exports={decide};

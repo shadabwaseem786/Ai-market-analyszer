@@ -1,0 +1,2 @@
+// V151000 Data Provenance & Lineage Graph — research-only.
+function lineage(packet={},parents=[]){return {version:"V151000",id:packet.id||null,source:packet.source||"UNKNOWN",capturedAt:packet.capturedAt||null,availableAt:packet.availableAt||packet.timestamp||null,parents:parents.map(p=>p.id||p),transformations:packet.transformations||[],researchOnly:true};} module.exports={lineage};

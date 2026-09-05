@@ -1,0 +1,2 @@
+// V172000 Purged & Embargoed Cross-Validation.
+function split(samples=[],folds=5,embargo=0){const n=Math.ceil(samples.length/folds),out=[];for(let i=0;i<folds;i++){const a=i*n,b=Math.min(samples.length,(i+1)*n),test=samples.slice(a,b),train=samples.slice(0,a-embargo).concat(samples.slice(b+embargo));out.push({fold:i,train,test});}return {version:"V172000",folds:out,researchOnly:true};} module.exports={split};

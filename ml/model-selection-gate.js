@@ -1,0 +1,2 @@
+// V28500: model promotion gate; every criterion is explicit.
+function gate(x={}){const checks={oos:x.oos===true,cost:x.cost===true,calibration:x.calibration===true,stability:x.stability===true,drift:x.drift===true,risk:x.risk===true,audit:x.audit===true};return {checks,status:Object.values(checks).every(Boolean)?"VALIDATED_CANDIDATE":"BLOCKED",executionDisabled:true}}module.exports={gate};

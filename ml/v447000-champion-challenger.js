@@ -1,0 +1,2 @@
+// V447000 Champion–Challenger Framework.
+function compare(champion={},challengers=[]){return {version:"V447000",champion,challengers:challengers.map(c=>({...c,beatsChampion:Number(c.score??0)>Number(champion.score??0)})),researchOnly:true,automaticPromotion:false};} module.exports={compare};

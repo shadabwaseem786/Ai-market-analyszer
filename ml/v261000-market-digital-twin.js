@@ -1,0 +1,2 @@
+// V261000 Market Digital Twin — research-only state representation.
+function build(input={}){return {version:"V261000",timestamp:input.timestamp||new Date().toISOString(),macro:input.macro||{},indices:input.indices||{},sectors:input.sectors||{},derivatives:input.derivatives||{},sentiment:input.sentiment||{},regime:input.regime||"UNKNOWN",researchOnly:true};} module.exports={build};

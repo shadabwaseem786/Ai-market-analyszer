@@ -1,0 +1,2 @@
+// V203000 Thesis Invalidation Engine.
+function test(thesis={},observations=[]){const rules=thesis.invalidationRules||[];const hits=rules.filter(r=>observations.some(o=>o.key===r.key&&String(o.value)===String(r.value)));return {version:"V203000",invalidated:hits.length>0,triggered:hits,researchOnly:true};} module.exports={test};

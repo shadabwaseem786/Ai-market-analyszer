@@ -1,0 +1,2 @@
+// V502000 Signal Salience Detection.
+function score(s={}){const v=Number(s.novelty??0),impact=Number(s.impact??0),confidence=Number(s.confidence??0);return {version:"V502000",salience:Math.max(0,Math.min(1,.4*v+.4*impact+.2*confidence)),researchOnly:true};} module.exports={score};

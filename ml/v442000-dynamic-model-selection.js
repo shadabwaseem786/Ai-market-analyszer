@@ -1,0 +1,2 @@
+// V442000 Dynamic Model Selection.
+function rank(models=[],context={}){return [...models].map(m=>({...m,score:Number(m.validationScore??0)*Number(m.regimeFit??1)*Number(m.reliability??1)})).sort((a,b)=>b.score-a.score); } module.exports={rank};

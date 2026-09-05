@@ -1,0 +1,2 @@
+// V208000 Self-critique / Red-Team 2.0.
+function attack(thesis={},evidence=[]){const contradictions=evidence.filter(e=>e.contradicts===true);const stale=evidence.filter(e=>e.stale===true);return {version:"V208000",contradictions,staleEvidence:stale,riskScore:Math.min(100,contradictions.length*25+stale.length*15),researchOnly:true};} module.exports={attack};

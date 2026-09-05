@@ -1,0 +1,1 @@
+{"version":"V43000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["FDR","multiple_testing","PBO","deflated_sharpe","walk_forward_stability","feature_ablation","ensemble_disagreement","market_impact","liquidity_stress"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

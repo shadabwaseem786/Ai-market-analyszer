@@ -1,0 +1,2 @@
+// V548000 Uncertainty Propagation.
+function propagate(parts=[]){const variance=parts.reduce((s,p)=>s+Math.pow(Number(p.std??0),2),0);return {version:"V548000",variance,std:Math.sqrt(variance),components:parts.length,researchOnly:true};} module.exports={propagate};

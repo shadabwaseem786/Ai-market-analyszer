@@ -1,0 +1,2 @@
+// V615000 Signal Persistence Engine.
+function evaluate(signalHistory=[]){const n=signalHistory.length;return {version:"V615000",persistence:n?signalHistory.filter(Boolean).length/n:0,samples:n,researchOnly:true};} module.exports={evaluate};

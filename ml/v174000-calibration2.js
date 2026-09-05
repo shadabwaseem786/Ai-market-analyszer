@@ -1,0 +1,2 @@
+// V174000 Probability Calibration 2.0.
+function bins(items=[],n=10){return Array.from({length:n},(_,i)=>{const x=items.filter(a=>{const p=Number(a.probability??.5);return p>=i/n&&p<(i+1)/n});const mp=x.length?x.reduce((s,a)=>s+Number(a.probability??.5),0)/x.length:null,rate=x.length?x.reduce((s,a)=>s+Number(a.outcome??0),0)/x.length:null;return {bin:i,count:x.length,meanProbability:mp,empiricalRate:rate,calibrationError:mp==null?null:Math.abs(mp-rate)}}); } module.exports={bins};

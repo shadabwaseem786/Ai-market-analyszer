@@ -1,0 +1,2 @@
+// V29500: governed retraining trigger; trigger only, never performs replacement.
+function evaluate({drift=false,decay=false,calibration=false,minSamples=false}={}){const reasons=[];if(drift)reasons.push("drift");if(decay)reasons.push("performance_decay");if(calibration)reasons.push("calibration");if(minSamples)reasons.push("sample_requirement");return {retrainRecommended:reasons.length>0,reasons,autoReplacement:false}}module.exports={evaluate};

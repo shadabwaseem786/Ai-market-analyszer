@@ -1,0 +1,2 @@
+// V435000 data leakage detector.
+function detect(features=[],targetColumns=[]){const target=new Set(targetColumns);const suspicious=features.filter(f=>target.has(f.name)||/target|label|future|forward/i.test(String(f.name||"")));return {version:"V435000",suspicious:suspicious.length,passed:suspicious.length===0,items:suspicious,researchOnly:true};} module.exports={detect};

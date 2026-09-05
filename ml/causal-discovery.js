@@ -1,0 +1,2 @@
+// V80600: candidate causal links require independent validation.
+function candidates(matrix={},threshold=.6){const out=[];for(const [from,row] of Object.entries(matrix))for(const [to,v] of Object.entries(row||{}))if(from!==to&&Math.abs(Number(v))>=threshold)out.push({from,to,strength:Number(v),candidate:true,validationRequired:true});return out}module.exports={candidates};

@@ -1,0 +1,1 @@
+{"version":"V40000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["probabilistic_regime","volatility_forecast","isotonic_calibration","regime_calibration","forecast_combination","cost_calibration","execution_quality","dataset_shift","model_approval"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

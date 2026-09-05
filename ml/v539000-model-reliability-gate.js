@@ -1,0 +1,2 @@
+// V539000 Model Reliability Gate.
+function gate(m={}){const pass=!m.driftDetected&&Number(m.validationScore??0)>=Number(m.minimumValidationScore??.7)&&Number(m.dataQuality??1)>=Number(m.minimumDataQuality??.7);return {version:"V539000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

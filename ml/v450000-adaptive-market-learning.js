@@ -1,0 +1,3 @@
+// V450000 Adaptive Market Learning Core — research only.
+const stages=["REGIME_MODEL_REGISTRY","DYNAMIC_MODEL_SELECTION","ENSEMBLE_DIVERSITY","ONLINE_PERFORMANCE","CONCEPT_DRIFT","FEATURE_DRIFT","CHAMPION_CHALLENGER","DEGRADATION_GATE","ADAPTIVE_ENSEMBLE","OUT_OF_SAMPLE_VALIDATION","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V450000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

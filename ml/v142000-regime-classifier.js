@@ -1,0 +1,3 @@
+// V142000 Market Regime Classifier — probabilistic, research-only.
+function classify(x={}){const trend=Number(x.trend||0),vol=Number(x.volatility||0),breadth=Number(x.breadth||0);let regime="RANGE";if(vol>70)regime=trend>=0?"HIGH_VOL_BULL":"HIGH_VOL_BEAR";else if(trend>40&&breadth>20)regime="BULL";else if(trend<-40&&breadth<-20)regime="BEAR";return {version:"V142000",regime,transitionRisk:Math.min(100,Math.abs(vol-50)+Math.abs(trend)*.25),inputs:{trend,volatility:vol,breadth},researchOnly:true};}
+module.exports={classify};

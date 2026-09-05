@@ -1,0 +1,2 @@
+// V516000 Event Velocity Analysis.
+function measure(events=[]){return {version:"V516000",events:events.map(e=>({...e,velocity:Number(e.change??0)/Math.max(Number(e.elapsedHours??1),.0001)})),researchOnly:true};} module.exports={measure};

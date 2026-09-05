@@ -1,0 +1,2 @@
+// V421000 real-time ingestion abstraction — research only.
+function ingest(records=[],source="UNKNOWN"){return {version:"V421000",source,records,receivedAt:new Date().toISOString(),count:records.length,researchOnly:true};} module.exports={ingest};

@@ -1,0 +1,2 @@
+// V323000 uncertainty quantification.
+function quantify(probs=[]){const p=probs.map(Number).filter(x=>x>=0&&x<=1);if(!p.length)return {version:"V323000",mean:null,dispersion:null,researchOnly:true};const m=p.reduce((a,b)=>a+b,0)/p.length;const v=p.reduce((s,x)=>s+(x-m)**2,0)/p.length;return {version:"V323000",mean:m,dispersion:Math.sqrt(v),sampleSize:p.length,researchOnly:true};} module.exports={quantify};

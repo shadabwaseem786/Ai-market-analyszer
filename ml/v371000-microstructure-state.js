@@ -1,0 +1,2 @@
+// V371000 market microstructure state — research only.
+function classify(x={}){const spread=Number(x.spread||0),depth=Number(x.depth||0),vol=Number(x.volume||0);return {version:"V371000",spread,depth,volume:vol,state:spread>Number(x.spreadThreshold||1)?"WIDE_SPREAD":depth<Number(x.depthThreshold||1)?"THIN_LIQUIDITY":"NORMAL",researchOnly:true};} module.exports={classify};

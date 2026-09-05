@@ -1,0 +1,2 @@
+// V663000 Herding & Crowding Detector.
+function detect(m={}){const score=Number(m.crowdingScore??0);return {version:"V663000",crowdingScore:score,herding:score>=Number(m.threshold??.7),researchOnly:true};} module.exports={detect};

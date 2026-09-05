@@ -1,0 +1,2 @@
+// V266000 Hypothesis testing framework.
+function test(result={}){const p=Number(result.pValue);return {version:"V266000",hypothesis:result.hypothesis||"",pValue:Number.isFinite(p)?p:null,significant:Number.isFinite(p)?p<Number(result.alpha||.05):false,effectSize:result.effectSize??null,researchOnly:true};} module.exports={test};

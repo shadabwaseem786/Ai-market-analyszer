@@ -1,0 +1,2 @@
+// V41500: pathwise Monte-Carlo stress contract.
+function paths(start,returns,count=100){const out=[];for(let k=0;k<count;k++){let v=start;for(const r of returns){const z=returns[Math.floor(Math.random()*returns.length)]||0;v*=1+z}out.push(v)}return out}module.exports={paths};

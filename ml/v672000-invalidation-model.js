@@ -1,0 +1,2 @@
+// V672000 Dynamic Stop/Invalidation Model — research only.
+function derive(m={}){const entry=Number(m.entry??0),atr=Math.abs(Number(m.atr??0)),multiple=Math.max(Number(m.atrMultiple??2),0);const side=m.side==="SHORT"?-1:1;return {version:"V672000",entry,side,invalidation:entry-side*atr*multiple,researchOnly:true};} module.exports={derive};

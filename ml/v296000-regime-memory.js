@@ -1,0 +1,2 @@
+// V296000 Regime Memory Bank.
+function summarize(episodes=[]){const bank={};for(const e of episodes){const r=e.regime||"UNKNOWN";(bank[r]??={count:0,outcomes:[]}).count++;if(e.outcome!=null)bank[r].outcomes.push(e.outcome)}return {version:"V296000",bank,researchOnly:true};} module.exports={summarize};

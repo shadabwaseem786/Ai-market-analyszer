@@ -1,0 +1,2 @@
+// V26100: target/label distribution drift check.
+function compare(train,test){const rate=x=>x.length?x.filter(Number).length/x.length:0;return {trainRate:rate(train),testRate:rate(test),delta:Math.abs(rate(train)-rate(test))}}module.exports={compare};

@@ -1,0 +1,2 @@
+// V26800: deterministic research stress scenarios.
+function scenarios(base){return [{name:"BASE",cost:base.cost||1,slippage:base.slippage||1},{name:"HIGH_COST",cost:(base.cost||1)*2,slippage:(base.slippage||1)*2},{name:"EXTREME_COST",cost:(base.cost||1)*3,slippage:(base.slippage||1)*3},{name:"LOW_EDGE",edge:(base.edge||1)*.5}]}module.exports={scenarios};

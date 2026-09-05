@@ -1,0 +1,2 @@
+// V224000 Monte-Carlo Market Path Generator — research simulation.
+function generate(start=0,steps=20,paths=100,drift=0,vol=.01){const out=[];for(let p=0;p<paths;p++){let x=Number(start);const path=[x];for(let i=0;i<steps;i++){const u=Math.random()||1e-9,v=Math.random();const z=Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);x=x*(1+drift+vol*z);path.push(x)}out.push(path)}return {version:"V224000",paths:out,researchOnly:true};} module.exports={generate};

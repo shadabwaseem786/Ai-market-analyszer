@@ -1,0 +1,3 @@
+// V146000 Cross-Asset Shock Propagation.
+function propagate(graph={},source,shock){const edges=graph.edges||[],out=[];function walk(n,v,depth){if(depth>5)return;for(const e of edges.filter(e=>e.from===n)){const nv=v*Number(e.weight??0);out.push({from:n,to:e.to,impact:+nv.toFixed(4),depth});walk(e.to,nv,depth+1)}}walk(source,Number(shock)||0,0);return {version:"V146000",source,shock:Number(shock)||0,paths:out,researchOnly:true};}
+module.exports={propagate};

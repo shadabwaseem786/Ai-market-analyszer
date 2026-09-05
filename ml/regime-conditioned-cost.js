@@ -1,0 +1,2 @@
+// V33800: regime-specific transaction-cost stress.
+function apply(cost,regimes={}){return Object.fromEntries(Object.entries(regimes).map(([k,m])=>[k,(Number(cost)||0)*(Number(m)||1)]))}module.exports={apply};

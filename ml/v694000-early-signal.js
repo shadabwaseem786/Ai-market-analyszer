@@ -1,0 +1,2 @@
+// V694000 Early-Signal Detection.
+function detect(signals=[],threshold=.7){return {version:"V694000",earlySignals:signals.filter(s=>Number(s.leadScore??0)>=threshold),threshold,researchOnly:true};} module.exports={detect};

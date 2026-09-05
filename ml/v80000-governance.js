@@ -1,0 +1,1 @@
+module.exports={rules:{timeAlignmentRequired:true,leakageCheckRequired:true,oosRequired:true,calibrationRequired:true,syntheticDataNeverGroundTruth:true,causalClaimsRequireValidation:true,autoTrading:false,autoPromotion:false}};

@@ -1,0 +1,2 @@
+// V403000 competing-hypothesis evaluator.
+function compare(hypotheses=[]){return hypotheses.map(h=>({...h,support:Number(h.support||0),contradiction:Number(h.contradiction||0),net:Number(h.support||0)-Number(h.contradiction||0)})).sort((a,b)=>b.net-a.net);}; module.exports={compare};

@@ -1,0 +1,2 @@
+// V299000 Memory-aware prediction fusion.
+function fuse(current={},retrieved=[]){const n=retrieved.length;const historicalDirection=retrieved.reduce((s,e)=>s+(e.outcome==="BUY"?1:e.outcome==="SELL"?-1:0),0);const memoryBias=n?historicalDirection/n:0;return {version:"V299000",current,memoryBias:+memoryBias.toFixed(5),sampleSize:n,researchOnly:true};} module.exports={fuse};

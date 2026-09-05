@@ -1,0 +1,2 @@
+// V29200: Expected Calibration Error diagnostics.
+function ece(rows,bins=10){const a=rows.filter(x=>Number.isFinite(x.p)&&Number.isFinite(x.y));if(!a.length)return null;let e=0;for(let i=0;i<bins;i++){const lo=i/bins,hi=(i+1)/bins,g=a.filter(x=>x.p>=lo&&(i===bins-1?x.p<=hi:x.p<hi));if(!g.length)continue;const p=g.reduce((s,x)=>s+x.p,0)/g.length,y=g.reduce((s,x)=>s+x.y,0)/g.length;e+=g.length/a.length*Math.abs(p-y)}return {ece:e,samples:a.length}}module.exports={ece};

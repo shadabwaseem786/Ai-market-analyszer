@@ -1,0 +1,2 @@
+// V82200: counterfactual policy evaluation. Never produces orders.
+function compare(base,alts=[]){return alts.map(a=>({scenario:a.name,delta:Number(a.outcome)-Number(base),researchOnly:true}))}module.exports={compare};

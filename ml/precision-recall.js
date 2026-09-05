@@ -1,0 +1,2 @@
+// V29300: precision/recall diagnostics for candidate thresholds.
+function curve(rows){const a=rows.filter(x=>Number.isFinite(x.p)&&Number.isFinite(x.y));return [0.5,0.55,0.6,0.65,0.7,0.75,0.8].map(t=>{let tp=0,fp=0,fn=0;for(const x of a){const z=x.p>=t?1:0;if(z&&x.y)tp++;else if(z)fp++;else if(x.y)fn++}return {threshold:t,precision:tp/(tp+fp||1),recall:tp/(tp+fn||1)}})}module.exports={curve};

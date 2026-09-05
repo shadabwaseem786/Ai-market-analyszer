@@ -1,0 +1,2 @@
+// V195000 Expiry pinning / strike-gravity research.
+function analyze(x={}){const spot=Number(x.spot||0),strikes=x.strikes||[];const nearest=strikes.filter(Number.isFinite).sort((a,b)=>Math.abs(a-spot)-Math.abs(b-spot))[0]??null;return {version:"V195000",spot,nearestStrike:nearest,distance:nearest==null?null:Math.abs(nearest-spot),researchOnly:true};} module.exports={analyze};

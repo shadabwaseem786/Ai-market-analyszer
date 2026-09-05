@@ -1,0 +1,2 @@
+// V485000 Positioning Intelligence.
+function analyze(positioning={}){const long=Number(positioning.long||0),short=Number(positioning.short||0),total=Math.abs(long)+Math.abs(short)||1;return {version:"V485000",netBias:(long-short)/total,long,short,openInterest:Number(positioning.openInterest||0),researchOnly:true};} module.exports={analyze};

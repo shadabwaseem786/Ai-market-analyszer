@@ -1,0 +1,2 @@
+// V43600: research counterfactual conditions.
+function evaluate(current={},sellIf={},buyIf={}){const triggered=Object.keys(sellIf).filter(k=>Number(current[k])<=Number(sellIf[k]));const supportive=Object.keys(buyIf).filter(k=>Number(current[k])>=Number(buyIf[k]));return{sellTriggers:triggered,buySupport:supportive,executionDisabled:true}}module.exports={evaluate};

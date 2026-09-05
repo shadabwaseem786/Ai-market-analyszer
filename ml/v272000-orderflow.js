@@ -1,0 +1,2 @@
+// V272000 Order-flow intelligence.
+function analyze(trades=[]){let buy=0,sell=0,volume=0;for(const t of trades){const v=Math.max(0,Number(t.volume||0));volume+=v;if(t.side==="BUY")buy+=v;else if(t.side==="SELL")sell+=v}return {version:"V272000",buyVolume:buy,sellVolume:sell,totalVolume:volume,imbalance:volume?+(buy-sell)/volume:0,researchOnly:true};} module.exports={analyze};

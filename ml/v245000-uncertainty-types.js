@@ -1,0 +1,2 @@
+// V245000 Epistemic vs aleatoric uncertainty framework.
+function classify(x={}){return {version:"V245000",epistemic:Number(x.epistemic||0),aleatoric:Number(x.aleatoric||0),interpretation:"Epistemic reflects model/knowledge uncertainty; aleatoric reflects inherent outcome variability.",researchOnly:true};} module.exports={classify};

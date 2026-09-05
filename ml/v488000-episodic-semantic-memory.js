@@ -1,0 +1,2 @@
+// V488000 Episodic + Semantic Market Memory.
+function partition(memory=[]){return {version:"V488000",episodic:memory.filter(x=>x.kind==="episode"),semantic:memory.filter(x=>x.kind==="fact"||x.kind==="rule"),researchOnly:true};} module.exports={partition};

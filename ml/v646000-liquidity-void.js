@@ -1,0 +1,2 @@
+// V646000 Liquidity-Void Detector.
+function detect(zones=[],threshold=.5){return {version:"V646000",voids:zones.filter(z=>Number(z.gapRatio??0)>=threshold),threshold,researchOnly:true};} module.exports={detect};

@@ -1,0 +1,2 @@
+// V522000 Source Reliability Scoring.
+function score(sources=[]){return {version:"V522000",sources:sources.map(s=>({...s,reliability:Math.max(0,Math.min(1,Number(s.reliability??s.score??0)))})),researchOnly:true};} module.exports={score};

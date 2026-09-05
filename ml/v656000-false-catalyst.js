@@ -1,0 +1,2 @@
+// V656000 False-Catalyst / Noise Detector.
+function detect(events=[],threshold=.7){return {version:"V656000",noise:events.filter(e=>Number(e.noiseScore??0)>=threshold),threshold,researchOnly:true};} module.exports={detect};

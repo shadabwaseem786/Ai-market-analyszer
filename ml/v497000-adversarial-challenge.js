@@ -1,0 +1,2 @@
+// V497000 Adversarial Prediction Challenge.
+function challenge(prediction={},attacks=[]){return {version:"V497000",prediction,attacks:attacks.map(a=>({...a,breaksPrediction:Boolean(a.invalidates)})),survives:!attacks.some(a=>a.invalidates),researchOnly:true};} module.exports={challenge};

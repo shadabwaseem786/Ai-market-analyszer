@@ -1,0 +1,2 @@
+// V27300: cross-underlying correlation risk diagnostic.
+function matrix(series){const keys=Object.keys(series||{}),out={};for(const a of keys){out[a]={};for(const b of keys){const x=series[a],y=series[b],n=Math.min(x?.length||0,y?.length||0);if(n<2){out[a][b]=null;continue}const mx=x.slice(-n).reduce((s,v)=>s+v,0)/n,my=y.slice(-n).reduce((s,v)=>s+v,0)/n;let c=0,dx=0,dy=0;for(let i=0;i<n;i++){const u=x[x.length-n+i]-mx,v=y[y.length-n+i]-my;c+=u*v;dx+=u*u;dy+=v*v}out[a][b]=dx&&dy?c/Math.sqrt(dx*dy):0}}return out}module.exports={matrix};

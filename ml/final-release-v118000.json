@@ -1,0 +1,13 @@
+{
+ "version":"V118000",
+ "name":"Indian F&O Microstructure Intelligence",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V117000",
+ "layers":["price-oi-classification","strike-positioning","options-regime","fo-divergence","expiry-positioning","fo-governor"],
+ "purpose":"Convert synchronized F&O evidence into higher-order positioning and microstructure states for research.",
+ "states":["LONG_BUILDUP","SHORT_BUILDUP","SHORT_COVERING","LONG_UNWINDING","GAMMA_VOLATILITY_RISK","VOL_EXPANSION","PRICE_OI_DIVERGENCE"],
+ "note":"Positioning labels are analytical interpretations, not trade instructions."
+}

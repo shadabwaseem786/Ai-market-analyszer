@@ -1,0 +1,12 @@
+{
+ "version":"V107000",
+ "name":"Quant Research Factory",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V106000",
+ "layers":["quant-experiment-scoring","feature-ablation","purged-embargoed-validation","overfit-guard","signal-decay","experiment-registry","champion-challenger"],
+ "principles":["time-series integrity","leakage prevention","multiple-testing awareness","calibration","reproducibility","controlled experimentation"],
+ "note":"No research experiment can autonomously become a live trading strategy."
+}
