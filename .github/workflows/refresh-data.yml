@@ -1,6 +1,11 @@
 name: Refresh V730000 market data
 
 on:
+  push:
+    paths:
+      - "scripts/**"
+      - "netlify/functions/**"
+      - ".github/workflows/refresh-data.yml"
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
