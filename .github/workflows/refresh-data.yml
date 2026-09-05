@@ -1,19 +1,18 @@
 name: Refresh V730000 market data
 
 on:
-  push:
-    paths:
-      - "scripts/**"
-      - "netlify/functions/**"
-      - ".github/workflows/refresh-data.yml"
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: v730000-refresh-deploy
+  cancel-in-progress: true
 
 jobs:
   refresh-and-deploy:
@@ -24,8 +23,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,14 +31,6 @@ jobs:
 
       - name: Refresh static data
         run: node scripts/build-static.mjs
-
-      - name: Commit refreshed data
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/*.json
-          git diff --cached --quiet || git commit -m 'chore: refresh V730000 static data'
-          git push
 
       - name: Prepare refreshed Pages site
         run: |
