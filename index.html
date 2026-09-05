@@ -83,6 +83,12 @@ main.v730-newbie-mode .v940-decision-note,main.v730-newbie-mode .v940-consensus,
 main.v730-newbie-mode #v970UnifiedFusion{display:none!important}
 </style><style id="v980-quality-layer">
 .v970-final small:last-child{display:block;font-size:10px;opacity:.72;margin-top:4px}
+</style><style id="v990-validation">
+.v990-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.v990-grid>div{padding:10px;border:1px solid #263f4b;border-radius:9px}
+.v990-grid small{display:block;opacity:.7;font-size:10px}.v990-grid b{display:block;margin-top:5px;font-size:16px}
+@media(max-width:700px){.v990-grid{grid-template-columns:repeat(2,1fr)}}
+main.v730-newbie-mode #v990Validation{display:none!important}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V730000 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730LegacyBridges" aria-hidden="true" style="display:none"><span id="dataQuality"></span><span id="marketAgreement"></span><span id="catalystBreadth"></span><span id="finalGate"></span></div><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><section id="v730NewbiePanel" class="newbie-panel"><h2>🎯 Simple Decision</h2><div class="grid"><div>Decision <strong id="v730Decision">WAIT</strong></div><div>Confidence <strong id="v730Confidence">—</strong></div><div>Market <strong id="v730Market">—</strong></div><div>Data Health <strong id="v730Health">—</strong></div></div><p id="v730Reason">Validated decision-support output will appear here.</p></section><div id="v730SafeModeBanner" class="banner">🛡️ Safe mode: public feeds only. No broker, Dhan, Floot or order-execution dependency. Missing, stale or invalid data forces NO-TRADE.</div>
 <div class="grid"><div class="metric">MARKET STATUS<b id="market">CHECKING</b><small>India • IST</small></div><div class="metric">DATA HEALTH<b id="health">CHECKING</b><small id="healthSub">Validating 3/3 indexes</small></div><div class="metric">CATALYST FEED<b id="feed">CHECKING</b><small>Google News RSS</small></div><div class="metric">DECISION ENGINE<b class="warn">PAPER ONLY</b><small>Execution disabled</small></div></div>
@@ -143,7 +149,7 @@ function unifiedDecision(x){
  const factor=Math.max(-100,Math.min(100,(x.score-50)*2));
  const aiProb=ai&&Number.isFinite(ai.probability)?ai.probability:50;
  const aiDir=ai?.direction||"NEUTRAL";
- const aiSigned=(aiDir==="BULLISH"||aiDir==="BUY")?(aiProb):(aiDir==="BEARISH"||aiDir==="SELL"?-aiProb:0);
+ const aiSigned=(aiDir==="BULLISH"||aiDir==="BUY")?((aiProb-50)*2):(aiDir==="BEARISH"||aiDir==="SELL"?((50-aiProb)*2):0);
  const cat=catalystSummary.catalystBias||"NEUTRAL";
  const catSigned=cat==="BULLISH"?100:cat==="BEARISH"?-100:0;
  const catAlign=(x.bias&&cat!=="NEUTRAL"&&x.bias===cat)?100:(x.bias&&cat!=="NEUTRAL"&&x.bias!==cat?-100:0);
@@ -176,14 +182,35 @@ function decision(x){
  if(x.score<=30&&agreement&&strong)return ["WATCH-SHORT","bad"];
  return ["WAIT","warn"];
 }
-function learningLedger(x){try{const key="v15000_ledger",now=Date.now(),arr=JSON.parse(localStorage.getItem(key)||"[]");for(const p of arr){if(!p.done&&now-p.ts>=30*60000&&x.symbol===p.symbol&&Number.isFinite(x.price)){const move=(x.price-p.price)/p.price*100;p.outcome=Math.abs(move)>=0.05?(p.bias==="BULLISH"?move>0:move<0):null;p.done=true;p.evalTs=now;}}if(x&&Number.isFinite(x.price)){arr.push({ts:now,symbol:x.symbol,price:x.price,bias:x.bias,aiProb:Number(x.aiProbability)||null,done:false});}const clean=arr.slice(-200);localStorage.setItem(key,JSON.stringify(clean));const done=clean.filter(p=>p.done&&p.outcome!==null);const acc=done.length?Math.round(done.filter(p=>(p.bias==="BULLISH"?p.outcome>0:p.bias==="BEARISH"?p.outcome<0:false)).length/done.length*100):null;document.getElementById("learnAccuracy").textContent=acc===null?"—":acc+"%";document.getElementById("learnSamples").textContent=done.length;const cal=acc===null?0:Math.max(-.12,Math.min(.12,(acc-50)/500));document.getElementById("learnCal").textContent=cal.toFixed(3);const drift=done.length>=10&&Math.abs(acc-50)>=20?"HIGH":done.length>=5&&Math.abs(acc-50)>=12?"MEDIUM":"LOW";document.getElementById("learnDrift").textContent=drift;return cal}catch(e){return 0}}
-window.__V730_AI_BY_SYMBOL=window.__V730_AI_BY_SYMBOL||{};
-async function runAI(x){const prev=JSON.parse(localStorage.getItem("v14000_ai_state")||"null");let offset=prev&&prev.bias&&x.bias&&prev.bias===x.bias?Math.min(.12,(prev.offset||0)+.01):Math.max(-.12,(prev?.offset||0)-.01);localStorage.setItem("v14000_ai_state",JSON.stringify({bias:x.bias,offset,ts:Date.now()}));const selected=(window.__V730_RUNTIME__?.results||[]).find(r=>r.symbol===x.symbol)||window.__V730_RUNTIME__?.results?.[0];const j=selected?.ai||{};document.getElementById("aiDirection").textContent=j.aiDirection||"—";document.getElementById("aiProb").textContent=Number.isFinite(j.ensembleProbability)?j.ensembleProbability+"%":"—";document.getElementById("aiConfidence").textContent=Number.isFinite(j.confidence)?j.confidence+"%":"—";document.getElementById("aiDrift").textContent=(document.getElementById("learnDrift")?.textContent==="HIGH"?"HIGH":(Number(j.ensembleSpread||0)>=12?"ELEVATED":"LOW"));const rb=j.aiDirection==="NEUTRAL"||j.aiDirection===x.bias?"ALIGNED":"CONFLICT";if(rb==="CONFLICT"||Number(j.uncertainty||100)>=70||Number(j.ensembleSpread||100)>=12){document.getElementById("aiDirection").textContent="CAUTION";}document.getElementById("aiAgreement").textContent=rb+(Number.isFinite(j.ensembleSpread)?" • spread "+j.ensembleSpread:"");document.getElementById("aiMode").textContent=j.learningMode||"V18100-STATIC-RUNTIME";document.getElementById("aiExplain").textContent=(j.model||"MLP")+" • Neural "+(j.neuralProbability??"—")+"% • Ensemble "+(j.ensembleProbability??"—")+"% • Uncertainty "+(j.uncertainty??"—")+"% • GitHub Pages static snapshot";
-window.__V730_AI_BY_SYMBOL[x.symbol]={direction:j.aiDirection||"—",probability:Number.isFinite(j.ensembleProbability)?j.ensembleProbability:null,agreement:rb,confidence:Number.isFinite(j.confidence)?j.confidence:null,drift:(Number(j.ensembleSpread||0)>=12?"ELEVATED":"LOW"),mode:j.learningMode||"V18100-STATIC-RUNTIME"};
-localStorage.setItem("v14000_ai_last",JSON.stringify({ts:Date.now(),symbol:x.symbol,direction:j.aiDirection,probability:j.ensembleProbability,bias:x.bias}));
- if(typeof renderSelected==="function")renderSelected(x.symbol);}
-async function load(){const istNow=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));const day=istNow.getDay(),mins=istNow.getHours()*60+istNow.getMinutes();const weekend=day===0||day===6;const preOpen=mins<555,postClose=mins>=930;document.getElementById("market").textContent=(weekend||preOpen||postClose)?"CLOSED":"CHECKING";try{const ctl=new AbortController();const timer=setTimeout(()=>ctl.abort(),10000);const r=await fetch(new URL("data/market-data.json",document.baseURI),{cache:"no-store",signal:ctl.signal});clearTimeout(timer);const j=await r.json();const d=j.data||{};let valid=0;document.getElementById("rows").innerHTML=names.map(n=>{const x=d[n]||{};if(x.quality===100)valid++;const [dec,cl]=decision(x);return "<tr><td><b>"+n+"</b></td><td>"+(Number.isFinite(x.price)?x.price.toLocaleString("en-IN",{maximumFractionDigits:2}):"—")+"</td><td class='"+(x.movePct<0?"bad":"good")+"'>"+(Number.isFinite(x.movePct)?x.movePct.toFixed(2)+"%":"—")+"</td><td>"+esc(x.trend||"—")+"</td><td>"+(Number.isFinite(x.rsi)?x.rsi.toFixed(1):"—")+"</td><td>"+(Number.isFinite(x.atrPct)?x.atrPct.toFixed(2):"—")+"</td><td>"+(Number.isFinite(x.ret5)?x.ret5.toFixed(2)+"%":"—")+"</td><td>"+(Number.isFinite(x.ret20)?x.ret20.toFixed(2)+"%":"—")+"</td><td class='score'>"+(Number.isFinite(x.score)?x.score+"%":"0%")+"</td><td>"+(Number.isFinite(x.confidence)?x.confidence+"%":"—")+"</td><td>"+esc(x.regime||"—")+"</td><td>"+(Number.isFinite(x.ageMinutes)?(x.ageMinutes<60?x.ageMinutes+"m":Math.round(x.ageMinutes/60)+"h"):"—")+"</td><td><span class='pill "+cl+"'>"+dec+"</span></td></tr>"}).join("");document.getElementById("health").textContent=j.marketSession==="CLOSED"?valid+"/3 SNAPSHOT":valid+"/3 VALID";document.getElementById("health").className=j.marketSession==="CLOSED"?"warn":(valid===3?"good":valid?"warn":"bad");document.getElementById("healthSub").textContent=(j.marketSession==="CLOSED" ? "Market closed • "+valid+"/3 snapshots structurally valid • fresh data required at open" : ((j.errors||[]).join(" • ")||"All instruments validated • timestamps checked"));document.getElementById("market").textContent=j.marketSession==="OPEN"?"OPEN":"CLOSED";if(j.marketSession==="CLOSED"){document.getElementById("market").className="warn";document.getElementById("v730Decision").textContent="WAIT";document.getElementById("v730Confidence").textContent="—";document.getElementById("v730Market").textContent="MARKET CLOSED";document.getElementById("v730Health").textContent="LAST SNAPSHOT";document.getElementById("v730Reason").textContent="Indian market is closed. Showing the last validated snapshot; no fresh BUY/SELL decision is permitted until the next open session."; }const arr=names.map(n=>d[n]).filter(x=>x&&x.quality===100);
-const selectedName=localStorage.getItem("v730_selected_instrument")||names.find(n=>d[n]&&d[n].quality===100)||names[0];
+function learningLedger(x){
+ try{
+  const key="v15000_ledger",now=Date.now(),arr=JSON.parse(localStorage.getItem(key)||"[]");
+  for(const p of arr){
+   if(!p.done&&now-p.ts>=30*60000&&x.symbol===p.symbol&&Number.isFinite(x.price)){
+    const move=(x.price-p.price)/p.price*100;
+    p.outcome=Math.abs(move)>=0.05?(p.bias==="BULLISH"?move>0:p.bias==="BEARISH"?move<0:null):null;
+    p.done=true;p.evalTs=now;
+   }
+  }
+  const latest=arr.find(p=>!p.done&&p.symbol===x.symbol&&now-p.ts<5*60000);
+  if(x&&Number.isFinite(x.price)&&!latest)arr.push({ts:now,symbol:x.symbol,price:x.price,bias:x.bias,aiProb:Number(x.aiProbability)||null,done:false});
+  const clean=arr.slice(-500);
+  localStorage.setItem(key,JSON.stringify(clean));
+  const done=clean.filter(p=>p.done&&p.outcome!==null);
+  const acc=done.length?Math.round(done.filter(p=>(p.bias==="BULLISH"?p.outcome>0:p.bias==="BEARISH"?p.outcome<0:false)).length/done.length*100):null;
+  const cal=acc===null?0:Math.max(-.12,Math.min(.12,(acc-50)/500));
+  const drift=done.length>=20&&Math.abs(acc-50)>=15?"HIGH":done.length>=10&&Math.abs(acc-50)>=10?"MEDIUM":"LOW";
+  const s=document.getElementById("learnAccuracy");if(s)s.textContent=acc===null?"—":acc+"%";
+  const n=document.getElementById("learnSamples");if(n)n.textContent=done.length;
+  const lc=document.getElementById("learnCal");if(lc)lc.textContent=cal.toFixed(3);
+  const ld=document.getElementById("learnDrift");if(ld)ld.textContent=drift;
+  const ns=document.getElementById("v990Samples");if(ns)ns.textContent=done.length;
+  const na=document.getElementById("v990Accuracy");if(na)na.textContent=acc===null?"—":acc+"%";
+  const nd=document.getElementById("v990Drift");if(nd)nd.textContent=drift;
+  const nv=document.getElementById("v990Status");if(nv)nv.textContent=done.length<20?"BUILDING":drift==="HIGH"?"REVIEW REQUIRED":"TRACKING";
+  return cal;
+ }catch(e){return 0}
+}
 function renderSelected(name){
  const z=d[name]||{};
  const qv=id=>document.getElementById(id);
