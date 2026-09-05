@@ -592,4 +592,93 @@ document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){V7
  }
  document.addEventListener('DOMContentLoaded',()=>setTimeout(install,50));
 })();
+</script><style id="v1001-expert-cockpit">
+/* V1001: Expert mode is a decision workstation, not a module list. */
+main.v1001-expert .v1001-hide-expert{display:none!important}
+main.v1001-expert #v730SafeModeBanner{display:none!important}
+main.v1001-expert>.grid.v1001-system-status{display:none!important}
+main.v1001-expert>#v730SelectedInstrument{display:none!important}
+main.v1001-expert>#v1000ExpertCockpit{display:none!important}
+main.v1001-expert>#v1001DecisionBoardWrap{display:block!important}
+main.v1001-expert>#v930ControlCenter{display:block!important}
+main.v1001-expert>#v930Groups{display:none!important}
+main.v1001-expert>.v1001-engine-card{display:none!important}
+.v1001-nav{display:flex;gap:7px;overflow-x:auto;padding:4px 0 9px;scrollbar-width:none}
+.v1001-nav button{white-space:nowrap;border:1px solid #294653;background:#0a1720;color:#c9d7de;border-radius:999px;padding:8px 12px;font-weight:800}
+.v1001-nav button.active{background:#173747;border-color:#9ec7dc;box-shadow:0 0 0 1px #9ec7dc55}
+.v1001-nav-note{font-size:10px;opacity:.65;margin:-3px 0 8px 3px}
+.v1001-xray{display:none}
+.v1001-xray.open{display:block}
+.v1001-xray>summary{list-style:none;cursor:pointer;border:1px solid #294653;border-radius:12px;padding:12px;font-weight:900;background:#0a1720}
+.v1001-xray>summary::-webkit-details-marker{display:none}
+.v1001-xray-body{padding-top:8px}
+main.v1001-expert #v930ControlCenter{margin-top:4px}
+main.v1001-expert #v930ControlCenter .v940-decision-note{display:none}
+main.v1001-expert #v930ControlCenter .cc-title{margin-bottom:6px}
+main.v1001-expert #v930ControlCenter .cc-title h2{font-size:20px}
+main.v1001-expert #v930ControlCenter .v930-final{margin-top:10px}
+@media(max-width:700px){
+ main.v1001-expert #v930ControlCenter .v930-streams{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+<script id="v1001-expert-controller">
+(function(){
+ function setup(){
+  const main=document.querySelector('main.wrap'); if(!main)return;
+  if(!document.getElementById('v1001ExpertNav')){
+   const board=[...main.children].find(x=>x.classList&&x.classList.contains('card')&&/F&O Decision Board/.test(x.textContent||''));
+   if(board){
+    board.id='v1001DecisionBoard';
+    const wrap=document.createElement('details');wrap.id='v1001DecisionBoardWrap';wrap.className='v1001-xray';
+    const sum=document.createElement('summary');sum.textContent='📊 Watchlist & F&O Decision Board';wrap.appendChild(sum);
+    board.parentNode.insertBefore(wrap,board);wrap.appendChild(board);
+   }
+   const nav=document.createElement('div');nav.id='v1001ExpertNav';nav.className='v1001-nav';
+   nav.innerHTML='<button data-view="overview" class="active">🎯 Overview</button><button data-view="watchlist">📊 Watchlist</button><button data-view="xray">🔬 System X-Ray</button>';
+   const note=document.createElement('div');note.className='v1001-nav-note';note.textContent='One decision view first • deep engine diagnostics only when requested';
+   const anchor=document.getElementById('v930ControlCenter')||document.getElementById('v1000ExpertCockpit');
+   if(anchor){anchor.parentNode.insertBefore(nav,anchor);anchor.parentNode.insertBefore(note,anchor);}
+   const groups=document.getElementById('v930Groups');
+   if(groups){
+    const xr=document.createElement('details');xr.id='v1001Xray';xr.className='v1001-xray';
+    const s=document.createElement('summary');s.textContent='🔬 Open full engine evidence';xr.appendChild(s);
+    const b=document.createElement('div');b.className='v1001-xray-body';xr.appendChild(b);b.appendChild(groups);
+    const cc=document.getElementById('v930ControlCenter'); if(cc)cc.parentNode.insertBefore(xr,cc.nextSibling);
+   }
+   nav.querySelectorAll('button').forEach(btn=>btn.onclick=()=>setView(btn.dataset.view));
+  }
+  const cards=[...main.children].filter(x=>x.classList&&x.classList.contains('card'));
+  cards.forEach(x=>{
+   const t=x.querySelector('h2')?.textContent||'';
+   if(!/F&O Decision Board/.test(t)&&x.id!=='v1000ExpertCockpit'&&x.id!=='v930ControlCenter')x.classList.add('v1001-engine-card');
+  });
+  const status=[...main.children].find(x=>x.classList&&x.classList.contains('grid')&&/MARKET STATUS/.test(x.textContent||''));
+  if(status)status.classList.add('v1001-system-status');
+  apply();
+ }
+ function setView(v){
+  const nav=document.getElementById('v1001ExpertNav'); if(!nav)return;
+  nav.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  const board=document.getElementById('v1001DecisionBoardWrap'),xray=document.getElementById('v1001Xray'),cc=document.getElementById('v930ControlCenter');
+  if(v==='overview'){if(cc)cc.style.display='block';if(board)board.open=false;if(xray)xray.open=false}
+  if(v==='watchlist'){if(cc)cc.style.display='none';if(board)board.open=true;if(xray)xray.open=false}
+  if(v==='xray'){if(cc)cc.style.display='block';if(board)board.open=false;if(xray)xray.open=true}
+ }
+ function apply(){
+  const expert=(window.V730UI&&V730UI._mode==='EXPERT')||localStorage.getItem('fno_mode')==='EXPERT';
+  mainToggle(expert);
+  if(expert){setView('overview')}
+ }
+ function mainToggle(expert){
+  const main=document.querySelector('main.wrap');if(main)main.classList.toggle('v1001-expert',expert);
+ }
+ const oldSet=window.V730UI&&window.V730UI.setMode;
+ if(window.V730UI&&!window.V730UI.__v1001){
+  const orig=oldSet;
+  window.V730UI.setMode=function(mode){orig.call(this,mode);setTimeout(setup,20);};
+  window.V730UI.__v1001=true;
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(setup,80));
+ setTimeout(setup,200);
+})();
 </script></body></html>
