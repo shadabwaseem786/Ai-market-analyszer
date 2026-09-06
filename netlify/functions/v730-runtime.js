@@ -37,7 +37,7 @@ function combine(m,c,a){
   {name:"RISK_PLUS_20",probability:clamp(calibratedProbability-(risk>=45?12:6),1,99)},
   {name:"CATALYST_REVERSAL",probability:clamp(calibratedProbability-(cb==="BULLISH"?14:8),1,99)}
  ];
- const baseDir=regimeAdjustedProbability>=65?"BUY":regimeAdjustedProbability<=35?"SELL":"WAIT";
+ const baseDir=calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
  const adverseSurvival=stressCases.filter(x=>baseDir==="BUY"?x.probability>=55:baseDir==="SELL"?x.probability<=45:true).length/Math.max(1,stressCases.length);
  const robustnessScore=Math.round(clamp(adverseSurvival*100-(counterfactualBreak?25:0)-(uncertaintyBand>=45?10:0),0,100));
  const action=mh<35||dataQuality<45||counterfactualBreak||confidence<55||risk>=65||uncertaintyBand>=55||robustnessScore<50||Math.abs(calibratedProbability-50)<12||evProxy<8?"WAIT":calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
