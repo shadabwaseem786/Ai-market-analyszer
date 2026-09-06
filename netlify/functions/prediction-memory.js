@@ -11,13 +11,24 @@ function record(prediction,outcome){
  const row={id:Date.now()+"-"+Math.random().toString(36).slice(2,8),ts:new Date().toISOString(),probability:p,decision:predicted,actualDirection:actual,correct,regime:String(prediction?.regime||"UNKNOWN").toUpperCase()};
  memory.push(row); if(memory.length>MAX_RECORDS) memory.shift(); return row;
 }
-function calibrate(){
- const actionable=memory.filter(x=>x.decision!=="WAIT"&&x.actualDirection!=="UNKNOWN");
+function calibrate(records=memory){
+ const actionable=records.filter(x=>x.decision!=="WAIT"&&x.actualDirection!=="UNKNOWN");
  if(!actionable.length) return {sampleSize:0,empiricalAccuracy:null,calibrationOffset:0,confidence:"INSUFFICIENT_DATA"};
  const accuracy=actionable.filter(x=>x.correct).length/actionable.length*100;
  const meanGap=actionable.reduce((s,x)=>s+(x.correct?100-x.probability:-x.probability),0)/actionable.length;
  return {sampleSize:actionable.length,empiricalAccuracy:Math.round(accuracy*10)/10,calibrationOffset:Math.round(clamp(meanGap*0.002,-12,12)*100)/100,confidence:actionable.length>=100?"ESTABLISHED":actionable.length>=30?"DEVELOPING":"EARLY"};
 }
-function summary(){return {version:"V731.4",...calibrate(),records:memory.length};}
+function regimeCalibration(){
+ const groups={};
+ for(const row of memory){if(row.decision==="WAIT"||row.actualDirection==="UNKNOWN")continue; const key=row.regime||"UNKNOWN"; (groups[key]??=[]).push(row);}
+ const out={};
+ for(const [regime,rows] of Object.entries(groups)){
+  const correct=rows.filter(x=>x.correct).length;
+  const accuracy=correct/rows.length*100;
+  out[regime]={sampleSize:rows.length,empiricalAccuracy:Math.round(accuracy*10)/10,maturity:rows.length>=100?"ESTABLISHED":rows.length>=30?"DEVELOPING":"EARLY"};
+ }
+ return out;
+}
+function summary(){return {version:"V731.4",...calibrate(),records:memory.length,regimeCalibration:regimeCalibration()};}
 exports.record=record; exports.calibrate=calibrate; exports.summary=summary;
 exports.handler=async(event)=>{try{const body=JSON.parse(event.body||"{}"); if(body.action==="record") return {statusCode:200,headers:{"content-type":"application/json"},body:JSON.stringify(record(body.prediction||{},body.outcome||{}))}; return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store"},body:JSON.stringify(summary())}}catch(e){return {statusCode:400,headers:{"content-type":"application/json"},body:JSON.stringify({version:"V731.4",error:e.message})}}};
