@@ -777,4 +777,73 @@ main.v1002-expert .v1001-nav,main.v1002-expert .v1001-nav-note{display:none!impo
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{derive();setInterval(derive,2500)},250));
  setTimeout(()=>{derive();setInterval(derive,2500)},500);
 })();
+</script><style id="v1003-newbie-market-sections">
+/* V1003: Newbie mode = market snapshots, not a filter-driven table */
+main.v730-newbie-mode .market-filter-shared{display:none!important}
+main.v730-newbie-mode>#v730MarketSelector{display:none!important}
+main.v730-newbie-mode>#v730NewbieMarkets{display:block!important}
+main.v730-newbie-mode>.card:has(#rows){display:none!important}
+.v1003-markets{display:none;margin:10px 0 14px}
+.v1003-market-section{border:1px solid #294653;border-radius:15px;background:#091821;margin:9px 0;overflow:hidden}
+.v1003-market-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid #203b47}
+.v1003-market-head h3{margin:0;font-size:16px}.v1003-market-head small{font-size:10px;opacity:.65}
+.v1003-market-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:8px}
+.v1003-asset{border:1px solid #233f4c;border-radius:11px;padding:9px;background:#07151d;cursor:pointer;min-width:0}
+.v1003-asset:hover{border-color:#7eaabd}
+.v1003-asset-top{display:flex;justify-content:space-between;gap:5px}.v1003-asset-name{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.v1003-rank{font-size:9px;opacity:.55}
+.v1003-decision{font-size:12px;font-weight:900;margin-top:5px}.v1003-meta{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:6px;font-size:9px;opacity:.72}
+.v1003-empty{padding:12px;font-size:11px;opacity:.72}.v1003-foot{padding:7px 11px;font-size:9px;opacity:.55;border-top:1px solid #1d3540}
+@media(min-width:701px){.v1003-market-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+<script id="v1003-newbie-market-sections-js">
+(function(){
+ const MARKETS=[
+  {id:'NSE',icon:'🇮🇳',name:'NSE',sub:'Top 6 • Indian market'},
+  {id:'NASDAQ',icon:'🇺🇸',name:'NASDAQ',sub:'Top 6 • US market'},
+  {id:'COMMODITY',icon:'🪙',name:'COMMODITY',sub:'Top 6 • commodity universe'}
+ ];
+ function clean(s){return String(s||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim()}
+ function num(s){const m=clean(s).replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):-Infinity}
+ function currentMarket(){return String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase()}
+ function make(){
+  if(document.getElementById('v730NewbieMarkets'))return;
+  const panel=document.getElementById('v730NewbiePanel');if(!panel)return;
+  const wrap=document.createElement('section');wrap.id='v730NewbieMarkets';wrap.className='v1003-markets';
+  wrap.innerHTML=MARKETS.map(m=>'<section class="v1003-market-section" data-v1003-market="'+m.id+'"><div class="v1003-market-head"><h3>'+m.icon+' '+m.name+'</h3><small>'+m.sub+'</small></div><div class="v1003-market-grid"></div><div class="v1003-foot">Ranked by available validated signal strength • max 6 shown</div></section>').join('');
+  panel.insertAdjacentElement('afterend',wrap);
+ }
+ function sourceRows(){
+  const rows=document.querySelectorAll('#rows tr');
+  return [...rows].filter(r=>r.children&&r.children.length>=10&&!/data feed is not configured/i.test(r.textContent));
+ }
+ function card(r,idx){
+  const cells=[...r.children].map(x=>clean(x.textContent));
+  const name=cells[0]||'Instrument',move=cells[2]||'—',trend=cells[3]||'—',score=cells[8]||'—',conf=cells[9]||'—',decision=cells[12]||'WAIT';
+  const d=/BUY/i.test(decision)?'🟢 BUY':/SELL/i.test(decision)?'🔴 SELL':/NO-TRADE/i.test(decision)?'⛔ NO-TRADE':'🟡 WAIT';
+  const el=document.createElement('div');el.className='v1003-asset';
+  el.innerHTML='<div class="v1003-asset-top"><span class="v1003-asset-name">'+name+'</span><span class="v1003-rank">#'+(idx+1)+'</span></div><div class="v1003-decision">'+d+' • '+conf+'</div><div class="v1003-meta"><span>Move '+move+'</span><span>Trend '+trend+'</span><span>Score '+score+'</span><span>F&O signal</span></div>';
+  el.onclick=function(){r.click()};
+  return el;
+ }
+ function render(){
+  make();const wrap=document.getElementById('v730NewbieMarkets');if(!wrap)return;
+  const active=currentMarket(), rows=sourceRows();
+  MARKETS.forEach(m=>{
+   const sec=wrap.querySelector('[data-v1003-market="'+m.id+'"]'),grid=sec.querySelector('.v1003-market-grid');
+   grid.innerHTML='';
+   if(m.id!==active){
+    grid.innerHTML='<div class="v1003-empty">Market feed not selected. Choose '+m.name+' from the market universe selector when its feed is available.</div>';return;
+   }
+   if(!rows.length){
+    const status=m.id==='NSE'?'No validated instruments available right now. The app will remain WAIT rather than display synthetic signals.':m.name+' data feed is not configured in this GitHub Pages build.';
+    grid.innerHTML='<div class="v1003-empty">'+status+'</div>';return;
+   }
+   const ranked=rows.map(r=>({r,conf:num(r.children[9]?.textContent),score:num(r.children[8]?.textContent)})).sort((a,b)=>(b.conf-b.conf)||(b.score-a.score)).slice(0,6);
+   ranked.forEach((x,i)=>grid.appendChild(card(x.r,i)));
+  });
+  wrap.style.display='block';
+ }
+ document.addEventListener('DOMContentLoaded',()=>{setTimeout(render,300);setTimeout(render,1800);setInterval(render,5000)});
+ window.V1003RenderNewbieMarkets=render;
+})();
 </script></body></html>
