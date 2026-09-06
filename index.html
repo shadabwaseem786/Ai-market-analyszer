@@ -1483,4 +1483,45 @@ function ensureAudit(){
 function run(){ensureNewbie();ensureExpert();ensureAudit();renderNewbie();syncWeights();var main=document.querySelector('main.wrap');if(main){var a=document.getElementById('v1063DeepAudit');if(a)a.open=false; var nb=document.getElementById('v1063NewbieHome'); if(nb)nb.style.display=main.classList.contains('v1001-expert')?'none':'block'; var ew=document.getElementById('v1063ExpertWeights'); if(ew)ew.style.display=main.classList.contains('v1001-expert')?'block':'none';}}
 document.addEventListener('DOMContentLoaded',function(){setTimeout(run,300);setTimeout(run,1200);setTimeout(run,2500);setInterval(function(){run()},1500)});
 setTimeout(run,900);
+})();</script><style id="v1064-final-ui-hotfix">
+/* V1064: final mode isolation hotfix. Must override all legacy mode CSS. */
+main.wrap.v730-newbie-mode>*,main.wrap.v1001-expert>*,main.wrap.v1002-expert>*{visibility:visible}
+main.wrap.v730-newbie-mode> :not(#v730MarketSelector):not(#v730ModeSwitch):not(#v1063NewbieHome){display:none!important}
+main.wrap.v730-newbie-mode>#v1063NewbieHome{display:block!important;visibility:visible!important;order:10!important}
+main.wrap.v730-newbie-mode>#v1063DeepAudit{display:none!important}
+main.wrap.v730-newbie-mode>#v1063ExpertWeights{display:none!important}
+main.wrap.v730-newbie-mode>#v1000ExpertCockpit{display:none!important}
+main.wrap.v1001-expert> :not(#v730MarketSelector):not(#v730ModeSwitch):not(#v1000ExpertCockpit):not(#v1063ExpertWeights):not(#v1063DeepAudit){display:none!important}
+main.wrap.v1002-expert> :not(#v730MarketSelector):not(#v730ModeSwitch):not(#v1000ExpertCockpit):not(#v1063ExpertWeights):not(#v1063DeepAudit){display:none!important}
+main.wrap.v1001-expert>#v1000ExpertCockpit{display:none!important}
+main.wrap.v1002-expert>#v1000ExpertCockpit{display:none!important}
+main.wrap.v1001-expert>#v1063ExpertWeights,main.wrap.v1002-expert>#v1063ExpertWeights{display:block!important;order:10!important}
+main.wrap.v1001-expert>#v1063DeepAudit,main.wrap.v1002-expert>#v1063DeepAudit{display:block!important;order:20!important}
+main.wrap.v1001-expert>#v1063DeepAudit:not([open]) .v1063-audit-body,main.wrap.v1002-expert>#v1063DeepAudit:not([open]) .v1063-audit-body{display:none!important}
+#v1063DeepAudit>summary{cursor:pointer;padding:13px 14px;font-weight:900}
+@media(max-width:700px){
+ #v1063NewbieHome{width:100%;overflow:hidden}
+ .v1063-grid{grid-template-columns:1fr!important}
+ .v1063-seg{margin:7px 0}
+}
+</style>
+<script id="v1064-final-ui-hotfix-js">(function(){
+function apply(){
+ var main=document.querySelector('main.wrap');if(!main)return;
+ var expert=(window.V730UI&&V730UI._mode==='EXPERT')||localStorage.getItem('fno_mode')==='EXPERT';
+ main.classList.toggle('v730-newbie-mode',!expert);
+ main.classList.toggle('v1001-expert',expert);
+ main.classList.toggle('v1002-expert',expert);
+ var nb=document.getElementById('v1063NewbieHome'), ew=document.getElementById('v1063ExpertWeights'), audit=document.getElementById('v1063DeepAudit');
+ if(nb)nb.style.setProperty('display',expert?'none':'block','important');
+ if(ew)ew.style.setProperty('display',expert?'block':'none','important');
+ if(audit){audit.style.setProperty('display',expert?'block':'none','important');if(!audit.hasAttribute('open')){}else if(expert&&localStorage.getItem('v1064_audit_open')!=='1')audit.open=false;}
+}
+document.addEventListener('click',function(e){
+ var s=e.target.closest&&e.target.closest('#v1063DeepAudit>summary');
+ if(s){setTimeout(function(){var a=document.getElementById('v1063DeepAudit');if(a)localStorage.setItem('v1064_audit_open',a.open?'1':'0')},0)}
+});
+document.addEventListener('DOMContentLoaded',function(){apply();setTimeout(apply,100);setTimeout(apply,600);setTimeout(apply,1500)});
+setInterval(apply,2000);
+window.addEventListener('pageshow',apply);
 })();</script></body></html>
