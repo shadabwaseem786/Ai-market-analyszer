@@ -1065,4 +1065,18 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  }
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,3000)},900));setTimeout(()=>{update();setInterval(update,3000)},1600);
 })();
+</script><style id="v1011-outcome-learning">
+.v1011{margin-top:9px;border:1px solid #294653;border-radius:12px;padding:10px;background:#081720}.v1011g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.v1011k{border:1px solid #223b46;border-radius:9px;padding:7px}.v1011k small{display:block;font-size:8px;opacity:.62}.v1011k b{display:block;font-size:12px;margin-top:3px}.v1011s{margin-top:7px;font-size:9px;opacity:.7}.v1011i{margin-top:7px;border:1px solid #315467;border-radius:9px;padding:7px;font-size:10px;font-weight:800}@media(max-width:700px){.v1011g{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="v1011-outcome-learning-js">
+(function(){
+ const T=id=>{const e=document.getElementById(id);return e?e.textContent.trim():''};
+ const N=id=>{const m=T(id).replace(/,/g,'').match(/\d+(?:\.\d+)?/);return m?+m[0]:null};
+ const KEY='v1011_outcome_ledger';
+ function read(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+ function build(){const r=document.getElementById('v1002Expert');if(!r||document.getElementById('v1011'))return;const d=document.createElement('div');d.id='v1011';d.className='v1011';d.innerHTML='<div class="v1002-section-title">🧪 OUTCOME LEARNING ENGINE</div><div class="v1011g"><div class="v1011k"><small>RECORDED PREDICTIONS</small><b id="v1011n">0</b></div><div class="v1011k"><small>RESOLVED OUTCOMES</small><b id="v1011r">0</b></div><div class="v1011k"><small>OBSERVED HIT RATE</small><b id="v1011a">—</b></div><div class="v1011k"><small>LEARNING STATE</small><b id="v1011l">BUILDING</b></div></div><div class="v1011s" id="v1011s">Predictions are logged locally for evaluation; no automatic retraining is performed.</div><div class="v1011i" id="v1011i">🛡️ Weight changes require validated outcome evidence.</div>';const x=document.getElementById('v1010');if(x)x.insertAdjacentElement('afterend',d);else r.appendChild(d)}
+ function snapshot(){const p=N('gmProb'),decision=(T('gmSignal')||T('fusionBias')||'').toUpperCase(),reg=T('regimeState')||'UNKNOWN';if(p===null||!decision)return;const day=new Date().toISOString().slice(0,10);const a=read();const last=a[a.length-1];if(last&&last.day===day&&last.p===Math.round(p)&&last.d===decision)return;a.push({day,p:Math.round(p),d:decision,reg,ts:Date.now(),resolved:false});try{localStorage.setItem(KEY,JSON.stringify(a.slice(-500)))}catch(e){}}
+ function update(){build();snapshot();const a=read(),resolved=a.filter(x=>x.resolved&&typeof x.hit==='boolean'),hits=resolved.filter(x=>x.hit).length;document.getElementById('v1011n').textContent=a.length;document.getElementById('v1011r').textContent=resolved.length;document.getElementById('v1011a').textContent=resolved.length?Math.round(hits/resolved.length*100)+'%':'—';document.getElementById('v1011l').textContent=resolved.length<30?'BUILDING':'EVALUATION READY';document.getElementById('v1011s').textContent=resolved.length?'Observed outcomes are diagnostic; performance can be segmented by regime before any weight update.':'The ledger is collecting timestamped predictions and regime context; outcomes must be resolved before learning.'}
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,5000)},1000));setTimeout(()=>{update();setInterval(update,5000)},1800);
+})();
 </script></body></html>
