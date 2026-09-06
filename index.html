@@ -1613,6 +1613,61 @@ main.v1068-expert-mode > #v1000ExpertCockpit{display:none!important}
   window.addEventListener('pageshow',apply);
   window.V730StableMode={setMode:setMode,apply:apply};
 })();</script>
+<script id="v1070-single-mode-arbiter">
+/* V1070: final mode arbiter. Legacy controllers (v1001/v730/v1063) may leave
+   mutually-exclusive classes behind. This controller makes NEWBIE authoritative
+   whenever fno_mode !== EXPERT and runs after all legacy timers. */
+(function(){
+  var KEY='fno_mode',busy=false;
+  function mode(){return String(localStorage.getItem(KEY)||'NEWBIE').toUpperCase()==='EXPERT'?'EXPERT':'NEWBIE'}
+  function apply(){
+    if(busy)return; var main=document.querySelector('main.wrap'); if(!main)return;
+    busy=true;
+    try{
+      var expert=mode()==='EXPERT';
+      /* Remove stale mode classes first; then apply exactly one authoritative mode. */
+      main.classList.remove('v1001-expert','v730-newbie-mode','v730-expert-mode');
+      main.classList.toggle('v1068-newbie-mode',!expert);
+      main.classList.toggle('v1068-expert-mode',expert);
+      main.setAttribute('data-v1070-mode',expert?'EXPERT':'NEWBIE');
+      var newbie=document.getElementById('v1063NewbieHome');
+      var fallback=document.getElementById('v1069NewbieFallback');
+      var weights=document.getElementById('v1063ExpertWeights');
+      var audit=document.getElementById('v1063DeepAudit');
+      var cockpit=document.getElementById('v1000ExpertCockpit');
+      if(!expert){
+        [newbie,fallback].forEach(function(x){if(x){x.style.setProperty('display','block','important');x.style.setProperty('visibility','visible','important')}})
+        if(weights)weights.style.setProperty('display','none','important');
+        if(audit)audit.style.setProperty('display','none','important');
+        if(cockpit)cockpit.style.setProperty('display','none','important');
+      }else{
+        if(newbie)newbie.style.setProperty('display','none','important');
+        if(fallback)fallback.style.setProperty('display','none','important');
+        if(weights)weights.style.setProperty('display','block','important');
+        if(audit)audit.style.setProperty('display','block','important');
+      }
+    }finally{busy=false}
+  }
+  function init(){
+    apply();
+    setTimeout(apply,50);setTimeout(apply,250);setTimeout(apply,750);setTimeout(apply,1500);
+  }
+  document.addEventListener('DOMContentLoaded',init);
+  window.addEventListener('pageshow',apply);
+  window.addEventListener('storage',apply);
+  setInterval(apply,1000);
+})();
+</script>
+<style id="v1070-single-mode-arbiter-css">
+/* V1070: final CSS wins over legacy mode selectors. */
+main.v1068-newbie-mode > #v1063NewbieHome,
+main.v1068-newbie-mode > #v1069NewbieFallback{display:block!important;visibility:visible!important}
+main.v1068-newbie-mode > #v1063DeepAudit,
+main.v1068-newbie-mode > #v1063ExpertWeights,
+main.v1068-newbie-mode > #v1000ExpertCockpit{display:none!important}
+main.v1068-expert-mode > #v1063NewbieHome,
+main.v1068-expert-mode > #v1069NewbieFallback{display:none!important}
+</style>
 <script id="v1069-newbie-render-hardening">
 /* V1069: deterministic Newbie surface. The Newbie view must never disappear because an
    expert/audit controller or a transient engine exception ran during refresh. */
