@@ -429,6 +429,13 @@ window.V730UI={
   if(current===mode) return;
  },
  refresh:function(){
+  var selectedMarket=String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase();
+  if(selectedMarket!=='NSE'){
+   var nd=document.getElementById('v730Decision'),nc=document.getElementById('v730Confidence'),nm=document.getElementById('v730Market'),nh=document.getElementById('v730Health'),nr=document.getElementById('v730Reason');
+   if(nd)nd.textContent='WAIT'; if(nc)nc.textContent='—'; if(nm)nm.textContent=selectedMarket; if(nh)nh.textContent='NO FEED';
+   if(nr)nr.textContent=selectedMarket+' feed is not configured. V730000 intentionally blocks BUY/SELL rather than inventing market data.';
+   return;
+  }
   var runtime=window.__V730_RUNTIME__;
   if(runtime&&Array.isArray(runtime.results)){
    var visibleRow=document.querySelector('#rows tr:not([data-market-filter-hidden="1"])');
@@ -464,6 +471,7 @@ window.V730Runtime={
    const j=await r.json();
    if(j.status!=='INTEGRATED') throw new Error(j.error||'Runtime unavailable');
    window.__V730_RUNTIME__=j;
+   if(String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase()!=='NSE') return;
    const visibleRow=document.querySelector('#rows tr:not([data-market-filter-hidden="1"])'); const selectedSymbol=visibleRow?.children?.[0]?.textContent?.trim(); const selected=(j.results||[]).find(x=>x.symbol===selectedSymbol)||(j.results||[])[0];
    if(!selected)return;
    const d=selected.decision||{};
