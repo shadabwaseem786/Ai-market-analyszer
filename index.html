@@ -530,7 +530,7 @@ window.V730UI={
   if(nb) nb.classList.toggle('active',newbie);
   if(ex) ex.classList.toggle('active',!newbie);
   if(panel) panel.style.display='block';
-  if(main) main.classList.toggle('v730-newbie-mode',newbie); if(document.body) document.body.classList.toggle('v730-newbie-mode',newbie);
+  if(main){main.classList.remove('v730-newbie-mode','v730-expert-mode');} if(document.body){document.body.classList.toggle('v730-newbie-mode',newbie);document.body.classList.toggle('v730-expert-mode',!newbie);}
   if(current===mode) return;
  },
  refresh:function(){
@@ -1712,4 +1712,9 @@ main.v1068-expert-mode > #v1069NewbieFallback{display:none!important}
 main.v1068-expert-mode>#v1069NewbieFallback{display:none!important}
 main.v1068-newbie-mode>#v1069NewbieFallback{display:block!important;visibility:visible!important;position:relative!important;z-index:20!important}
 </style>
-</body></html>
+<style id="v1071-mode-race-final-css">/* V1071: final mode-race fix. The legacy main-level v730-newbie-mode rule could blank the authoritative Newbie surface between controller passes. Mode visibility is owned by V1068/V1070; legacy body-level helpers remain harmless. */
+main.v730-newbie-mode > #v1063NewbieHome,main.v730-newbie-mode > #v1069NewbieFallback{display:block!important;visibility:visible!important}
+main.v730-newbie-mode > #v1063DeepAudit,main.v730-newbie-mode > #v1063ExpertWeights,main.v730-newbie-mode > #v1000ExpertCockpit{display:none!important}
+</style><script id="v1071-mode-race-final">/* V1071: remove any stale main-level legacy mode class after legacy timers run. */
+(function(){function clean(){var m=document.querySelector('main.wrap');if(!m)return;m.classList.remove('v730-newbie-mode','v730-expert-mode');var expert=String(localStorage.getItem('fno_mode')||'NEWBIE').toUpperCase()==='EXPERT';m.classList.toggle('v1068-newbie-mode',!expert);m.classList.toggle('v1068-expert-mode',expert)}document.addEventListener('DOMContentLoaded',function(){clean();setTimeout(clean,50);setTimeout(clean,250);setTimeout(clean,750);setTimeout(clean,1500);setInterval(clean,1000)});window.addEventListener('pageshow',clean)})();
+</script></body></html>
