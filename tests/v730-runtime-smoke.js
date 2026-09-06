@@ -95,6 +95,8 @@ function run() {
   );
   assert(eventShock.intelligence.calibratedProbability <= probabilistic.intelligence.calibratedProbability);
 
+  assert(probabilistic.intelligence.robustnessScore >= 0 && probabilistic.intelligence.robustnessScore <= 100);
+  assert.strictEqual(probabilistic.intelligence.stressCases.length, 4);
 
   console.log('V730 runtime smoke tests passed');
 }
