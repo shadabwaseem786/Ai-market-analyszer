@@ -928,4 +928,27 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},500));
  setTimeout(()=>{update();setInterval(update,2500)},1000);
 })();
+</script><style id="v1006-probability-governor">
+.v1006-pg{margin-top:9px;border:1px solid #294653;border-radius:12px;padding:10px;background:#081720}.v1006-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.v1006-k{border:1px solid #223b46;border-radius:9px;padding:7px}.v1006-k small{display:block;font-size:8px;opacity:.62}.v1006-k b{display:block;font-size:12px;margin-top:3px}.v1006-track{height:5px;background:#142832;border-radius:5px;overflow:hidden;margin-top:5px}.v1006-track i{display:block;height:100%;width:0}.v1006-summary{margin-top:7px;font-size:10px;opacity:.78}.v1006-badge{display:inline-block;border:1px solid #315467;border-radius:999px;padding:3px 6px;font-size:9px;margin-right:4px}
+@media(max-width:700px){.v1006-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="v1006-probability-governor-js">
+(function(){
+ function t(id){const e=document.getElementById(id);return e?e.textContent.trim():''}
+ function value(id){const m=t(id).replace(/,/g,'').match(/\d+(?:\.\d+)?/);return m?+m[0]:null}
+ function build(){const root=document.getElementById('v1002Expert');if(!root||document.getElementById('v1006PG'))return;
+  const d=document.createElement('div');d.id='v1006PG';d.className='v1006-pg';
+  d.innerHTML='<div class="v1002-section-title">📐 PROBABILITY GOVERNOR</div><div class="v1006-grid">'+
+  [['Direction','gmProb'],['AI evidence','aiProb'],['Consensus','factorAgree'],['Trade quality','actionQuality']].map((x,i)=>'<div class="v1006-k"><small>'+x[0]+'</small><b id="v1006K'+i+'">—</b><div class="v1006-track"><i id="v1006T'+i+'"></i></div></div>').join('')+
+  '</div><div class="v1006-summary" id="v1006Summary">Probability is shown only as evidence; governance gates can downgrade an apparently strong signal.</div>';
+  const f=document.getElementById('v1005Fusion');if(f)f.insertAdjacentElement('afterend',d);else root.appendChild(d);
+ }
+ function update(){build();[['Direction','gmProb'],['AI evidence','aiProb'],['Consensus','factorAgree'],['Trade quality','actionQuality']].forEach((x,i)=>{const v=value(x[1]);document.getElementById('v1006K'+i).textContent=v===null?'—':v.toFixed(v%1?1:0)+'%';if(v!==null)document.getElementById('v1006T'+i).style.width=v+'%'});
+  const prob=value('gmProb'),agree=value('factorAgree'),quality=value('actionQuality'),dq=t('dq'),risk=(t('regimeRisk')+' '+t('catalystRisk'));
+  const blockers=[];if(/STALE|INVALID|ERROR|NOT CONFIGURED|NO DATA/i.test(dq))blockers.push('data');if(agree!==null&&agree<60)blockers.push('consensus');if(quality!==null&&quality<60)blockers.push('trade quality');if(/EXTREME|HIGH/i.test(risk))blockers.push('risk');
+  document.getElementById('v1006Summary').innerHTML=(prob===null?'Probability unavailable.':('Raw directional probability <b>'+prob+'%</b>. '))+(blockers.length?'<span class="v1006-badge">GOVERNOR: '+blockers.join(' + ')+'</span>':'<span class="v1006-badge">GOVERNOR: CLEAR</span>');
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},650));
+ setTimeout(()=>{update();setInterval(update,2500)},1200);
+})();
 </script></body></html>
