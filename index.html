@@ -2331,5 +2331,16 @@ main.v1212-chart-active #v1100Canvas{display:block!important;visibility:visible!
  }
  document.addEventListener('DOMContentLoaded',()=>{setTimeout(boot,700);setTimeout(boot,1800);setTimeout(boot,3200)});
  setTimeout(boot,1200);
+ let lastMode=String(localStorage.getItem('fno_mode')||'NEWBIE').toUpperCase();
+ setInterval(function(){
+  const m=main();if(!m)return;
+  const cur=String(localStorage.getItem('fno_mode')||'NEWBIE').toUpperCase();
+  if(m.classList.contains('v1212-chart-active')&&cur!==lastMode){
+   m.classList.remove('v1212-chart-active');
+   const ch=chart();if(ch)ch.style.setProperty('display','none','important');
+   const b=document.getElementById('v1211ChartButton');if(b)b.classList.remove('active');
+  }
+  lastMode=cur;
+ },250);
 })();
 </script></body></html>
