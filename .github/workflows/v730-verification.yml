@@ -43,3 +43,12 @@ jobs:
 
       - name: Run V730 runtime smoke test
         run: npm run test:v730-runtime
+
+      - name: Validate static build script syntax
+        run: node --check scripts/build-static.mjs
+
+      - name: Validate required V730 data files
+        run: node -e "const fs=require('fs'); for (const p of ['data/v730-runtime.json','data/v730-market.json','data/v730-catalysts.json']) { if(!fs.existsSync(p)) throw new Error('Missing '+p); JSON.parse(fs.readFileSync(p,'utf8')); console.log('valid '+p); }"
+
+      - name: Run static refresh build
+        run: npm run refresh-data
