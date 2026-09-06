@@ -30,10 +30,19 @@ function combine(m,c,a){
  const calibrationPenalty=clamp(Math.round(au*0.35+asp*0.15+(100-dataQuality)*0.20),0,45);
  const calibratedProbability=clamp(Math.round(50+(rawProbability-50)*regimeMultiplier*(1-calibrationPenalty/100)),1,99);
  const uncertaintyBand=Math.round(clamp(au*0.60+asp*0.25+(100-dataQuality)*0.15,0,100));
- const action=mh<35||dataQuality<45||counterfactualBreak||confidence<55||risk>=65||uncertaintyBand>=55||Math.abs(calibratedProbability-50)<12||evProxy<8?"WAIT":calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
+ const stressCases=[
+  {name:"BASE",probability:calibratedProbability},
+  {name:"AI_MINUS_15",probability:clamp(calibratedProbability-15,1,99)},
+  {name:"RISK_PLUS_20",probability:clamp(calibratedProbability-(risk>=45?12:6),1,99)},
+  {name:"CATALYST_REVERSAL",probability:clamp(calibratedProbability-(catalystBias==="BULLISH"?14:8),1,99)}
+ ];
+ const baseDir=calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
+ const adverseSurvival=stressCases.filter(x=>baseDir==="BUY"?x.probability>=55:baseDir==="SELL"?x.probability<=45:true).length/Math.max(1,stressCases.length);
+ const robustnessScore=Math.round(clamp(adverseSurvival*100-(counterfactualBreak?25:0)-(uncertaintyBand>=45?10:0),0,100));
+ const action=mh<35||dataQuality<45||counterfactualBreak||confidence<55||risk>=65||uncertaintyBand>=55||robustnessScore<50||Math.abs(calibratedProbability-50)<12||evProxy<8?"WAIT":calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
  const gate=action==="WAIT"?"HOLD":"PASS";
  return {decision:action,bias:action==="BUY"?"BULLISH":action==="SELL"?"BEARISH":"NEUTRAL",decisionScore:Math.round(directionScore),confidence,riskScore:risk,gate,
-  intelligence:{version:"V731-PROBABILISTIC",rawProbability,calibratedProbability,uncertaintyBand,calibrationPenalty,regime,regimeMultiplier},
+  intelligence:{version:"V731-PROBABILISTIC",rawProbability,calibratedProbability,uncertaintyBand,calibrationPenalty,regime,regimeMultiplier,robustnessScore,stressCases},
   governance:{dataQuality,ensembleUncertainty:au,ensembleSpread:asp,counterfactualBreak,evProxy,policy:"quality+uncertainty+contradiction+EV+calibration+regime gates"},
   components:{technical:Math.round(technical),catalyst:Math.round(catalystScore),ai:Math.round(aiScore)},
   inputs:{marketDirection:mdir,catalystBias:cb,aiDirection:ab,dataHealth:mh,catalystHealth:ch},
