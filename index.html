@@ -984,4 +984,58 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,3000)},800));
  setTimeout(()=>{update();setInterval(update,3000)},1400);
 })();
+</script><style id="v1008-decision-intelligence">
+.v1008-di{margin-top:9px;border:1px solid #294653;border-radius:12px;padding:10px;background:#081720}
+.v1008-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.v1008-head b{font-size:13px}.v1008-pill{font-size:9px;border:1px solid #315467;border-radius:999px;padding:3px 7px}
+.v1008-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:7px}.v1008-k{border:1px solid #223b46;border-radius:9px;padding:7px}.v1008-k small{display:block;font-size:8px;opacity:.62}.v1008-k strong{display:block;font-size:12px;margin-top:3px}
+.v1008-bars{margin-top:8px;display:grid;gap:5px}.v1008-row{display:grid;grid-template-columns:78px 1fr 34px;gap:6px;align-items:center;font-size:9px}.v1008-track{height:5px;background:#142832;border-radius:5px;overflow:hidden}.v1008-track i{display:block;height:100%;width:0}
+.v1008-why{margin-top:8px;font-size:9px;opacity:.72}.v1008-warning{margin-top:7px;border:1px solid #5b4a2c;border-radius:9px;padding:7px;font-size:10px;font-weight:800}
+@media(max-width:700px){.v1008-grid{grid-template-columns:repeat(2,1fr)}.v1008-grid .v1008-k:last-child{grid-column:span 2}}
+</style>
+<script id="v1008-decision-intelligence-js">
+(function(){
+ const clamp=(x,a=0,b=100)=>Math.max(a,Math.min(b,x));
+ const text=id=>{const e=document.getElementById(id);return e?e.textContent.trim():''};
+ const pct=id=>{const m=text(id).replace(/,/g,'').match(/\d+(?:\.\d+)?/);return m?clamp(+m[0]):null};
+ const has=(s,r)=>r.test(String(s||''));
+ function build(){
+  const root=document.getElementById('v1002Expert');if(!root||document.getElementById('v1008DI'))return;
+  const d=document.createElement('section');d.id='v1008DI';d.className='v1008-di';
+  d.innerHTML='<div class="v1008-head"><b>🧠 DECISION INTELLIGENCE</b><span class="v1008-pill" id="v1008Mode">WAITING FOR EVIDENCE</span></div>'+
+  '<div class="v1008-grid"><div class="v1008-k"><small>TRUSTED CONFIDENCE</small><strong id="v1008Conf">—</strong></div><div class="v1008-k"><small>REGIME</small><strong id="v1008Regime">—</strong></div><div class="v1008-k"><small>THESIS MARGIN</small><strong id="v1008Margin">—</strong></div><div class="v1008-k"><small>RISK GATE</small><strong id="v1008Risk">—</strong></div><div class="v1008-k"><small>DECISION</small><strong id="v1008Decision">WAIT</strong></div></div>'+
+  '<div class="v1008-bars">'+[['Direction','v1008D'],['AI evidence','v1008A'],['Consensus','v1008C'],['Quality','v1008Q'],['Data trust','v1008T']].map((x,i)=>'<div class="v1008-row"><span>'+x[0]+'</span><div class="v1008-track"><i id="'+x[1]+'"></i></div><b id="v1008N'+i+'">—</b></div>').join('')+'</div>'+
+  '<div class="v1008-why" id="v1008Why">The governor combines available evidence; unavailable inputs are not treated as positive evidence.</div><div class="v1008-warning" id="v1008Warn">Calibration-aware: confidence is capped when evidence quality is weak.</div>';
+  const pg=document.getElementById('v1006PG');if(pg)pg.insertAdjacentElement('afterend',d);else root.appendChild(d);
+ }
+ function update(){
+  build();
+  const raw=pct('gmProb'),ai=pct('aiProb'),cons=pct('factorAgree'),quality=pct('actionQuality');
+  const dq=text('dq'), regime=text('regimeState')||'UNKNOWN', risk=(text('regimeRisk')+' '+text('catalystRisk')).trim();
+  const dataTrust=has(dq,/STALE|INVALID|ERROR|NOT CONFIGURED|NO DATA/i)?15:(pct('dataQuality')??pct('dq')??90);
+  const vals=[raw,ai,cons,quality,dataTrust];
+  const weights=[.28,.20,.18,.19,.15];
+  let available=0,weighted=0; vals.forEach((v,i)=>{if(v!==null){weighted+=v*weights[i];available+=weights[i]}});
+  const fused=available?weighted/available:null;
+  const riskPenalty=has(risk,/EXTREME/i)?22:has(risk,/HIGH|ELEVATED/i)?12:0;
+  const conflictPenalty=cons!==null&&cons<60?Math.min(18,(60-cons)*.45):0;
+  const qualityPenalty=quality!==null&&quality<60?Math.min(18,(60-quality)*.45):0;
+  const trusted=fused===null?null:clamp(fused-riskPenalty-conflictPenalty-qualityPenalty);
+  const bear=100-(ai??raw??50);
+  const margin=trusted===null?null:trusted-bear;
+  const direction=raw??fused, decision=(trusted===null||dataTrust<50||trusted<60)?'WAIT':(margin>10?'BUY':margin<-10?'SELL':'WAIT');
+  [['v1008D',direction],['v1008A',ai],['v1008C',cons],['v1008Q',quality],['v1008T',dataTrust]].forEach((x,i)=>{const e=document.getElementById(x[0]),n=document.getElementById('v1008N'+i);if(e)e.style.width=(x[1]??0)+'%';if(n)n.textContent=x[1]===null?'—':Math.round(x[1])+'%'});
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  set('v1008Conf',trusted===null?'—':Math.round(trusted)+'%');
+  set('v1008Regime',regime);
+  set('v1008Margin',margin===null?'—':(margin>=0?'+':'')+Math.round(margin));
+  set('v1008Risk',riskPenalty?'DOWNGRADED':'CLEAR');
+  set('v1008Decision',decision);
+  set('v1008Mode',trusted===null?'WAITING FOR EVIDENCE':(dataTrust<50?'DATA BLOCK':(riskPenalty||conflictPenalty||qualityPenalty?'GOVERNED':'ELIGIBLE')));
+  const why=[];if(riskPenalty)why.push('risk penalty');if(conflictPenalty)why.push('consensus penalty');if(qualityPenalty)why.push('trade-quality penalty');if(dataTrust<80)why.push('data-trust reduction');
+  set('v1008Why',why.length?'Confidence adjusted by '+why.join(' • ')+'.':'No primary downgrade detected; confidence remains evidence-driven.');
+  set('v1008Warn',trusted===null?'No validated probability available — remain WAIT.':trusted<70?'Confidence below high-conviction threshold — remain selective.':'High evidence score does not override risk or data gates.');
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},700));
+ setTimeout(()=>{update();setInterval(update,2500)},1100);
+})();
 </script></body></html>
