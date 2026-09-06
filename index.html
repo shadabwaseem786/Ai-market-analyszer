@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>India F&O Catalyst Monitor V730000</title>
+<title>India F&O Catalyst Monitor V735</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#061018;color:#dce7ee;font:14px system-ui,-apple-system,Segoe UI,sans-serif}header{padding:18px;background:#09202c;border-bottom:1px solid #183746}h1{margin:0;font-size:20px}small{color:#91a8b4}.wrap{max-width:1100px;margin:auto;padding:14px}.banner,.card{background:#0a1720;border:1px solid #1b3441;border-radius:14px;padding:14px;margin:12px 0}.banner{color:#d9c99d;background:#19170f;border-color:#51462a}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{padding:14px;background:#08151e;border:1px solid #18303d;border-radius:12px}.metric b{display:block;font-size:18px;margin-top:5px}.good{color:#55e09a}.warn{color:#ffd56a}.bad{color:#ff7d88}button{background:#102b39;color:#dce7ee;border:1px solid #2a4c5b;border-radius:9px;padding:9px 13px}table{width:100%;border-collapse:collapse}th,td{padding:12px 8px;border-bottom:1px solid #17303b;text-align:left}th{color:#8fa6b2;font-size:11px;text-transform:uppercase}.pill{padding:5px 9px;border-radius:20px;background:#122833;border:1px solid #294653;font-size:11px}.score{font-weight:700}.section{display:flex;justify-content:space-between;align-items:center}.explain{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.explain>div{background:#08151e;border:1px solid #18303d;border-radius:10px;padding:12px}@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}.explain{grid-template-columns:1fr}table{font-size:12px;display:block;overflow:auto;white-space:nowrap}}</style><style id="v730-hidden-rule">.v730-hidden{display:none!important}</style><style id="v730-audit-ui">.mode-switch{display:flex;gap:8px;margin:12px 0;position:sticky;top:0;z-index:100;background:inherit;padding:8px 0}.mode-switch button{border:1px solid #64748b;border-radius:999px;padding:9px 18px;font-weight:800;cursor:pointer}.mode-switch button.active{outline:2px solid currentColor}.newbie-panel{border:1px solid #64748b;border-radius:14px;padding:16px;margin:12px 0}.expert-only.v730-hidden{display:none!important}</style><style id="v730-mode-perf">main.v730-newbie-mode>:not(#v730ModeSwitch):not(#v730NewbiePanel):not(#v730MarketSelector):not(.banner):not(.market-filter-shared):not(#v730AuditNotice){display:none!important}
 main:not(.v730-newbie-mode) #v730NewbiePanel{display:none!important}</style><style id="v730-mobile-render">.card{content-visibility:auto;contain:layout paint style;contain-intrinsic-size:180px}.banner{contain:layout paint style} @media(max-width:700px){.card{content-visibility:auto;contain-intrinsic-size:220px}.mode-switch{position:sticky;top:0}}</style><style id="v730-market-selector-css">
@@ -471,31 +471,24 @@ window.V730UI={
  init:function(){this.setMode(localStorage.getItem('fno_mode')||'NEWBIE');this.refresh();}
 };
 document.addEventListener('DOMContentLoaded',function(){V730UI.init();setInterval(function(){V730UI.refresh()},3000);});
-</script><script id="v730-runtime-client">
+</script><script id="v735-github-native-core">
 window.V730Runtime={
- async refresh(){
+ refresh(){
   try{
-   const ctl=new AbortController();const timer=setTimeout(()=>ctl.abort(),12000);
-   const r=await fetch(new URL('data/v730-runtime.json',document.baseURI),{cache:'no-store',signal:ctl.signal});clearTimeout(timer);
-   const j=await r.json();
-   if(j.status!=='INTEGRATED') throw new Error(j.error||'Runtime unavailable');
-   window.__V730_RUNTIME__=j;
-   if(String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase()!=='NSE') return;
-   const visibleRow=document.querySelector('#rows tr:not([data-market-filter-hidden="1"])'); const selectedSymbol=visibleRow?.children?.[0]?.textContent?.trim(); const selected=(j.results||[]).find(x=>x.symbol===selectedSymbol)||(j.results||[])[0];
+   const universe=String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase();
+   if(universe!=='NSE')return;
+   const visibleRow=document.querySelector('#rows tr:not([data-market-filter-hidden="1"])');
+   const selectedSymbol=visibleRow?.children?.[0]?.textContent?.trim();
+   const selected=(selectedSymbol&&d[selectedSymbol])?d[selectedSymbol]:(Object.values(d||{})[0]);
    if(!selected)return;
-   const d=selected.decision||{};
+   const unified=(typeof unifiedDecision==='function')?unifiedDecision(selected):{signal:'WAIT',reason:'Awaiting local decision engine'};
+   const signal=unified.signal||'WAIT';
+   const confidence=Number.isFinite(selected.confidence)?selected.confidence:0;
+   window.__V730_RUNTIME__={version:'V735-GITHUB-NATIVE',status:'INTEGRATED',results:[{symbol:selected.symbol||selectedSymbol,market:selected,decision:{decision:signal,confidence,gate:signal==='NO-TRADE'?'HOLD':'PASS',explanation:unified.reason||'Local GitHub Pages decision engine'}}]};
    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
-   set('v730Decision',d.decision||'WAIT');
-   set('v730Confidence',(d.confidence??'—')+'%');
-   set('v730Market',selected.symbol||'—');
-   set('v730Health',(d.inputs&&d.inputs.dataHealth!=null)?d.inputs.dataHealth+'%':'—');
-   const reason=document.getElementById('v730Reason');
-   if(reason)reason.textContent=(d.explanation||'')+' '+(d.gate==='PASS'?'Gate: PASS':'Gate: HOLD');
-  }catch(e){
-   window.__V730_RUNTIME_ERROR__=e.message;
-   const reason=document.getElementById('v730Reason');if(reason)reason.textContent='Runtime unavailable — WAIT until data integrity is restored.';
-   const d=document.getElementById('v730Decision');if(d)d.textContent='WAIT';
-  }
+   set('v730Decision',signal);set('v730Confidence',confidence+'%');set('v730Market',selected.symbol||selectedSymbol||'—');set('v730Health',(selected.dataHealth??'—')+(selected.dataHealth!=null?'%':''));
+   const reason=document.getElementById('v730Reason');if(reason)reason.textContent=(unified.reason||'Local decision engine active')+' • GitHub Pages native';
+  }catch(e){window.__V730_RUNTIME_ERROR__=e.message;const x=document.getElementById('v730Decision');if(x)x.textContent='WAIT';}
  }
 };
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){V730Runtime.refresh()},2500);setInterval(function(){V730Runtime.refresh()},60000)});
