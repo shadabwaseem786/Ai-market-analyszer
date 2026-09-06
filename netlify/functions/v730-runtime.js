@@ -51,7 +51,9 @@ exports.handler=async(event)=>{
   const results=[];
   for(const m of marketList){
    const ar=ai.infer?ai.infer({score:m.score,confidence:m.confidence,agreementPct:m.agreementPct,riskScore:m.riskScore,dataHealth:m.dataHealth,catalystConfidence:csummary.catalystConfidence,catalystRisk:csummary.catalystRisk,catalystFreshness:csummary.catalystFreshness}):null;
-   results.push({symbol:m.symbol,market:m,ai:ar,decision:combine(m,csummary,ar||{})});
+   const decision=combine(m,csummary,ar||{});
+   if(marketClosed){decision.decision="WAIT";decision.bias="NEUTRAL";decision.gate="HOLD";decision.governance={...decision.governance,marketClosed:true};}
+   results.push({symbol:m.symbol,market:m,ai:ar,decision});
   }
   return json(200,{version:"V730000-RECOVERY",status:"INTEGRATED",marketSession:marketClosed?"CLOSED":(md.marketSession||"UNKNOWN"),generatedAt:new Date().toISOString(),results,catalyst:csummary,source:"market-data + catalyst-feed + ai-engine",notice:marketClosed?"Market closed: showing last validated snapshot; all actions remain HOLD/NO-TRADE until a fresh open-session feed is validated.":"Decision-support only; not a profitability guarantee or order-execution system."});
  }catch(e){return json(500,{version:"V730000-RECOVERY",status:"ERROR",error:e.message})}
