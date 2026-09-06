@@ -58,6 +58,26 @@ function run() {
   assert.strictEqual(closedDecision.decision, 'WAIT');
   assert.strictEqual(closedDecision.gate, 'HOLD');
 
+  // UI contract: every actionable runtime result must expose one canonical decision.
+  const uiContract = runtime.combine(
+    { score: 78, confidence: 88, riskScore: 18, dataHealth: 100 },
+    { catalystBias: 'BULLISH', catalystConfidence: 82, catalystRisk: 18, catalystHealth: 100 },
+    { aiDirection: 'BULLISH', aiProbability: 84, confidence: 86, uncertainty: 12, ensembleSpread: 4 }
+  );
+  assert(['BUY', 'SELL', 'WAIT'].includes(uiContract.decision));
+  assert(['PASS', 'HOLD'].includes(uiContract.gate));
+  assert.strictEqual(typeof uiContract.bias, 'string');
+  assert.strictEqual(typeof uiContract.governance, 'object');
+
+  // Regression contract: conflicting engines must never become an actionable BUY/SELL
+  // merely because the technical component is strong.
+  const hardConflict = runtime.combine(
+    { score: 90, confidence: 95, riskScore: 10, dataHealth: 100 },
+    { catalystBias: 'BEARISH', catalystConfidence: 95, catalystRisk: 30, catalystHealth: 100 },
+    { aiDirection: 'BULLISH', aiProbability: 90, confidence: 95, uncertainty: 5, ensembleSpread: 3 }
+  );
+  assert.strictEqual(hardConflict.decision, 'WAIT');
+
   console.log('V730 runtime smoke tests passed');
 }
 
