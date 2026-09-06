@@ -1236,4 +1236,19 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  function update(){build();const a=read().filter(x=>x.resolved&&Array.isArray(x.engines));const stats={};a.forEach(x=>x.engines.forEach(e=>{const k=typeof e==='string'?e:e.id||e.name;if(!k)return;(stats[k]??={n:0,w:0});stats[k].n++;if(e.hit===true||e.directionalCorrect===true||e.result==='CORRECT')stats[k].w++}));const keys=Object.keys(stats),best=keys.sort((x,y)=>(stats[y].w/Math.max(1,stats[y].n))-(stats[x].w/Math.max(1,stats[x].n)))[0],n=a.length;document.getElementById('v1025n').textContent=n;document.getElementById('v1025e').textContent=keys.length;document.getElementById('v1025t').textContent=best?(best+' '+Math.round(stats[best].w/Math.max(1,stats[best].n)*100)+'%'):'—';document.getElementById('v1025s').textContent=n>=100&&keys.length>=3?'ACTIVE':'LOCKED';document.getElementById('v1025m').textContent=n>=100&&keys.length>=3?'Engine-level outcome attribution is available for learning review.':'Waiting for ≥100 resolved attributed outcomes across ≥3 engines; no automatic weight change is permitted.'}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,9000)},2100));setTimeout(()=>{update();setInterval(update,9000)},4200);
 })();
+</script><script id="v1026-engine-fingerprint">
+(function(){
+const KEY='v1011_outcome_ledger',read=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}},save=a=>{try{localStorage.setItem(KEY,JSON.stringify(a.slice(-500)))}catch(e){}};
+function txt(){return Array.from(document.querySelectorAll('[id]')).map(e=>({id:e.id,t:e.textContent.trim()})).filter(x=>x.t&&x.t.length<700)}
+function fingerprint(){
+ const xs=txt(),out=[],seen=new Set();
+ xs.forEach(x=>{const id=x.id.toLowerCase(),t=x.t;if(!/(engine|factor|signal|model|fusion|v\d+)/.test(id))return;if(!/(buy|sell|bull|bear|bullish|bearish|wait)/i.test(t))return;let key=x.id;if(seen.has(key))return;seen.add(key);const d=/(sell|bear|bearish)/i.test(t)?'SELL':/(buy|bull|bullish)/i.test(t)?'BUY':'WAIT';out.push({id:key,direction:d,observedAt:Date.now()})});return out.slice(0,80)
+}
+function capture(){
+ const p=fingerprint();if(!p.length)return;const a=read(),now=Date.now(),last=a[a.length-1];if(last&&last.engineFingerprint&&now-last.ts<60000)return;
+ const existing=last&&last.contract&&!last.engineFingerprint?last:null;
+ if(existing){existing.engineFingerprint=p;existing.engines=p;save(a);return}
+}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{capture();setInterval(capture,10000)},2200));setTimeout(()=>{capture();setInterval(capture,10000)},4500);
+})();
 </script></body></html>
