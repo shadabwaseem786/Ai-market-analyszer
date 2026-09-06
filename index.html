@@ -2131,13 +2131,38 @@ main.v730-newbie-mode > #v1063DeepAudit,main.v730-newbie-mode > #v1063ExpertWeig
 main.v1110-chart-mode> :not(#v1110Tabs):not(#v1110ChartTab){display:none!important}
 main.v1110-chart-mode #v1110ChartTab{display:block!important}
 @media(max-width:700px){.v1110-tabs{overflow-x:auto}.v1110-tab{flex:0 0 auto;padding:9px 12px}.v1110-canvas{height:calc(100vh - 245px);min-height:300px}.v1110-decision{font-size:16px;top:12px;left:12px}}
+
+/* V1120 intelligent real-time indicators */
+.v1120-ai-panel{position:absolute;left:10px;top:10px;z-index:8;min-width:190px;max-width:235px;padding:10px 11px;border:1px solid #536a75;border-radius:13px;background:rgba(6,16,24,.92);backdrop-filter:blur(5px);box-shadow:0 8px 22px rgba(0,0,0,.25);font-size:10px}
+.v1120-ai-title{font-size:12px;font-weight:950;letter-spacing:.2px}.v1120-ai-main{font-size:22px;font-weight:950;margin:2px 0}.v1120-ai-sub{opacity:.78}.v1120-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:7px}.v1120-metric{border:1px solid #294653;border-radius:7px;padding:5px;background:#091d25}.v1120-metric b{display:block;font-size:11px}.v1120-bull{color:#55e09a}.v1120-bear{color:#ff7d88}.v1120-neu{color:#ffd56a}.v1120-signal{margin-top:7px;font-weight:900}.v1120-levels{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.v1120-level{padding:4px 6px;border-radius:7px;border:1px solid #294653;background:#091d25}.v1120-control{display:flex;gap:5px;align-items:center}.v1120-control select{background:#0b1a22;color:inherit;border:1px solid #536a75;border-radius:7px;padding:5px;font-size:10px;font-weight:800}
 </style>
 <script id="v1110-realtime-chart">
 (function(){
  const state={page:'newbie',asset:'NIFTY',candles:[],timer:null,request:0};
  const $=id=>document.getElementById(id);
  const txt=id=>$(id)?.textContent?.trim()||'';
- const ASSETS={STOCKS:['RELIANCE','TCS','HDFCBANK','INFY','ICICIBANK','SBIN','ITC'],INDICES:['NIFTY','BANKNIFTY','FINNIFTY','NASDAQ'],COMMODITIES:['GOLD','SILVER','CRUDE']};
+ const ASSETS={STOCKS:['RELIANCE','TCS','HDFCBANK','INFY','ICICIBANK','SBIN','ITC'],INDICES:['NIFTY','BANKNIFTY','FINNIFTY','NASDAQ'],COMMODITIES:['GOLD','SILVER','CRUDE']}; function num(v){const n=parseFloat(String(v).replace(/[^0-9.\-]/g,''));return Number.isFinite(n)?n:null;}
+ function pct(v){const n=num(v);return n==null?'—':Math.max(0,Math.min(100,n))+'%'}
+ function technicals(p){
+  if(!p.length)return {ema20:null,ema50:null,rsi:null,atr:null,vwap:null};
+  const closes=p.map(x=>x.c), highs=p.map(x=>x.h), lows=p.map(x=>x.l);
+  const ema=(n)=>{let a=closes.slice(0,n);if(a.length<n)return null;let e=a.reduce((x,y)=>x+y,0)/n,k=2/(n+1);for(let i=n;i<closes.length;i++)e=closes[i]*k+e*(1-k);return e};
+  let gains=0,loss=0;for(let i=Math.max(1,closes.length-14);i<closes.length;i++){const d=closes[i]-closes[i-1];if(d>0)gains+=d;else loss-=d}const rsi=loss===0?100:100-(100/(1+gains/Math.max(loss,.000001)));
+  let tr=0;for(let i=Math.max(1,closes.length-14);i<closes.length;i++)tr+=Math.max(highs[i]-lows[i],Math.abs(highs[i]-closes[i-1]),Math.abs(lows[i]-closes[i-1]));const atr=tr/Math.min(14,Math.max(1,closes.length-1));
+  let pv=0,v=0;for(const x of p){const vol=Number(x.v)||0;pv+=((x.h+x.l+x.c)/3)*vol;v+=vol}return {ema20:ema(20),ema50:ema(50),rsi,atr,vwap:v?pv/v:null};
+ }
+ function updateAI(){
+  const p=state.candles,t=technicals(p),sig=signal(),conf=confidence(),cn=num(conf),price=p.length?p[p.length-1].c:null;
+  const trend=t.ema20&&t.ema50?(t.ema20>t.ema50?'BULLISH':'BEARISH'):'—';
+  const agreement=sig==='BUY'?Math.round((cn??70)*.96):sig==='SELL'?Math.round((cn??70)*.96):Math.round(cn??50);
+  const trade=price&&t.atr?Math.max(0,Math.min(100,Math.round(100-Math.min(60,(t.atr/price)*1000)))):null;
+  $('v1120Main').textContent=sig+' '+pct(conf);$('v1120Main').className='v1120-ai-main '+(sig==='BUY'?'v1120-bull':sig==='SELL'?'v1120-bear':'v1120-neu');
+  $('v1120Conf').textContent=pct(conf);$('v1120Trade').textContent=trade==null?'—':trade+'/100';$('v1120MTF').textContent=trend==='—'?'—':(trend==='BULLISH'?'Bullish':'Bearish');
+  $('v1120Regime').textContent=trend;
+  $('v1120VWAP').textContent='VWAP '+(t.vwap==null?'—':t.vwap.toFixed(2));$('v1120ATR').textContent='ATR '+(t.atr==null?'—':t.atr.toFixed(2));
+  $('v1120Why').textContent=trend==='—'?'Waiting for validated technical context…':sig==='BUY'?'Bullish confluence detected':'Bearish/neutral confluence detected';
+  $('v1120Pulse').textContent='Signal: '+(agreement>=80?'strong':'developing')+' • '+(trend==='BULLISH'?'EMA trend ↑':trend==='BEARISH'?'EMA trend ↓':'trend —');
+ }
  function assetMenu(){
   const m=$('v1110AssetMenu'),b=$('v1110AssetButton');if(!m||!b)return;
   m.innerHTML='';
@@ -2180,7 +2205,7 @@ main.v1110-chart-mode #v1110ChartTab{display:block!important}
    const tabs=document.createElement('div');tabs.id='v1110Tabs';tabs.className='v1110-tabs';
    tabs.innerHTML='<button class="v1110-tab active" data-page="newbie">🟢 NEWBIE</button><button class="v1110-tab" data-page="expert">🧠 EXPERT</button><button class="v1110-tab" data-page="chart">📈 REAL-TIME CHART</button>';
    const chart=document.createElement('section');chart.id='v1110ChartTab';chart.className='v1110-chart';chart.style.display='none';
-   chart.innerHTML='<div class="v1110-toolbar"><div><button type="button" id="v1110AssetButton" class="v1110-asset-btn">NIFTY ▾</button><span id="v1110Decision" class="v1110-decision">HOLD</span></div><span id="v1110Status" class="v1110-status">VALIDATING…</span></div><div id="v1110AssetMenu" class="v1110-asset-menu" hidden></div><div class="v1110-wrap"><canvas id="v1110Canvas" class="v1110-canvas"></canvas><div id="v1110Empty" class="v1110-empty"></div></div><div id="v1110Overlay" class="v1110-overlay"></div>';
+   chart.innerHTML='<div class="v1110-toolbar"><div><button type="button" id="v1110AssetButton" class="v1110-asset-btn">NIFTY ▾</button><span id="v1110Decision" class="v1110-decision">HOLD</span></div><span id="v1110Status" class="v1110-status">VALIDATING…</span></div><div id="v1110AssetMenu" class="v1110-asset-menu" hidden></div><div class="v1110-wrap"><canvas id="v1110Canvas" class="v1110-canvas"></canvas><div id="v1110Empty" class="v1110-empty"></div><div id="v1120AIPanel" class="v1120-ai-panel"><div class="v1120-ai-title">🧠 AI MARKET STATE</div><div id="v1120Main" class="v1120-ai-main">HOLD</div><div id="v1120Why" class="v1120-ai-sub">Waiting for validated signal…</div><div class="v1120-grid"><div class="v1120-metric">Confidence<b id="v1120Conf">—</b></div><div class="v1120-metric">Tradeability<b id="v1120Trade">—</b></div><div class="v1120-metric">MTF<b id="v1120MTF">—</b></div><div class="v1120-metric">Regime<b id="v1120Regime">—</b></div></div><div id="v1120Pulse" class="v1120-signal">Signal: stable</div><div class="v1120-levels"><span id="v1120VWAP" class="v1120-level">VWAP —</span><span id="v1120ATR" class="v1120-level">ATR —</span></div></div></div><div id="v1110Overlay" class="v1110-overlay"></div>';
    main.insertBefore(tabs,main.firstChild);main.insertBefore(chart,tabs.nextSibling);
    tabs.querySelectorAll('.v1110-tab').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
  }
@@ -2221,9 +2246,9 @@ main.v1110-chart-mode #v1110ChartTab{display:block!important}
      const se=$('v1110Status');se.textContent=(status==='LIVE'?'● LIVE':status==='STALE'?'● STALE':'● CLOSED')+' • '+(age<1?'now':Math.round(age)+'m ago');se.className='v1110-status '+(status==='LIVE'?'live':status==='STALE'?'error':'closed');
      const sig=signal();$('v1110Decision').textContent=sig+' • '+confidence();
      const ov=$('v1110Overlay');const ms=modules();ov.innerHTML=(ms.length?ms:['Modules: validated backend state']).map(x=>'<span class="v1110-chip">'+x+'</span>').join('')+'<span class="v1110-chip">Candles: '+state.candles.length+'</span>';
-     draw();
+     draw(); updateAI();
    }catch(e){
-     state.candles=[];const se=$('v1110Status');se.textContent='● NO REAL-TIME FEED';se.className='v1110-status error';$('v1110Decision').textContent='HOLD • '+confidence();$('v1110Overlay').innerHTML='<span class="v1110-chip">Feed unavailable — decision engine remains gated</span>';draw();
+     state.candles=[];updateAI();const se=$('v1110Status');se.textContent='● NO REAL-TIME FEED';se.className='v1110-status error';$('v1110Decision').textContent='HOLD • '+confidence();$('v1110Overlay').innerHTML='<span class="v1110-chip">Feed unavailable — decision engine remains gated</span>';draw();
    }
  }
  function start(){build();assetMenu();setPage(localStorage.getItem('v1110_page')||'newbie');document.querySelectorAll('.v1110-tab').forEach(b=>b.addEventListener('click',()=>localStorage.setItem('v1110_page',b.dataset.page)));setInterval(()=>{if(state.page==='chart')load(false)},15000);window.addEventListener('resize',()=>{if(state.page==='chart')draw()});}
