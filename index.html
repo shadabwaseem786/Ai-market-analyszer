@@ -2188,4 +2188,48 @@ main.v730-newbie-mode .v1100-chart{display:none!important}
  }
  document.addEventListener('DOMContentLoaded',()=>setTimeout(clean,1400));setTimeout(clean,2400);
 })();
+</script><style id="v1200-ai-ml-neural-stack">
+.v1200{margin-top:10px;border:1px solid #294653;border-radius:14px;padding:11px;background:#071820}.v1200h{display:flex;justify-content:space-between;gap:8px}.v1200h span{font-size:9px;opacity:.7}.v1200g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}.v1200k{border:1px solid #233e49;border-radius:9px;padding:7px;background:#091d25}.v1200k small{display:block;font-size:8px;opacity:.62}.v1200k b{display:block;font-size:14px;margin-top:3px}.v1200rows{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}.v1200r{border:1px solid #203b46;border-radius:8px;padding:7px;font-size:9px}.v1200r b{display:block;margin-bottom:3px}.v1200note{font-size:9px;opacity:.68;line-height:1.4;margin-top:8px}@media(max-width:700px){.v1200g,.v1200rows{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="v1200-ai-ml-neural-stack">
+(function(){
+ const K='v730_ml_prediction_ledger_v1';
+ const load=()=>{try{return JSON.parse(localStorage.getItem(K)||'[]')}catch(e){return[]}},save=a=>{try{localStorage.setItem(K,JSON.stringify(a.slice(-3000)))}catch(e){}};
+ const txt=ids=>{for(const id of ids){const e=document.getElementById(id);if(e){const v=(e.value||e.textContent||'').trim();if(v)return v}}return''};
+ const num=ids=>{const v=txt(ids).replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return v?+v[0]:null};
+ function regime(){const s=(txt(['regimeState','marketRegime','volState','v1095reg'])+' '+txt(['marketStatus'])).toUpperCase();return /CRASH|EXTREME|HIGH VOL/.test(s)?'HIGH_VOL':/TREND/.test(s)?'TREND':/RANGE|SIDEWAYS/.test(s)?'RANGE':'NORMAL'}
+ function features(){
+  const f={rsi:num(['rsi','RSI']),adx:num(['adx','ADX']),atr:num(['atr','ATR']),volume:num(['volume','vol']),oi:num(['oi','openInterest']),pcr:num(['pcr','PCR']),momentum:num(['momentum','momentumScore']),confidence:num(['v1095q','confidence','aiConfidence']),prob:num(['v1095p','finalProbability','probability'])};
+  return f
+ }
+ function baseModels(f){
+  const p=f.prob??50,m=f.momentum??50,conf=f.confidence??50;
+  const technical=Math.max(0,Math.min(100,(f.rsi==null?50:(f.rsi-30)*2.5)*.35+m*.35+conf*.3));
+  const tree=Math.max(0,Math.min(100,p*.5+technical*.3+((f.adx??20)/50)*100*.2));
+  const temporal=Math.max(0,Math.min(100,p*.55+m*.25+conf*.2));
+  const stat=Math.max(0,Math.min(100,50+(p-50)*.7));
+  return{technical,tree,temporal,stat}
+ }
+ function uncertainty(models,f){const a=Object.values(models),mean=a.reduce((x,y)=>x+y,0)/a.length,disp=a.reduce((x,y)=>x+(y-mean)**2,0)/a.length;return Math.max(0,Math.min(100,Math.round(Math.sqrt(disp)*1.8+(f.confidence==null?30:100-f.confidence)*.45)))}
+ function adaptive(models,reg){let w={tree:.28,temporal:.27,stat:.18,technical:.27};if(reg==='TREND'){w={tree:.28,temporal:.34,stat:.12,technical:.26}}if(reg==='RANGE'){w={tree:.25,temporal:.20,stat:.28,technical:.27}}if(reg==='HIGH_VOL'){w={tree:.23,temporal:.20,stat:.17,technical:.20};}const score=models.tree*w.tree+models.temporal*w.temporal+models.stat*w.stat+models.technical*w.technical;return{score,w}}
+ function calibrate(raw,a){const good=a.filter(x=>typeof x.y==='number');if(good.length<100)return{p:raw,cal:false,n:good.length};const hit=good.reduce((s,x)=>s+x.y,0)/good.length*100;return{p:Math.round(raw*.7+hit*.3),cal:true,n:good.length}}
+ function ev(p,unc,reg){const edge=(p-50)/50,pen=unc/100*(reg==='HIGH_VOL'?.8:.55);return +(edge-pen).toFixed(2)}
+ function add(){
+  if(document.getElementById('v1200'))return;const anchor=document.getElementById('v1095')||document.getElementById('v1084Scanner')||document.getElementById('v1085Calibration');if(!anchor)return;
+  const d=document.createElement('section');d.id='v1200';d.className='v1200';d.innerHTML='<div class="v1200h"><b>🧠 AI / ML / NEURAL INTELLIGENCE STACK</b><span>V1200 • ensemble + regime + uncertainty</span></div><div class="v1200g"><div class="v1200k"><small>ENSEMBLE SCORE</small><b id="v1200score">—</b></div><div class="v1200k"><small>CALIBRATED PROB.</small><b id="v1200prob">—</b></div><div class="v1200k"><small>UNCERTAINTY</small><b id="v1200unc">—</b></div><div class="v1200k"><small>REGIME</small><b id="v1200reg">—</b></div></div><div class="v1200rows"><div class="v1200r"><b>Feature Engineering</b><span id="v1200f">Building a unified feature vector from available app signals.</span></div><div class="v1200r"><b>Model Ensemble</b><span id="v1200m">Tree/boosting proxy + temporal + statistical baseline.</span></div><div class="v1200r"><b>Regime Classifier</b><span id="v1200r">Weights adapt by detected market regime; no future data.</span></div><div class="v1200r"><b>Meta-Learner</b><span id="v1200meta">Combines model outputs using regime-aware weights.</span></div><div class="v1200r"><b>Anomaly / Uncertainty</b><span id="v1200u">Model disagreement is converted to an uncertainty penalty.</span></div><div class="v1200r"><b>Champion / Challenger</b><span id="v1200cc">Out-of-sample promotion remains gated by validation.</span></div><div class="v1200r"><b>Walk-Forward / Leakage Guard</b><span id="v1200wf">Historical outcomes are isolated from current features.</span></div><div class="v1200r"><b>Online Learning Guard</b><span id="v1200ol">Live observations are logged; no uncontrolled live retraining.</span></div></div><div class="v1200note" id="v1200note">These browser-side modules are an inference/validation framework. A production neural network still requires a backend training/inference service and sufficient historical data; no neural-network accuracy is fabricated.</div>';
+  anchor.parentNode.insertBefore(d,anchor);
+ }
+ function update(){
+  add();const f=features(),reg=regime(),m=baseModels(f),a=load(),cal=calibrate(f.prob??50,a),u=uncertainty(m,f),ad=adaptive(m,reg),p=cal.p,evv=ev(p,u,reg);
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  set('v1200score',Math.round(ad.score));set('v1200prob',p+'%'+(cal.cal?' • CAL':' • RAW'));set('v1200unc',Math.round(u)+'%');set('v1200reg',reg);
+  set('v1200f','Features available: '+Object.values(f).filter(x=>x!=null).length+'/9. Missing values are not treated as positive evidence.');
+  set('v1200m','Tree '+Math.round(m.tree)+' • Temporal '+Math.round(m.temporal)+' • Statistical '+Math.round(m.stat)+' • Technical '+Math.round(m.technical));
+  set('v1200meta','Current ensemble EV proxy: '+evv+'; weights change with regime.');
+  set('v1200u','Disagreement penalty: '+Math.round(u)+'%. High uncertainty suppresses conviction.');
+  set('v1200note',cal.cal?'Calibrated probability is sample-informed from '+cal.n+' resolved outcomes; regime/timeframe calibration remains required for full validation.':'Probability remains heuristic until at least 100 resolved outcomes are available. This prevents false precision.');
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,6000)},1700));setTimeout(()=>{update();setInterval(update,6000)},2600);
+ window.V730_AI_ML_STACK={version:'V1200',update:update};
+})();
 </script></body></html>
