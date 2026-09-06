@@ -1910,4 +1910,25 @@ main.v730-newbie-mode > #v1063DeepAudit,main.v730-newbie-mode > #v1063ExpertWeig
   document.addEventListener('DOMContentLoaded',function(){setTimeout(calc,900);setInterval(calc,2500)});
   setTimeout(calc,1600);
 })();
+</script><style id="v1082-evidence-matrix-css">
+.v1082-box{margin-top:8px;border:1px solid #294c59;border-radius:12px;padding:10px;background:#08171f}
+.v1082-title{display:flex;justify-content:space-between;align-items:center;font-size:12px}.v1082-title span{font-size:9px;opacity:.7}
+.v1082-table{margin-top:8px;display:grid;gap:5px}.v1082-row{display:grid;grid-template-columns:1.25fr .65fr .55fr .65fr .65fr;gap:5px;align-items:center;border:1px solid #203b46;border-radius:8px;padding:6px;font-size:9px}.v1082-row small{opacity:.65;display:block}.v1082-dir{font-weight:900}.v1082-mini{height:5px;border-radius:5px;background:#152d35;overflow:hidden}.v1082-mini i{display:block;height:100%;width:0;background:#80b9a0}
+@media(max-width:700px){.v1082-row{grid-template-columns:1.35fr .65fr .6fr .7fr .7fr;font-size:8px}}
+</style>
+<script id="v1082-evidence-matrix">
+(function(){
+ function add(){if(document.getElementById('v1082Evidence'))return;var host=document.getElementById('v1080Fusion');if(!host)return;
+  var d=document.createElement('section');d.id='v1082Evidence';d.className='v1082-box';
+  d.innerHTML='<div class="v1082-title"><b>🔬 EVIDENCE CONTRIBUTION MATRIX</b><span>V1082 • score × effective weight</span></div><div class="v1082-table" id="v1082Rows"></div>';
+  host.appendChild(d);
+ }
+ function update(){add();var api=window.V730_ANALYTICAL_MODULES;if(!api||!api.evaluate)return;var x=window.__V730_SELECTED_INSTRUMENT||window.__V730_SELECTED||{},r=api.evaluate(x),el=document.getElementById('v1082Rows');if(!el)return;
+  el.innerHTML='<div class="v1082-row" style="opacity:.65"><div>MODULE</div><div>SCORE</div><div>DIR</div><div>WEIGHT</div><div>CONTRIB.</div></div>'+r.modules.filter(function(m){return m.available}).sort(function(a,b){return b.contribution-a.contribution}).map(function(m){
+   var d=String(m.dir||'NEUTRAL').toUpperCase(),dir=/BULL|BUY|LONG/.test(d)?'BUY':/BEAR|SELL|SHORT/.test(d)?'SELL':'NEUTRAL';
+   return '<div class="v1082-row"><div><b>'+m.name+'</b><small>'+dir+'</small></div><div><b>'+Math.round(m.score)+'%</b><div class="v1082-mini"><i style="width:'+Math.round(m.score)+'%"></i></div></div><div class="v1082-dir">'+dir+'</div><div>'+Math.round(m.effectiveWeight)+'%</div><div><b>'+Math.round(m.contribution)+'%</b></div></div>';
+  }).join('');
+ }
+ document.addEventListener('DOMContentLoaded',function(){setTimeout(update,1100);setInterval(update,2500)});setTimeout(update,1900);
+})();
 </script></body></html>
