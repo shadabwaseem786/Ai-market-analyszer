@@ -1567,4 +1567,92 @@ document.addEventListener('DOMContentLoaded',function(){
  setTimeout(apply,300);setTimeout(apply,1000);
 });
 window.addEventListener('pageshow',apply);
-})();</script></body></html>
+})();</script><style id="v1066-newbie-watchdog-css">
+/* V1066: hard runtime isolation for Newbie. Legacy Expert controllers may still
+   toggle their classes during refresh; the authoritative attribute wins. */
+main[data-v1066-mode="NEWBIE"]{display:block!important;visibility:visible!important}
+main[data-v1066-mode="NEWBIE"]>#v1063NewbieHome{display:block!important;visibility:visible!important}
+main[data-v1066-mode="NEWBIE"]>#v1063ExpertWeights,
+main[data-v1066-mode="NEWBIE"]>#v1063DeepAudit,
+main[data-v1066-mode="NEWBIE"]>#v1000ExpertCockpit,
+main[data-v1066-mode="NEWBIE"]>#v1002Expert,
+main[data-v1066-mode="NEWBIE"]>#v930ControlCenter,
+main[data-v1066-mode="NEWBIE"]>#v930Groups,
+main[data-v1066-mode="NEWBIE"]>.v1001-nav,
+main[data-v1066-mode="NEWBIE"]>.v1001-nav-note,
+main[data-v1066-mode="NEWBIE"]>.v1001-xray{display:none!important}
+main[data-v1066-mode="NEWBIE"]>#v1063NewbieHome *{visibility:visible!important}
+</style>
+<script id="v1066-newbie-watchdog">
+(function(){
+  var template=null, lastMode=null, busy=false;
+  function main(){return document.querySelector('main.wrap')}
+  function activeMode(){
+    var n=document.getElementById('v730Newbie'),e=document.getElementById('v730Expert');
+    if(n&&n.classList.contains('active')&&!e?.classList.contains('active'))return'NEWBIE';
+    if(e&&e.classList.contains('active')&&!n?.classList.contains('active'))return'EXPERT';
+    return String(localStorage.getItem('fno_mode')||'NEWBIE').toUpperCase()==='EXPERT'?'EXPERT':'NEWBIE';
+  }
+  function capture(){
+    var m=main(),nb=document.getElementById('v1063NewbieHome');
+    if(m&&nb&&nb.parentNode===m&&!template)template=nb.cloneNode(true);
+  }
+  function restore(){
+    var m=main();if(!m)return null;
+    var nb=document.getElementById('v1063NewbieHome');
+    if(!nb&&template){
+      nb=template.cloneNode(true);
+      var sw=document.getElementById('v730ModeSwitch');
+      if(sw&&sw.parentNode===m)sw.insertAdjacentElement('afterend',nb);
+      else m.appendChild(nb);
+    }
+    if(nb&&nb.parentNode!==m){
+      var sw2=document.getElementById('v730ModeSwitch');
+      if(sw2&&sw2.parentNode===m)sw2.insertAdjacentElement('afterend',nb);
+      else m.appendChild(nb);
+    }
+    return nb;
+  }
+  function apply(){
+    if(busy)return; busy=true;
+    try{
+      var m=main();if(!m)return;
+      capture();
+      var mode=activeMode();
+      m.setAttribute('data-v1066-mode',mode);
+      m.setAttribute('data-v1065-mode',mode);
+      if(mode==='NEWBIE'){
+        localStorage.setItem('fno_mode','NEWBIE');
+        m.classList.add('v730-newbie-mode');
+        m.classList.remove('v1001-expert','v1002-expert');
+        var nb=restore();
+        if(nb)nb.style.setProperty('display','block','important');
+        var ew=document.getElementById('v1063ExpertWeights'),a=document.getElementById('v1063DeepAudit');
+        if(ew)ew.style.setProperty('display','none','important');
+        if(a)a.style.setProperty('display','none','important');
+      }else{
+        localStorage.setItem('fno_mode','EXPERT');
+        m.classList.remove('v730-newbie-mode');
+        m.classList.add('v1001-expert','v1002-expert');
+        var nb2=document.getElementById('v1063NewbieHome');
+        if(nb2)nb2.style.setProperty('display','none','important');
+      }
+      if(mode!==lastMode){
+        lastMode=mode;
+        document.documentElement.setAttribute('data-v1066-stable-mode',mode);
+      }
+    }finally{busy=false}
+  }
+  function start(){
+    apply();
+    setTimeout(apply,100);setTimeout(apply,400);setTimeout(apply,900);
+    setInterval(apply,250);
+    var m=main();
+    if(m&&window.MutationObserver){
+      new MutationObserver(function(){apply()}).observe(m,{childList:true,attributes:true,attributeFilter:['class','style']});
+    }
+  }
+  document.addEventListener('DOMContentLoaded',start);
+  setTimeout(start,1200);
+})();
+</script></body></html>
