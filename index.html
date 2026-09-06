@@ -1038,4 +1038,15 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},700));
  setTimeout(()=>{update();setInterval(update,2500)},1100);
 })();
+</script><style id="v1009-regime-risk">
+.v1009{margin-top:9px;border:1px solid #294653;border-radius:12px;padding:10px;background:#081720}.v1009g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.v1009k{border:1px solid #223b46;border-radius:9px;padding:7px}.v1009k small{display:block;font-size:8px;opacity:.62}.v1009k b{display:block;font-size:12px;margin-top:3px}.v1009s{margin-top:7px;font-size:9px;opacity:.72}.v1009warn{margin-top:7px;border:1px solid #5b4a2c;border-radius:9px;padding:7px;font-size:10px;font-weight:800}@media(max-width:700px){.v1009g{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="v1009-regime-risk-js">
+(function(){
+ const T=id=>{const e=document.getElementById(id);return e?e.textContent.trim():''};
+ const N=id=>{const m=T(id).replace(/,/g,'').match(/\d+(?:\.\d+)?/);return m?+m[0]:null};
+ function build(){const r=document.getElementById('v1002Expert');if(!r||document.getElementById('v1009'))return;const d=document.createElement('div');d.id='v1009';d.className='v1009';d.innerHTML='<div class="v1002-section-title">🌍 REGIME & RISK INTELLIGENCE</div><div class="v1009g"><div class="v1009k"><small>REGIME</small><b id="v1009r">—</b></div><div class="v1009k"><small>VOLATILITY</small><b id="v1009v">—</b></div><div class="v1009k"><small>RISK STATE</small><b id="v1009risk">—</b></div><div class="v1009k"><small>SHOCK SCORE</small><b id="v1009shock">—</b></div></div><div class="v1009s" id="v1009s">Regime-aware governance adjusts trust when market conditions differ from normal conditions.</div><div class="v1009warn" id="v1009w">Shock and regime information are advisory until sufficient live observations validate their reliability.</div>';const x=document.getElementById('v1008DI');if(x)x.insertAdjacentElement('beforebegin',d);else r.appendChild(d)}
+ function update(){build();const reg=T('regimeState')||'UNKNOWN',vol=T('volatilityState')||T('volatility')||'UNKNOWN',risk=(T('regimeRisk')||T('riskState')||'NORMAL'),shock=N('shockScore')??N('anomalyScore');document.getElementById('v1009r').textContent=reg;document.getElementById('v1009v').textContent=vol;document.getElementById('v1009risk').textContent=risk;document.getElementById('v1009shock').textContent=shock===null?'—':Math.round(shock);let msg='Regime-aware governance active.';if(/EXTREME|HIGH|ELEVATED/i.test(risk))msg+=' Elevated risk should reduce conviction.';if(shock!==null&&shock>=70)msg+=' Abnormal-move risk is high.';document.getElementById('v1009s').textContent=msg}
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,3000)},800));setTimeout(()=>{update();setInterval(update,3000)},1500);
+})();
 </script></body></html>
