@@ -2138,7 +2138,7 @@ main.v1110-chart-mode #v1110ChartTab{display:block!important}
 </style>
 <script id="v1110-realtime-chart">
 (function(){
- const state={page:'newbie',asset:'NIFTY',candles:[],timer:null,request:0};
+ const state={page:'newbie',asset:'NIFTY',candles:[],signals:[],timer:null,request:0,lastDecision:null};
  const $=id=>document.getElementById(id);
  const txt=id=>$(id)?.textContent?.trim()||'';
  const ASSETS={STOCKS:['RELIANCE','TCS','HDFCBANK','INFY','ICICIBANK','SBIN','ITC'],INDICES:['NIFTY','BANKNIFTY','FINNIFTY','NASDAQ'],COMMODITIES:['GOLD','SILVER','CRUDE']}; function num(v){const n=parseFloat(String(v).replace(/[^0-9.\-]/g,''));return Number.isFinite(n)?n:null;}
@@ -2219,6 +2219,21 @@ main.v1110-chart-mode #v1110ChartTab{display:block!important}
    if(p==='expert'){try{window.V730UI?.setMode('EXPERT')}catch(e){}}
    if(p==='chart'){load(true)}
  }
+ function computeCandleSignal(i,p){
+   if(i<20)return 'HOLD';
+   const closes=p.slice(0,i+1).map(x=>x.c), cur=closes[closes.length-1];
+   const ema=(n)=>{if(closes.length<n)return null;let e=closes.slice(0,n).reduce((a,b)=>a+b,0)/n,k=2/(n+1);for(let j=n;j<closes.length;j++)e=closes[j]*k+e*(1-k);return e};
+   const e20=ema(20), e50=ema(50); let up=0,dn=0;
+   if(e20!=null&&e50!=null){if(e20>e50)up++;else if(e20<e50)dn++}
+   const look=Math.min(10,closes.length-1),chg=cur/closes[closes.length-1-look]-1;
+   if(chg>0.0015)up++; if(chg<-0.0015)dn++;
+   const v=p[i].v||0,prev=p.slice(Math.max(0,i-5),i).map(x=>x.v||0),av=prev.length?prev.reduce((a,b)=>a+b,0)/prev.length:0;
+   if(av&&v>av*1.35){if(p[i].c>p[i].o)up++;else if(p[i].c<p[i].o)dn++}
+   return up>=2&&up>dn?'BUY':dn>=2&&dn>up?'SELL':'HOLD';
+ }
+ function buildSignalHistory(){
+   state.signals=state.candles.map((_,i)=>computeCandleSignal(i,state.candles));
+ }
  function draw(){
    const cv=$('v1110Canvas'),p=state.candles;if(!cv)return;
    const dpr=window.devicePixelRatio||1,w=cv.clientWidth||600,h=cv.clientHeight||350;
@@ -2232,6 +2247,16 @@ main.v1110-chart-mode #v1110ChartTab{display:block!important}
    for(let i=0;i<5;i++){const y=top+i*usableH/4,val=hi-i*span/4;g.beginPath();g.moveTo(left,y);g.lineTo(w-right,y);g.stroke();g.fillText(val.toFixed(2),4,y+3);}
    const step=usableW/Math.max(1,p.length),cw=Math.max(1,step*0.62);
    p.forEach((c,i)=>{const x=left+i*step+step/2,yo=top+(hi-c.o)/span*usableH,yc=top+(hi-c.c)/span*usableH,yh=top+(hi-c.h)/span*usableH,yl=top+(hi-c.l)/span*usableH;const up=c.c>=c.o;g.strokeStyle=up?'#55e09a':'#ff7d88';g.fillStyle=up?'#55e09a':'#ff7d88';g.beginPath();g.moveTo(x,yh);g.lineTo(x,yl);g.stroke();const body=Math.max(1,Math.abs(yc-yo));g.fillRect(x-cw/2,Math.min(yo,yc),cw,body);});
+   // V1121: draw only meaningful signal transitions, avoiding marker spam.
+   buildSignalHistory();
+   let prev='HOLD';
+   state.signals.forEach((s,i)=>{
+     if(s==='HOLD'||s===prev||i<20)return;
+     const c=p[i],x=left+i*step+step/2,y=top+(hi-(s==='BUY'?c.l:c.h))/span*usableH;
+     g.fillStyle=s==='BUY'?'#55e09a':'#ff7d88';g.font='bold 10px system-ui';g.textAlign='center';
+     g.fillText(s==='BUY'?'▲ BUY':'▼ SELL',x,s==='BUY'?y+16:y-8);g.textAlign='left';
+     prev=s;
+   });
    const last=p[p.length-1];const ly=top+(hi-last.c)/span*usableH;g.strokeStyle='#dce7ee';g.setLineDash([4,4]);g.beginPath();g.moveTo(left,ly);g.lineTo(w-right,ly);g.stroke();g.setLineDash([]);
    g.fillStyle='#dce7ee';g.font='11px system-ui';g.fillText(last.c.toFixed(2),w-right-72,ly-5);
  }
@@ -2241,12 +2266,12 @@ main.v1110-chart-mode #v1110ChartTab{display:block!important}
    try{
      const r=await fetch('/api/realtime?symbol='+encodeURIComponent(state.asset),{cache:'no-store'});const j=await r.json();if(id!==state.request)return;
      if(!r.ok)throw new Error(j.error||'Realtime feed unavailable');
-     state.candles=Array.isArray(j.candles)?j.candles:[];
+     state.candles=Array.isArray(j.candles)?j.candles:[]; buildSignalHistory();
      const age=Number(j.ageMinutes||0),status=String(j.status||'RECENT').toUpperCase();
      const se=$('v1110Status');se.textContent=(status==='LIVE'?'● LIVE':status==='STALE'?'● STALE':'● CLOSED')+' • '+(age<1?'now':Math.round(age)+'m ago');se.className='v1110-status '+(status==='LIVE'?'live':status==='STALE'?'error':'closed');
-     const sig=signal();$('v1110Decision').textContent=sig+' • '+confidence();
+     const sig=state.signals.length?state.signals[state.signals.length-1]:signal();$('v1110Decision').textContent=sig+' • '+confidence();
      const ov=$('v1110Overlay');const ms=modules();ov.innerHTML=(ms.length?ms:['Modules: validated backend state']).map(x=>'<span class="v1110-chip">'+x+'</span>').join('')+'<span class="v1110-chip">Candles: '+state.candles.length+'</span>';
-     draw(); updateAI();
+     draw(); updateAI(); state.lastDecision=sig;
    }catch(e){
      state.candles=[];updateAI();const se=$('v1110Status');se.textContent='● NO REAL-TIME FEED';se.className='v1110-status error';$('v1110Decision').textContent='HOLD • '+confidence();$('v1110Overlay').innerHTML='<span class="v1110-chip">Feed unavailable — decision engine remains gated</span>';draw();
    }
