@@ -1862,4 +1862,52 @@ main.v730-newbie-mode > #v1063DeepAudit,main.v730-newbie-mode > #v1063ExpertWeig
   document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},700));
   setTimeout(()=>{update();setInterval(update,2500)},1300);
 })();
+</script><style id="v1081-directional-fusion-css">
+.v1081-box{margin-top:8px;border:1px solid #294c59;border-radius:12px;padding:10px;background:#08171f}
+.v1081-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.v1081-k{border:1px solid #233e49;border-radius:8px;padding:7px;background:#091d25}.v1081-k small{display:block;font-size:8px;opacity:.7}.v1081-k b{display:block;font-size:16px;margin-top:3px}
+.v1081-meter{height:7px;border-radius:7px;overflow:hidden;background:#152d35;display:flex;margin-top:8px}.v1081-meter i{display:block;height:100%}.v1081-b{background:#80b9a0}.v1081-s{background:#b98080}.v1081-n{background:#777}
+.v1081-note{font-size:9px;opacity:.7;margin-top:7px;line-height:1.35}
+@media(max-width:700px){.v1081-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="v1081-directional-fusion">
+(function(){
+  function add(){
+    if(document.getElementById('v1081Directional'))return;
+    var host=document.getElementById('v1080Fusion')||document.getElementById('v1080NewbieFusion'); if(!host)return;
+    var d=document.createElement('section');d.id='v1081Directional';d.className='v1081-box';
+    d.innerHTML='<div class="v1080-head"><b>⚖️ DIRECTIONAL CONSENSUS</b><span>V1081 • evidence split</span></div>'+
+      '<div class="v1081-grid"><div class="v1081-k"><small>BULLISH EVIDENCE</small><b id="v1081Bull">—</b></div>'+
+      '<div class="v1081-k"><small>BEARISH EVIDENCE</small><b id="v1081Bear">—</b></div>'+
+      '<div class="v1081-k"><small>NEUTRAL</small><b id="v1081Neutral">—</b></div>'+
+      '<div class="v1081-k"><small>CONFLICT</small><b id="v1081Conflict">—</b></div></div>'+
+      '<div class="v1081-meter"><i id="v1081BM" class="v1081-b"></i><i id="v1081SM" class="v1081-s"></i><i id="v1081NM" class="v1081-n"></i></div>'+
+      '<div class="v1081-note" id="v1081Note">Waiting for module evidence.</div>';
+    host.appendChild(d);
+  }
+  function calc(){
+    add(); var api=window.V730_ANALYTICAL_MODULES;if(!api||!api.evaluate)return;
+    var x=window.__V730_SELECTED_INSTRUMENT||window.__V730_SELECTED||{};
+    var r=api.evaluate(x),b=0,s=0,n=0;
+    r.modules.forEach(function(m){
+      if(!m.available)return;
+      var w=m.effectiveWeight||0, dir=String(m.dir||'').toUpperCase();
+      if(/BULL|BUY|LONG/.test(dir))b+=w;
+      else if(/BEAR|SELL|SHORT/.test(dir))s+=w;
+      else n+=w;
+    });
+    var total=b+s+n||100, bp=b/total*100,sp=s/total*100,np=n/total*100,conf=Math.min(bp,sp);
+    function set(id,v){var e=document.getElementById(id);if(e)e.textContent=v}
+    set('v1081Bull',Math.round(bp)+'%');set('v1081Bear',Math.round(sp)+'%');set('v1081Neutral',Math.round(np)+'%');set('v1081Conflict',Math.round(conf)+'%');
+    var bm=document.getElementById('v1081BM'),sm=document.getElementById('v1081SM'),nm=document.getElementById('v1081NM');
+    if(bm)bm.style.width=bp+'%';if(sm)sm.style.width=sp+'%';if(nm)nm.style.width=np+'%';
+    var gap=Math.abs(bp-sp),note;
+    if(bp+sp<35)note='Most modules are neutral/insufficiently directional. Treat any BUY/SELL as low-consensus.';
+    else if(gap<12)note='High directional conflict: bullish and bearish evidence are close. Prefer WAIT unless risk gates provide a strong edge.';
+    else note=(bp>sp?'Bullish':'Bearish')+' evidence leads by '+Math.round(gap)+' percentage points. This is module consensus, not a profit probability.';
+    set('v1081Note',note);
+  }
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(calc,900);setInterval(calc,2500)});
+  setTimeout(calc,1600);
+})();
 </script></body></html>
