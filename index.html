@@ -846,4 +846,62 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  document.addEventListener('DOMContentLoaded',()=>{setTimeout(render,300);setTimeout(render,1800);setInterval(render,5000)});
  window.V1003RenderNewbieMarkets=render;
 })();
+</script><style id="v1004-intelligence-layer">
+.v1004-governance{margin-top:9px;border:1px solid #294653;border-radius:12px;padding:10px;background:#081720}
+.v1004-governance-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.v1004-g{border:1px solid #223b46;border-radius:9px;padding:7px}.v1004-g small{display:block;font-size:8px;opacity:.62}.v1004-g b{font-size:12px;display:block;margin-top:3px}
+.v1004-verdict{margin-top:7px;padding:8px;border-radius:9px;border:1px solid #315467;font-size:11px;font-weight:800}
+.v1004-verdict.warn{border-color:#66532d}.v1004-verdict.bad{border-color:#633d3d}
+.v1004-thesis{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}.v1004-thesis>div{padding:7px;border:1px solid #263f4b;border-radius:9px;font-size:10px}.v1004-thesis b{display:block;margin-bottom:3px}
+@media(max-width:700px){.v1004-governance-grid{grid-template-columns:repeat(2,1fr)}.v1004-thesis{grid-template-columns:1fr}}
+</style>
+<script id="v1004-intelligence-layer-js">
+(function(){
+ function t(id){const e=document.getElementById(id);return e?e.textContent.trim():''}
+ function n(id){const s=t(id).replace(/,/g,'');const m=s.match(/-?\d+(?:\.\d+)?/);return m?+m[0]:null}
+ function has(id,rx){return rx.test(t(id))}
+ function build(){
+  const root=document.getElementById('v1002Expert');if(!root||document.getElementById('v1004Governance'))return;
+  const g=document.createElement('div');g.id='v1004Governance';g.className='v1004-governance';
+  g.innerHTML='<div class="v1002-section-title">🧠 DECISION GOVERNANCE</div><div class="v1004-governance-grid">'+
+   '<div class="v1004-g"><small>DATA GATE</small><b id="v1004Data">—</b></div>'+
+   '<div class="v1004-g"><small>CONSENSUS</small><b id="v1004Consensus">—</b></div>'+
+   '<div class="v1004-g"><small>REGIME FIT</small><b id="v1004RegimeFit">—</b></div>'+
+   '<div class="v1004-g"><small>TRADE QUALITY</small><b id="v1004Trade">—</b></div></div>'+
+   '<div class="v1004-verdict" id="v1004Verdict">⏳ Waiting for validated inputs…</div>'+
+   '<div class="v1004-thesis"><div><b>🟢 Bull thesis</b><span id="v1004Bull">—</span></div><div><b>🔴 Counter-thesis</b><span id="v1004Bear">—</span></div></div>';
+  const reason=root.querySelector('.v1002-reasons');if(reason)reason.insertAdjacentElement('afterend',g);else root.appendChild(g);
+ }
+ function update(){
+  build();const root=document.getElementById('v1002Expert');if(!root)return;
+  const data=t('dq'),agree=t('factorAgree'),reg=t('regimeState'),risk=(t('regimeRisk')+' '+t('catalystRisk')).trim(),quality=t('actionQuality'),stability=t('signalStability');
+  const valid=data&&!/STALE|INVALID|ERROR|NOT CONFIGURED|NO DATA/i.test(data);
+  const agreement=n('factorAgree');const ai=n('aiConfidence');const prob=n('gmProb');const trade=n('actionQuality');
+  document.getElementById('v1004Data').textContent=valid?(data||'PASS'):'HOLD';
+  document.getElementById('v1004Consensus').textContent=agree||'—';
+  document.getElementById('v1004RegimeFit').textContent=reg||'—';
+  document.getElementById('v1004Trade').textContent=quality||'—';
+  const reasons=[];
+  if(!valid)reasons.push('data integrity gate');
+  if(/HIGH|EXTREME|ELEVATED/i.test(risk))reasons.push('elevated risk');
+  if(/CONFLICT|LOW/i.test(agree))reasons.push('signal conflict');
+  if(/UNSTABLE|WEAK|DEGRADED/i.test(stability))reasons.push('signal instability');
+  const verdict=document.getElementById('v1004Verdict');
+  if(!valid){verdict.textContent='⛔ NO-TRADE — data is not sufficiently validated';verdict.className='v1004-verdict bad'}
+  else if(reasons.length){verdict.textContent='🟡 WAIT — '+reasons.join(' • ');verdict.className='v1004-verdict warn'}
+  else if(prob!==null&&prob<60){verdict.textContent='🟡 WAIT — directional evidence below the configured conviction gate';verdict.className='v1004-verdict warn'}
+  else {verdict.textContent='🟢 SIGNAL ELIGIBLE — no primary governance gate is currently blocking the decision';verdict.className='v1004-verdict'}
+  const bull=[];const bear=[];
+  if(/BUY|BULL/i.test(t('gmSignal')+' '+t('aiDirection')+' '+t('fusionBias')))bull.push('directional engines lean bullish');
+  if(/SELL|BEAR/i.test(t('gmSignal')+' '+t('aiDirection')+' '+t('fusionBias')))bear.push('directional engines lean bearish');
+  if(/POSITIVE|BULL/i.test(t('fusionCat')))bull.push('catalyst supportive');
+  if(/NEGATIVE|BEAR/i.test(t('fusionCat')))bear.push('catalyst adverse');
+  if(/HIGH|ELEVATED/i.test(risk))bear.push('risk elevated');
+  if(/CONFLICT|LOW/i.test(agree))bear.push('cross-signal disagreement');
+  document.getElementById('v1004Bull').textContent=bull.join(' • ')||'No validated bullish thesis available.';
+  document.getElementById('v1004Bear').textContent=bear.join(' • ')||'No validated counter-thesis available.';
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},450));
+ setTimeout(()=>{update();setInterval(update,2500)},900);
+})();
 </script></body></html>
