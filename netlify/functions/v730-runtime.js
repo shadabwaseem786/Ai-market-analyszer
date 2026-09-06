@@ -73,12 +73,14 @@ exports.handler=async(event)=>{
   if(!catalystHealthy){csummary.catalystBias="NEUTRAL";csummary.catalystConfidence=0;csummary.catalystRisk=100;csummary.catalystHealth=0;csummary.catalystFreshness=0;csummary.count=0;} if(!Number.isFinite(Number(csummary.catalystConfidence))) csummary.catalystConfidence=0; if(!Number.isFinite(Number(csummary.catalystRisk))) csummary.catalystRisk=100; if(!Number.isFinite(Number(csummary.catalystFreshness))) csummary.catalystFreshness=0;
   const results=[];
   for(const m of marketList){
-   const regimeResult=regimeBrain.classify({...m,catalystConfidence:csummary.catalystConfidence,catalystFreshness:csummary.catalystFreshness});
+   const regimeResult=regimeBrain.classify({...m,catalystConfidence:csummary.catalystConfidence,catalystFreshness:csummary.catalystFreshness,previousRegime:m.previousRegime,previousRegimeConfidence:m.previousRegimeConfidence});
    const enrichedMarket={...m,regime:regimeResult.regime,regimeConfidence:regimeResult.confidence};
    const ar=ai.infer?ai.infer({score:enrichedMarket.score,confidence:enrichedMarket.confidence,agreementPct:enrichedMarket.agreementPct,riskScore:enrichedMarket.riskScore,dataHealth:enrichedMarket.dataHealth,catalystConfidence:csummary.catalystConfidence,catalystRisk:csummary.catalystRisk,catalystFreshness:csummary.catalystFreshness,regime:enrichedMarket.regime}):null;
    const decision=combine(enrichedMarket,csummary,ar||{});
    decision.intelligence.regimeConfidence=regimeResult.confidence;
    decision.intelligence.regimeFeatures=regimeResult.features;
+   decision.intelligence.regimeTransition= {changed:regimeResult.changed,state:regimeResult.transitionState,confidence:regimeResult.transitionConfidence,risk:regimeResult.transitionRisk};
+   if(regimeResult.transitionState==="UNSTABLE"||regimeResult.transitionRisk>=65){ decision.decision="WAIT"; decision.gate="HOLD"; }
    if(marketClosed){decision.decision="WAIT";decision.bias="NEUTRAL";decision.gate="HOLD";decision.governance={...decision.governance,marketClosed:true};}
    results.push({symbol:m.symbol,market:enrichedMarket,ai:ar,decision});
   }
