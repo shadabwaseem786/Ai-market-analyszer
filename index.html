@@ -1536,7 +1536,7 @@ function ensureAudit(){
  children.forEach(function(el){if(el===d||el===cock||el.id==='v730MarketSelector'||el.id==='v730ModeSwitch'||el.id==='v1063NewbieHome'||el.id==='v1063ExpertWeights')return;if(el.tagName==='SCRIPT'||el.tagName==='STYLE')return;body.appendChild(el)});
  main.appendChild(d);
 }
-function run(){ensureNewbie();ensureExpert();ensureAudit();renderNewbie();syncWeights();var main=document.querySelector('main.wrap');if(main){var a=document.getElementById('v1063DeepAudit');if(a)a.open=false; var nb=document.getElementById('v1063NewbieHome'); if(nb)nb.style.display=main.classList.contains('v1001-expert')?'none':'block'; var ew=document.getElementById('v1063ExpertWeights'); if(ew)ew.style.display=main.classList.contains('v1001-expert')?'block':'none';}}
+function run(){ensureNewbie();ensureExpert();ensureAudit();renderNewbie();syncWeights();var main=document.querySelector('main.wrap');if(main){var a=document.getElementById('v1063DeepAudit');if(a)a.open=false; var nb=document.getElementById('v1063NewbieHome'); var expertMode=String(localStorage.getItem('fno_mode')||'NEWBIE').toUpperCase()==='EXPERT'; if(nb)nb.style.setProperty('display',expertMode?'none':'block','important'); var ew=document.getElementById('v1063ExpertWeights'); if(ew)ew.style.setProperty('display',expertMode?'block':'none','important');}}
 document.addEventListener('DOMContentLoaded',function(){setTimeout(run,300);setTimeout(run,1200);setTimeout(run,2500);setInterval(function(){run()},1500)});
 setTimeout(run,900);
 })();</script><style id="v1068-stable-mode-final">
