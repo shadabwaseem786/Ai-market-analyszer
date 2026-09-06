@@ -36,15 +36,18 @@ function combine(m,c,a){
   {name:"RISK_PLUS_20",probability:clamp(calibratedProbability-(risk>=45?12:6),1,99)},
   {name:"CATALYST_REVERSAL",probability:clamp(calibratedProbability-(cb==="BULLISH"?14:8),1,99)}
  ];
- const baseDir=calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
+ const baseDir=regimeAdjustedProbability>=65?"BUY":regimeAdjustedProbability<=35?"SELL":"WAIT";
  const adverseSurvival=stressCases.filter(x=>baseDir==="BUY"?x.probability>=55:baseDir==="SELL"?x.probability<=45:true).length/Math.max(1,stressCases.length);
  const robustnessScore=Math.round(clamp(adverseSurvival*100-(counterfactualBreak?25:0)-(uncertaintyBand>=45?10:0),0,100));
  const action=mh<35||dataQuality<45||counterfactualBreak||confidence<55||risk>=65||uncertaintyBand>=55||robustnessScore<50||Math.abs(calibratedProbability-50)<12||evProxy<8?"WAIT":calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
  const gate=action==="WAIT"?"HOLD":"PASS";
  const memory=require("./prediction-memory.js");
  const memoryStats=memory.summary();
+ const regimeStats=memoryStats.regimeCalibration?.[regime]||null;
+ const regimeCalibrationPenalty=regimeStats&&regimeStats.sampleSize>=30&&regimeStats.empiricalAccuracy<55?12:0;
+ const regimeAdjustedProbability=clamp(Math.round(50+(calibratedProbability-50)*(1-regimeCalibrationPenalty/100)),1,99);
  return {decision:action,bias:action==="BUY"?"BULLISH":action==="SELL"?"BEARISH":"NEUTRAL",decisionScore:Math.round(directionScore),confidence,riskScore:risk,gate,
-  intelligence:{version:"V731-PROBABILISTIC",rawProbability,calibratedProbability,uncertaintyBand,calibrationPenalty,regime,regimeMultiplier,robustnessScore,stressCases},
+  intelligence:{version:"V731-PROBABILISTIC",rawProbability,calibratedProbability,regimeAdjustedProbability,regimeCalibrationPenalty,regimeStats,uncertaintyBand,calibrationPenalty,regime,regimeMultiplier,robustnessScore,stressCases},
   governance:{dataQuality,ensembleUncertainty:au,ensembleSpread:asp,counterfactualBreak,evProxy,empiricalMemory:memoryStats,policy:"quality+uncertainty+contradiction+EV+calibration+regime gates"},
   components:{technical:Math.round(technical),catalyst:Math.round(catalystScore),ai:Math.round(aiScore)},
   inputs:{marketDirection:mdir,catalystBias:cb,aiDirection:ab,dataHealth:mh,catalystHealth:ch},
