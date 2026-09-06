@@ -1991,4 +1991,60 @@ main.v730-newbie-mode > #v1063DeepAudit,main.v730-newbie-mode > #v1063ExpertWeig
  document.addEventListener('DOMContentLoaded',function(){setTimeout(run,1400);setInterval(run,5000)});setTimeout(run,2200);
  window.V730_OPPORTUNITY_RANKER={version:'V1083',evaluate:candidates};
 })();
+</script><style id="v1084-market-wide-scanner-css">
+.v1084-box{margin-top:10px;border:1px solid #294c59;border-radius:14px;padding:11px;background:#071820}.v1084-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.v1084-head span{font-size:9px;opacity:.7}.v1084-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0}.v1084-k{border:1px solid #233e49;border-radius:9px;padding:8px;background:#091d25}.v1084-k small{display:block;font-size:8px;opacity:.65}.v1084-k b{display:block;font-size:16px;margin-top:3px}.v1084-tabs{display:flex;gap:5px;overflow:auto;margin:8px 0}.v1084-tab{border:1px solid #294c59;background:#091d25;color:inherit;border-radius:999px;padding:5px 9px;font-size:9px;white-space:nowrap;cursor:pointer}.v1084-tab.on{font-weight:900}.v1084-row{display:grid;grid-template-columns:.3fr 1.15fr .6fr .65fr .65fr .65fr .65fr;gap:5px;align-items:center;border:1px solid #203b46;border-radius:8px;padding:7px;font-size:9px;background:#08151d;margin-bottom:5px}.v1084-row small{display:block;opacity:.65}.v1084-score{font-weight:900;font-size:13px}.v1084-bar{height:5px;background:#152d35;border-radius:5px;overflow:hidden;margin-top:3px}.v1084-bar i{display:block;height:100%;width:0;background:#80b9a0}.v1084-note{font-size:9px;opacity:.68;margin-top:7px;line-height:1.35}@media(max-width:700px){.v1084-grid{grid-template-columns:1fr 1fr}.v1084-row{grid-template-columns:.28fr 1.15fr .6fr .7fr .65fr .6fr .6fr;font-size:8px}}
+</style>
+<script id="v1084-market-wide-scanner">
+(function(){
+ const U=[
+  ['NIFTY','INDEX'],['BANKNIFTY','INDEX'],['FINNIFTY','INDEX'],['MIDCPNIFTY','INDEX'],
+  ['RELIANCE','STOCK'],['HDFCBANK','STOCK'],['ICICIBANK','STOCK'],['INFY','STOCK'],['TCS','STOCK'],['SBIN','STOCK'],['TATASTEEL','STOCK'],['AXISBANK','STOCK'],['BEL','STOCK'],['HAL','STOCK'],['ADANIENT','STOCK'],['LT','STOCK'],['ADANIPORTS','STOCK'],
+  ['GOLD','COMMODITY'],['SILVER','COMMODITY'],['CRUDEOIL','COMMODITY']
+ ];
+ const dir=s=>{s=String(s||'').toUpperCase();return /BULL|BUY|LONG/.test(s)?'BUY':/BEAR|SELL|SHORT/.test(s)?'SELL':'WAIT'};
+ const clamp=n=>Math.max(0,Math.min(100,n));
+ function one(sym,type){
+   const api=window.V730_ANALYTICAL_MODULES;if(!api||!api.evaluate)return null;
+   const r=api.evaluate({symbol:sym}), ms=r.modules||[];
+   let b=0,s=0,active=0,rel=0;
+   ms.forEach(m=>{if(!m.available)return;active++;rel+=m.effectiveWeight||0;const d=dir(m.dir);if(d==='BUY')b+=m.effectiveWeight||0;else if(d==='SELL')s+=m.effectiveWeight||0});
+   const consensus=Math.max(b,s), conflict=Math.min(b,s), gap=Math.abs(b-s);
+   const direction=gap>=8?(b>s?'BUY':'SELL'):'WAIT';
+   const coverage=active/(ms.length||1)*100;
+   const base=Number.isFinite(r.combined)?r.combined:50;
+   const opportunity=clamp(Math.round(base*.45+consensus*.25+gap*.15+coverage*.10+5));
+   // Probability is explicitly a heuristic until historical calibration is connected.
+   const probability=clamp(Math.round(50+(direction==='BUY'?1:direction==='SELL'?-1:0)*(opportunity-50)*.72));
+   const confidence=clamp(Math.round(.55*consensus+.25*coverage+.20*(100-conflict)));
+   const risk=clamp(Math.round(100-confidence*.65-(direction==='WAIT'?20:0)));
+   return {sym,type,direction,opportunity,probability,confidence,risk,consensus,coverage,active};
+ }
+ function all(){return U.map(x=>one(x[0],x[1])).filter(Boolean)}
+ function add(){
+   if(document.getElementById('v1084Scanner'))return;
+   const anchor=document.getElementById('v1083Opportunity')||document.getElementById('v1080Fusion')||document.getElementById('v1002Expert');if(!anchor)return;
+   const d=document.createElement('section');d.id='v1084Scanner';d.className='v1084-box';d.dataset.tab='OVERALL';
+   d.innerHTML='<div class="v1084-head"><b>🌐 MARKET-WIDE OPPORTUNITY SCANNER</b><span>V1084 • probability / opportunity / confidence</span></div>'+
+   '<div class="v1084-grid"><div class="v1084-k"><small>BEST OVERALL</small><b id="v1084Best">—</b></div><div class="v1084-k"><small>BEST LONG</small><b id="v1084Long">—</b></div><div class="v1084-k"><small>BEST SHORT</small><b id="v1084Short">—</b></div></div>'+
+   '<div class="v1084-tabs">'+['OVERALL','LONG','SHORT','INDEX','STOCK','COMMODITY'].map(t=>'<button class="v1084-tab" data-tab="'+t+'">'+t+'</button>').join('')+'</div>'+
+   '<div id="v1084Rows"></div><div class="v1084-note">Probability is a transparent heuristic, not a back-tested win probability, until synchronized historical outcomes are connected. Opportunity Score measures setup attractiveness; Confidence measures evidence quality. Missing data is excluded.</div>';
+   anchor.parentNode.insertBefore(d,anchor);
+   d.querySelectorAll('.v1084-tab').forEach(b=>b.onclick=function(){d.dataset.tab=this.dataset.tab;d.querySelectorAll('.v1084-tab').forEach(x=>x.classList.remove('on'));this.classList.add('on');render()});d.querySelector('.v1084-tab').classList.add('on');
+ }
+ function render(){
+   add();const host=document.getElementById('v1084Scanner');if(!host)return;const a=all();
+   const best=a.slice().sort((x,y)=>y.opportunity-x.opportunity);
+   const long=a.filter(x=>x.direction==='BUY').sort((x,y)=>y.opportunity-x.opportunity),short=a.filter(x=>x.direction==='SELL').sort((x,y)=>y.opportunity-x.opportunity);
+   function name(x){return x?x.sym+' • '+x.opportunity:'—'} function set(id,v){const e=document.getElementById(id);if(e)e.textContent=v}
+   set('v1084Best',name(best[0]));set('v1084Long',name(long[0]));set('v1084Short',name(short[0]));
+   let tab=host.dataset.tab||'OVERALL',arr=a;
+   if(tab==='LONG')arr=long;if(tab==='SHORT')arr=short;if(tab==='INDEX')arr=a.filter(x=>x.type==='INDEX').sort((p,q)=>q.opportunity-p.opportunity);if(tab==='STOCK')arr=a.filter(x=>x.type==='STOCK').sort((p,q)=>q.opportunity-p.opportunity);if(tab==='COMMODITY')arr=a.filter(x=>x.type==='COMMODITY').sort((p,q)=>q.opportunity-p.opportunity);
+   if(tab==='OVERALL')arr=best;arr=arr.slice(0,10);
+   const rows=document.getElementById('v1084Rows');if(!rows)return;
+   rows.innerHTML='<div class="v1084-row" style="opacity:.65"><div>#</div><div>INSTRUMENT</div><div>DIR</div><div>PROB.</div><div>OPP.</div><div>CONF.</div><div>RISK</div></div>'+
+   (arr.length?arr.map((x,i)=>'<div class="v1084-row"><div><b>#'+(i+1)+'</b></div><div><b>'+x.sym+'</b><small>'+x.type+' • '+x.active+' active modules</small></div><div><b>'+x.direction+'</b><small>'+Math.round(x.consensus)+'% consensus</small></div><div><b>'+x.probability+'%</b></div><div><b class="v1084-score">'+x.opportunity+'</b><div class="v1084-bar"><i style="width:'+x.opportunity+'%"></i></div></div><div>'+x.confidence+'%</div><div>'+x.risk+'</div></div>').join(''):'<div class="v1084-note">No candidates are sufficiently evaluated.</div>');
+ }
+ document.addEventListener('DOMContentLoaded',function(){setTimeout(render,1600);setInterval(render,5000)});setTimeout(render,2400);
+ window.V730_MARKET_SCANNER={version:'V1084',scan:all};
+})();
 </script></body></html>
