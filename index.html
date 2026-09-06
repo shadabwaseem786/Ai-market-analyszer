@@ -1442,11 +1442,12 @@ function sourceRows(){return [...document.querySelectorAll('#rows tr')].filter(f
 function classify(r){var n=clean(r.children[0]?.textContent).toUpperCase();if(/NIFTY|SENSEX|BANKNIFTY|FINNIFTY|MIDCPNIFTY|NASDAQ|DOW|SPX|S&P|INDEX/.test(n))return'INDICES';if(/GOLD|SILVER|CRUDE|NATURAL GAS|COPPER|ALUMIN|ZINC|LEAD|COTTON|COMMODITY/.test(n))return'COMMODITY';return'STOCKS'}
 function ensureNewbie(){
  if(document.getElementById('v1063NewbieHome'))return;
- var p=document.getElementById('v730NewbiePanel');if(!p)return;
+ var main=document.querySelector('main.wrap');if(!main)return;
+ var p=document.getElementById('v730NewbiePanel');
  var w=document.createElement('section');w.id='v1063NewbieHome';w.className='v1063-panel';
  w.innerHTML='<div class="v1063-title"><h2>⚡ INSTANT MARKET OVERVIEW</h2><span class="v1063-sub">Top 6 probable candidates • validated data only</span></div>'+
  ['STOCKS','INDICES','COMMODITY'].map(function(k){return '<section class="v1063-seg" data-v1063-seg="'+k+'"><div class="v1063-seg-head"><b>'+({'STOCKS':'📈','INDICES':'📊','COMMODITY':'🪙'}[k])+' '+k+'</b><small>Top 6</small></div><div class="v1063-grid"></div><div class="v1063-foot">Ranked by decision confidence, then signal strength</div></section>'}).join('');
- (p?p.insertAdjacentElement('afterend',w):main.appendChild(w));
+ if(p&&p.parentElement===main)p.insertAdjacentElement('afterend',w);else{var ms=document.getElementById('v730ModeSwitch');if(ms&&ms.parentElement===main)ms.insertAdjacentElement('afterend',w);else main.appendChild(w);}
 }
 function renderNewbie(){
  ensureNewbie();var w=document.getElementById('v1063NewbieHome');if(!w)return;
@@ -1480,6 +1481,6 @@ function ensureAudit(){
  main.appendChild(d);
 }
 function run(){ensureNewbie();ensureExpert();ensureAudit();renderNewbie();syncWeights();var main=document.querySelector('main.wrap');if(main){var a=document.getElementById('v1063DeepAudit');if(a)a.open=false; var nb=document.getElementById('v1063NewbieHome'); if(nb)nb.style.display=main.classList.contains('v1001-expert')?'none':'block'; var ew=document.getElementById('v1063ExpertWeights'); if(ew)ew.style.display=main.classList.contains('v1001-expert')?'block':'none';}}
-document.addEventListener('DOMContentLoaded',function(){setTimeout(run,500);setTimeout(run,1800);setInterval(function(){renderNewbie();syncWeights()},3000)});
+document.addEventListener('DOMContentLoaded',function(){setTimeout(run,300);setTimeout(run,1200);setTimeout(run,2500);setInterval(function(){run()},1500)});
 setTimeout(run,900);
 })();</script></body></html>
