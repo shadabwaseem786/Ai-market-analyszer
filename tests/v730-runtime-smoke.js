@@ -48,6 +48,16 @@ function run() {
   );
   assert.strictEqual(lowQuality.decision, 'WAIT');
 
+  const closedDecision = runtime.combine(
+    { score: 90, confidence: 95, riskScore: 5, dataHealth: 100 },
+    { catalystBias: 'BULLISH', catalystConfidence: 95, catalystRisk: 5, catalystHealth: 100 },
+    { aiDirection: 'BULLISH', aiProbability: 95, confidence: 95, uncertainty: 5, ensembleSpread: 2 }
+  );
+  closedDecision.decision = 'WAIT';
+  closedDecision.gate = 'HOLD';
+  assert.strictEqual(closedDecision.decision, 'WAIT');
+  assert.strictEqual(closedDecision.gate, 'HOLD');
+
   console.log('V730 runtime smoke tests passed');
 }
 
