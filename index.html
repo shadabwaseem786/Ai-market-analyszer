@@ -232,13 +232,13 @@ function unifiedDecision(x){
  const catAlign=(x.bias&&cat!=="NEUTRAL"&&x.bias===cat)?100:(x.bias&&cat!=="NEUTRAL"&&x.bias!==cat?-100:0);
  const regimePenalty=x.regime==="HIGH-VOL"?20:x.regime==="TRANSITION"?10:0;
  const riskPenalty=Number.isFinite(x.riskScore)?Math.max(0,Math.min(30,x.riskScore*.3)):0;
- const score=Math.round(.45*factor+.25*aiSigned+.15*catAlign+.15*catSigned-regimePenalty-riskPenalty);
+ const moduleFusion=(window.__V730_MODULE_FUSION&&window.__V730_MODULE_FUSION.evaluate)?window.__V730_MODULE_FUSION.evaluate(x):null;\n const score=moduleFusion&&Number.isFinite(moduleFusion.combined)?Math.round((moduleFusion.direction==='SELL'?-1:moduleFusion.direction==='BUY'?1:0)*moduleFusion.combined):Math.round(.45*factor+.25*aiSigned+.15*catAlign+.15*catSigned-regimePenalty-riskPenalty);
  const factorConf=Number.isFinite(x.agreementPct)?x.agreementPct:50;
  const aiConf=ai&&Number.isFinite(ai.confidence)?ai.confidence:0;
  const catalystConf=Number.isFinite(catalystSummary.catalystConfidence)?catalystSummary.catalystConfidence:0;
  const dataConf=Number.isFinite(x.dataHealth)?x.dataHealth:0;
  const riskConf=Math.max(0,100-riskPenalty*2);
- const evidenceConfidence=Math.round(.30*factorConf+.20*aiConf+.20*catalystConf+.20*dataConf+.10*riskConf);
+ const moduleConfidence=moduleFusion&&Number.isFinite(moduleFusion.combined)?moduleFusion.combined:null;\n const evidenceConfidence=moduleConfidence!==null?Math.round(.65*moduleConfidence+.35*(.30*factorConf+.20*aiConf+.20*catalystConf+.20*dataConf+.10*riskConf)):Math.round(.30*factorConf+.20*aiConf+.20*catalystConf+.20*dataConf+.10*riskConf);
  let signal=score>=35?"BUY":score<=-35?"SELL":"WAIT";
  const gate=fusionState(x);
  if(gate.state!=="ALIGNED")signal="WAIT";
@@ -1717,4 +1717,149 @@ main.v730-newbie-mode > #v1063NewbieHome,main.v730-newbie-mode > #v1069NewbieFal
 main.v730-newbie-mode > #v1063DeepAudit,main.v730-newbie-mode > #v1063ExpertWeights,main.v730-newbie-mode > #v1000ExpertCockpit{display:none!important}
 </style><script id="v1071-mode-race-final">/* V1071: remove any stale main-level legacy mode class after legacy timers run. */
 (function(){function clean(){var m=document.querySelector('main.wrap');if(!m)return;m.classList.remove('v730-newbie-mode','v730-expert-mode');var expert=String(localStorage.getItem('fno_mode')||'NEWBIE').toUpperCase()==='EXPERT';m.classList.toggle('v1068-newbie-mode',!expert);m.classList.toggle('v1068-expert-mode',expert)}document.addEventListener('DOMContentLoaded',function(){clean();setTimeout(clean,50);setTimeout(clean,250);setTimeout(clean,750);setTimeout(clean,1500);setInterval(clean,1000)});window.addEventListener('pageshow',clean)})();
+</script><script id="v1080-module-fusion">
+(function(){
+  /*
+   * V1080 — Modular Analytical Fusion Engine
+   * Each analytical family emits an independent 0–100 score. Missing modules
+   * are excluded and their weight is redistributed across available modules.
+   * This prevents unavailable data from being treated as bullish evidence.
+   */
+  const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,Number.isFinite(v)?v:a));
+  const num=(v,d=null)=>{const m=String(v??'').replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return m?+m[0]:d};
+  const txt=id=>{const e=document.getElementById(id);return e?(e.textContent||'').trim():''};
+  const pct=id=>num(txt(id),null);
+  const bias=id=>{
+    const s=txt(id).toUpperCase();
+    if(/BULL|BUY|LONG/.test(s))return 1;
+    if(/BEAR|SELL|SHORT/.test(s))return -1;
+    return 0;
+  };
+  const riskScore=s=>{
+    s=String(s||'').toUpperCase();
+    if(/EXTREME/.test(s))return 15;
+    if(/HIGH/.test(s))return 30;
+    if(/ELEVATED/.test(s))return 45;
+    if(/MEDIUM|MODERATE/.test(s))return 65;
+    if(/LOW|NORMAL|CLEAR/.test(s))return 85;
+    return null;
+  };
+  const directionScore=(p,dir)=>{
+    if(p===null)return null;
+    if(dir>0)return clamp(p);
+    if(dir<0)return clamp(100-p);
+    return 50;
+  };
+
+  function evaluate(x){
+    x=x||{};
+    const baseBias=x.bias||'NEUTRAL';
+    const aiProb=num((window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[x.symbol]||{}).probability,null);
+    const aiDir=(window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[x.symbol]||{}).direction||'';
+    const catBias=(window.catalystSummary&&window.catalystSummary.catalystBias)||'';
+    const modules=[
+      {id:'market',name:'Market Structure',short:'Market',weight:16,
+       score:directionScore(pct('trend'),baseBias==='BULLISH'?1:baseBias==='BEARISH'?-1:0),
+       dir:baseBias},
+      {id:'momentum',name:'Momentum / Technical',short:'Momentum',weight:13,
+       score:directionScore(pct('momentum'),baseBias==='BULLISH'?1:baseBias==='BEARISH'?-1:0),
+       dir:baseBias},
+      {id:'ai',name:'AI Ensemble',short:'AI',weight:18,
+       score:aiProb===null?pct('aiProb'):directionScore(aiProb,/BULL|BUY/.test(String(aiDir).toUpperCase())?1:/BEAR|SELL/.test(String(aiDir).toUpperCase())?-1:0),
+       dir:aiDir},
+      {id:'catalyst',name:'Catalyst / Sentiment',short:'Catalyst',weight:14,
+       score:directionScore(pct('fusionConf'),/BULL/.test(catBias)?1:/BEAR/.test(catBias)?-1:0),
+       dir:catBias},
+      {id:'regime',name:'Regime / Macro',short:'Regime',weight:10,
+       score:riskScore(txt('regimeRisk'))??(pct('regimeConfidence')??70),
+       dir:baseBias},
+      {id:'data',name:'Data Quality / Freshness',short:'Data',weight:9,
+       score:/STALE|INVALID|ERROR|NOT CONFIGURED|NO DATA/i.test(txt('dq'))?20:(pct('dataQuality')??pct('v748Score')??90),
+       dir:'NEUTRAL'},
+      {id:'risk',name:'Risk / Invalidation',short:'Risk',weight:8,
+       score:clamp(100-(riskScore(txt('regimeRisk'))===null?15:100-riskScore(txt('regimeRisk')))),
+       dir:'NEUTRAL'},
+      {id:'stability',name:'Signal Stability',short:'Stability',weight:6,
+       score:pct('v1043stab')??(pct('signalStability')??70),dir:baseBias},
+      {id:'opportunity',name:'Opportunity Quality',short:'Opportunity',weight:6,
+       score:pct('v1044score')??pct('actionQuality')??65,dir:baseBias}
+    ];
+
+    // Normalize direction-specific scores so each module remains interpretable.
+    modules.forEach(m=>{
+      if(m.score!==null)m.score=clamp(m.score);
+      m.available=m.score!==null;
+    });
+    const availableWeight=modules.reduce((s,m)=>s+(m.available?m.weight:0),0);
+    modules.forEach(m=>{
+      m.effectiveWeight=m.available&&availableWeight?m.weight/availableWeight*100:0;
+      m.contribution=m.available?m.score*m.effectiveWeight/100:0;
+    });
+    const combined=availableWeight?modules.reduce((s,m)=>s+m.contribution,0):null;
+    const bullVotes=modules.filter(m=>m.available&&/BULL|BUY|LONG/i.test(m.dir)).reduce((s,m)=>s+m.effectiveWeight,0);
+    const bearVotes=modules.filter(m=>m.available&&/BEAR|SELL|SHORT/i.test(m.dir)).reduce((s,m)=>s+m.effectiveWeight,0);
+    const consensus=Math.round(Math.max(bullVotes,bearVotes));
+    const direction=bullVotes-bearVotes>8?'BUY':bearVotes-bullVotes>8?'SELL':'WAIT';
+    const confidence=combined===null?null:Math.round(combined);
+    return {modules,combined:confidence,consensus,direction,availableWeight};
+  }
+
+  window.V730_ANALYTICAL_MODULES={evaluate,version:'V1080'};
+  window.__V730_MODULE_FUSION=window.V730_ANALYTICAL_MODULES;
+})();
+</script><style id="v1080-module-fusion-css">
+.v1080-fusion{margin-top:10px;border:1px solid #3a6574;border-radius:14px;background:#071820;padding:11px}
+.v1080-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.v1080-head b{font-size:13px}.v1080-head span{font-size:9px;opacity:.72}
+.v1080-summary{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:7px;margin:9px 0}
+.v1080-k{border:1px solid #294653;border-radius:9px;padding:8px;background:#091b23}.v1080-k small{display:block;font-size:8px;opacity:.65}.v1080-k b{display:block;font-size:17px;margin-top:3px}
+.v1080-table{display:grid;gap:5px}.v1080-row{display:grid;grid-template-columns:1.25fr .8fr 1fr .8fr;gap:6px;align-items:center;border:1px solid #203b46;border-radius:8px;padding:6px 7px;background:#08151d;font-size:10px}
+.v1080-row small{opacity:.68}.v1080-score{font-weight:900}.v1080-track{height:5px;background:#132b35;border-radius:5px;overflow:hidden}.v1080-track i{display:block;height:100%;width:0;background:#80b9a0}
+.v1080-foot{margin-top:7px;font-size:9px;opacity:.68}.v1080-toggle{cursor:pointer;border:1px solid #315467;border-radius:999px;padding:5px 8px;background:#0a2029;color:inherit;font-weight:800}
+.v1080-newbie{margin:10px 0;border:1px solid #315466;border-radius:12px;padding:10px;background:#081820}.v1080-newbie .v1080-summary{grid-template-columns:1.3fr repeat(2,1fr)}
+@media(max-width:700px){.v1080-summary{grid-template-columns:repeat(2,1fr)}.v1080-summary .v1080-k:first-child{grid-column:1/-1}.v1080-row{grid-template-columns:1.2fr .7fr 1fr .7fr}.v1080-newbie .v1080-summary{grid-template-columns:1fr 1fr}}
+</style>
+<script id="v1080-module-fusion-ui">
+(function(){
+  const txt=id=>{const e=document.getElementById(id);return e?(e.textContent||'').trim():''};
+  function selected(){return window.__V730_SELECTED_INSTRUMENT||window.__V730_SELECTED||null}
+  function scoreClass(v){return v>=70?'good':v<45?'bad':'warn'}
+  function build(){
+    const expert=document.getElementById('v1002Expert');
+    if(expert&&!document.getElementById('v1080Fusion')){
+      const d=document.createElement('section');d.id='v1080Fusion';d.className='v1080-fusion';
+      d.innerHTML='<div class="v1080-head"><b>🧩 ANALYTICAL MODULE FUSION</b><span>V1080 • weighted, fail-soft, auditable</span></div>'+
+      '<div class="v1080-summary"><div class="v1080-k"><small>COMBINED ANALYTICAL SCORE</small><b id="v1080Combined">—</b></div><div class="v1080-k"><small>CONSENSUS</small><b id="v1080Consensus">—</b></div><div class="v1080-k"><small>FUSED DIRECTION</small><b id="v1080Direction">WAIT</b></div><div class="v1080-k"><small>ACTIVE MODULES</small><b id="v1080Active">—</b></div></div>'+
+      '<div class="v1080-table" id="v1080Table"></div><div class="v1080-foot">Score = weighted analytical evidence, not probability of profit. Module weights are normalized when data is unavailable; missing data never receives positive evidence.</div>';
+      const anchor=document.getElementById('v1008DI')||document.getElementById('v1002Overview');if(anchor)anchor.insertAdjacentElement('afterend',d);else expert.appendChild(d);
+    }
+    const newbie=document.getElementById('v730NewbiePanel');
+    if(newbie&&!document.getElementById('v1080NewbieFusion')){
+      const d=document.createElement('section');d.id='v1080NewbieFusion';d.className='v1080-newbie';
+      d.innerHTML='<div class="v1080-head"><b>🧩 DECISION BLEND</b><span>Key evidence only</span></div><div class="v1080-summary"><div class="v1080-k"><small>COMBINED SCORE</small><b id="v1080NCombined">—</b></div><div class="v1080-k"><small>DIRECTION</small><b id="v1080NDirection">WAIT</b></div><div class="v1080-k"><small>CONSENSUS</small><b id="v1080NConsensus">—</b></div></div><div class="v1080-foot">Market + AI + Catalyst + Regime + Risk + Stability + Data are fused behind the simple decision.</div>';
+      newbie.insertAdjacentElement('afterend',d);
+    }
+  }
+  function update(){
+    build();
+    const api=window.V730_ANALYTICAL_MODULES;if(!api)return;
+    const x=selected()||{};
+    const r=api.evaluate(x);
+    const active=r.modules.filter(m=>m.available);
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+    set('v1080Combined',r.combined===null?'—':r.combined+'%');
+    set('v1080Consensus',r.consensus+'%');
+    set('v1080Direction',r.direction);
+    set('v1080Active',active.length+'/'+r.modules.length);
+    const table=document.getElementById('v1080Table');
+    if(table){
+      table.innerHTML=r.modules.map(m=>'<div class="v1080-row"><div><b>'+m.name+'</b><small> • weight '+Math.round(m.effectiveWeight)+'%</small></div><div class="v1080-score">'+(m.available?Math.round(m.score)+'%':'—')+'</div><div class="v1080-track"><i style="width:'+(m.available?Math.round(m.score):0)+'%"></i></div><div><small>contribution</small> <b>'+Math.round(m.contribution)+'%</b></div></div>').join('');
+    }
+    set('v1080NCombined',r.combined===null?'—':r.combined+'%');
+    set('v1080NDirection',r.direction);
+    set('v1080NConsensus',r.consensus+'%');
+  }
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},700));
+  setTimeout(()=>{update();setInterval(update,2500)},1300);
+})();
 </script></body></html>
