@@ -951,4 +951,37 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},650));
  setTimeout(()=>{update();setInterval(update,2500)},1200);
 })();
+</script><style id="v1007-calibration-ledger">
+.v1007-cal{margin-top:9px;border:1px solid #294653;border-radius:12px;padding:10px;background:#081720}
+.v1007-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.v1007-k{border:1px solid #223b46;border-radius:9px;padding:7px}.v1007-k small{display:block;font-size:8px;opacity:.62}.v1007-k b{display:block;font-size:12px;margin-top:3px}
+.v1007-note{font-size:9px;opacity:.65;margin-top:7px}.v1007-state{margin-top:7px;font-size:10px;font-weight:800;border:1px solid #315467;border-radius:9px;padding:7px}
+@media(max-width:700px){.v1007-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="v1007-calibration-ledger-js">
+(function(){
+ function t(id){const e=document.getElementById(id);return e?e.textContent.trim():''}
+ function n(id){const m=t(id).replace(/,/g,'').match(/\d+(?:\.\d+)?/);return m?+m[0]:null}
+ function build(){const root=document.getElementById('v1002Expert');if(!root||document.getElementById('v1007Cal'))return;
+  const d=document.createElement('div');d.id='v1007Cal';d.className='v1007-cal';
+  d.innerHTML='<div class="v1002-section-title">📏 LIVE CALIBRATION & MODEL HEALTH</div><div class="v1007-grid">'+
+  '<div class="v1007-k"><small>TRACKED SAMPLES</small><b id="v1007Samples">—</b></div>'+
+  '<div class="v1007-k"><small>OBSERVED ACCURACY</small><b id="v1007Accuracy">—</b></div>'+
+  '<div class="v1007-k"><small>CALIBRATION OFFSET</small><b id="v1007Offset">—</b></div>'+
+  '<div class="v1007-k"><small>DRIFT STATE</small><b id="v1007Drift">—</b></div></div>'+
+  '<div class="v1007-state" id="v1007State">Building evidence ledger…</div>'+
+  '<div class="v1007-note">Live outcomes are tracked locally and used only as diagnostics. They do not silently retrain or overwrite the production decision model.</div>';
+  root.appendChild(d);
+ }
+ function update(){build();
+  const samples=n('learnSamples'),acc=n('learnAccuracy'),offset=n('learnCal'),drift=t('learnDrift');
+  document.getElementById('v1007Samples').textContent=samples===null?'0':samples;
+  document.getElementById('v1007Accuracy').textContent=acc===null?'—':acc+'%';
+  document.getElementById('v1007Offset').textContent=offset===null?'0.000':offset.toFixed(3);
+  document.getElementById('v1007Drift').textContent=drift||'LOW';
+  let state=samples===null||samples<20?'BUILDING — insufficient observations for trustworthy calibration':/HIGH/i.test(drift)?'REVIEW — performance drift detected':'TRACKING — diagnostics active';
+  document.getElementById('v1007State').textContent=state;
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,3000)},800));
+ setTimeout(()=>{update();setInterval(update,3000)},1400);
+})();
 </script></body></html>
