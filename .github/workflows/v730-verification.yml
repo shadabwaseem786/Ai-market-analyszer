@@ -7,12 +7,16 @@ on:
       - 'netlify/functions/**'
       - 'tests/**'
       - 'package.json'
+      - 'scripts/**'
+      - 'data/**'
       - '.github/workflows/**'
   pull_request:
     paths:
       - 'netlify/functions/**'
       - 'tests/**'
       - 'package.json'
+      - 'scripts/**'
+      - 'data/**'
       - '.github/workflows/**'
   workflow_dispatch:
 
@@ -57,4 +61,14 @@ jobs:
         run: npm run refresh-data
 
       - name: Validate published Pages endpoint
-        run: node -e "fetch('https://shadabwaseem786.github.io/Ai-market-analyszer/data/v730-runtime.json',{cache:'no-store'}).then(async r=>{if(!r.ok)throw new Error('Pages HTTP '+r.status);const j=await r.json();if(!j||typeof j!=='object')throw new Error('Invalid Pages runtime JSON');console.log('Pages runtime HTTP '+r.status+' status='+String(j.status||'UNKNOWN'))}).catch(e=>{console.error(e);process.exit(1)})"
+        run: node - <<'NODE'
+        const url='https://shadabwaseem786.github.io/Ai-market-analyszer/data/v730-runtime.json';
+        const r=await fetch(url,{cache:'no-store'});
+        if(!r.ok) throw new Error('Pages HTTP '+r.status);
+        const j=await r.json();
+        if(!j || typeof j!=='object') throw new Error('Invalid Pages runtime JSON');
+        if(!Array.isArray(j.results)) throw new Error('Pages runtime results missing');
+        const allowed=['INTEGRATED','DEGRADED','CLOSED','UNKNOWN'];
+        if(j.status && !allowed.includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
+        console.log('Pages runtime OK: HTTP '+r.status+' status='+String(j.status||'UNKNOWN')+' results='+j.results.length);
+        NODE
