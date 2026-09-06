@@ -10,6 +10,7 @@ async function writeJson(file,obj){await fs.writeFile(file,JSON.stringify(obj,nu
 const dir=path.join(root,'data'); await fs.mkdir(dir,{recursive:true});
 const files={market:path.join(dir,'market-data.json'),catalyst:path.join(dir,'catalyst-feed.json'),runtime:path.join(dir,'v730-runtime.json')};
 const [md,cd,rd]=await Promise.all([invoke(market.handler),invoke(catalyst.handler),invoke(runtime.handler)]);
+if(rd.status!=='INTEGRATED' && rd.status!=='DEGRADED') throw new Error('V730 runtime snapshot has unexpected status: '+String(rd.status));
 const oldM=await readJson(files.market), oldC=await readJson(files.catalyst), oldR=await readJson(files.runtime);
 const goodM=Number(md.validCount||0)>0; const goodC=Number(cd.summary?.count||0)>0; const goodR=rd.status==='INTEGRATED';
 if(goodM) await writeJson(files.market,md); else if(!oldM) await writeJson(files.market,{statusCode:200,validCount:0,total:3,marketSession:'CLOSED',data:{},errors:['No validated market snapshot available'],generatedAt:new Date().toISOString()});
