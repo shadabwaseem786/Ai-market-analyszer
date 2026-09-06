@@ -23,10 +23,18 @@ function combine(m,c,a){
  const risk=clamp(Math.round(0.50*mr+0.22*cr+0.13*(100-confidence)+0.10*au+0.05*(100-dataQuality)),0,100);
  const counterfactualBreak=msign!==0&&csign!==0&&asign!==0&&msign!==csign&&msign!==asign&&csign!==asign;
  const evProxy=clamp(Math.round(Math.abs(directionScore-50)*1.6*(1-risk/100)*(confidence/100)),0,80);
- const action=mh<35||dataQuality<45||counterfactualBreak||confidence<55||risk>=65||Math.abs(directionScore-50)<12||evProxy<8?"WAIT":directionScore>=65?"BUY":directionScore<=35?"SELL":"WAIT";
+ const regimeInput=String(m?.regime||"UNKNOWN").toUpperCase();
+ const regime=["TRENDING_BULL","TRENDING_BEAR","RANGE","HIGH_VOL","LOW_VOL","EVENT_SHOCK","LIQUIDITY_STRESS"].includes(regimeInput)?regimeInput:"UNKNOWN";
+ const regimeMultiplier=regime==="EVENT_SHOCK"||regime==="LIQUIDITY_STRESS"?0.82:regime==="RANGE"?0.90:1;
+ const rawProbability=clamp(50+(directionScore-50)*1.25,1,99);
+ const calibrationPenalty=clamp(Math.round(au*0.35+asp*0.15+(100-dataQuality)*0.20),0,45);
+ const calibratedProbability=clamp(Math.round(50+(rawProbability-50)*regimeMultiplier*(1-calibrationPenalty/100)),1,99);
+ const uncertaintyBand=Math.round(clamp(au*0.60+asp*0.25+(100-dataQuality)*0.15,0,100));
+ const action=mh<35||dataQuality<45||counterfactualBreak||confidence<55||risk>=65||uncertaintyBand>=55||Math.abs(calibratedProbability-50)<12||evProxy<8?"WAIT":calibratedProbability>=65?"BUY":calibratedProbability<=35?"SELL":"WAIT";
  const gate=action==="WAIT"?"HOLD":"PASS";
  return {decision:action,bias:action==="BUY"?"BULLISH":action==="SELL"?"BEARISH":"NEUTRAL",decisionScore:Math.round(directionScore),confidence,riskScore:risk,gate,
-  governance:{dataQuality,ensembleUncertainty:au,ensembleSpread:asp,counterfactualBreak,evProxy,policy:"quality+uncertainty+contradiction+EV gates"},
+  intelligence:{version:"V731-PROBABILISTIC",rawProbability,calibratedProbability,uncertaintyBand,calibrationPenalty,regime,regimeMultiplier},
+  governance:{dataQuality,ensembleUncertainty:au,ensembleSpread:asp,counterfactualBreak,evProxy,policy:"quality+uncertainty+contradiction+EV+calibration+regime gates"},
   components:{technical:Math.round(technical),catalyst:Math.round(catalystScore),ai:Math.round(aiScore)},
   inputs:{marketDirection:mdir,catalystBias:cb,aiDirection:ab,dataHealth:mh,catalystHealth:ch},
   explanation:"V730000 runtime applies quality, ensemble-uncertainty, contradiction and expected-value proxy gates to live market/catalyst/AI evidence."};
@@ -50,7 +58,7 @@ exports.handler=async(event)=>{
   if(!catalystHealthy){csummary.catalystBias="NEUTRAL";csummary.catalystConfidence=0;csummary.catalystRisk=100;csummary.catalystHealth=0;csummary.catalystFreshness=0;csummary.count=0;} if(!Number.isFinite(Number(csummary.catalystConfidence))) csummary.catalystConfidence=0; if(!Number.isFinite(Number(csummary.catalystRisk))) csummary.catalystRisk=100; if(!Number.isFinite(Number(csummary.catalystFreshness))) csummary.catalystFreshness=0;
   const results=[];
   for(const m of marketList){
-   const ar=ai.infer?ai.infer({score:m.score,confidence:m.confidence,agreementPct:m.agreementPct,riskScore:m.riskScore,dataHealth:m.dataHealth,catalystConfidence:csummary.catalystConfidence,catalystRisk:csummary.catalystRisk,catalystFreshness:csummary.catalystFreshness}):null;
+   const ar=ai.infer?ai.infer({score:m.score,confidence:m.confidence,agreementPct:m.agreementPct,riskScore:m.riskScore,dataHealth:m.dataHealth,catalystConfidence:csummary.catalystConfidence,catalystRisk:csummary.catalystRisk,catalystFreshness:csummary.catalystFreshness,regime:m.regime}):null;
    const decision=combine(m,csummary,ar||{});
    if(marketClosed){decision.decision="WAIT";decision.bias="NEUTRAL";decision.gate="HOLD";decision.governance={...decision.governance,marketClosed:true};}
    results.push({symbol:m.symbol,market:m,ai:ar,decision});
