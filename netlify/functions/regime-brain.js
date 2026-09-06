@@ -2,6 +2,8 @@
 // Decision support only; no order execution.
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 function classify(f={}){
+ const previous=String(f.previousRegime||"UNKNOWN").toUpperCase();
+ const previousConfidence=clamp(Number(f.previousRegimeConfidence??0),0,100);
  const score=clamp(Number(f.score??50),0,100), conf=clamp(Number(f.confidence??50),0,100), risk=clamp(Number(f.riskScore??50),0,100), health=clamp(Number(f.dataHealth??0),0,100);
  const agreement=clamp(Number(f.agreementPct??50),0,100), catalyst=clamp(Number(f.catalystConfidence??50),0,100), fresh=clamp(Number(f.catalystFreshness??50),0,100);
  const trend=score>=68?1:score<=32?-1:0;
@@ -15,6 +17,10 @@ function classify(f={}){
  else if(volatility==="LOW"&&Math.abs(score-50)<12) regime="LOW_VOL";
  const evidence=[Math.abs(score-50)*2,agreement,catalyst,fresh,health].reduce((a,b)=>a+b,0)/5;
  const confidence=Math.round(clamp(evidence-(regime==="RANGE"?8:0),0,100));
- return {version:"V733-REGIME-BRAIN",regime,confidence,features:{score,agreement,risk,catalyst,fresh,health},method:"trend+agreement+volatility+catalyst+freshness+data-health"};
+ const changed=previous!=="UNKNOWN"&&previous!==regime;
+ const transitionConfidence=Math.round(clamp((confidence+previousConfidence)/2+(changed?15:0),0,100));
+ const transitionState=changed?(transitionConfidence>=65?"CONFIRMED":"UNSTABLE"):"STABLE";
+ const transitionRisk=changed?Math.round(clamp(100-transitionConfidence+(regime==="EVENT_SHOCK"||regime==="LIQUIDITY_STRESS"?20:0),0,100)):0;
+ return {version:"V734-TRANSITION-BRAIN",regime,confidence,previousRegime:previous,changed,transitionState,transitionConfidence,transitionRisk,features:{score,agreement,risk,catalyst,fresh,health},method:"trend+agreement+volatility+catalyst+freshness+data-health+regime-transition"};
 }
 exports.classify=classify;
