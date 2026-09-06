@@ -78,6 +78,24 @@ function run() {
   );
   assert.strictEqual(hardConflict.decision, 'WAIT');
 
+  const probabilistic = runtime.combine(
+    { score: 82, confidence: 90, riskScore: 18, dataHealth: 100, regime: 'TRENDING_BULL' },
+    { catalystBias: 'BULLISH', catalystConfidence: 85, catalystRisk: 18, catalystHealth: 100 },
+    { aiDirection: 'BULLISH', aiProbability: 84, confidence: 88, uncertainty: 10, ensembleSpread: 4 }
+  );
+  assert.strictEqual(probabilistic.intelligence.version, 'V731-PROBABILISTIC');
+  assert(probabilistic.intelligence.rawProbability >= 1 && probabilistic.intelligence.rawProbability <= 99);
+  assert(probabilistic.intelligence.calibratedProbability >= 1 && probabilistic.intelligence.calibratedProbability <= 99);
+  assert(probabilistic.intelligence.uncertaintyBand >= 0 && probabilistic.intelligence.uncertaintyBand <= 100);
+
+  const eventShock = runtime.combine(
+    { score: 82, confidence: 90, riskScore: 18, dataHealth: 100, regime: 'EVENT_SHOCK' },
+    { catalystBias: 'BULLISH', catalystConfidence: 85, catalystRisk: 18, catalystHealth: 100 },
+    { aiDirection: 'BULLISH', aiProbability: 84, confidence: 88, uncertainty: 10, ensembleSpread: 4 }
+  );
+  assert(eventShock.intelligence.calibratedProbability <= probabilistic.intelligence.calibratedProbability);
+
+
   console.log('V730 runtime smoke tests passed');
 }
 
