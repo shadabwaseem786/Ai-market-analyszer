@@ -2163,4 +2163,29 @@ main.v730-newbie-mode .v1100-chart{display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{build();update();setInterval(update,2000)},1200));setTimeout(()=>{build();update()},2200);
  window.V1100_REALTIME_CHART={version:'V1100',refresh:update};
 })();
+</script><style id="v1101-chart-clean-ui">
+.v1101-chart-only .v1084-box,.v1101-chart-only .v1085-box,.v1101-chart-only .v1095,.v1101-chart-only .v1083-box,.v1101-chart-only .v1080-box,.v1101-chart-only .v1082-box{display:none!important}
+.v1101-chart-only #v1100ChartTab{display:block!important;margin:0;border:0;padding:0;background:transparent}
+.v1101-chart-only #v1100ChartTab .v1100-controls,.v1101-chart-only #v1100ChartTab .v1100-note{display:none!important}
+.v1101-chart-only #v1100ChartTab .v1100-top{display:block;position:absolute;top:12px;left:12px;right:12px;z-index:4;pointer-events:none}
+.v1101-chart-only #v1100ChartTab .v1100-top .v1100-k{display:none}
+.v1101-chart-only #v1100ChartTab .v1100-top .v1100-k:first-child,.v1101-chart-only #v1100ChartTab .v1100-top .v1100-k:nth-child(2){display:block;position:absolute;top:0;background:rgba(7,24,32,.86);backdrop-filter:blur(5px);border-radius:9px;padding:7px 10px}
+.v1101-chart-only #v1100ChartTab .v1100-top .v1100-k:first-child{left:0}.v1101-chart-only #v1100ChartTab .v1100-top .v1100-k:nth-child(2){right:0}
+.v1101-chart-only #v1100ChartTab .v1100-top .v1100-k:nth-child(2) b{font-size:18px}
+.v1101-chart-only #v1100Canvas{height:calc(100vh - 92px);min-height:360px;margin:0;width:100%;border:0;border-radius:0}
+.v1101-chart-only .v1100-tabbar{margin:0;padding:5px}
+</style>
+<script id="v1101-chart-clean-ui">
+(function(){
+ function clean(){
+  const main=document.querySelector('main'),tab=document.getElementById('v1100ChartTab'),bar=document.getElementById('v1100Tabs');if(!main||!tab||!bar)return;
+  const chartBtn=bar.querySelector('[data-page="chart"]');if(!chartBtn)return;
+  const old=chartBtn.onclick;
+  chartBtn.addEventListener('click',function(){
+   setTimeout(function(){main.classList.add('v1101-chart-only');tab.querySelectorAll('.v1095,.v1084-box,.v1085-box').forEach(e=>e.style.display='none')},0)
+  });
+  bar.querySelectorAll('.v1100-tab').forEach(b=>b.addEventListener('click',function(){if(this.dataset.page!=='chart')main.classList.remove('v1101-chart-only')}));
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(clean,1400));setTimeout(clean,2400);
+})();
 </script></body></html>
