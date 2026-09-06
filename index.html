@@ -2060,4 +2060,53 @@ main.v730-newbie-mode > #v1063DeepAudit,main.v730-newbie-mode > #v1063ExpertWeig
  function render(){add();settle();record();const s=stats(),set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('v1085N',s.n);set('v1085Hit',s.n>=30?Math.round(Object.values(s.bins).flat().reduce((a,x)=>a+x.y,0)/s.n*100)+'%':'—');set('v1085Brier',s.brier==null?'—':s.brier.toFixed(3));set('v1085Status',s.n>=100?'CALIBRATED':s.n>=30?'EARLY SAMPLE':'COLLECTING');set('v1085Badge',s.n>=100?'CALIBRATED • HISTORICAL SAMPLE':s.n>=30?'EARLY CALIBRATION • USE WITH CAUTION':'RAW HEURISTIC • NOT CALIBRATED')}
  document.addEventListener('DOMContentLoaded',()=>{setTimeout(render,1800);setInterval(render,10000)});setTimeout(render,2800);window.V730_PROBABILITY_CALIBRATION={version:'V1085',stats:stats,recordPrediction:record};
 })();
+</script><style id="v1095-decision-intelligence-suite-css">
+.v1095{margin-top:10px;border:1px solid #294653;border-radius:14px;padding:11px;background:#071820}.v1095h{display:flex;justify-content:space-between;gap:8px;align-items:center}.v1095h span{font-size:9px;opacity:.7}.v1095g{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 0}.v1095k{border:1px solid #233e49;border-radius:9px;padding:7px;background:#091d25}.v1095k small{display:block;font-size:8px;opacity:.62}.v1095k b{display:block;font-size:12px;margin-top:3px}.v1095bar{height:6px;border-radius:6px;background:#152d35;overflow:hidden;margin-top:6px}.v1095bar i{display:block;height:100%;width:0;background:#80b9a0}.v1095list{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}.v1095item{border:1px solid #203b46;border-radius:8px;padding:7px;font-size:9px}.v1095item b{display:block;margin-bottom:3px}.v1095note{font-size:9px;opacity:.68;line-height:1.4;margin-top:8px}@media(max-width:700px){.v1095g{grid-template-columns:repeat(2,1fr)}.v1095list{grid-template-columns:1fr}}
+</style>
+<script id="v1095-decision-intelligence-suite">
+(function(){
+ const LEDGER='v1011_outcome_ledger',read=()=>{try{return JSON.parse(localStorage.getItem(LEDGER)||'[]')}catch(e){return[]}};
+ const T=id=>{const e=document.getElementById(id);return e?e.textContent.trim():''},N=id=>{const m=T(id).replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return m?+m[0]:null};
+ function regime(){const x=(T('regimeState')+' '+T('volState')).toUpperCase();return /HIGH|EXTREME|CRASH/.test(x)?'HIGH VOLATILITY':/LOW/.test(x)?'LOW VOLATILITY':/TREND/.test(x)?'TRENDING':'NORMAL / UNKNOWN'}
+ function price(){for(const id of ['currentPrice','livePrice','spotPrice','lastPrice','assetPrice']){const n=N(id);if(n!==null)return n}return null}
+ function stats(){const a=read().filter(x=>x.resolved&&typeof x.hit==='boolean'),n=a.length,hit=n?a.filter(x=>x.hit).length/n:null;return{n,hit}}
+ function ev(prob,risk,move){const p=prob/100,g=Math.max(.1,Math.abs(move||1)/100),l=Math.max(.1,risk/100);return p*g-(1-p)*l}
+ function build(){
+  const r=document.getElementById('v1002Expert');if(!r||document.getElementById('v1095'))return;
+  const d=document.createElement('section');d.id='v1095';d.className='v1095';
+  d.innerHTML='<div class="v1095h"><b>🧠 EXPERT DECISION INTELLIGENCE SUITE</b><span>V1095 • 10-method integration</span></div>'+
+   '<div class="v1095g"><div class="v1095k"><small>CALIBRATED PROBABILITY</small><b id="v1095p">—</b></div><div class="v1095k"><small>EXPECTED VALUE</small><b id="v1095ev">—</b></div><div class="v1095k"><small>REGIME</small><b id="v1095reg">—</b></div><div class="v1095k"><small>SIGNAL SURVIVAL</small><b id="v1095surv">—</b></div><div class="v1095k"><small>DECISION QUALITY</small><b id="v1095q">—</b></div></div>'+
+   '<div class="v1095bar"><i id="v1095bar"></i></div><div class="v1095list">'+
+   '<div class="v1095item"><b>1 • Probability calibration</b><span id="v1095a">Outcome sample controls calibration; no fabricated probability.</span></div>'+
+   '<div class="v1095item"><b>2 • Market-wide ranking</b><span id="v1095b">Global opportunity scanner remains the candidate comparator.</span></div>'+
+   '<div class="v1095item"><b>3 • Regime adaptation</b><span id="v1095c">Weights are regime-aware diagnostics; promotion requires OOS evidence.</span></div>'+
+   '<div class="v1095item"><b>4 • Multi-timeframe</b><span id="v1095d">Horizon separation prevents one timeframe from masquerading as another.</span></div>'+
+   '<div class="v1095item"><b>5 • Expected value</b><span id="v1095e">EV uses explicit probability/risk inputs when available.</span></div>'+
+   '<div class="v1095item"><b>6 • Signal decay</b><span id="v1095f">Stale signals are downgraded conservatively.</span></div>'+
+   '<div class="v1095item"><b>7 • Prediction journal</b><span id="v1095g">Chronological outcome ledger feeds validation.</span></div>'+
+   '<div class="v1095item"><b>8 • False-signal gate</b><span id="v1095i">Adversarial/no-trade governance remains active.</span></div>'+
+   '<div class="v1095item"><b>9 • Opportunity competition</b><span id="v1095j">Champion-vs-challenger and global ranking compare alternatives.</span></div>'+
+   '<div class="v1095item"><b>10 • Explainability</b><span id="v1095k2">Evidence matrix and contradiction layers expose why a signal wins.</span></div>'+
+   '</div><div class="v1095note" id="v1095note">Research-only decision support. A high score is not a guaranteed return. Calibrated probability is withheld until sufficient resolved, instrument-bound outcomes exist.</div>';
+  r.appendChild(d);
+ }
+ function update(){
+  build();const s=stats(),raw=N('v1014prob')??N('gmProb')??N('finalProbability')??50,reg=regime(),conf=N('v1014conf')??N('gmConf')??N('aiConfidence')??70,st=N('signalStability')??70,risk=N('regimeRisk')??35;
+  let prob=raw,cal=false;
+  if(s.n>=100&&s.hit!==null){prob=Math.round(.65*raw+.35*s.hit*100);cal=true}
+  const move=N('expectedMove')??N('targetMove')??1,evv=ev(prob,Math.max(5,100-conf+Math.min(30,risk*.25)),move);
+  const survival=Math.max(0,Math.min(100,Math.round(st*(reg==='HIGH VOLATILITY'?.82:1))));
+  const quality=Math.max(0,Math.min(100,Math.round(.4*conf+.3*survival+.3*(s.n>=100?80:55))));
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  set('v1095p',Math.round(prob)+'%'+(cal?' • CAL':' • RAW'));set('v1095ev',(evv>=0?'+':'')+evv.toFixed(2));set('v1095reg',reg);set('v1095surv',survival+'%');set('v1095q',quality+'%');
+  const bar=document.getElementById('v1095bar');if(bar)bar.style.width=quality+'%';
+  set('v1095a',cal?'Calibrated using '+s.n+' resolved outcomes; blended conservatively with raw score.':'Collecting resolved outcomes; probability remains heuristic.');
+  set('v1095c','Current regime: '+reg+'. Regime-specific weight promotion stays locked until OOS evidence exists.');
+  set('v1095f','Current signal survival proxy: '+survival+'%; source-specific half-life metadata overrides this when available.');
+  set('v1095g',s.n+' resolved outcome'+(s.n===1?'':'s')+' in the local validation ledger.');
+  set('v1095note',cal?'Probability is now sample-informed but still requires regime/timeframe calibration before being treated as fully validated.':'Research-only decision support. No profit probability is claimed; calibration activates only after sufficient resolved, instrument-bound outcomes.');
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,6000)},1600));setTimeout(()=>{update();setInterval(update,6000)},2600);
+ window.V730_EXPERT_SUITE={version:'V1095',update:update};
+})();
 </script></body></html>
