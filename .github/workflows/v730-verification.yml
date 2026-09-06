@@ -72,3 +72,19 @@ jobs:
         if(j.status && !allowed.includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
         console.log('Pages runtime OK: HTTP '+r.status+' status='+String(j.status||'UNKNOWN')+' results='+j.results.length);
         NODE
+
+  release-certification:
+    needs: v730-runtime
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Certification gate
+        env:
+          RUNTIME_RESULT: ${{ needs.v730-runtime.result }}
+        run: |
+          echo "V730000 verification job: $RUNTIME_RESULT"
+          if [ "$RUNTIME_RESULT" != "success" ]; then
+            echo "::error::V730000 is not certified because the runtime verification job did not succeed."
+            exit 1
+          fi
+          echo "V730000 verification gate passed."
