@@ -253,7 +253,9 @@ function renderSelected(name){
   v22500AITitle:"🤖 V22500 AI Neural Intelligence — "+(name||"—")
  };
  Object.keys(hmap).forEach(id=>{const el=qv(id);if(el){const badge=el.querySelector(".scope-badge");el.textContent=hmap[id]+" ";if(badge)el.appendChild(badge)}});
- const instDecision=j.marketSession==="CLOSED"?"WAIT":unifiedDecision(z).signal||"WAIT"; set("v730Decision",instDecision); set("v730Reason",instDecision==="NO-TRADE"?"Instrument data is stale/invalid or fails the freshness gate.":"Instrument-level factors are being combined with market-context catalysts and safety gates.");
+ const runtimeResult=(window.__V730_RUNTIME__&&Array.isArray(window.__V730_RUNTIME__.results))?window.__V730_RUNTIME__.results.find(x=>x.symbol===name):null;
+ const runtimeDecision=runtimeResult&&runtimeResult.decision?runtimeResult.decision.decision:null;
+ const instDecision=(j.marketSession==="CLOSED"||runtimeDecision==="WAIT")?"WAIT":(runtimeDecision||unifiedDecision(z).signal||"WAIT"); set("v730Decision",instDecision); set("v730Reason",instDecision==="NO-TRADE"?"Instrument data is stale/invalid or fails the freshness gate.":"Instrument-level factors are being combined with market-context catalysts and safety gates.");
  set("v730Confidence", Number.isFinite(z.confidence)?z.confidence+"%":"—");
  set("v730Market", name||"—");
  set("v730Health", Number.isFinite(z.dataHealth)?z.dataHealth+"%":"—");
