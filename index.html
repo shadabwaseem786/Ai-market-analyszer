@@ -2272,4 +2272,40 @@ main.v730-newbie-mode .v1100-chart{display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,4000)},1800));setTimeout(()=>{update();setInterval(update,4000)},2700);
  window.V1210_EXPERT_UI={version:'V1210',update};
 })();
+</script><style id="v1211-unified-mode-tabs">
+/* V1211: one canonical navigation row. V1100's legacy tabbar remains functional
+   internally but is no longer rendered, preventing duplicate Newbie/Expert controls. */
+#v1100Tabs{display:none!important}
+#v730ModeSwitch .v1211-chart-tab{display:inline-flex;align-items:center;gap:4px}
+#v730ModeSwitch .v1211-chart-tab.active{outline:2px solid currentColor}
+main.v1211-chart-page>#v1063NewbieHome,main.v1211-chart-page>#v1063ExpertWeights,main.v1211-chart-page>#v1063DeepAudit,main.v1211-chart-page>#v1000ExpertCockpit,main.v1211-chart-page>#v1210{display:none!important}
+main.v1211-chart-page>#v1100ChartTab{display:block!important}
+</style>
+<script id="v1211-unified-mode-tabs">
+(function(){
+ function init(){
+  const main=document.querySelector('main.wrap'), nav=document.getElementById('v730ModeSwitch');
+  if(!main||!nav)return;
+  if(document.getElementById('v1211ChartButton'))return;
+  const chart=document.createElement('button');
+  chart.id='v1211ChartButton';chart.type='button';chart.className='v1211-chart-tab';chart.textContent='📈 Real-Time Chart';
+  nav.appendChild(chart);
+  const legacy=()=>document.querySelector('#v1100Tabs [data-page="chart"]');
+  function setActive(which){
+   nav.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+   if(which==='chart'){chart.classList.add('active');main.classList.add('v1211-chart-page');main.classList.remove('v730-newbie-mode');main.classList.remove('v1068-newbie-mode');main.classList.remove('v1068-expert-mode');const b=legacy();if(b)b.click();setTimeout(()=>{main.classList.add('v1211-chart-page');main.classList.remove('v730-newbie-mode');},30)}
+   else{main.classList.remove('v1211-chart-page');if(which==='newbie'){const b=document.getElementById('v730Newbie');if(b)b.click()}else{const b=document.getElementById('v730Expert');if(b)b.click()}}
+  }
+  chart.addEventListener('click',()=>setActive('chart'));
+  const n=document.getElementById('v730Newbie'),e=document.getElementById('v730Expert');
+  if(n)n.addEventListener('click',()=>{main.classList.remove('v1211-chart-page');chart.classList.remove('active')},true);
+  if(e)e.addEventListener('click',()=>{main.classList.remove('v1211-chart-page');chart.classList.remove('active')},true);
+  const observer=new MutationObserver(()=>{
+   if(main.classList.contains('v1211-chart-page')){chart.classList.add('active');main.classList.remove('v730-newbie-mode');}
+  });
+  observer.observe(main,{attributes:true,attributeFilter:['class']});
+ }
+ document.addEventListener('DOMContentLoaded',()=>{setTimeout(init,300);setTimeout(init,1200);setTimeout(init,2500)});
+ setTimeout(init,1800);
+})();
 </script></body></html>
