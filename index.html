@@ -904,4 +904,28 @@ main.v730-newbie-mode>.card:has(#rows){display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},450));
  setTimeout(()=>{update();setInterval(update,2500)},900);
 })();
+</script><style id="v1005-adaptive-fusion">
+.v1005-fusion{margin-top:9px;border:1px solid #294653;border-radius:12px;padding:10px;background:#081720}
+.v1005-fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.v1005-f{border:1px solid #223b46;border-radius:9px;padding:7px}.v1005-f small{display:block;font-size:8px;opacity:.62}.v1005-f b{display:block;font-size:12px;margin-top:3px}.v1005-note{font-size:9px;opacity:.6;margin-top:7px}
+.v1005-bar{height:5px;background:#142832;border-radius:5px;overflow:hidden;margin-top:5px}.v1005-bar i{display:block;height:100%;width:0}
+@media(max-width:700px){.v1005-fgrid{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="v1005-adaptive-fusion-js">
+(function(){
+ function t(id){const e=document.getElementById(id);return e?e.textContent.trim():''}
+ function p(id){const m=t(id).replace(/,/g,'').match(/\d+(?:\.\d+)?/);return m?Math.max(0,Math.min(100,+m[0])):null}
+ function build(){const root=document.getElementById('v1002Expert');if(!root||document.getElementById('v1005Fusion'))return;
+  const d=document.createElement('div');d.id='v1005Fusion';d.className='v1005-fusion';
+  d.innerHTML='<div class="v1002-section-title">⚖ ADAPTIVE SIGNAL FUSION</div><div class="v1005-fgrid">'+
+  ['Trend','Momentum','AI','Catalyst','Regime','Data Quality'].map((x,i)=>'<div class="v1005-f"><small>'+x+'</small><b id="v1005V'+i+'">—</b><div class="v1005-bar"><i id="v1005B'+i+'"></i></div></div>').join('')+
+  '</div><div class="v1005-note">Weights are evidence-quality aware. Missing or stale inputs are excluded rather than treated as neutral evidence.</div>';
+  const gov=document.getElementById('v1004Governance');if(gov)gov.insertAdjacentElement('afterend',d);else root.appendChild(d);
+ }
+ function update(){build();const ids=['trend','momentum','aiProb','fusionConf','regimeState','dq'];const labels=[];
+  ids.forEach((id,i)=>{const v=t(id)||'—';document.getElementById('v1005V'+i).textContent=v;const x=p(id);if(x!==null)document.getElementById('v1005B'+i).style.width=x+'%'});
+  const q=t('dq');document.getElementById('v1005V5').textContent=q||'—';
+ }
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,2500)},500));
+ setTimeout(()=>{update();setInterval(update,2500)},1000);
+})();
 </script></body></html>
