@@ -1,9 +1,8 @@
 {
-  "name":"india-fno-catalyst-monitor-v730000",
+  "name":"india-fno-catalyst-monitor-github-pages",
   "private":true,
   "type":"commonjs",
   "scripts":{
-    "test:v730-runtime":"node tests/v730-runtime-smoke.js",
     "refresh-data":"node scripts/build-static.mjs"
   },
   "engines":{"node":">=20"}
