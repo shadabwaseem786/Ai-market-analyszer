@@ -530,6 +530,9 @@ window.V730Runtime={
    const selectedSymbol=visibleRow?.children?.[0]?.textContent?.trim();
    const selected=(selectedSymbol&&d[selectedSymbol])?d[selectedSymbol]:(Object.values(d||{})[0]);
    if(!selected)return;
+   // V1069 hardening: derive these guards before any downstream decision branch.
+   const confidence=Number.isFinite(selected.confidence)?selected.confidence:0;
+   const freshnessRaw=window.__V735_DATA_TS__?Math.max(0,(Date.now()-window.__V735_DATA_TS__)/60000):Infinity;
    const unified=(typeof unifiedDecision==='function')?unifiedDecision(selected):{signal:'WAIT',reason:'Awaiting local decision engine'};
    const signal=unified.signal||'WAIT';
    const tech=Number(selected.score??50), cat=Number(selected.catalystScore??selected.catalystConfidence??50);
@@ -571,7 +574,6 @@ window.V730Runtime={
    
    const present=requiredFields.filter(k=>selected[k]!==undefined&&selected[k]!==null).length;
    const completeness=Math.round(present/requiredFields.length*100);
-   const freshnessRaw=window.__V735_DATA_TS__?Math.max(0,(Date.now()-window.__V735_DATA_TS__)/60000):Infinity;
    const freshness=freshnessRaw<=5?100:freshnessRaw<=15?80:freshnessRaw<=60?55:0;
    const provenance=verified?100:(sourceName==='UNKNOWN'?25:60);
    const dataScore=Math.round(completeness*.35+freshness*.40+provenance*.25);
@@ -600,7 +602,6 @@ window.V730Runtime={
    const shockInputs=[volValue>=80?35:volValue>=68?20:0,moveValue>=5?35:moveValue>=3?20:0,regimeName==='EVENT_SHOCK'?30:regimeName==='LIQUIDITY_STRESS'?25:0];
    const shockScore=Math.min(100,shockInputs.reduce((a,v)=>a+v,0)), firewall=shockScore>=70?'BLOCK':shockScore>=45?'CAUTION':'CLEAR';
    const finalSignal=resolution.startsWith('WAIT')?'WAIT':(strength<60?'WAIT':(stale?'WAIT':(firewall==='BLOCK'||microState==='BLOCK'||crossState==='DIVERGENT'||rotationBlock||fnoGate==='BLOCK'||(adaptiveSignal==='BUY'&&chainBias==='BEAR')||(adaptiveSignal==='SELL'&&chainBias==='BULL')||dataBlock||reconciliationBlock?'WAIT':adaptiveSignal)));
-   const confidence=Number.isFinite(selected.confidence)?selected.confidence:0;
    const intel=window.__V730_RUNTIME__?.results?.[0]?.decision?.intelligence||{}, robust=Number(intel.robustnessScore??50), regimeConf=Number(intel.regimeConfidence??50), prob=Number(confidence??50), fresh=window.__V735_DATA_TS__?Math.max(0,100-Math.round((Date.now()-window.__V735_DATA_TS__)/6000)):0, cal=intel.regimeCalibrationPenalty!=null?Math.max(0,100-Number(intel.regimeCalibrationPenalty)*5):50;
    const qualityScore=Math.round((prob*.30)+(robust*.25)+(regimeConf*.15)+(fresh*.10)+(conflict?45:100)*.10+cal*.10);
    const grade=qualityScore>=85?'A':qualityScore>=75?'B':qualityScore>=65?'C':qualityScore>=50?'D':'F';
@@ -1556,4 +1557,49 @@ main.v1068-expert-mode > #v1000ExpertCockpit{display:none!important}
   document.addEventListener('DOMContentLoaded',init);
   window.addEventListener('pageshow',apply);
   window.V730StableMode={setMode:setMode,apply:apply};
-})();</script></body></html>
+})();</script>
+<script id="v1069-newbie-render-hardening">
+/* V1069: deterministic Newbie surface. The Newbie view must never disappear because an
+   expert/audit controller or a transient engine exception ran during refresh. */
+(function(){
+  var KEY='fno_mode';
+  function mode(){return String(localStorage.getItem(KEY)||'NEWBIE').toUpperCase()==='EXPERT'?'EXPERT':'NEWBIE'}
+  function main(){return document.querySelector('main.wrap')}
+  function ensure(){
+    var m=main(); if(!m)return null;
+    var w=document.getElementById('v1069NewbieFallback');
+    if(w)return w;
+    w=document.createElement('section'); w.id='v1069NewbieFallback'; w.className='v1063-panel';
+    w.innerHTML='<div class="v1063-title"><h2>⚡ NEWBIE DECISION</h2><span class="v1063-sub">Simple validated market view</span></div>'+
+      '<div class="v1069-decision-grid"><div><small>DECISION</small><b id="v1069Decision">WAIT</b></div><div><small>CONFIDENCE</small><b id="v1069Confidence">—</b></div><div><small>MARKET</small><b id="v1069Market">NSE</b></div><div><small>DATA HEALTH</small><b id="v1069Health">—</b></div></div>'+
+      '<p id="v1069Reason">Waiting for validated decision evidence…</p>';
+    var ms=document.getElementById('v730ModeSwitch');
+    if(ms&&ms.parentElement===m)ms.insertAdjacentElement('afterend',w); else m.appendChild(w);
+    return w;
+  }
+  function sync(){
+    var m=main(),w=ensure(); if(!m||!w)return;
+    var expert=mode()==='EXPERT';
+    if(expert){w.style.setProperty('display','none','important');return}
+    w.style.setProperty('display','block','important');w.style.setProperty('visibility','visible','important');
+    var d=document.getElementById('v730Decision'),c=document.getElementById('v730Confidence'),mk=document.getElementById('v730Market'),h=document.getElementById('v730Health'),r=document.getElementById('v730Reason');
+    var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v==null?'—':String(v)};
+    set('v1069Decision',d?.textContent||'WAIT');set('v1069Confidence',c?.textContent||'—');set('v1069Market',mk?.textContent||'NSE');set('v1069Health',h?.textContent||'—');
+    set('v1069Reason',r?.textContent||'Waiting for validated decision evidence…');
+  }
+  document.addEventListener('DOMContentLoaded',function(){sync();setTimeout(sync,500);setTimeout(sync,2000);setInterval(sync,1500)});
+  document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#v730Newbie'))setTimeout(sync,50);if(e.target.closest&&e.target.closest('#v730Expert'))setTimeout(sync,50)},true);
+  window.addEventListener('pageshow',sync);
+})();
+</script>
+<style id="v1069-newbie-render-hardening-css">
+#v1069NewbieFallback{border:1px solid #315466;border-radius:14px;padding:12px;margin:8px 0;background:#081720}
+.v1069-decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.v1069-decision-grid>div{border:1px solid #263f4b;border-radius:9px;padding:9px;min-width:0}
+.v1069-decision-grid small{display:block;font-size:9px;opacity:.7}.v1069-decision-grid b{display:block;font-size:18px;margin-top:4px}
+#v1069Reason{font-size:11px;line-height:1.4;margin:8px 0 0;overflow-wrap:anywhere}
+@media(max-width:380px){.v1069-decision-grid{grid-template-columns:1fr}}
+main.v1068-expert-mode>#v1069NewbieFallback{display:none!important}
+main.v1068-newbie-mode>#v1069NewbieFallback{display:block!important;visibility:visible!important}
+</style>
+</body></html>
