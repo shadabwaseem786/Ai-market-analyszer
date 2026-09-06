@@ -1,0 +1,45 @@
+name: V730000 Verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'netlify/functions/**'
+      - 'tests/**'
+      - 'package.json'
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - 'netlify/functions/**'
+      - 'tests/**'
+      - 'package.json'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  v730-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate package manifest
+        run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json valid')"
+
+      - name: Validate runtime syntax
+        run: node --check netlify/functions/v730-runtime.js
+
+      - name: Validate smoke-test syntax
+        run: node --check tests/v730-runtime-smoke.js
+
+      - name: Run V730 runtime smoke test
+        run: npm run test:v730-runtime
