@@ -1533,7 +1533,7 @@ function ensureAudit(){
  var main=document.querySelector('main.wrap'),cock=document.getElementById('v1000ExpertCockpit');if(!main)return;
  var d=document.createElement('details');d.id='v1063DeepAudit';d.innerHTML='<summary>🔬 DEEP AUDIT — ALL EXISTING ENGINES & DIAGNOSTICS</summary><div class="v1063-audit-body"></div>';
  var body=d.querySelector('.v1063-audit-body');var children=[...main.children];
- children.forEach(function(el){if(el===d||el===cock||el.id==='v730MarketSelector'||el.id==='v730ModeSwitch'||el.id==='v1063NewbieHome'||el.id==='v1063ExpertWeights')return;if(el.tagName==='SCRIPT'||el.tagName==='STYLE')return;body.appendChild(el)});
+ children.forEach(function(el){if(el===d||el===cock||el.id==='v730MarketSelector'||el.id==='v730ModeSwitch'||el.id==='v1063NewbieHome'||el.id==='v1063ExpertWeights'||el.id==='v1100Tabs'||el.id==='v1100ChartTab')return;if(el.tagName==='SCRIPT'||el.tagName==='STYLE')return;body.appendChild(el)});
  main.appendChild(d);
 }
 function run(){ensureNewbie();ensureExpert();ensureAudit();renderNewbie();syncWeights();var main=document.querySelector('main.wrap');if(main){var a=document.getElementById('v1063DeepAudit');if(a)a.open=false; var nb=document.getElementById('v1063NewbieHome'); var expertMode=String(localStorage.getItem('fno_mode')||'NEWBIE').toUpperCase()==='EXPERT'; if(nb)nb.style.setProperty('display',expertMode?'none':'block','important'); var ew=document.getElementById('v1063ExpertWeights'); if(ew)ew.style.setProperty('display',expertMode?'block':'none','important');}}
@@ -2272,40 +2272,64 @@ main.v730-newbie-mode .v1100-chart{display:none!important}
  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{update();setInterval(update,4000)},1800));setTimeout(()=>{update();setInterval(update,4000)},2700);
  window.V1210_EXPERT_UI={version:'V1210',update};
 })();
-</script><style id="v1211-unified-mode-tabs">
-/* V1211: one canonical navigation row. V1100's legacy tabbar remains functional
-   internally but is no longer rendered, preventing duplicate Newbie/Expert controls. */
+</script><style id="v1212-chart-nav-fix">
+/* V1212: single mode row + reliable Real-Time Chart navigation.
+   The chart module may be nested inside the Expert audit; this controller
+   promotes it to main when opened and keeps legacy mode arbiters from hiding it. */
 #v1100Tabs{display:none!important}
-#v730ModeSwitch .v1211-chart-tab{display:inline-flex;align-items:center;gap:4px}
-#v730ModeSwitch .v1211-chart-tab.active{outline:2px solid currentColor}
-main.v1211-chart-page>#v1063NewbieHome,main.v1211-chart-page>#v1063ExpertWeights,main.v1211-chart-page>#v1063DeepAudit,main.v1211-chart-page>#v1000ExpertCockpit,main.v1211-chart-page>#v1210{display:none!important}
-main.v1211-chart-page>#v1100ChartTab{display:block!important}
+#v1211ChartButton{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+#v1211ChartButton.active{outline:2px solid currentColor;background:#1a3140}
+main.v1212-chart-active>#v730MarketSelector,
+main.v1212-chart-active>#v730ModeSwitch{display:flex!important;visibility:visible!important}
+main.v1212-chart-active>*:not(#v730MarketSelector):not(#v730ModeSwitch):not(#v1100ChartTab){display:none!important}
+main.v1212-chart-active>#v1100ChartTab{display:block!important;visibility:visible!important;position:relative!important;z-index:30!important}
+main.v1212-chart-active #v1100Canvas{display:block!important;visibility:visible!important}
 </style>
-<script id="v1211-unified-mode-tabs">
+<script id="v1212-chart-nav-fix">
 (function(){
- function init(){
-  const main=document.querySelector('main.wrap'), nav=document.getElementById('v730ModeSwitch');
-  if(!main||!nav)return;
-  if(document.getElementById('v1211ChartButton'))return;
-  const chart=document.createElement('button');
-  chart.id='v1211ChartButton';chart.type='button';chart.className='v1211-chart-tab';chart.textContent='📈 Real-Time Chart';
-  nav.appendChild(chart);
-  const legacy=()=>document.querySelector('#v1100Tabs [data-page="chart"]');
-  function setActive(which){
-   nav.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-   if(which==='chart'){chart.classList.add('active');main.classList.add('v1211-chart-page');main.classList.remove('v730-newbie-mode');main.classList.remove('v1068-newbie-mode');main.classList.remove('v1068-expert-mode');const b=legacy();if(b)b.click();setTimeout(()=>{main.classList.add('v1211-chart-page');main.classList.remove('v730-newbie-mode');},30)}
-   else{main.classList.remove('v1211-chart-page');if(which==='newbie'){const b=document.getElementById('v730Newbie');if(b)b.click()}else{const b=document.getElementById('v730Expert');if(b)b.click()}}
+ function main(){return document.querySelector('main.wrap')}
+ function chart(){return document.getElementById('v1100ChartTab')}
+ function nav(){return document.getElementById('v730ModeSwitch')}
+ function ensure(){
+  const m=main(),n=nav(); if(!m||!n)return;
+  let b=document.getElementById('v1211ChartButton');
+  if(!b){
+   b=document.createElement('button');b.id='v1211ChartButton';b.type='button';b.textContent='📈 Real-Time Chart';n.appendChild(b);
+   b.addEventListener('click',function(ev){ev.preventDefault();ev.stopPropagation();openChart()});
   }
-  chart.addEventListener('click',()=>setActive('chart'));
-  const n=document.getElementById('v730Newbie'),e=document.getElementById('v730Expert');
-  if(n)n.addEventListener('click',()=>{main.classList.remove('v1211-chart-page');chart.classList.remove('active')},true);
-  if(e)e.addEventListener('click',()=>{main.classList.remove('v1211-chart-page');chart.classList.remove('active')},true);
-  const observer=new MutationObserver(()=>{
-   if(main.classList.contains('v1211-chart-page')){chart.classList.add('active');main.classList.remove('v730-newbie-mode');}
-  });
-  observer.observe(main,{attributes:true,attributeFilter:['class']});
+  // If an earlier V1211 controller created its button, take over its behavior.
+  b.onclick=function(ev){ev.preventDefault();ev.stopPropagation();openChart()};
  }
- document.addEventListener('DOMContentLoaded',()=>{setTimeout(init,300);setTimeout(init,1200);setTimeout(init,2500)});
- setTimeout(init,1800);
+ function openChart(){
+  const m=main(),n=nav(),ch=chart();if(!m||!n||!ch)return;
+  ensure();
+  // Promote chart out of the audit drawer so the mode watchdogs cannot hide its parent.
+  if(ch.parentElement!==m)m.appendChild(ch);
+  ch.style.setProperty('display','block','important');
+  ch.style.setProperty('visibility','visible','important');
+  m.classList.add('v1212-chart-active');
+  m.classList.remove('v730-newbie-mode','v730-expert-mode','v1068-newbie-mode','v1068-expert-mode');
+  document.querySelectorAll('#v730ModeSwitch button').forEach(x=>x.classList.remove('active'));
+  const b=document.getElementById('v1211ChartButton');if(b)b.classList.add('active');
+  const legacy=document.querySelector('#v1100Tabs [data-page="chart"]');
+  if(legacy)legacy.click();
+  if(window.V1100_REALTIME_CHART&&typeof window.V1100_REALTIME_CHART.refresh==='function')window.V1100_REALTIME_CHART.refresh();
+ }
+ function mode(kind){
+  const m=main();if(!m)return;
+  m.classList.remove('v1212-chart-active');
+  const ch=chart();if(ch)ch.style.setProperty('display','none','important');
+  const b=document.getElementById('v1211ChartButton');if(b)b.classList.remove('active');
+  const target=document.getElementById(kind==='EXPERT'?'v730Expert':'v730Newbie');
+  if(target)target.click();
+ }
+ function boot(){
+  ensure();
+  const n=nav();if(!n)return;
+  n.querySelector('#v730Newbie')?.addEventListener('click',()=>mode('NEWBIE'),true);
+  n.querySelector('#v730Expert')?.addEventListener('click',()=>mode('EXPERT'),true);
+ }
+ document.addEventListener('DOMContentLoaded',()=>{setTimeout(boot,700);setTimeout(boot,1800);setTimeout(boot,3200)});
+ setTimeout(boot,1200);
 })();
 </script></body></html>
