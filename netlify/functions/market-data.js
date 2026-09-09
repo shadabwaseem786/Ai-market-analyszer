@@ -36,16 +36,18 @@ async function yahoo(symbol,host="query1.finance.yahoo.com"){
  if(!r.ok)throw new Error(host+" HTTP "+r.status);
  const j=await r.json(),q=j.chart?.result?.[0];if(!q)throw new Error("No chart result");
  const raw=q.indicators?.quote?.[0]?.close||[],ts=q.timestamp||[],meta=q.meta||{};
- const currency=meta.currency||"INR",exchangeTimezone=meta.exchangeTimezoneName||"Asia/Kolkata";
+ const currency=meta.currency||"INR",exchangeTimezone=meta.exchangeTimezoneName||"Asia/Kolkata",regularMarketTime=Number(meta.regularMarketTime),regularMarketPrice=cleanNum(meta.regularMarketPrice);
  const pairs=raw.map((v,i)=>({v:cleanNum(v),t:ts[i]})).filter(x=>x.v!==null&&Number.isFinite(x.t));
  if(pairs.length<60)throw new Error("Insufficient history ("+pairs.length+" valid closes)");
  const closes=pairs.map(x=>x.v),last=pairs.at(-1),prev=pairs.at(-2);
  if(!prev||!finite(prev.v)||last.v<=0)throw new Error("Invalid latest/previous close");
- const date=new Date(last.t*1000);if(!Number.isFinite(date.getTime()))throw new Error("Missing timestamp");
+ const marketTimestamp=Number.isFinite(regularMarketTime)&&regularMarketTime>0?regularMarketTime:last.t;
+ const date=new Date(marketTimestamp*1000);if(!Number.isFinite(date.getTime()))throw new Error("Missing timestamp");
  const age=Math.max(0,(Date.now()-date.getTime())/60000);if(age>2880)throw new Error("Stale market data ("+Math.round(age)+" min old)");
  const out=calc(closes,Math.round(age));if(!finite(out.score)||!finite(out.rsi)||!finite(out.atrPct))throw new Error("Invalid calculated metrics");
- const daily=closes.slice(-31).map((v,i,a)=>i?Math.abs((v/a[i-1]-1)*100):null).filter(finite);const med=daily.length?[...daily].sort((a,b)=>a-b)[Math.floor(daily.length/2)]:null;const move=(last.v-prev.v)/prev.v*100;if(!finite(move)||Math.abs(move)>15||(finite(med)&&med>0&&Math.abs(move)>Math.max(8,med*8)))throw new Error("Anomalous daily move rejected ("+move.toFixed(2)+"%; median "+(finite(med)?med.toFixed(2):"—")+"%)");
- return {symbol,price:last.v,prev:prev.v,movePct:(last.v-prev.v)/prev.v*100,...out,ts:date.toISOString(),ageMinutes:Math.round(age),source:"Yahoo Finance",provider:host,currency,exchangeTimezone,quality:100,historyCount:pairs.length};
+ const daily=closes.slice(-31).map((v,i,a)=>i?Math.abs((v/a[i-1]-1)*100):null).filter(finite);const med=daily.length?[...daily].sort((a,b)=>a-b)[Math.floor(daily.length/2)]:null;const livePrice=regularMarketPrice??last.v;
+ const move=(livePrice-prev.v)/prev.v*100;if(!finite(move)||Math.abs(move)>15||(finite(med)&&med>0&&Math.abs(move)>Math.max(8,med*8)))throw new Error("Anomalous daily move rejected ("+move.toFixed(2)+"%; median "+(finite(med)?med.toFixed(2):"—")+"%)");
+ return {symbol,price:livePrice,prev:prev.v,movePct:move,...out,ts:date.toISOString(),ageMinutes:Math.round(age),source:"Yahoo Finance",provider:host,currency,exchangeTimezone,priceSource:regularMarketPrice!=null?"regularMarketPrice":"chart-close",timestampSource:regularMarketTime!=null?"regularMarketTime":"chart-timestamp",quality:100,historyCount:pairs.length};
 }
 async function getSymbol(candidates){
  const errors=[];
