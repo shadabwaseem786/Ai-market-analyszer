@@ -1,121 +1,107 @@
-const marketModule = require('./market-data.js');
-const catalystModule = require('./catalyst-feed.js');
+const marketModule=require("./market-data.js");
+const catalystModule=require("./catalyst-feed.js");
+const ai=require("./ai-engine.js");
 
-function parseBody(result){
-  try { return JSON.parse(result?.body || '{}'); } catch { return {}; }
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,Number(x)||0));
+
+function catalystUsable(c){
+  return Number(c?.count||0)>0 &&
+    Number(c?.catalystHealth||0)>0 &&
+    Number(c?.catalystConfidence||0)>=45 &&
+    Number(c?.catalystFreshness||0)>0;
 }
 
-function clamp(v,min=0,max=100){
-  const n=Number(v);
-  return Number.isFinite(n) ? Math.max(min,Math.min(max,n)) : null;
+function combine(m,c,a){
+  const marketConfidence=clamp(m?.confidence,0,95);
+  const catalystConfidence=clamp(c?.catalystConfidence,0,95);
+  const aiConfidence=clamp(a?.confidence,0,95);
+  const risk=clamp(
+    0.45*clamp(m?.riskScore,0,100)+
+    0.35*clamp(c?.catalystRisk,0,100)+
+    0.20*clamp(a?.uncertainty,0,100),0,100
+  );
+  const confidence=clamp(
+    Math.round(0.45*marketConfidence+0.30*catalystConfidence+0.25*aiConfidence-risk*0.10),0,95
+  );
+  const score=clamp(m?.score,0,100);
+  const aiProbability=clamp(a?.aiProbability,2,98);
+  const catalystBias=String(c?.weightedBias||c?.catalystBias||"NEUTRAL");
+  const gate=(Number(m?.dataHealth||0)>=50 && catalystUsable(c) && confidence>=55 && risk<70)?"PASS":"HOLD";
+
+  let decision="WAIT";
+  if(gate==="PASS"){
+    const bullish=(score>=70?2:0)+(aiProbability>=60?1:0)+(catalystBias==="BULLISH"?1:0);
+    const bearish=(score<=30?2:0)+(aiProbability<=40?1:0)+(catalystBias==="BEARISH"?1:0);
+    if(bullish>=3 && bullish>bearish) decision="BUY";
+    else if(bearish>=3 && bearish>bullish) decision="SELL";
+  }
+  return {decision,confidence,riskScore:Math.round(risk),gate,marketScore:score,aiProbability,catalystBias};
 }
 
-function decisionFor(market,catalyst){
-  if(!market || market.quality!==100) return "WAIT";
-  const score=Number(market.score);
-  const confidence=Number(market.confidence);
-  const risk=Number(market.riskScore);
-  const catalystBias=String(catalyst?.summary?.weightedBias || catalyst?.summary?.catalystBias || "NEUTRAL");
-  const catalystStrength=Number(catalyst?.summary?.catalystConfidence || 0);
-
-  if(!Number.isFinite(score) || !Number.isFinite(confidence)) return "WAIT";
-  if(confidence<55 || risk>=70 || String(market.freshnessTier)==="STALE") return "WAIT";
-
-  let bias=score>=70 ? "BUY" : score<=30 ? "SELL" : "WAIT";
-  if(catalystStrength>=60){
-    if(catalystBias==="BULLISH" && bias==="SELL") bias="WAIT";
-    if(catalystBias==="BEARISH" && bias==="BUY") bias="WAIT";
-  }
-  return bias;
+async function invoke(fn){
+  const r=await fn({httpMethod:"GET",headers:{},body:null});
+  return JSON.parse(r.body||"{}");
 }
 
-exports.handler = async () => {
-  const startedAt = new Date().toISOString();
-  let market = {}, catalyst = {};
+exports.catalystUsable=catalystUsable;
+exports.combine=combine;
 
-  try {
-    market = parseBody(await marketModule.handler({httpMethod:"GET",headers:{},body:null}));
-  } catch (e) {
-    market = {validCount:0,total:0,errors:[String(e?.message || e)]};
+exports.handler=async()=>{
+  const generatedAt=new Date().toISOString();
+  let market={validCount:0,total:3,data:{},errors:[]};
+  let catalyst={items:[],summary:{count:0,catalystBias:"NEUTRAL",weightedBias:"NEUTRAL",catalystConfidence:0,catalystRisk:100,catalystHealth:0,catalystFreshness:0}};
+
+  try{market=await invoke(marketModule.handler);}catch(e){market.errors=[String(e?.message||e)];}
+  try{catalyst=await invoke(catalystModule.handler);}catch(e){catalyst.error=String(e?.message||e);}
+
+  const c=catalyst.summary||{};
+  const results=[];
+  for(const [instrument,m] of Object.entries(market.data||{})){
+    let aiResult={aiProbability:50,aiDirection:"NEUTRAL",confidence:5,uncertainty:95};
+    try{
+      aiResult=ai.infer({
+        score:m?.score,
+        confidence:m?.confidence,
+        agreementPct:m?.agreementPct,
+        riskScore:m?.riskScore,
+        dataHealth:m?.dataHealth,
+        catalystConfidence:c.catalystConfidence,
+        catalystRisk:c.catalystRisk,
+        catalystFreshness:c.catalystFreshness
+      });
+    }catch{}
+    const fusion=combine(m,{
+      count:c.count,catalystHealth:c.catalystHealth,catalystConfidence:c.catalystConfidence,
+      catalystRisk:c.catalystRisk,catalystFreshness:c.catalystFreshness,
+      catalystBias:c.catalystBias,weightedBias:c.weightedBias
+    },aiResult);
+    results.push({
+      instrument,symbol:m?.symbol||null,price:m?.price??null,movePct:m?.movePct??null,
+      score:m?.score??null,confidence:m?.confidence??null,bias:m?.bias||"NEUTRAL",
+      trend:m?.trend||"UNKNOWN",regime:m?.regime||"UNKNOWN",
+      volatility:m?.volatilityState||"UNKNOWN",riskScore:m?.riskScore??null,
+      dataHealth:m?.dataHealth??0,freshnessTier:m?.freshnessTier||"UNKNOWN",
+      quality:m?.quality??0,decision:fusion.decision,gate:fusion.gate,
+      ai:aiResult,source:m?.source||null,ts:m?.ts||null,error:m?.error||null
+    });
   }
 
-  try {
-    catalyst = parseBody(await catalystModule.handler({httpMethod:"GET",headers:{},body:null}));
-  } catch (e) {
-    catalyst = {items:[],summary:{count:0},error:String(e?.message || e)};
-  }
-
-  const rows = Object.entries(market.data || {}).map(([name,m]) => ({
-    instrument:name,
-    symbol:m?.symbol || null,
-    price:m?.price ?? null,
-    movePct:m?.movePct ?? null,
-    score:m?.score ?? null,
-    confidence:m?.confidence ?? null,
-    bias:m?.bias || "NEUTRAL",
-    trend:m?.trend || "UNKNOWN",
-    regime:m?.regime || "UNKNOWN",
-    volatility:m?.volatilityState || "UNKNOWN",
-    riskScore:m?.riskScore ?? null,
-    dataHealth:m?.dataHealth ?? 0,
-    freshnessTier:m?.freshnessTier || "UNKNOWN",
-    quality:m?.quality ?? 0,
-    decision:decisionFor(m,catalyst),
-    source:m?.source || null,
-    ts:m?.ts || null,
-    error:m?.error || null
-  }));
-
-  const validCount = Number(market.validCount || 0);
-  const catalystCount = Number(catalyst.summary?.count || 0);
-  const integrated = validCount>0 && catalystCount>0;
-
-  const consensus = rows.filter(r=>r.quality===100 && Number.isFinite(Number(r.score)));
-  const avgScore = consensus.length
-    ? Math.round(consensus.reduce((s,r)=>s+Number(r.score),0)/consensus.length)
-    : null;
-  const avgConfidence = consensus.length
-    ? Math.round(consensus.reduce((s,r)=>s+Number(r.confidence||0),0)/consensus.length)
-    : null;
-
-  const status = integrated ? "INTEGRATED" : "DEGRADED";
-  const gate = integrated && (avgConfidence??0)>=55 ? "READY" : "HOLD";
-
+  const integrated=Number(market.validCount||0)>0 && catalystUsable({
+    count:c.count,catalystHealth:c.catalystHealth,
+    catalystConfidence:c.catalystConfidence,catalystFreshness:c.catalystFreshness
+  });
+  const usable=results.filter(r=>r.quality===100);
+  const avgConfidence=usable.length?Math.round(usable.reduce((s,r)=>s+Number(r.confidence||0),0)/usable.length):0;
   return {
-    statusCode:200,
-    headers:{
-      "content-type":"application/json",
-      "cache-control":"no-store",
-      "access-control-allow-origin":"*"
-    },
-    body:JSON.stringify({
-      version:"V730000-RECOVERY",
-      status,
-      gate,
-      generatedAt:startedAt,
-      market:{
-        validCount,
-        total:Number(market.total || rows.length),
-        session:market.marketSession || "UNKNOWN",
-        errors:market.errors || []
-      },
-      catalysts:{
-        count:catalystCount,
-        bias:catalyst.summary?.weightedBias || catalyst.summary?.catalystBias || "NEUTRAL",
-        confidence:catalyst.summary?.catalystConfidence ?? 0,
-        risk:catalyst.summary?.catalystRisk ?? null,
-        freshness:catalyst.summary?.catalystFreshness ?? 0
-      },
-      consensus:{avgScore,avgConfidence,count:consensus.length},
-      results:rows,
-      guardrails:[
-        "market-feed-validation",
-        "catalyst-feed-validation",
-        "stale-data-gate",
-        "risk-gate",
-        "confidence-gate",
-        "BUY-SELL-WAIT-conservative-resolution"
-      ]
-    })
+    status:integrated?"INTEGRATED":"DEGRADED",
+    gate:integrated && avgConfidence>=55?"READY":"HOLD",
+    version:"V730000-RECOVERY",
+    generatedAt,
+    market:{validCount:Number(market.validCount||0),total:Number(market.total||3),session:market.marketSession||"UNKNOWN",errors:market.errors||[]},
+    catalysts:{count:Number(c.count||0),bias:c.weightedBias||c.catalystBias||"NEUTRAL",confidence:Number(c.catalystConfidence||0),risk:Number(c.catalystRisk??100),health:Number(c.catalystHealth||0),freshness:Number(c.catalystFreshness||0)},
+    consensus:{count:usable.length,avgConfidence},
+    results,
+    guardrails:["market-feed-validation","catalyst-feed-validation","stale-data-gate","risk-gate","confidence-gate","BUY-SELL-WAIT-conservative-resolution"]
   };
 };
+
