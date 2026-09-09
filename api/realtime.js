@@ -40,8 +40,8 @@ function normalizeMarket(x) {
   };
 }
 
-async function invoke(fn) {
-  const r = await fn({});
+async function invoke(fn, event) {
+  const r = await fn(event || {});
   return jsonBody(r);
 }
 
@@ -74,9 +74,10 @@ module.exports = async function handler(req, res) {
     }
 
     // Primary realtime path: F&O scanner + catalyst feed.
+    const market = String(q.market || 'NSE').toUpperCase();
     const [marketRaw, catalystRaw] = await Promise.all([
-      invoke(foScan),
-      invoke(catalyst)
+      invoke(foScan.handler, { query: { market } }),
+      invoke(catalyst.handler, {})
     ]);
 
     const rawData = marketRaw?.data || {};
@@ -97,7 +98,7 @@ module.exports = async function handler(req, res) {
       market: {
         validCount,
         total,
-        session: 'PUBLIC-DATA',
+        session: market + ' • PUBLIC-DATA',
         errors: marketRaw?.errors || [],
         data
       },
