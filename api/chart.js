@@ -17,7 +17,7 @@ async function fetchChart(symbol,host){
   if(!r.ok) throw new Error(host+' HTTP '+r.status);
   const j=await r.json(),q=j.chart?.result?.[0];
   if(!q) throw new Error('No chart result');
-  const closes=(q.indicators?.quote?.[0]?.close||[]).map(Number).filter(Number.isFinite);
+  const closes=(q.indicators?.quote?.[0]?.close||[]).map(Number).filter(v=>Number.isFinite(v)&&v>0);
   if(closes.length<10) throw new Error('Insufficient chart history');
   return {closes,source:'Yahoo Finance',generatedAt:new Date().toISOString(),symbol};
 }
