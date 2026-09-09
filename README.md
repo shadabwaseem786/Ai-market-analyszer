@@ -8,3 +8,5 @@ GitHub Pages / paper-only decision-support build.
 - Invalid, stale, or incomplete data is gated to WAIT / NO-TRADE.
 
 See `GITHUB_PAGES_SETUP.md` for deployment instructions.
+
+Production deployment is synchronized from the GitHub `main` branch.
