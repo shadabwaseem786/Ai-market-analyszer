@@ -92,7 +92,7 @@ exports.handler=async()=>{
   });
   const usable=results.filter(r=>r.quality===100);
   const avgConfidence=usable.length?Math.round(usable.reduce((s,r)=>s+Number(r.confidence||0),0)/usable.length):0;
-  return {
+  const payload={
     status:integrated?"INTEGRATED":"DEGRADED",
     gate:integrated && avgConfidence>=55?"READY":"HOLD",
     version:"V730000-RECOVERY",
@@ -103,5 +103,6 @@ exports.handler=async()=>{
     results,
     guardrails:["market-feed-validation","catalyst-feed-validation","stale-data-gate","risk-gate","confidence-gate","BUY-SELL-WAIT-conservative-resolution"]
   };
+  return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store","access-control-allow-origin":"*"},body:JSON.stringify(payload)};
 };
 
