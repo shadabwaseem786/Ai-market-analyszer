@@ -2,8 +2,6 @@
 // Uses the existing validated serverless modules; no order execution.
 const market = require('../netlify/functions/market-data');
 const catalyst = require('../netlify/functions/catalyst-feed');
-const ai = require('../netlify/functions/ai-engine');
-const omniscience = require('../netlify/functions/omniscience');
 function normalize(result) {
   if (!result) return { statusCode: 500, body: JSON.stringify({ error: 'Empty backend result' }) };
   return result;
@@ -13,11 +11,13 @@ exports.default = async function handler(req, res) {
     if (req.method === 'OPTIONS') return res.status(204).end();
     const q = req.query || {};
     if (q.action === 'ai') {
+      const ai = require('../netlify/functions/ai-engine');
       const body = req.body || {};
       const r = normalize(await ai.handler({ body: JSON.stringify(body) }));
       return res.status(r.statusCode || 200).setHeader('content-type','application/json').send(r.body);
     }
     if (q.action === 'omniscience') {
+      const omniscience = require('../netlify/functions/omniscience');
       const body = req.body || {};
       const r = normalize(await omniscience.handler({ body: JSON.stringify(body) }));
       return res.status(r.statusCode || 200).setHeader('content-type','application/json').send(r.body);
