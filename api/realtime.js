@@ -93,12 +93,13 @@ module.exports = async function handler(req, res) {
     const out = {
       status: validCount > 0 ? 'INTEGRATED' : 'DEGRADED',
       gate: validCount > 0 ? 'READY' : 'HOLD',
-      version: 'V1254-FO-REALTIME',
+      version: 'V1255-FO-REALTIME',
       generatedAt: marketRaw?.generatedAt || new Date().toISOString(),
       market: {
         validCount,
         total,
-        session: market + ' • PUBLIC-DATA',
+        marketOpen: !!marketRaw?.marketOpen,
+        session: marketRaw?.session || (marketRaw?.marketOpen ? 'OPEN' : 'CLOSED') + ' • PUBLIC-DATA',
         errors: marketRaw?.errors || [],
         data
       },
