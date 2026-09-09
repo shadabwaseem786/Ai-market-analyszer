@@ -237,7 +237,7 @@ const names=["NIFTY","BANKNIFTY","FINNIFTY"];
 function esc(x){return String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 let catalystSummary={catalystBias:"NEUTRAL",weightedBias:"NEUTRAL",catalystConfidence:0,count:0};
 let d={},arr=[],selectedName=localStorage.getItem("v730_selected_instrument")||"NIFTY",j={marketSession:"UNKNOWN",errors:[]};
-const V730_BACKEND="https://ai-market-analyszer-main.vercel.app/api/realtime";
+const V730_BACKEND=(location.hostname.endsWith('.vercel.app')?'/api/realtime':'https://ai-market-analyszer-main.vercel.app/api/realtime');
 function normalizeBackend(raw){
  const m=raw&&raw.market&&raw.market.data?raw.market:(raw&&raw.data?raw:{});
  const data=m.data&&typeof m.data==="object"?m.data:{};
@@ -588,7 +588,7 @@ window.V730Runtime={
  refresh(){
   try{
    const universe=String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase();
-   if(universe!=='NSE')return;
+   if(!['NSE','NASDAQ','COMMODITY'].includes(universe))return;
    const visibleRow=document.querySelector('#rows tr:not([data-market-filter-hidden="1"])');
    const selectedSymbol=visibleRow?.children?.[0]?.textContent?.trim();
    const selected=(selectedSymbol&&d[selectedSymbol])?d[selectedSymbol]:(Object.values(d||{})[0]);
@@ -1729,4 +1729,47 @@ main.wrap>#v1069ChartPanel.v1072-visible{display:block!important;visibility:visi
   document.addEventListener('DOMContentLoaded',init);
   window.addEventListener('pageshow',lock);
   setInterval(lock,1500);
-})();</script></body></html>
+})();</script><style id="v1073-final-runtime-ui">
+/* V1073: production runtime authority + market-agnostic decision surface. */
+#v1069Recommendations{display:block!important;visibility:visible!important}
+#v1069ChartPanel{display:none!important;visibility:hidden!important}
+#v1069Recommendations.v1073-hide{display:none!important}
+#v1069ChartPanel.v1073-show{display:block!important;visibility:visible!important}
+</style>
+<script id="v1073-final-runtime-ui-js">
+(function(){
+  function market(){return String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase()}
+  function syncPrimary(){
+    var ok=window.__V730_BACKEND_OK__===true;
+    var status=document.getElementById('v7351Status'),label=document.getElementById('v7351Label'),detail=document.getElementById('v7351Detail');
+    var health=(document.getElementById('health')||{}).textContent||'';
+    var open=!!window.__V730_MARKET_OPEN__, age=Number(window.__V730_MAX_AGE__||0);
+    if(ok){
+      if(status)status.className='v7351-status '+(open&&age<=30?'v7351-live':open?'v7351-fresh':'v7351-live');
+      if(label)label.textContent=open&&age<=30?'LIVE':'VALIDATED';
+      if(detail)detail.textContent=open&&age<=30?'Validated live market data available for decision support.':('Validated '+market()+' observations available; market session is '+(open?'open':'closed')+'.');
+    }
+    if(typeof render1069==='function')render1069();
+    var rec=document.getElementById('v1069Recommendations'),chart=document.getElementById('v1069ChartPanel');
+    if(rec&&chart){
+      rec.classList.add('active');rec.classList.remove('v1073-hide');
+      chart.classList.remove('active','v1073-show');
+      chart.style.removeProperty('display');
+    }
+  }
+  function switchTabs(){
+    var tabs=document.querySelectorAll('.v1069-tab'),rec=document.getElementById('v1069Recommendations'),chart=document.getElementById('v1069ChartPanel');
+    tabs.forEach(function(b){b.onclick=function(e){
+      e.preventDefault();e.stopImmediatePropagation();
+      var isChart=b.dataset.v1069Tab==='chart';
+      tabs.forEach(function(x){x.classList.toggle('active',x===b)});
+      if(rec){rec.classList.toggle('v1073-hide',isChart);rec.classList.toggle('active',!isChart)}
+      if(chart){chart.classList.toggle('v1073-show',isChart);chart.classList.toggle('active',isChart)}
+      if(isChart&&typeof chart1069==='function')setTimeout(chart1069,30);
+      if(!isChart&&typeof render1069==='function')setTimeout(render1069,30);
+    }}
+  }
+  document.addEventListener('DOMContentLoaded',function(){switchTabs();setTimeout(syncPrimary,1200);setInterval(syncPrimary,3000)});
+  setTimeout(function(){switchTabs();syncPrimary()},1800);
+})();
+</script></body></html>
