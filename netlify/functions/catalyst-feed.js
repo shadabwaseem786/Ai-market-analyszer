@@ -34,7 +34,7 @@ exports.handler=async(event)=>{
   const catalystConfidence=unique.length?Math.min(95,Math.round(unique.reduce((s,x)=>s+x.confidence,0)/unique.length)):0;
   const catalystRisk=Math.max(0,Math.min(100,Math.round((100-catalystConfidence)*0.6+(unique.length<5?25:unique.length<10?10:0)+(catalystBreadthScore<40?25:catalystBreadthScore<60?10:0))));
   const catalystHealth=unique.length>=10&&catalystConfidence>=70?100:unique.length>=5&&catalystConfidence>=55?75:unique.length>=2&&catalystConfidence>=45?50:0;
-  const catalystFreshness=unique.length?Math.round(unique.reduce((s,x)=>s+(Number.isFinite(x.ageMinutes)?Math.max(0,100-x.ageMinutes*3):0),0)/unique.length):0;
+  const catalystFreshness=unique.length?Math.round(unique.reduce((s,x)=>s+(Number.isFinite(x.recency)?x.recency:0),0)/unique.length):0;
   return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store","access-control-allow-origin":"*"},body:JSON.stringify({version:"V14000",items:unique,summary:{count:unique.length,bullish,bearish,neutral:unique.length-bullish-bearish,avgCatalystScore:avg,catalystBias,catalystConfidence,weightedBias,catalystBreadthScore,catalystRisk,catalystHealth,catalystFreshness}})};
  }catch(e){return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store","access-control-allow-origin":"*"},body:JSON.stringify({version:"V14000",items:[],summary:{count:0,bullish:0,bearish:0,neutral:0,avgCatalystScore:0},error:e.message})};}
 };
