@@ -242,7 +242,7 @@ function normalizeBackend(raw){
  const m=raw&&raw.market&&raw.market.data?raw.market:(raw&&raw.data?raw:{});
  const data=m.data&&typeof m.data==="object"?m.data:{};
  const out={}; Object.entries(data).forEach(([k,x])=>{out[k]={...x,symbol:x.symbol||k,quality:x.quality??(Number.isFinite(x.score)?100:0)}});
- return {data:out,marketSession:m.marketSession||raw.marketSession||"UNKNOWN",errors:m.errors||raw.errors||[],generatedAt:raw.generatedAt||m.generatedAt||new Date().toISOString(),catalyst:raw.catalyst||null};
+ return {data:out,marketSession:m.marketSession||m.session||raw.marketSession||raw.session||"UNKNOWN",marketOpen:!!(m.marketOpen??raw.marketOpen),errors:m.errors||raw.errors||[],generatedAt:raw.generatedAt||m.generatedAt||new Date().toISOString(),catalyst:raw.catalyst||null};
 }
 async function load(){
  try{
@@ -261,7 +261,7 @@ async function load(){
    rows.querySelectorAll("tr[data-instrument]").forEach(tr=>{tr.onclick=()=>{selectedName=tr.dataset.instrument;localStorage.setItem("v730_selected_instrument",selectedName);renderSelected(selectedName);const z=d[selectedName];if(z&&z.quality===100&&typeof runAI==="function")runAI(z).catch(()=>{});}});
   }
   document.getElementById("market").textContent=state.marketSession||selectedMarket; document.getElementById("health").textContent=arr.length+"/"+Object.keys(d).length; document.getElementById("healthSub").textContent=arr.length+" validated "+selectedMarket+" instrument feeds"; document.getElementById("feed").textContent=state.catalyst?.items?.length?"LIVE":"CHECKING";
-  window.__V735_DATA_TS__=Date.parse(state.generatedAt)||Date.now(); renderSelected(selectedName);
+  window.__V730_DATA__=d; window.__V735_DATA_TS__=Date.parse(state.generatedAt)||Date.now(); renderSelected(selectedName);
   if(arr.length&&typeof runAI==="function")runAI(d[selectedName]||arr[0]).catch(()=>{}); arr.forEach(x=>learningLedger(x));
   document.getElementById("diag").textContent=state.errors.length?state.errors.join(" | "):"Backend market-data validation passed.";
   document.getElementById("reliability").innerHTML=names.map(n=>{const x=d[n]||{};return "<span class='pill'>"+n+": "+(x.source||"—")+" / "+(x.provider||"—")+" • "+(Number.isFinite(x.ageMinutes)?x.ageMinutes+" min old":"invalid")+"</span>"}).join(" ");
@@ -298,7 +298,7 @@ function stabilityState(x){
 }
 function unifiedDecision(x){
  if(!x||x.quality!==100||!Number.isFinite(x.score))return {signal:"NO-TRADE",score:null,reason:"Invalid instrument data"};
- if((Number.isFinite(x.ageMinutes)&&x.ageMinutes>48*60)||x.freshnessTier==="STALE"||x.dataHealth<80)return {signal:"NO-TRADE",score:null,reason:"Stale/low-quality instrument data"};
+ if((Number.isFinite(x.ageMinutes)&&x.ageMinutes>48*60)||x.dataHealth<80)return {signal:"NO-TRADE",score:null,reason:"Stale/low-quality instrument data"};
  const ai=window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[x.symbol];
  const factor=Math.max(-100,Math.min(100,(x.score-50)*2));
  const aiProb=ai&&Number.isFinite(ai.probability)?ai.probability:50;
@@ -327,7 +327,7 @@ function unifiedDecision(x){
 function decision(x){
  if(!x||x.quality!==100||!Number.isFinite(x.score))return ["NO-TRADE","bad"];
  // Hard instrument-level freshness gate: retained/old snapshots must never become a trade signal.
- if((Number.isFinite(x.ageMinutes)&&x.ageMinutes>48*60)||x.freshnessTier==="STALE"||x.dataHealth<80)return ["NO-TRADE","bad"];
+ if((Number.isFinite(x.ageMinutes)&&x.ageMinutes>48*60)||x.dataHealth<80)return ["NO-TRADE","bad"];
  const fs=fusionState(x), cb=catalystSummary.catalystBias, marketBias=x.bias||"NEUTRAL", agreement=(cb==="NEUTRAL"||marketBias==="NEUTRAL"||cb===marketBias),factorOK=!Number.isFinite(x.agreementPct)||x.agreementPct>=60;
  const strong=x.confidence>=65&&catalystSummary.catalystConfidence>=50;
  if(fs.state!=="ALIGNED"||!agreement||!factorOK)return [fs.state==="NO-TRADE"?"NO-TRADE":"WAIT","warn"];
@@ -1706,9 +1706,9 @@ main.wrap>#v1069ChartPanel.v1072-visible{display:block!important;visibility:visi
     if(chart.parentElement!==main)main.insertBefore(chart,audit||null);
     tabs.style.setProperty('display','flex','important');
     tabs.style.setProperty('visibility','visible','important');
-    [rec,chart].forEach(function(x){x.classList.remove('v1072-visible','v1072-hidden');});
+    [rec,chart].forEach(function(x){x.classList.remove('v1072-visible','v1072-hidden','active');});
     var showChart=active==='chart';
-    (showChart?chart:rec).classList.add('v1072-visible');
+    (showChart?chart:rec).classList.add('v1072-visible','active');
     (showChart?rec:chart).classList.add('v1072-hidden');
     document.querySelectorAll('.v1069-tab').forEach(function(b){
       b.classList.toggle('active',b.dataset.v1069Tab===active);
