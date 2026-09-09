@@ -66,8 +66,16 @@ exports.handler=async(event)=>{
    try{return [name,await getSymbol(candidates),null];}
    catch(e){return [name,{symbol:candidates[0],price:null,movePct:null,score:null,confidence:null,quality:0,error:e.message,source:"Yahoo Finance"},e.message];}
  }));
- for(const [name,value,error] of jobs){data[name]=value;if(error)errors.push(name+": "+error);}
- const valid=Object.values(data).filter(x=>x.quality===100).length,now=new Date(),ist=new Date(now.toLocaleString("en-US",{timeZone:"Asia/Kolkata"})),day=ist.getDay(),mins=ist.getHours()*60+ist.getMinutes();
- const sessionOpen=day>=1&&day<=5&&mins>=555&&mins<=930;
- return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store","access-control-allow-origin":"*"},body:JSON.stringify({version:"V14000",generatedAt:now.toISOString(),validCount:valid,total:3,marketSession:sessionOpen?"OPEN":"CLOSED",data,errors,guardrails:["finite-values","history>=60","timestamp-freshness<=48h","no-zero-price","FINNIFTY-fallback","anomaly-move-gate","dual-yahoo-host-fallback","regime-classification","raw-vs-adjusted-score","factor-consensus","confidence-calibration","feed-metadata","regime-quality"]})};
+ for(const [name,value,error] of jobs){
+   if(value&&value.quality===100&&value.ts){
+     const mt=new Date(value.ts),mtIst=new Date(mt.toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+     const mtDay=mtIst.getDay(),mtMins=mtIst.getHours()*60+mtIst.getMinutes();
+     if(!sessionOpen && mtDay===day && mtMins>=930){
+       value.dataHealth=Math.max(Number(value.dataHealth||0),100);
+       value.freshnessTier="CLOSED-CURRENT";
+     }
+   }
+   data[name]=value;if(error)errors.push(name+": "+error);
+ }
+ return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store","access-control-allow-origin":"*"},body:JSON.stringify({version:"V14000",generatedAt:now.toISOString(),validCount:valid,total:3,marketSession:sessionOpen?"OPEN":"CLOSED",data,errors,guardrails:["finite-values","history>=60","timestamp-freshness<=48h","same-day-close-validity","no-zero-price","FINNIFTY-fallback","anomaly-move-gate","dual-yahoo-host-fallback","regime-classification","raw-vs-adjusted-score","factor-consensus","confidence-calibration","feed-metadata","regime-quality"]})};
 };
