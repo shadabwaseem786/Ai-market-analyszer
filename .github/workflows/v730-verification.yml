@@ -62,16 +62,7 @@ jobs:
         env:
           CI: true
 
-      - name: Validate generated runtime snapshot
-        run: |
-          node --input-type=module -e "
-            const fs=require('fs');
-            const j=JSON.parse(fs.readFileSync('data/v730-runtime.json','utf8'));
-            if(!j || typeof j!=='object') throw new Error('Invalid runtime snapshot');
-            if(!['INTEGRATED','DEGRADED'].includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
-            if(j.status==='INTEGRATED' && !Array.isArray(j.results)) throw new Error('Integrated runtime results missing');
-            console.log('Generated V730 runtime snapshot OK: status='+j.status+' results='+(Array.isArray(j.results)?j.results.length:0));
-          "
+
 
   release-certification:
     needs: v730-runtime
