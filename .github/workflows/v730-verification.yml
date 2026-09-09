@@ -68,14 +68,25 @@ jobs:
         run: |
           node --input-type=module -e "
             const url=process.env.PAGES_RUNTIME_URL;
-            const r=await fetch(url,{cache:'no-store'});
-            if(!r.ok) throw new Error('Pages HTTP '+r.status);
-            const j=await r.json();
-            if(!j || typeof j!=='object') throw new Error('Invalid Pages runtime JSON');
-            if(!Array.isArray(j.results)) throw new Error('Pages runtime results missing');
-            const allowed=['INTEGRATED','DEGRADED','CLOSED','UNKNOWN'];
-            if(j.status && !allowed.includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
-            console.log('Pages runtime OK: HTTP '+r.status+' status='+String(j.status||'UNKNOWN')+' results='+j.results.length);
+            let last='';
+            for(let i=1;i<=12;i++){
+              try{
+                const r=await fetch(url,{cache:'no-store'});
+                if(r.ok){
+                  const j=await r.json();
+                  if(j && typeof j==='object' && Array.isArray(j.results)){
+                    const allowed=['INTEGRATED','DEGRADED','CLOSED','UNKNOWN'];
+                    if(j.status && !allowed.includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
+                    console.log('Pages runtime OK: HTTP '+r.status+' status='+String(j.status||'UNKNOWN')+' results='+j.results.length);
+                    process.exit(0);
+                  }
+                  last='Invalid runtime JSON';
+                }else last='HTTP '+r.status;
+              }catch(e){last=e.message||String(e);}
+              console.log('Pages runtime not ready (attempt '+i+'/12): '+last);
+              await new Promise(r=>setTimeout(r,10000));
+            }
+            throw new Error('Pages runtime validation failed after retries: '+last);
           "
 
   release-certification:
