@@ -1,4 +1,4 @@
-const SYMBOLS={NIFTY:["^NSEI"],BANKNIFTY:["^NSEBANK"],FINNIFTY:["NIFTY_FIN_SERVICE.NS","^CNXFINANCE"]};
+const SYMBOLS={NIFTY:["^NSEI"],BANKNIFTY:["^NSEBANK"],FINNIFTY:["NIFTY_FIN_SERVICE.NS","^CNXFINANCE"],RELIANCE:["RELIANCE.NS"],HDFCBANK:["HDFCBANK.NS"],ICICIBANK:["ICICIBANK.NS"],SBIN:["SBIN.NS"],INFY:["INFY.NS"],TCS:["TCS.NS"]};
 function finite(v){return Number.isFinite(Number(v));}
 function cleanNum(v){const n=Number(v);return finite(n)&&n>0?n:null;}
 function calc(closes,ageMinutes=0){
