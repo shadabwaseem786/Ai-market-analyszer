@@ -75,6 +75,9 @@ exports.handler=async(event)=>{
      if(!sessionOpen && mtDay===day && mtMins>=930){
        value.dataHealth=Math.max(Number(value.dataHealth||0),100);
        value.freshnessTier="CLOSED-CURRENT";
+     }else if(!sessionOpen && Number.isFinite(value.ageMinutes) && value.ageMinutes<24*60){
+       value.dataHealth=Math.max(Number(value.dataHealth||0),100);
+       value.freshnessTier="CLOSED-CURRENT";
      }
    }
    data[name]=value;if(error)errors.push(name+": "+error);
