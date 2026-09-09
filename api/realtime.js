@@ -99,7 +99,7 @@ module.exports = async function handler(req, res) {
         validCount,
         total,
         marketOpen: !!marketRaw?.marketOpen,
-        session: marketRaw?.session || (marketRaw?.marketOpen ? 'OPEN' : 'CLOSED') + ' • PUBLIC-DATA',
+        session: (marketRaw?.session || (marketRaw?.marketOpen ? 'OPEN' : 'CLOSED')) + ' • PUBLIC-DATA',
         errors: marketRaw?.errors || [],
         data
       },
