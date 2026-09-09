@@ -46,10 +46,10 @@ jobs:
         run: node --check netlify/functions/v730-runtime.js
 
       - name: Validate smoke-test syntax
-        run: node --check tests/v730-runtime-smoke.js
+        run: node --check tests/v730-contract.test.js
 
       - name: Run V730 runtime smoke test
-        run: npm run test:v730-runtime
+        run: node tests/v730-contract.test.js
 
       - name: Validate static build script syntax
         run: node --check scripts/build-static.mjs
