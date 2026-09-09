@@ -163,7 +163,7 @@ main.wrap.v1001-expert>#v1063DeepAudit{display:block!important;order:4}
 .v1069-panel{display:none;margin:10px 0;border:1px solid #294653;border-radius:14px;padding:12px;background:#081720}
 .v1069-panel.active{display:block!important}
 .v1069-rec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.v1069-rec{border:1px solid #294653;border-radius:11px;padding:10px;background:#0a1720;cursor:pointer}.v1069-group-title{grid-column:1/-1;font-weight:950;font-size:12px;margin-top:5px;padding:7px 2px;border-bottom:1px solid #294653}
+.v1069-rec{border:1px solid #294653;border-radius:11px;padding:10px;background:#0a1720;cursor:pointer}.v1069-group-title{grid-column:1/-1;font-weight:950;font-size:12px;margin-top:5px;padding:7px 2px;border-bottom:1px solid #294653}.v1069-top-pick{grid-column:1/-1;border:1px solid #4a7285;border-radius:14px;padding:14px;background:linear-gradient(135deg,#0c1d27,#102630);box-shadow:0 8px 24px rgba(0,0,0,.18)}.v1069-top-label{font-size:11px;font-weight:900;letter-spacing:.08em;margin-bottom:6px}.v1069-top-main{display:flex;justify-content:space-between;gap:10px;font-size:19px}.v1069-top-main span{font-size:14px}.v1069-top-reason{margin-top:8px;font-size:12px;line-height:1.45}.v1069-top-meta{margin-top:9px;font-size:11px;opacity:.82}
 .v1069-rec:hover{outline:1px solid #557f93}
 .v1069-rec-top{display:flex;justify-content:space-between;gap:8px;font-weight:900}
 .v1069-rec-signal{font-size:17px;font-weight:950;margin:7px 0}
@@ -1639,10 +1639,13 @@ function render1069(){
    return;
  }
  var indices=rows.filter(x=>/^(NIFTY|BANKNIFTY|FINNIFTY)$/i.test(x.symbol||'')),stocks=rows.filter(x=>!indices.includes(x));
+ var top=[...stocks,...indices].sort((a,b)=>rank1069(b)-rank1069(a))[0];
+ var topHtml=top?'<div class="v1069-top-pick"><div class="v1069-top-label">⭐ TOP PICK</div><div class="v1069-top-main"><b>'+esc1069(top.symbol||'Instrument')+'</b><span>'+esc1069(signal1069(top))+'</span></div><div class="v1069-top-reason">'+esc1069((top.rationale||'Strongest validated multi-factor setup').split(' • ').slice(0,3).join(' • '))+'</div><div class="v1069-top-meta">Move '+(Number.isFinite(top.movePct)?top.movePct.toFixed(2)+'%':'—')+' • 5D '+(Number.isFinite(top.ret5)?top.ret5.toFixed(2)+'%':'—')+' • Confidence '+(Number.isFinite(top.confidence)?top.confidence+'%':'—')+' • Risk '+(Number.isFinite(top.riskScore)?top.riskScore:'—')+'</div></div>':'';
+
  const card=(x,i,kind)=>{var s=signal1069(x),cls=/BUY|WATCH-LONG/.test(s)?'🟢':/SELL|WATCH-SHORT/.test(s)?'🔴':/NO-TRADE/.test(s)?'⛔':'🟡';
  var rationale=(x.rationale||'').split(' • ').slice(0,2).join(' • ');
  return '<div class="v1069-rec" data-v1069-symbol="'+esc1069(x.symbol||'')+'"><div class="v1069-rec-top"><span>#'+(i+1)+' '+esc1069(x.symbol||'Instrument')+'</span><span>'+kind+' • '+esc1069(x.regime||'—')+'</span></div><div class="v1069-rec-signal">'+cls+' '+esc1069(s)+'</div><div class="v1069-rec-meta"><span>Price '+Number(x.price).toFixed(2)+'</span><span>Move '+(Number.isFinite(x.movePct)?x.movePct.toFixed(2)+'%':'—')+'</span><span>5D '+(Number.isFinite(x.ret5)?x.ret5.toFixed(2)+'%':'—')+'</span><span>Confidence '+(Number.isFinite(x.confidence)?x.confidence+'%':'—')+'</span><span>Risk '+(Number.isFinite(x.riskScore)?x.riskScore:'—')+'</span><span>Quality '+x.quality+'</span></div><div class="v1069-note">'+esc1069(rationale||'Multi-factor ranking')}</div>';};
- g.innerHTML='<div class="v1069-group-title">📊 TOP INDICES</div>'+indices.slice(0,3).map((x,i)=>card(x,i,'INDEX')).join('')+'<div class="v1069-group-title">🏢 TOP F&amp;O STOCKS</div>'+stocks.slice(0,6).map((x,i)=>card(x,i,'STOCK')).join('');
+ g.innerHTML=topHtml+'<div class="v1069-group-title">📊 TOP INDICES</div>'+indices.slice(0,3).map((x,i)=>card(x,i,'INDEX')).join('')+'<div class="v1069-group-title">🏢 TOP F&amp;O STOCKS</div>'+stocks.slice(0,6).map((x,i)=>card(x,i,'STOCK')).join('');
  g.querySelectorAll('.v1069-rec').forEach(el=>el.onclick=function(){var s=el.dataset.v1069Symbol;try{selectedName=s;localStorage.setItem('v730_selected_instrument',s);if(typeof renderSelected==='function')renderSelected(s);if(typeof runAI==='function'&&d[s])runAI(d[s]).catch(()=>{})}catch(e){}});
 }
 function activeSymbol1069(){return String(window.selectedName||selectedName||localStorage.getItem('v730_selected_instrument')||'NIFTY')}
