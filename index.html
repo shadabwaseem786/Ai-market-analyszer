@@ -174,9 +174,6 @@ main.wrap.v1001-expert>#v1063DeepAudit{display:block!important;order:4}
 .v1069-chart-meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;font-size:11px}
 .v1069-note{font-size:10px;opacity:.72;margin-top:8px}
 @media(max-width:700px){.v1069-rec-grid{grid-template-columns:1fr}.v1069-chart-wrap{height:250px}}
-main.v1068-newbie-mode > #v1069Tabs,
-main.v1068-newbie-mode > #v1069Recommendations,
-main.v1068-newbie-mode > #v1069ChartPanel{display:block}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V730000 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><div class="v7351-status" id="v7351Status"><span class="v7351-dot"></span><span id="v7351Label">CHECKING</span><span class="v7351-detail" id="v7351Detail">Validating data freshness…</span></div><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><div id="v1069Tabs" class="v1069-tabs" role="tablist" aria-label="Application views">
 <button type="button" class="v1069-tab active" data-v1069-tab="recommendations">🎯 Recommendations</button>
@@ -1548,7 +1545,7 @@ setTimeout(run,900);
 })();</script><style id="v1068-stable-mode-final">
 /* V1068: single stable mode controller. Removes competing watchdogs that could
    intermittently blank the Newbie surface during refresh/re-render cycles. */
-main.v1068-newbie-mode > :not(#v730MarketSelector):not(#v730ModeSwitch):not(#v1063NewbieHome){display:none!important}
+main.v1068-newbie-mode > :not(#v730MarketSelector):not(#v730ModeSwitch):not(#v1063NewbieHome):not(#v1069Tabs):not(#v1069Recommendations):not(#v1069ChartPanel){display:none!important}
 main.v1068-newbie-mode > #v1063NewbieHome{display:block!important;visibility:visible!important;width:100%!important}
 main.v1068-expert-mode > #v1063NewbieHome{display:none!important}
 main.v1068-expert-mode > #v1063ExpertWeights{display:block!important;visibility:visible!important}
