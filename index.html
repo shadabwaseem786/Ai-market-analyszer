@@ -187,7 +187,14 @@ main.v1001-expert>#v1069Tabs,main.v1002-expert>#v1069Tabs{display:flex!important
 main.v1001-expert>#v1069Recommendations.active,main.v1001-expert>#v1069ChartPanel.active,
 main.v1002-expert>#v1069Recommendations.active,main.v1002-expert>#v1069ChartPanel.active{display:block!important;visibility:visible!important}
 </style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V1072 • FREE DATA • PAPER ONLY</small></h1></div></header>
-<main class="wrap"><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><div class="v7351-status" id="v7351Status"><span class="v7351-dot"></span><span id="v7351Label">CHECKING</span><span class="v7351-detail" id="v7351Detail">Validating data freshness…</span></div><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><div id="v1069Tabs" class="v1069-tabs" role="tablist" aria-label="Application views">
+<main class="wrap"><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><div class="v7351-status" id="v7351Status"><span class="v7351-dot"></span><span id="v7351Label">CHECKING</span><span class="v7351-detail" id="v7351Detail">Validating data freshness…</span></div><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div>
+<section id="v1063NewbieHome" class="v1063-panel" data-v1063-static="1">
+<div class="v1063-title"><h2>⚡ INSTANT MARKET OVERVIEW</h2><span class="v1063-sub">Top 6 probable candidates • validated data only</span></div>
+<section class="v1063-seg" data-v1063-seg="STOCKS"><div class="v1063-seg-head"><b>📈 STOCKS</b><small>Top 6</small></div><div class="v1063-grid"></div><div class="v1063-foot">Ranked by decision confidence, then signal strength</div></section>
+<section class="v1063-seg" data-v1063-seg="INDICES"><div class="v1063-seg-head"><b>📊 INDICES</b><small>Top 6</small></div><div class="v1063-grid"></div><div class="v1063-foot">Ranked by decision confidence, then signal strength</div></section>
+<section class="v1063-seg" data-v1063-seg="COMMODITY"><div class="v1063-seg-head"><b>🪙 COMMODITY</b><small>Top 6</small></div><div class="v1063-grid"></div><div class="v1063-foot">Ranked by decision confidence, then signal strength</div></section>
+</section>
+<div id="v1069Tabs" class="v1069-tabs" role="tablist" aria-label="Application views">
 <button type="button" class="v1069-tab active" data-v1069-tab="recommendations">🎯 Recommendations</button>
 <button type="button" class="v1069-tab" data-v1069-tab="chart">📈 Chart</button>
 </div>
@@ -1516,13 +1523,37 @@ function renderNewbie(){
  ensureNewbie();var w=document.getElementById('v1063NewbieHome');if(!w)return;
  var filter=String(localStorage.getItem('v880_market_filter')||'ALL').toUpperCase();
  var allowed=filter==='ALL'?null:({'INDICES':['INDICES','INDEX'],'STOCKS':['STOCKS','STOCK','EQUITY'],'STOCK F&O':['STOCK F&O','STOCK_FNO','STOCK-F&O','STOCK FNO'],'INDEX F&O':['INDEX F&O','INDEX_FNO','INDEX-F&O','INDEX FNO'],'OPTIONS':['OPTIONS','OPTION'],'FUTURES':['FUTURES','FUTURE'],'ETFS':['ETFS','ETF','FUND']}[filter]||[filter]);
- var rows=sourceRows().filter(function(r){var t=String(r.dataset.marketType||classify(r)||'').toUpperCase();return !allowed||allowed.indexOf(t)>=0});
+ var marketNow=String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase();
+ var source=Object.values(d||{}).filter(function(x){return x&&x.quality===100&&Number.isFinite(Number(x.price));});
+ if(marketNow==='COMMODITY')source=source.filter(function(x){return /GOLD|SILVER|CRUDE|NATURAL GAS|COPPER|PLATINUM|PALLADIUM|CORN|WHEAT|COFFEE/i.test(String(x.symbol||''));});
+ else if(marketNow==='NASDAQ')source=source.filter(function(x){return /NASDAQ|AAPL|MSFT|NVDA|AMZN|META|GOOGL|TSLA|AVGO|AMD|NFLX/i.test(String(x.symbol||''));});
+ var rows=source.filter(function(x){
+   if(!allowed)return true;
+   var t=String(x.type||(/NIFTY|SENSEX|BANKNIFTY|FINNIFTY|MIDCPNIFTY|NASDAQ|DOW|SPX|S&P|INDEX/i.test(String(x.symbol||''))?'INDICES':/GOLD|SILVER|CRUDE|NATURAL GAS|COPPER|PLATINUM|PALLADIUM|CORN|WHEAT|COFFEE/i.test(String(x.symbol||''))?'COMMODITY':'STOCKS')).toUpperCase();
+   return allowed.indexOf(t)>=0;
+ });
+ function classify(x){
+   var n=String(x.symbol||'').toUpperCase();
+   if(/NIFTY|SENSEX|BANKNIFTY|FINNIFTY|MIDCPNIFTY|NASDAQ|DOW|SPX|S&P|INDEX/.test(n))return'INDICES';
+   if(/GOLD|SILVER|CRUDE|NATURAL GAS|COPPER|PLATINUM|PALLADIUM|CORN|WHEAT|COFFEE/.test(n))return'COMMODITY';
+   return'STOCKS';
+ }
  ['STOCKS','INDICES','COMMODITY'].forEach(function(k){
-  var g=w.querySelector('[data-v1063-seg="'+k+'"] .v1063-grid');g.innerHTML='';
-  var rs=rows.filter(function(r){return classify(r)===k}).map(function(r){return {r:r,c:num(r.children[9]?.textContent),s:num(r.children[8]?.textContent)}}).sort(function(a,b){return (b.c??-Infinity)-(a.c??-Infinity)||(b.s??-Infinity)-(a.s??-Infinity)}).slice(0,6);
-  if(!rs.length){g.innerHTML='<div class="v1063-empty">No validated '+k.toLowerCase()+' candidates available right now. WAIT is retained rather than using synthetic signals.</div>';return}
-  rs.forEach(function(x,i){var c=[...x.r.children].map(function(z){return clean(z.textContent)}),name=c[0]||'Instrument',move=c[2]||'—',trend=c[3]||'—',score=c[8]||'—',conf=c[9]||'—',decision=c[12]||'WAIT',d=/BUY/i.test(decision)?'🟢 BUY':/SELL/i.test(decision)?'🔴 SELL':/NO-TRADE/i.test(decision)?'⛔ NO-TRADE':'🟡 WAIT',e=document.createElement('div');e.className='v1063-card';e.innerHTML='<div class="v1063-card-top"><span class="v1063-name">'+name+'</span><span class="v1063-rank">#'+(i+1)+'</span></div><div class="v1063-decision">'+d+' • '+conf+'</div><div class="v1063-meta"><span>Score '+score+'</span><span>Move '+move+'</span><span>Trend '+trend+'</span><span>Validated</span></div>';e.onclick=function(){x.r.click()};g.appendChild(e)})});
+   var g=w.querySelector('[data-v1063-seg="'+k+'"] .v1063-grid');if(!g)return;g.innerHTML='';
+   var rs=rows.filter(function(x){return classify(x)===k}).sort(function(a,b){
+     return (Number(b.confidence)||-Infinity)-(Number(a.confidence)||-Infinity)||(Number(b.score)||-Infinity)-(Number(a.score)||-Infinity);
+   }).slice(0,6);
+   if(!rs.length){g.innerHTML='<div class="v1063-empty">No validated '+k.toLowerCase()+' candidates available right now. WAIT is retained rather than using synthetic signals.</div>';return}
+   rs.forEach(function(x,i){
+     var dec=decision(x)[0],dlabel=/BUY/i.test(dec)?'🟢 BUY':/SELL/i.test(dec)?'🔴 SELL':/NO-TRADE/i.test(dec)?'⛔ NO-TRADE':'🟡 WAIT';
+     var e=document.createElement('div');e.className='v1063-card';
+     e.innerHTML='<div class="v1063-card-top"><span class="v1063-name">'+esc(x.symbol||'Instrument')+'</span><span class="v1063-rank">#'+(i+1)+'</span></div><div class="v1063-decision">'+dlabel+' • '+(Number.isFinite(Number(x.confidence))?Math.round(Number(x.confidence))+'%':'—')+'</div><div class="v1063-meta"><span>Price '+(Number.isFinite(Number(x.price))?Number(x.price).toFixed(2):'—')+'</span><span>Move '+(Number.isFinite(Number(x.movePct))?Number(x.movePct).toFixed(2)+'%':'—')+'</span><span>Score '+(Number.isFinite(Number(x.score))?Math.round(Number(x.score)):'—')+'</span><span>Validated</span></div>';
+     e.onclick=function(){selectedName=x.symbol;localStorage.setItem('v730_selected_instrument',x.symbol);if(typeof renderSelected==='function')renderSelected(x.symbol);};
+     g.appendChild(e);
+   });
+ });
 }
+
 function ensureExpert(){
  var root=document.getElementById('v1000ExpertCockpit');if(!root||document.getElementById('v1063ExpertWeights'))return;
  var w=document.createElement('section');w.id='v1063ExpertWeights';w.className='v1063-panel';
