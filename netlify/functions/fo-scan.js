@@ -75,9 +75,15 @@ exports.handler=async(event={})=>{
   ...Object.fromEntries(Object.entries(profile.stocks).map(([k,v])=>[k,{symbol:v,type:'STOCK'}]))
  };
  const out={},errors=[];
- for(const [name,m] of Object.entries(universe)){
-  try{out[name]={...await fetchOne(m.symbol,marketOpen),symbol:name,type:m.type,source:'Yahoo Finance',market:requested}}
-  catch(e){out[name]={symbol:name,type:m.type,quality:0,action:'NO-TRADE',error:e.message,market:requested};errors.push(name+': '+e.message)}
+ const entries=Object.entries(universe);
+ const concurrency=8;
+ for(let i=0;i<entries.length;i+=concurrency){
+  const batch=entries.slice(i,i+concurrency);
+  const results=await Promise.all(batch.map(async ([name,m])=>{
+   try{return [name,{...await fetchOne(m.symbol,marketOpen),symbol:name,type:m.type,source:'Yahoo Finance',market:requested}];}
+   catch(e){return [name,{symbol:name,type:m.type,quality:0,action:'NO-TRADE',error:e.message,market:requested,errorCode:e?.name||'FETCH_ERROR'}];}
+  }));
+  for(const [name,value] of results){out[name]=value;if(value.quality!==100)errors.push(name+': '+value.error)}
  }
  const valid=Object.values(out).filter(x=>x.quality===100);
  const top=valid.filter(x=>x.signalGate==='PASS').sort((a,b)=>Math.abs(b.probability-50)-Math.abs(a.probability-50));
