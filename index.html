@@ -186,7 +186,7 @@ main.v730-newbie-mode>#v1069Recommendations.active,main.v730-newbie-mode>#v1069C
 main.v1001-expert>#v1069Tabs,main.v1002-expert>#v1069Tabs{display:flex!important;visibility:visible!important}
 main.v1001-expert>#v1069Recommendations.active,main.v1001-expert>#v1069ChartPanel.active,
 main.v1002-expert>#v1069Recommendations.active,main.v1002-expert>#v1069ChartPanel.active{display:block!important;visibility:visible!important}
-</style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V1071 • FREE DATA • PAPER ONLY</small></h1></div></header>
+</style></head><body><header><div class="wrap"><h1>⚡ Catalyst Monitor <small>V1072 • FREE DATA • PAPER ONLY</small></h1></div></header>
 <main class="wrap"><div id="v730MarketSelector" class="v730-market-selector" role="group" aria-label="Market selector"><div class="v7351-status" id="v7351Status"><span class="v7351-dot"></span><span id="v7351Label">CHECKING</span><span class="v7351-detail" id="v7351Detail">Validating data freshness…</span></div><span class="label">Market:</span><button type="button" data-v730-market="NSE">🇮🇳 NSE</button><button type="button" data-v730-market="NASDAQ">🇺🇸 NASDAQ</button><button type="button" data-v730-market="COMMODITY">🪙 COMMODITY</button><span id="v730MarketSelectorStatus" class="status">NSE • India F&amp;O</span></div><div id="v730ModeSwitch" class="mode-switch"><button id="v730Newbie" onclick="V730UI.setMode('NEWBIE')">🟢 Newbie</button><button id="v730Expert" onclick="V730UI.setMode('EXPERT')">🧠 Expert</button></div><div id="v1069Tabs" class="v1069-tabs" role="tablist" aria-label="Application views">
 <button type="button" class="v1069-tab active" data-v1069-tab="recommendations">🎯 Recommendations</button>
 <button type="button" class="v1069-tab" data-v1069-tab="chart">📈 Chart</button>
@@ -1688,57 +1688,51 @@ function init1069(){
 }
 document.addEventListener('DOMContentLoaded',init1069);setTimeout(init1069,1000);
 window.addEventListener('resize',()=>{if(document.getElementById('v1069ChartPanel')?.classList.contains('active'))chart1069()});
-})();</script><style id="v1071-final-ui-lock">
-/* V1071: final UI lock — Recommendations/Chart are primary navigation and must
-   remain direct children of main, visible in both Newbie and Expert modes. */
-main.wrap>#v1069Tabs{
-  display:flex!important;
-  visibility:visible!important;
-  position:relative!important;
-  z-index:200!important;
-  order:1!important;
-}
-main.wrap>#v1069Recommendations,
-main.wrap>#v1069ChartPanel{order:2!important}
-main.wrap>#v1069Recommendations.active,
-main.wrap>#v1069ChartPanel.active{
-  display:block!important;
-  visibility:visible!important;
-}
-main.wrap>#v1069Recommendations:not(.active),
-main.wrap>#v1069ChartPanel:not(.active){display:none!important}
-main.v1068-newbie-mode>#v1069Tabs,
-main.v1068-expert-mode>#v1069Tabs{
-  display:flex!important;
-  visibility:visible!important;
-}
-main.v1068-newbie-mode>#v1069Recommendations.active,
-main.v1068-newbie-mode>#v1069ChartPanel.active,
-main.v1068-expert-mode>#v1069Recommendations.active,
-main.v1068-expert-mode>#v1069ChartPanel.active{
-  display:block!important;
-  visibility:visible!important;
-}
+})();</script><style id="v1072-final-ui-lock">
+/* V1072: hard primary-view guard. Recommendations is visible by default;
+   Chart becomes visible only when its tab is selected. This is intentionally
+   independent of the older mode/audit watchdogs. */
+main.wrap>#v1069Tabs{display:flex!important;visibility:visible!important;position:relative!important;z-index:9999!important;order:1!important}
+main.wrap>#v1069Recommendations{order:2!important;margin-top:10px!important}
+main.wrap>#v1069ChartPanel{order:3!important;margin-top:10px!important}
+main.wrap>#v1069Recommendations.v1072-hidden,
+main.wrap>#v1069ChartPanel.v1072-hidden{display:none!important}
+main.wrap>#v1069Recommendations.v1072-visible,
+main.wrap>#v1069ChartPanel.v1072-visible{display:block!important;visibility:visible!important}
 </style>
-<script id="v1071-final-ui-lock-js">(function(){
-  function lockPrimaryViews(){
-    var main=document.querySelector('main.wrap');
-    var tabs=document.getElementById('v1069Tabs');
-    var rec=document.getElementById('v1069Recommendations');
-    var chart=document.getElementById('v1069ChartPanel');
-    var audit=document.getElementById('v1063DeepAudit');
-    if(!main||!tabs)return;
-    if(tabs.parentElement!==main)main.insertBefore(tabs,audit||main.firstElementChild||null);
-    if(rec&&rec.parentElement!==main)main.insertBefore(rec,audit||null);
-    if(chart&&chart.parentElement!==main)main.insertBefore(chart,audit||null);
+<script id="v1072-final-ui-lock-js">(function(){
+  var active='recommendations';
+  function lock(){
+    var main=document.querySelector('main.wrap'),tabs=document.getElementById('v1069Tabs'),
+        rec=document.getElementById('v1069Recommendations'),chart=document.getElementById('v1069ChartPanel'),
+        audit=document.getElementById('v1063DeepAudit');
+    if(!main||!tabs||!rec||!chart)return;
+    if(tabs.parentElement!==main)main.insertBefore(tabs,audit||null);
+    if(rec.parentElement!==main)main.insertBefore(rec,audit||null);
+    if(chart.parentElement!==main)main.insertBefore(chart,audit||null);
     tabs.style.setProperty('display','flex','important');
     tabs.style.setProperty('visibility','visible','important');
+    [rec,chart].forEach(function(x){x.classList.remove('v1072-visible','v1072-hidden');});
+    var showChart=active==='chart';
+    (showChart?chart:rec).classList.add('v1072-visible');
+    (showChart?rec:chart).classList.add('v1072-hidden');
+    document.querySelectorAll('.v1069-tab').forEach(function(b){
+      b.classList.toggle('active',b.dataset.v1069Tab===active);
+    });
   }
-  document.addEventListener('DOMContentLoaded',function(){
-    lockPrimaryViews();
-    setTimeout(lockPrimaryViews,250);
-    setTimeout(lockPrimaryViews,1000);
-    setInterval(lockPrimaryViews,1500);
-  });
-  window.addEventListener('pageshow',lockPrimaryViews);
+  function select(name){
+    active=name==='chart'?'chart':'recommendations';
+    lock();
+    if(active==='chart'&&typeof chart1069==='function')setTimeout(chart1069,30);
+    if(active==='recommendations'&&typeof render1069==='function')setTimeout(render1069,30);
+  }
+  function init(){
+    document.querySelectorAll('.v1069-tab').forEach(function(b){
+      b.onclick=function(ev){ev.preventDefault();ev.stopImmediatePropagation();select(b.dataset.v1069Tab);}
+    });
+    lock();setTimeout(lock,100);setTimeout(lock,500);setTimeout(lock,1500);
+  }
+  document.addEventListener('DOMContentLoaded',init);
+  window.addEventListener('pageshow',lock);
+  setInterval(lock,1500);
 })();</script></body></html>
