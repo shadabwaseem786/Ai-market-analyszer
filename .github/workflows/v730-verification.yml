@@ -62,31 +62,15 @@ jobs:
         env:
           CI: true
 
-      - name: Validate published Pages endpoint
-        env:
-          PAGES_RUNTIME_URL: https://shadabwaseem786.github.io/Ai-market-analyszer/data/v730-runtime.json
+      - name: Validate generated runtime snapshot
         run: |
           node --input-type=module -e "
-            const url=process.env.PAGES_RUNTIME_URL;
-            let last='';
-            for(let i=1;i<=12;i++){
-              try{
-                const r=await fetch(url,{cache:'no-store'});
-                if(r.ok){
-                  const j=await r.json();
-                  if(j && typeof j==='object' && Array.isArray(j.results)){
-                    const allowed=['INTEGRATED','DEGRADED','CLOSED','UNKNOWN'];
-                    if(j.status && !allowed.includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
-                    console.log('Pages runtime OK: HTTP '+r.status+' status='+String(j.status||'UNKNOWN')+' results='+j.results.length);
-                    process.exit(0);
-                  }
-                  last='Invalid runtime JSON';
-                }else last='HTTP '+r.status;
-              }catch(e){last=e.message||String(e);}
-              console.log('Pages runtime not ready (attempt '+i+'/12): '+last);
-              await new Promise(r=>setTimeout(r,10000));
-            }
-            throw new Error('Pages runtime validation failed after retries: '+last);
+            const fs=require('fs');
+            const j=JSON.parse(fs.readFileSync('data/v730-runtime.json','utf8'));
+            if(!j || typeof j!=='object') throw new Error('Invalid runtime snapshot');
+            if(!Array.isArray(j.results)) throw new Error('Runtime results missing');
+            if(!['INTEGRATED','DEGRADED'].includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
+            console.log('Generated V730 runtime snapshot OK: status='+j.status+' results='+j.results.length);
           "
 
   release-certification:
