@@ -1,0 +1,2 @@
+// V29000: exposure concentration diagnostics.
+function check(weights,{maxSingle=.4,maxSector=.6}={}){const vals=Object.values(weights||{}).map(Number).filter(Number.isFinite);return {maxSingle:vals.length?Math.max(...vals):0,concentrated:vals.some(x=>x>maxSingle),maxSector}}module.exports={check};

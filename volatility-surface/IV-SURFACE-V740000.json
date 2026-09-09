@@ -1,0 +1,14 @@
+{
+  "metrics": [
+    "ATM IV",
+    "IV rank",
+    "IV percentile",
+    "skew",
+    "term structure",
+    "realized-vs-implied"
+  ],
+  "states": [
+    "IV PREMIUM",
+    "IV DISCOUNT"
+  ]
+}

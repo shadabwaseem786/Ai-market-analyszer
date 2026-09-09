@@ -1,0 +1,2 @@
+// V32200: deflated-Sharpe research diagnostic contract.
+function estimate(sharpe,trials=1){return {observed:sharpe,trials,selectionAdjusted:sharpe/Math.sqrt(Math.max(1,Math.log1p(trials))),researchOnly:true}}module.exports={estimate};

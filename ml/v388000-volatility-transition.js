@@ -1,0 +1,2 @@
+// V388000 volatility-state transition.
+function detect(history=[]){const h=history.map(Number).filter(Number.isFinite);const current=h.at(-1),prev=h.at(-2);return {version:"V388000",current,previous:prev,transition:current!=null&&prev!=null?current-prev:null,state:current>prev?"VOL_EXPANDING":current<prev?"VOL_CONTRACTING":"STABLE",researchOnly:true};} module.exports={detect};

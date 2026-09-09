@@ -1,0 +1,10 @@
+{
+  "components": [
+    "IV/RV",
+    "skew",
+    "GEX/DEX",
+    "OI migration",
+    "unusual activity",
+    "expiry safety"
+  ]
+}

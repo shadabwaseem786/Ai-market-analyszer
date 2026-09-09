@@ -1,0 +1,2 @@
+// V439000 model-vs-baseline challenger.
+function compare(model={},baseline={}){const keys=["hitRate","brierScore","averageReturn","maxDrawdown"];const delta={};for(const k of keys)if(Number.isFinite(Number(model[k]))&&Number.isFinite(Number(baseline[k])))delta[k]=Number(model[k])-Number(baseline[k]);return {version:"V439000",model,baseline,delta,researchOnly:true};} module.exports={compare};

@@ -1,0 +1,7 @@
+{
+  "purpose": "out-of-sample rolling validation",
+  "anti_leakage": [
+    "chronological folds",
+    "train-before-test"
+  ]
+}

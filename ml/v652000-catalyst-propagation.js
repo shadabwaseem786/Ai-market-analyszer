@@ -1,0 +1,2 @@
+// V652000 Catalyst → Sector → Stock Propagation.
+function propagate(catalyst,links=[]){return {version:"V652000",catalyst,impacts:links.map(l=>({...l,impact:Number(l.sensitivity??0)*Number(catalyst.strength??0)})),researchOnly:true};} module.exports={propagate};

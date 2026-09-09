@@ -1,0 +1,2 @@
+// V92900: rank opportunities by expected edge / uncertainty.
+function rank(rows=[]){return rows.map(r=>({...r,score:(Number(r.edge)||0)/(1+(Number(r.uncertainty)||0)+Math.max(0,Number(r.cost)||0))})).sort((a,b)=>b.score-a.score)}module.exports={rank};

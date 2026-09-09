@@ -1,0 +1,19 @@
+{
+  "score_components": [
+    "catalyst",
+    "fno",
+    "breadth",
+    "flow",
+    "model",
+    "robustness",
+    "regime",
+    "risk"
+  ],
+  "outputs": [
+    "opportunity_score",
+    "rank",
+    "shortlist",
+    "avoid_list",
+    "suppression_reason"
+  ]
+}

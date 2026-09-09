@@ -1,0 +1,2 @@
+// V37900: explicit safety kill-switch state machine.
+function state({critical=false,manual=false}={}){return{enabled:critical||manual,reason:critical?"CRITICAL_ALERT":manual?"MANUAL":"NONE",autoExecution:false}}module.exports={state};

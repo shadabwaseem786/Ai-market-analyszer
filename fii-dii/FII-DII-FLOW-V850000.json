@@ -1,0 +1,10 @@
+{
+  "inputs": [
+    "FII net flow",
+    "DII net flow"
+  ],
+  "outputs": [
+    "net flow",
+    "dominant participant"
+  ]
+}

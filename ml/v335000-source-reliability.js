@@ -1,0 +1,2 @@
+// V335000 source reliability scoring.
+function score(sourceHistory={}){return Object.fromEntries(Object.entries(sourceHistory).map(([k,v])=>{const a=Number(v.accuracy??0),fresh=Number(v.freshness??0),complete=Number(v.completeness??0);return [k,.5*a+.25*fresh+.25*complete]}));} module.exports={score};

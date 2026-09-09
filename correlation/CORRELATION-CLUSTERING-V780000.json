@@ -1,0 +1,4 @@
+{
+  "purpose": "identify concentrated correlated exposures",
+  "method": "correlation threshold clustering"
+}

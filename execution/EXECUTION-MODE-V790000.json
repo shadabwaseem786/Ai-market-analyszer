@@ -1,0 +1,7 @@
+{
+  "modes": [
+    "LIMIT",
+    "MARKETABLE-LIMIT"
+  ],
+  "rule": "liquidity and urgency gated"
+}

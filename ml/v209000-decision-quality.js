@@ -1,0 +1,2 @@
+// V209000 Decision Quality Scoring.
+function score(x={}){const p=Number(x.probability??.5),cal=Number(x.calibration??0),agreement=Number(x.agreement??0),validation=Number(x.validation??0),risk=Number(x.risk??0);const q=.35*p*100+.2*cal+.2*agreement+.25*validation-risk*.2;return {version:"V209000",quality:+Math.max(0,Math.min(100,q)).toFixed(2),components:{probability:p,calibration:cal,agreement,validation,risk},researchOnly:true};} module.exports={score};

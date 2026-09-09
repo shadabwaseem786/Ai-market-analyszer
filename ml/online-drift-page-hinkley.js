@@ -1,0 +1,2 @@
+// V41100: Page-Hinkley style drift diagnostic.
+function detect(values,delta=0.005,lambda=0.5){let s=0,m=0;for(const x of values.filter(Number.isFinite)){s+=x-delta;m=Math.min(m,s)}if(!values.length)return null;return{stat:s-m,alert:s-m>lambda}}module.exports={detect};

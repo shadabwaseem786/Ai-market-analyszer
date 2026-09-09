@@ -1,0 +1,3 @@
+// V431000 Walk-forward validation — research only.
+// Splits ordered observations into sequential train/test windows; never shuffles time.
+function split(rows=[],trainSize=100,testSize=20,step=testSize){const out=[];for(let start=0;start+trainSize+testSize<=rows.length;start+=step)out.push({train:rows.slice(start,start+trainSize),test:rows.slice(start+trainSize,start+trainSize+testSize)});return {version:"V431000",windows:out.length,splits:out,researchOnly:true};} module.exports={split};

@@ -1,0 +1,2 @@
+// V332000 Timestamp Consistency Engine.
+function audit(items=[]){const ts=items.map(x=>Date.parse(x?.timestamp)).filter(Number.isFinite);let inversions=0;for(let i=1;i<ts.length;i++)if(ts[i]<ts[i-1])inversions++;return {version:"V332000",count:ts.length,inversions,ordered:inversions===0,researchOnly:true};} module.exports={audit};

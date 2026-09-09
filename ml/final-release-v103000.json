@@ -1,0 +1,12 @@
+{
+ "version":"V103000",
+ "name":"SuperCompute Market Intelligence Fabric",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V102000",
+ "layers":["supercompute-feature-mesh","regime-mixture-of-experts","neural-consensus","deterministic-simulation-coordinator","computational-risk-firewall"],
+ "design":"Parallel analytical fabric with regime-aware routing, model disagreement, scenario simulation and bounded compute.",
+ "note":"Supercomputer-style refers to architecture and parallel analytical design, not guaranteed computational superiority or prediction accuracy."
+}

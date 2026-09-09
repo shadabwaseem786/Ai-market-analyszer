@@ -1,0 +1,2 @@
+// V607000 Missing-Evidence Detector.
+function detect(required=[],available=[]){const have=new Set(available);return {version:"V607000",missing:required.filter(x=>!have.has(x)),complete:required.every(x=>have.has(x)),researchOnly:true};} module.exports={detect};

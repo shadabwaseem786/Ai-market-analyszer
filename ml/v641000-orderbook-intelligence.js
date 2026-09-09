@@ -1,0 +1,2 @@
+// V641000 Order-Book Intelligence — research only.
+function analyze(book={}){const bid=Number(book.bidVolume??0),ask=Number(book.askVolume??0),total=bid+ask;return {version:"V641000",imbalance:total?(bid-ask)/total:0,researchOnly:true};} module.exports={analyze};

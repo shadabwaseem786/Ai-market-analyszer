@@ -1,0 +1,2 @@
+// V595000 Options Chain Intelligence.
+function analyze(chain=[]){return {version:"V595000",chain,putCallRatio:chain.length?chain.reduce((s,x)=>s+Number(x.putOI??0),0)/(chain.reduce((s,x)=>s+Number(x.callOI??0),0)||1):null,researchOnly:true};} module.exports={analyze};

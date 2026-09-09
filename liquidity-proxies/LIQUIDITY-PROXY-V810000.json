@@ -1,0 +1,8 @@
+{
+  "features": [
+    "added liquidity",
+    "cancelled liquidity",
+    "filled liquidity"
+  ],
+  "note": "proxy only; not proof of spoofing/icebergs"
+}

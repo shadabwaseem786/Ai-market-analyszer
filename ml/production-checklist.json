@@ -1,0 +1,1 @@
+{"version":"V22100","checks":["data_quality","lineage","leakage","purged_walk_forward","oos_samples","cost_stress","calibration","regime_stability","drift","circuit_breaker","audit"],"execution":"disabled","promotion":"research-only until all checks pass"}

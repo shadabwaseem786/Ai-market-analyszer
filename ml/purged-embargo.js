@@ -1,0 +1,2 @@
+// V32100: purge/embargo integrity contract.
+function validate(folds,embargo=0){return {folds:(folds||[]).length,embargo,valid:(folds||[]).every(f=>Number(f.trainEnd)<=Number(f.testStart)-embargo)}}module.exports={validate};

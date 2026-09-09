@@ -1,0 +1,10 @@
+{
+  "channels": [
+    "DXY",
+    "oil",
+    "US yields",
+    "US equities",
+    "Asia"
+  ],
+  "output": "transmission score"
+}

@@ -1,0 +1,2 @@
+// V92300: out-of-distribution detector contract.
+function detect(distance,{threshold=.8}={}){const d=Number(distance)||0;return{distance:d,ood:d>threshold,abstain:d>threshold}}module.exports={detect};

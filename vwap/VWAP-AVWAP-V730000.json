@@ -1,0 +1,6 @@
+{
+  "features": [
+    "session_vwap",
+    "anchored_vwap"
+  ]
+}

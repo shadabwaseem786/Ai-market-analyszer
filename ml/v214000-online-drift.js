@@ -1,0 +1,2 @@
+// V214000 Online drift detection.
+function detect(reference=[],current=[],threshold=.2){const mean=a=>a.length?a.reduce((s,x)=>s+Number(x),0)/a.length:0;const r=mean(reference),c=mean(current),delta=Math.abs(c-r)/Math.max(1,Math.abs(r));return {version:"V214000",referenceMean:r,currentMean:c,drift:+delta.toFixed(5),detected:delta>=threshold,researchOnly:true};} module.exports={detect};

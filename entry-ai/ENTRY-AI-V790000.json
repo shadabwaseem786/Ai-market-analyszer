@@ -1,0 +1,16 @@
+{
+  "inputs": [
+    "signal",
+    "calibration",
+    "liquidity",
+    "momentum",
+    "options",
+    "risk/reward"
+  ],
+  "grades": [
+    "A+",
+    "A",
+    "B",
+    "WAIT"
+  ]
+}

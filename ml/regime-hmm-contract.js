@@ -1,0 +1,2 @@
+// V30100: regime-state inference contract; fit only on training windows.
+function infer(obs,states=3){if(!obs?.length)return null;const m=obs.reduce((s,x)=>s+x,0)/obs.length;return {states,mean:m,fitScope:"TRAIN_ONLY",executionDisabled:true}}module.exports={infer};

@@ -1,0 +1,96 @@
+{
+  "status": "REVIEW",
+  "syntax_failures": [
+    {
+      "file": "ml/triple-barrier-v170000.js",
+      "error": [
+        "(node:52194) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/triple-barrier-v170000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/triple-barrier-v170000.js:2",
+        "export function tripleBarrierLabel(path=[], upper=0, lower=0, horizon=20){"
+      ]
+    },
+    {
+      "file": "ml/fno-microstructure-v180000.js",
+      "error": [
+        "(node:53834) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/fno-microstructure-v180000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/fno-microstructure-v180000.js:6",
+        "export function normalizeFNO(raw={}){"
+      ]
+    },
+    {
+      "file": "ml/signal-selector-v170000.js",
+      "error": [
+        "(node:54514) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/signal-selector-v170000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/signal-selector-v170000.js:2",
+        "export function selectSignalsV170(rows=[], limit=5){"
+      ]
+    },
+    {
+      "file": "ml/adversarial-gate-v90000.js",
+      "error": [
+        "(node:54554) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/adversarial-gate-v90000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/adversarial-gate-v90000.js:1",
+        "export function adversarialGate(prediction, tests={}){"
+      ]
+    },
+    {
+      "file": "ml/quantum-fusion-v90000.js",
+      "error": [
+        "(node:57458) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/quantum-fusion-v90000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/quantum-fusion-v90000.js:1",
+        "export function quantumFusion(features={}){"
+      ]
+    },
+    {
+      "file": "ml/prediction-provenance-v150000.js",
+      "error": [
+        "(node:57994) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/prediction-provenance-v150000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/prediction-provenance-v150000.js:2",
+        "export function provenanceV150({instrument,decision,factors={},gates={},dataQuality=0,modelVersion='V150000'}){"
+      ]
+    },
+    {
+      "file": "ml/data-fusion-v150000.js",
+      "error": [
+        "(node:58114) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/data-fusion-v150000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/data-fusion-v150000.js:5",
+        "export function normalizeDerivativeEvidence(raw={}){"
+      ]
+    },
+    {
+      "file": "ml/regime-router-v170000.js",
+      "error": [
+        "(node:58386) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/regime-router-v170000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/regime-router-v170000.js:3",
+        "export function routeByRegimeV170(regime='UNKNOWN', models={}){"
+      ]
+    },
+    {
+      "file": "ml/omniscience-v150000.js",
+      "error": [
+        "(node:58426) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/omniscience-v150000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/omniscience-v150000.js:3",
+        "export function omniscienceV150(x={}){"
+      ]
+    },
+    {
+      "file": "ml/meta-label-v170000.js",
+      "error": [
+        "(node:59602) Warning: Failed to load the ES module: /tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/meta-label-v170000.js. Make sure to set \"type\": \"module\" in the nearest package.json file or use the .mjs extension.",
+        "(Use `node --trace-warnings ...` to show where the warning was created)",
+        "/tmp/aimarket_fix_tnh4onu4/Ai-market-analyszer-main/ml/meta-label-v170000.js:3",
+        "export function metaLabelV170(x={}){"
+      ]
+    }
+  ],
+  "note": "No production source was deleted; failures isolated for targeted remediation."
+}

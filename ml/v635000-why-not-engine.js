@@ -1,0 +1,2 @@
+// V635000 Why-Not BUY/SELL Engine.
+function explain(decision="WAIT",blocks=[]){return {version:"V635000",decision,blockingFactors:blocks,reasons:blocks.length?blocks:["No blocking factor supplied"],researchOnly:true};} module.exports={explain};

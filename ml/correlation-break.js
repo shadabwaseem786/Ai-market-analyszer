@@ -1,0 +1,2 @@
+// V37700: rolling correlation-break detector.
+function detect(prev,current,threshold=.3){return{prev,current,delta:Math.abs(current-prev),alert:Math.abs(current-prev)>threshold}}module.exports={detect};

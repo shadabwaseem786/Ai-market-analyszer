@@ -1,0 +1,8 @@
+{
+  "metrics": [
+    "bid quantity",
+    "ask quantity",
+    "imbalance ratio",
+    "normalized pressure"
+  ]
+}

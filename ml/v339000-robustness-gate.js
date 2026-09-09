@@ -1,0 +1,2 @@
+// V339000 robustness-aware decision gate.
+function gate(x={}){const quality=Number(x.quality??1),uncertainty=Number(x.uncertainty??0),fragility=Number(x.fragility??0),ood=Boolean(x.ood);const pass=quality>=.7&&uncertainty<.5&&fragility<.5&&!ood;return {version:"V339000",pass,decision:pass?(x.direction||"WAIT"):"ABSTAIN",researchOnly:true};} module.exports={gate};

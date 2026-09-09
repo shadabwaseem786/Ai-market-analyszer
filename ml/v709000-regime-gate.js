@@ -1,0 +1,2 @@
+// V709000 Regime Integrity Gate.
+function gate(m={}){const conflicts=Number(m.conflicts??0);const pass=!m.regimeConflict&&!m.regimeUnknown&&conflicts<=Number(m.maxConflicts??1);return {version:"V709000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

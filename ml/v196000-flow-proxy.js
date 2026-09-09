@@ -1,0 +1,2 @@
+// V196000 Institutional-flow proxy. Explicitly a proxy, not participant identification.
+function estimate(x={}){const fii=Number(x.fii||0),dii=Number(x.dii||0),fut=Number(x.futuresFlow||0),opt=Number(x.optionsFlow||0);return {version:"V196000",proxyScore:+(fii*.35+dii*.2+fut*.3+opt*.15).toFixed(4),inputs:{fii,dii,fut,opt},label:"FLOW_PROXY",researchOnly:true};} module.exports={estimate};

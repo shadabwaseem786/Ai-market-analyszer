@@ -1,0 +1,15 @@
+{
+  "features": [
+    "conflict",
+    "escalation",
+    "energy exposure",
+    "shipping exposure",
+    "contagion"
+  ],
+  "states": [
+    "LOW",
+    "WATCH",
+    "ELEVATED",
+    "SEVERE"
+  ]
+}

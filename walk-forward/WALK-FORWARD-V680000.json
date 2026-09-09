@@ -1,0 +1,7 @@
+{
+  "windows": [
+    "rolling",
+    "expanding"
+  ],
+  "purpose": "out-of-sample validation"
+}

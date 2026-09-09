@@ -1,0 +1,2 @@
+// V34400: permutation significance contract.
+function test(observed,nullStats,alpha=.05){const a=nullStats.filter(Number.isFinite);if(!a.length)return null;const extreme=a.filter(x=>Math.abs(x)>=Math.abs(observed)).length;return{observed,p:extreme/a.length,significant:extreme/a.length<alpha}}module.exports={test};

@@ -1,0 +1,2 @@
+// V188000 Catalyst Surprise vs Expectation.
+function score(x={}){const actual=Number(x.actual||0),expected=Number(x.expected||0),scale=Math.max(1,Math.abs(Number(x.scale||1)));const surprise=(actual-expected)/scale;return {version:"V188000",actual,expected,surprise:+surprise.toFixed(5),direction:surprise>0?"POSITIVE":surprise<0?"NEGATIVE":"INLINE",researchOnly:true};} module.exports={score};

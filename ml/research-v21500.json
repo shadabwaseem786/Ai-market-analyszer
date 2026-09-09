@@ -1,0 +1,9 @@
+{
+ "version":"V21500",
+ "layers":["feature_store","chronological_split","validation_calibration","monitoring","audit"],
+ "data_policy":"timestamp-aligned; no future leakage",
+ "validation_policy":"train/validation/test remain chronological; calibration fits validation only",
+ "production_policy":"degraded telemetry blocks signal generation; execution disabled",
+ "universes":["NIFTY","BANKNIFTY","FINNIFTY"],
+ "horizons":[5,15,30,60]
+}

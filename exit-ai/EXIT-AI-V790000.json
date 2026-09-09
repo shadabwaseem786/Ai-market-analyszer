@@ -1,0 +1,8 @@
+{
+  "features": [
+    "ATR stop",
+    "target",
+    "trailing start",
+    "partial target"
+  ]
+}

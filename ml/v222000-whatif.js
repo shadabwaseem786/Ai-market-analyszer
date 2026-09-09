@@ -1,0 +1,2 @@
+// V222000 What-if Scenario Engine.
+function run(base={},scenarios=[]){return {version:"V222000",scenarios:scenarios.map((s,i)=>({id:i+1,name:s.name||"WHAT_IF",assumptions:s.assumptions||{},expectedImpact:s.expectedImpact??null})) ,base,researchOnly:true};} module.exports={run};

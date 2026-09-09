@@ -1,0 +1,2 @@
+// V467000 Conditional Monte Carlo Scenario Engine.
+function simulate(samples=1000,distribution=()=>0){const out=[];for(let i=0;i<Math.max(0,samples);i++)out.push(Number(distribution()));const mean=out.length?out.reduce((a,b)=>a+b,0)/out.length:0;const sorted=[...out].sort((a,b)=>a-b);const q=p=>sorted.length?sorted[Math.min(sorted.length-1,Math.floor(p*(sorted.length-1)))]:null;return {version:"V467000",samples:out.length,mean,p05:q(.05),p50:q(.5),p95:q(.95),researchOnly:true};} module.exports={simulate};

@@ -1,0 +1,11 @@
+{
+  "components": [
+    "imbalance",
+    "volume delta",
+    "VWAP",
+    "absorption",
+    "exhaustion",
+    "footprint"
+  ],
+  "output": "microstructure score"
+}

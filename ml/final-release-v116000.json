@@ -1,0 +1,13 @@
+{
+ "version":"V116000",
+ "name":"Decision Intelligence & Signal Fusion Core",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V115000",
+ "layers":["decision-fusion","three-way-decision","confidence-envelope","evidence-ledger","decision-explainer","decision-governor"],
+ "outputs":["ACTIVITY_BIAS","WAIT_WATCH","ABSTAIN"],
+ "purpose":"Fuse probability, value, risk, scenario, temporal, memory, causal, meta-learning, red-team and data-quality evidence into an auditable research conclusion.",
+ "note":"Decision quality is a research score, not a guarantee of profitability."
+}

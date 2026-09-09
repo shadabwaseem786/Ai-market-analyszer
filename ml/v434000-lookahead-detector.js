@@ -1,0 +1,2 @@
+// V434000 look-ahead bias detector.
+function detect(features=[],cutoff){const t=cutoff?new Date(cutoff).getTime():Infinity;const violations=features.filter(f=>Number.isFinite(new Date(f.timestamp).getTime())&&new Date(f.timestamp).getTime()>t);return {version:"V434000",violations:violations.length,passed:violations.length===0,items:violations,researchOnly:true};} module.exports={detect};

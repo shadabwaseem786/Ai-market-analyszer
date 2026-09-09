@@ -1,0 +1,2 @@
+// V93000: production monitoring specification.
+module.exports={alerts:["data_staleness","schema_change","feature_drift","probability_drift","calibration_decay","regime_shift","model_disagreement","unexpected_drawdown","missing_universe"],autoTrade:false,autoPromotion:false};

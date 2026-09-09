@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "train_test_expectancy_gap",
+    "test_train_ratio",
+    "holdout_performance",
+    "walk_forward"
+  ]
+}

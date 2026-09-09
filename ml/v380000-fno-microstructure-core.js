@@ -1,0 +1,3 @@
+// V380000 F&O Market Microstructure Intelligence Core — research only, no execution.
+const stages=["MICROSTRUCTURE_STATE","ORDERFLOW_IMBALANCE","LIQUIDITY_REGIME","LIQUIDITY_MAP","LARGE_PARTICIPANT_FLOW","OPTIONS_CHAIN","IV_SURFACE","GAMMA_EXPOSURE","MICRO_MACRO_FUSION","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V380000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

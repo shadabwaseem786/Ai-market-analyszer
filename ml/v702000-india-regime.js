@@ -1,0 +1,2 @@
+// V702000 India-Specific Regime Engine.
+function detect(m={}){const score=Number(m.indiaRegimeScore??0);return {version:"V702000",score,regime:score>.6?"BULLISH":score<-.6?"BEARISH":"NEUTRAL",researchOnly:true};} module.exports={detect};

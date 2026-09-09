@@ -1,0 +1,2 @@
+// V617000 Early Transition Predictor.
+function predict(features={}){const score=Number(features.acceleration??0)+Number(features.volatilityChange??0)+Number(features.breadthChange??0);return {version:"V617000",transitionScore:score,transitionWatch:Math.abs(score)>=Number(features.threshold??1),researchOnly:true};} module.exports={predict};

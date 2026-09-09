@@ -1,0 +1,10 @@
+{
+  "features": [
+    "delivery percentage",
+    "historical delivery baseline"
+  ],
+  "outputs": [
+    "relative delivery",
+    "state"
+  ]
+}

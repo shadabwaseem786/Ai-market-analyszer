@@ -1,0 +1,2 @@
+// V41600: path maximum-drawdown metric.
+function calc(values){let peak=-Infinity,dd=0;for(const v of values.filter(Number.isFinite)){peak=Math.max(peak,v);if(peak!==0)dd=Math.max(dd,(peak-v)/Math.abs(peak))}return dd}module.exports={calc};

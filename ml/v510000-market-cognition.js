@@ -1,0 +1,3 @@
+// V510000 Market Cognition & Attention Core — no execution.
+const stages=["MARKET_ATTENTION","SIGNAL_SALIENCE","CATALYST_PRIORITY","GLOBAL_INDIA_TRANSMISSION","DEPENDENCY_GRAPH","INFORMATION_DECAY","ATTENTION_ALLOCATION","SIGNAL_NOISE_OPTIMIZATION","COGNITIVE_STATE","VALIDATION","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V510000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

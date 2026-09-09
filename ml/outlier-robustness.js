@@ -1,0 +1,2 @@
+// V33600: outlier sensitivity contract.
+function compare(raw,clipped){const a=raw.filter(Number.isFinite),b=clipped.filter(Number.isFinite);const mean=x=>x.length?x.reduce((s,v)=>s+v,0)/x.length:null;return {rawMean:mean(a),clippedMean:mean(b),delta:mean(a)!=null&&mean(b)!=null?mean(b)-mean(a):null}}module.exports={compare};

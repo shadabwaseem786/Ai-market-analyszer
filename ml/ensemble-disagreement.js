@@ -1,0 +1,2 @@
+// V42700: ensemble disagreement uncertainty.
+function measure(preds){const a=preds.filter(Number.isFinite);if(!a.length)return null;const m=a.reduce((s,x)=>s+x,0)/a.length;return Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/a.length)}module.exports={measure};

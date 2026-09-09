@@ -1,0 +1,8 @@
+{
+  "states": [
+    "STRESSED",
+    "THIN",
+    "NORMAL",
+    "DEEP"
+  ]
+}

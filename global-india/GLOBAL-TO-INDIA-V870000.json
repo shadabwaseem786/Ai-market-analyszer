@@ -1,0 +1,10 @@
+{
+  "channels": [
+    "global equities",
+    "FX",
+    "commodities",
+    "rates",
+    "volatility"
+  ],
+  "output": "India stress/benefit score"
+}

@@ -1,0 +1,17 @@
+{
+  "metrics": [
+    "accuracy",
+    "precision",
+    "recall",
+    "specificity",
+    "brier_score",
+    "calibration",
+    "expectancy_R",
+    "sharpe",
+    "sortino",
+    "max_drawdown_R",
+    "MAE_R",
+    "MFE_R"
+  ],
+  "validation": "out_of_sample_preferred"
+}

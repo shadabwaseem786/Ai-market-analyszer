@@ -1,0 +1,2 @@
+// V26000: PSI-style feature drift diagnostic.
+function psi(base,current,bins=10){const a=base.filter(Number.isFinite),b=current.filter(Number.isFinite);if(!a.length||!b.length)return null;const edges=Array.from({length:bins+1},(_,i)=>i/bins);const hist=x=>edges.slice(0,-1).map((e,i)=>x.filter(v=>{const q=(v-Math.min(...x))/(Math.max(...x)-Math.min(...x)||1);return q>=e&&(i===bins-1?q<=edges[i+1]:q<edges[i+1])}).length/x.length);const p=hist(a),q=hist(b);return p.reduce((s,v,i)=>s+(v&&q[i]?(v-q[i])*Math.log(v/q[i]):0),0)}module.exports={psi};

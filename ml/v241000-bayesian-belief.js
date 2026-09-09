@@ -1,0 +1,2 @@
+// V241000 Bayesian belief update — research only.
+function update(prior=.5,likelihoodRatio=1){const p=Number(prior);const lr=Math.max(0,Number(likelihoodRatio));const odds=p/(1-p||1e-9);const post=(odds*lr)/(1+odds*lr);return {version:"V241000",prior:p,posterior:+post.toFixed(6),researchOnly:true};} module.exports={update};

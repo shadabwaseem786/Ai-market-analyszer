@@ -1,0 +1,7 @@
+{
+  "modes": [
+    "PRIMARY",
+    "FALLBACK",
+    "SAFE_MODE"
+  ]
+}

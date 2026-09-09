@@ -1,0 +1,2 @@
+// V325000 confidence decomposition.
+function decompose(x={}){const parts={data:Number(x.data||0),model:Number(x.model||0),regime:Number(x.regime||0),history:Number(x.history||0),event:Number(x.event||0)};const vals=Object.values(parts);const total=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;return {version:"V325000",parts,total,researchOnly:true};} module.exports={decompose};

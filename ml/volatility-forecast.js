@@ -1,0 +1,2 @@
+// V39200: volatility forecast error diagnostics.
+function errors(actual,forecast){const n=Math.min(actual.length,forecast.length);let s=0;for(let i=0;i<n;i++)s+=(actual[i]-forecast[i])**2;return{n,rmse:n?Math.sqrt(s/n):null}}module.exports={errors};

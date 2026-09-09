@@ -1,0 +1,3 @@
+// V480000 Causal Market Intelligence Core — no execution.
+const stages=["CAUSAL_GRAPH","CAUSAL_EVIDENCE","INTERVENTION_SIMULATION","WHAT_IF","CATALYST_PROPAGATION","COUNTERFACTUAL_OUTCOMES","CAUSAL_CORRELATION_SEPARATION","COUNTERFACTUAL_BACKTEST","CAUSAL_CONFIDENCE_GATE","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V480000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

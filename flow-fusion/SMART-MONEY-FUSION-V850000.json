@@ -1,0 +1,12 @@
+{
+  "components": [
+    "FII/DII",
+    "delivery",
+    "flow-price",
+    "accumulation",
+    "sector rotation",
+    "footprint",
+    "persistence"
+  ],
+  "output": "smart-money score"
+}

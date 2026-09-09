@@ -1,0 +1,2 @@
+// V37200: temporal causality/leakage audit contract.
+function audit(features,eventTime){const e=new Date(eventTime).getTime();const bad=features.filter(x=>new Date(x.availableAt).getTime()>e);return{features:features.length,violations:bad.length,valid:bad.length===0}}module.exports={audit};

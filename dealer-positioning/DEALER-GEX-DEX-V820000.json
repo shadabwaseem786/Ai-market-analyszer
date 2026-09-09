@@ -1,0 +1,7 @@
+{
+  "outputs": [
+    "GEX",
+    "DEX"
+  ],
+  "note": "position-sign convention must be configured to the data source"
+}

@@ -1,0 +1,2 @@
+// V423000 event-time / late-data handling.
+function order(records=[],watermark=null){const sorted=[...records].sort((a,b)=>new Date(a.eventTime||0)-new Date(b.eventTime||0));return {version:"V423000",watermark,records:sorted,lateRecords:watermark?sorted.filter(r=>new Date(r.eventTime)<new Date(watermark)):[],researchOnly:true};} module.exports={order};

@@ -1,0 +1,2 @@
+// V391000 Market Knowledge Graph — research only.
+function build(entities=[],relations=[]){return {version:"V391000",entities,relations,nodes:entities.length,edges:relations.length,researchOnly:true};} module.exports={build};

@@ -1,0 +1,2 @@
+// V373000 liquidity regime detection.
+function detect(x={}){const spread=Number(x.spread||0),depth=Number(x.depth||0),volume=Number(x.volume||0);const score=(depth+volume)/(1+spread);return {version:"V373000",liquidityScore:score,regime:score>100?"DEEP":score>20?"NORMAL":"THIN",researchOnly:true};} module.exports={detect};

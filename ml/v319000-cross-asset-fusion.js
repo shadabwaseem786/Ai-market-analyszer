@@ -1,0 +1,2 @@
+// V319000 cross-asset decision fusion.
+function fuse(signals=[]){const usable=signals.filter(Boolean),score=usable.reduce((s,x)=>s+Number(x.weight||1)*Number(x.score??x.impact??0),0);return {version:"V319000",score:+score.toFixed(6),contributors:usable.length,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",researchOnly:true};} module.exports={fuse};

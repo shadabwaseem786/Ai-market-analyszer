@@ -1,0 +1,2 @@
+// V257000 Calibration tracking.
+function track(history=[]){return {version:"V257000",history:history.map(x=>({probability:Number(x.probability),outcome:Number(Boolean(x.outcome)),timestamp:x.timestamp})),count:history.length,researchOnly:true};} module.exports={track};

@@ -1,0 +1,2 @@
+// V27700: leakage-safe stacking contract; meta-model must train only on fold OOS predictions.
+function dataset(folds){return folds.flatMap((f,i)=>(f.oosPredictions||[]).map(x=>({...x,fold:i}))) }module.exports={dataset};

@@ -1,0 +1,2 @@
+// V33500: missing-data stability diagnostics.
+function profile(rows){const n=rows.length||1,keys=[...new Set(rows.flatMap(r=>Object.keys(r)))];return Object.fromEntries(keys.map(k=>[k,rows.filter(r=>r[k]==null).length/n]))}module.exports={profile};

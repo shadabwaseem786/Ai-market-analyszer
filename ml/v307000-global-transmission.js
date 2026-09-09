@@ -1,0 +1,2 @@
+// V307000 global event transmission graph.
+function propagate(event={},links=[]){return {version:"V307000",origin:event,transmission:links.map(l=>({...l,lagHours:Number(l.lagHours||0)})),researchOnly:true};} module.exports={propagate};

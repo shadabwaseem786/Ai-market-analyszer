@@ -1,0 +1,2 @@
+// V23900: final research gate combining statistical and operational checks.
+function gate(x={}){const failed=[];for(const [k,v] of Object.entries({data:x.data,oos:x.oos,cost:x.cost,calibration:x.calibration,stability:x.stability,drift:x.drift,risk:x.risk,statistics:x.statistics,audit:x.audit}))if(v!==true)failed.push(k);return {version:"V23900",status:failed.length?"BLOCKED":"RESEARCH_READY",failed,executionDisabled:true}}module.exports={gate};

@@ -1,0 +1,8 @@
+{
+  "features": [
+    "bid_ask_imbalance",
+    "aggressor_classification",
+    "volume_delta",
+    "cumulative_delta"
+  ]
+}

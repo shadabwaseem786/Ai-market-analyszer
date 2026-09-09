@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "missingness",
+    "staleness",
+    "latency",
+    "completeness",
+    "source_reliability"
+  ]
+}

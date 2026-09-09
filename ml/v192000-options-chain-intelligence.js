@@ -1,0 +1,2 @@
+// V192000 Advanced options-chain intelligence.
+function analyze(rows=[]){const by=(k)=>rows.reduce((m,x)=>(m[x[k]]=m[x[k]]||[],m[x[k]].push(x),m),{});return {version:"V192000",byExpiry:by("expiry"),byStrike:by("strike"),researchOnly:true};} module.exports={analyze};

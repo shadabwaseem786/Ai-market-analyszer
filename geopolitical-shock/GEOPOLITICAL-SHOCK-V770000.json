@@ -1,0 +1,13 @@
+{
+  "states": [
+    "LOW",
+    "MODERATE",
+    "HIGH",
+    "SEVERE"
+  ],
+  "actions": [
+    "confidence penalty",
+    "regime override hook",
+    "risk gate"
+  ]
+}

@@ -1,0 +1,2 @@
+// V276000 OI-price-volume causal research engine.
+function classify(x={}){const oi=Number(x.oiChange||0),price=Number(x.priceChange||0),volume=Number(x.volumeChange||0);let regime="MIXED";if(oi>0&&price>0&&volume>0)regime="LONG_BUILDUP";else if(oi>0&&price<0&&volume>0)regime="SHORT_BUILDUP";else if(oi<0&&price>0)regime="SHORT_COVERING";else if(oi<0&&price<0)regime="LONG_UNWINDING";return {version:"V276000",regime,oiChange:oi,priceChange:price,volumeChange:volume,researchOnly:true};} module.exports={classify};

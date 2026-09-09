@@ -1,0 +1,2 @@
+// V459000 Multi-Horizon Robustness Gate.
+function gate(x={}){const pass=!x.conflict&&!x.leakage&&!x.drift&&Number(x.consistency??1)>=Number(x.minimumConsistency??.7)&&Number(x.confidence??0)>=Number(x.minimumConfidence??.6);return {version:"V459000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

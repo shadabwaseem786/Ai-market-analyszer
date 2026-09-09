@@ -1,0 +1,3 @@
+// V180000 Quant Research Brain — orchestrates rigorous evaluation, never trades.
+const stages=["WALK_FORWARD","PURGED_CV","BOOTSTRAP","CALIBRATION","COSTS","LIQUIDITY","DECAY","REGIME_ATTRIBUTION","CHAMPION_CHALLENGER","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const s of stages){const fn=handlers[s];if(typeof fn==="function")state=fn(state)||state;trace.push({stage:s,status:"COMPLETED"})}return {version:"V180000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={stages,run};

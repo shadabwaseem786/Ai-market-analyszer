@@ -1,0 +1,2 @@
+// V271000 Market Microstructure Brain — research only.
+function analyze(x={}){return {version:"V271000",spread:x.spread??null,depth:x.depth??null,imbalance:x.imbalance??null,tradeIntensity:x.tradeIntensity??null,regime:x.regime||"UNKNOWN",researchOnly:true};} module.exports={analyze};

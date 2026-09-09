@@ -1,0 +1,2 @@
+// V529000 Data Integrity Gate.
+function gate(m={}){const pass=!m.corrupt&&!m.stale&&Number(m.quality??0)>=Number(m.minimumQuality??.7)&&Number(m.reliability??1)>=Number(m.minimumReliability??.7);return {version:"V529000",pass,status:pass?"CLEAR":"BLOCKED",reason:pass?"":"DATA_TRUST_THRESHOLD_FAILED",researchOnly:true};} module.exports={gate};

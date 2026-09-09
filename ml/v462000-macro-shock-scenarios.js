@@ -1,0 +1,2 @@
+// V462000 Macro Shock Scenario Engine.
+function generate(shocks=[]){return {version:"V462000",scenarios:shocks.map((s,i)=>({id:"MACRO-"+(i+1),shock:s,domain:"MACRO"})),researchOnly:true};} module.exports={generate};

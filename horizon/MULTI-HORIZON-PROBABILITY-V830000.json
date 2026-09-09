@@ -1,0 +1,15 @@
+{
+  "horizons": [
+    "intraday",
+    "1-3d",
+    "swing",
+    "positional"
+  ],
+  "inputs": [
+    "base model",
+    "trend",
+    "options",
+    "flow",
+    "regime"
+  ]
+}

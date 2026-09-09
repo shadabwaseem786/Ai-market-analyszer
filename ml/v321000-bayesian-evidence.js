@@ -1,0 +1,2 @@
+// V321000 Bayesian evidence aggregator — research only.
+function aggregate(priors={},evidence=[]){let odds=Number(priors.odds??1);for(const e of evidence){const lr=Number(e.likelihoodRatio);if(Number.isFinite(lr)&&lr>0)odds*=lr}const p=odds/(1+odds);return {version:"V321000",probability:p,odds,evidenceCount:evidence.length,researchOnly:true};} module.exports={aggregate};

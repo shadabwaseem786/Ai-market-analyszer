@@ -1,0 +1,2 @@
+// V229000 Decision Ensemble 2.0.
+function combine(decisions=[]){const valid=decisions.filter(d=>["BUY","SELL","WAIT","ABSTAIN"].includes(d.decision));const scores={BUY:0,SELL:0,WAIT:0,ABSTAIN:0};for(const d of valid)scores[d.decision]+=Number(d.weight??1)*Number(d.confidence??1);const winner=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||"ABSTAIN";return {version:"V229000",decision:winner,scores,contributors:valid.length,researchOnly:true};} module.exports={combine};

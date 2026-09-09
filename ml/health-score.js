@@ -1,0 +1,2 @@
+// V23400: composite research health score.
+function score({data=1,oos=1,calibration=1,stability=1,drift=1,cost=1}={}){const s=(data+oos+calibration+stability+drift+cost)/6;return {score:s,status:s>=.8?"HEALTHY":s>=.6?"WATCH":"DEGRADED"}}module.exports={score};

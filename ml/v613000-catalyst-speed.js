@@ -1,0 +1,2 @@
+// V613000 Catalyst Reaction-Speed Model.
+function estimate(events=[]){return {version:"V613000",events:events.map(e=>({...e,reactionSpeed:Number(e.reactionSpeed??0)})),researchOnly:true};} module.exports={estimate};

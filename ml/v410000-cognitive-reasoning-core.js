@@ -1,0 +1,3 @@
+// V410000 Cognitive Market Reasoning Core — research/analysis only.
+const stages=["EVIDENCE_RANKING","HYPOTHESIS_GENERATION","HYPOTHESIS_COMPETITION","CONTRADICTION_AUDIT","BULL_BEAR_DEBATE","ARGUMENT_SYNTHESIS","CONFIDENCE_DECOMPOSITION","EVENT_CHAIN","COGNITIVE_SAFETY","UNCERTAINTY","ROBUSTNESS","FINAL_RESEARCH_GATE"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V410000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

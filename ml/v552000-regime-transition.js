@@ -1,0 +1,2 @@
+// V552000 Regime Transition Probability.
+function probability(current="UNKNOWN",candidates=[]){return {version:"V552000",current,candidates:candidates.map(x=>({...x,probability:Math.max(0,Math.min(1,Number(x.probability??0)))})),researchOnly:true};} module.exports={probability};

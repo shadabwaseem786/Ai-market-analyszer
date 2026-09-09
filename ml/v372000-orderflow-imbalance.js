@@ -1,0 +1,2 @@
+// V372000 order-flow imbalance.
+function calculate(x={}){const buy=Number(x.buyVolume||0),sell=Number(x.sellVolume||0),t=buy+sell;return {version:"V372000",buyVolume:buy,sellVolume:sell,imbalance:t?(buy-sell)/t:0,researchOnly:true};} module.exports={calculate};

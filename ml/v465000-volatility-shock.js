@@ -1,0 +1,2 @@
+// V465000 Volatility Shock Engine.
+function shock(base=0,scenarios=[]){return {version:"V465000",base,scenarios:scenarios.map(s=>({...s,volatility:Number(base)+Number(s.delta||0)})),researchOnly:true};} module.exports={shock};

@@ -1,0 +1,2 @@
+// V283000 Regime transition detector.
+function detect(previous,current,confidence=.5){return {version:"V283000",changed:previous!==current,previous,current,confidence:Number(confidence),transition:previous!==current?previous+"->"+current:"STABLE",researchOnly:true};} module.exports={detect};

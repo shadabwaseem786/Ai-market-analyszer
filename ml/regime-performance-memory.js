@@ -1,0 +1,2 @@
+// V60300: regime-specific performance memory.
+function summarize(records=[]){const m={};for(const r of records){const k=r.regime||"UNKNOWN";m[k]??={n:0,correct:0};m[k].n++;if(r.correct)m[k].correct++}for(const k of Object.keys(m))m[k].accuracy=m[k].correct/m[k].n;return m}module.exports={summarize};

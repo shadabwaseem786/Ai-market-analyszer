@@ -1,0 +1,2 @@
+// V573000 Bull-Case Generator.
+function generate(signal={},catalysts=[]){return {version:"V573000",base:signal,bullCase:catalysts.map(c=>({catalyst:c,supports:true})),researchOnly:true};} module.exports={generate};

@@ -1,0 +1,2 @@
+// V30200: change-point diagnostic contract.
+function detect(values,window=50,threshold=.2){const a=values.filter(Number.isFinite);if(a.length<2*window)return null;const mean=x=>x.reduce((s,v)=>s+v,0)/x.length;const left=mean(a.slice(-2*window,-window)),right=mean(a.slice(-window));return {left,right,distance:Math.abs(right-left),changed:Math.abs(right-left)>threshold}}module.exports={detect};

@@ -1,0 +1,2 @@
+// V324000 evidence conflict detector.
+function detect(signals=[]){const b=signals.filter(s=>s?.direction==="BUY").length,s=signals.filter(s=>s?.direction==="SELL").length;return {version:"V324000",buySignals:b,sellSignals:s,conflict:b>0&&s>0,conflictRatio:signals.length?Math.min(b,s)/signals.length:0,researchOnly:true};} module.exports={detect};

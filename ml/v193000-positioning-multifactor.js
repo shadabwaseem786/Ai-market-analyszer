@@ -1,0 +1,2 @@
+// V193000 OI + price + volume multifactor positioning.
+function score(x={}){const oi=Number(x.changeOI||0),price=Number(x.priceChangePct||0),vol=Number(x.relativeVolume||0);return {version:"V193000",score:+(oi*.4+price*.4+vol*.2).toFixed(4),components:{oi,price,vol},researchOnly:true};} module.exports={score};

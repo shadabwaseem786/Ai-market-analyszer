@@ -1,0 +1,2 @@
+// V84500: information-content research descriptors.
+function surprise(prob){prob=Math.max(1e-9,Math.min(1-1e-9,Number(prob)||.5));return-Math.log2(prob)}function disagreement(ps=[]){const a=ps.map(Number).filter(Number.isFinite);if(!a.length)return null;const m=a.reduce((s,x)=>s+x,0)/a.length;return a.reduce((s,x)=>s+(x-m)**2,0)/a.length}module.exports={surprise,disagreement};

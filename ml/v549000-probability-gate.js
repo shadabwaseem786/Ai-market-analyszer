@@ -1,0 +1,2 @@
+// V549000 Probability Reliability Gate.
+function gate(m={}){const pass=Number(m.calibration??0)>=Number(m.minimumCalibration??.7)&&Number(m.dataQuality??1)>=Number(m.minimumDataQuality??.7)&&Number(m.sampleSize??0)>=Number(m.minimumSamples??30);return {version:"V549000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

@@ -1,0 +1,2 @@
+// V315000 gold / safe-haven flow intelligence.
+function analyze(x={}){const gold=Number(x.goldChange||0),risk=Number(x.riskAssetChange||0);return {version:"V315000",goldChange:gold,riskAssetChange:risk,safeHavenSignal:gold-risk,researchOnly:true};} module.exports={analyze};

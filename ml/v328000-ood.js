@@ -1,0 +1,2 @@
+// V328000 out-of-distribution detector.
+function detect(score,threshold=.8){const s=Number(score);return {version:"V328000",score:s,threshold,ood:Number.isFinite(s)?s>threshold:false,researchOnly:true};} module.exports={detect};

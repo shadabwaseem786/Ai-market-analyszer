@@ -1,0 +1,2 @@
+// V379000 microstructure + macro fusion.
+function fuse(micro={},macro={}){const score=Number(micro.score||micro.imbalance||0)+Number(macro.score||macro.impact||0);return {version:"V379000",microScore:Number(micro.score||micro.imbalance||0),macroScore:Number(macro.score||macro.impact||0),score,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",researchOnly:true};} module.exports={fuse};

@@ -1,0 +1,10 @@
+{
+  "outputs": [
+    "equity_curve",
+    "win_rate",
+    "expectancy",
+    "profit_factor",
+    "max_drawdown"
+  ],
+  "cost_aware": true
+}

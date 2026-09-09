@@ -1,0 +1,13 @@
+{
+  "inputs": [
+    "magnitude",
+    "surprise",
+    "market relevance",
+    "transmission"
+  ],
+  "priority": [
+    "HIGH",
+    "MEDIUM",
+    "LOW"
+  ]
+}

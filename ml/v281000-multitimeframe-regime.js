@@ -1,0 +1,2 @@
+// V281000 Multi-timeframe regime engine.
+function analyze(frames=[]){const valid=frames.filter(f=>f&&f.regime);const counts={};for(const f of valid)counts[f.regime]=(counts[f.regime]||0)+1;const regime=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||"UNKNOWN";return {version:"V281000",regime,frames:valid.length,agreement:valid.length?Math.max(...Object.values(counts))/valid.length:0,researchOnly:true};} module.exports={analyze};

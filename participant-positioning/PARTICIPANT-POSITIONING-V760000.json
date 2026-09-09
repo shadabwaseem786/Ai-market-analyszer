@@ -1,0 +1,8 @@
+{
+  "sources": [
+    "participant flow",
+    "futures positioning",
+    "delivery proxy"
+  ],
+  "output": "risk-on/risk-off/neutral"
+}

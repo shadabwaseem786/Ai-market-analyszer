@@ -1,0 +1,2 @@
+// V269000 Prediction-to-outcome attribution.
+function attribute(predictions=[],outcomes=[]){return {version:"V269000",matches:predictions.map(p=>({prediction:p.id,outcome:outcomes.find(o=>o.id===p.outcomeId)||null,correct:outcomes.find(o=>o.id===p.outcomeId)?.direction===p.direction})),researchOnly:true};} module.exports={attribute};

@@ -1,0 +1,2 @@
+// V40200: strict chronological sequence split.
+function split(rows,train=.7,val=.15){const n=rows.length,a=Math.floor(n*train),b=Math.floor(n*(train+val));return{train:rows.slice(0,a),validation:rows.slice(a,b),test:rows.slice(b)}}module.exports={split};

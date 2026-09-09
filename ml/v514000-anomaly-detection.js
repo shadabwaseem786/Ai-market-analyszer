@@ -1,0 +1,2 @@
+// V514000 Anomaly Detection Engine.
+function detect(values=[],mean=0,std=1,z=3){return {version:"V514000",anomalies:values.map((v,i)=>({index:i,value:v,zScore:(Number(v)-mean)/Math.max(std,.0001)})).filter(x=>Math.abs(x.zScore)>=z),researchOnly:true};} module.exports={detect};

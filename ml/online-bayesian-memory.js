@@ -1,0 +1,2 @@
+// V82700: bounded evidence memory; prevents one observation dominating.
+function update(memory=[],observation,{max=10000}={}){const out=memory.concat([observation]);return out.slice(-max)}module.exports={update};

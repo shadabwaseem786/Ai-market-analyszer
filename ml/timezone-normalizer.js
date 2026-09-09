@@ -1,0 +1,2 @@
+// V28200: canonical timestamp normalization contract. India exchange research uses Asia/Kolkata.
+function normalize(ts){const d=new Date(ts);return Number.isFinite(d.getTime())?d.toISOString():null}module.exports={normalize};

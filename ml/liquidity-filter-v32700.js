@@ -1,0 +1,2 @@
+// V32700: liquidity eligibility gate.
+function eligible({adv=0,spreadBps=Infinity,minAdv=1e7,maxSpreadBps=20}={}){return {eligible:Number(adv)>=minAdv&&Number(spreadBps)<=maxSpreadBps,adv,spreadBps}}module.exports={eligible};

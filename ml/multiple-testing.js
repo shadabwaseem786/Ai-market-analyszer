@@ -1,0 +1,2 @@
+// V24100: multiple-testing correction helpers.
+function bonferroni(pValues,alpha=.05){const p=pValues.filter(Number.isFinite),cut=alpha/Math.max(1,p.length);return {count:p.length,critical:cut,reject:p.map(x=>x<=cut)}}module.exports={bonferroni};

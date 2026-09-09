@@ -1,0 +1,13 @@
+{
+  "version":"V18000",
+  "timezone":"Asia/Kolkata",
+  "base_interval":"1min",
+  "instruments":["NIFTY","BANKNIFTY","FINNIFTY","INDIA_VIX"],
+  "market_data":["open","high","low","close","volume"],
+  "derivatives":["open_interest","strike","right","expiry_date"],
+  "alignment":"left-join features to decision timestamp; never forward-fill future observations",
+  "labels":["forward_return_5m","forward_return_15m","forward_return_30m","forward_return_60m","triple_barrier"],
+  "costs":["brokerage","stt","exchange_txn","sebi","gst","stamp_duty","slippage"],
+  "validation":["walk_forward","purged_walk_forward","cpcv","embargo"],
+  "leakage_policy":"All features at t must be computable using information available at or before t."
+}

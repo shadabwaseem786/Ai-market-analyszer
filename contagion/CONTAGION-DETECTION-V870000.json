@@ -1,0 +1,8 @@
+{
+  "states": [
+    "LOW",
+    "WATCH",
+    "HIGH"
+  ],
+  "purpose": "detect stress propagation"
+}

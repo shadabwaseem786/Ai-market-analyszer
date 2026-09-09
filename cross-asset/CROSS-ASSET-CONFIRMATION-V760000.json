@@ -1,0 +1,13 @@
+{
+  "assets": [
+    "USD",
+    "rates",
+    "crude",
+    "gold",
+    "global equities",
+    "VIX",
+    "bonds",
+    "crypto"
+  ],
+  "purpose": "confirmation/context, not standalone prediction"
+}

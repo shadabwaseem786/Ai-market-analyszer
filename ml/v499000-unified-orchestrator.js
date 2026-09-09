@@ -1,0 +1,3 @@
+// V499000 Unified Intelligence Orchestrator — research only.
+const stages=["META_REASONING","EVIDENCE_ARBITRATION","MULTI_AGENT_DEBATE","CONTRADICTION_RESOLUTION","DECISION_DECOMPOSITION","CONFIDENCE_DECOMPOSITION","ADVERSARIAL_CHALLENGE","RECURSIVE_SELF_CRITIQUE","VALIDATION","ABSTENTION_GATE","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V499000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

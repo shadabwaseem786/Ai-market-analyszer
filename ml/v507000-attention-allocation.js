@@ -1,0 +1,2 @@
+// V507000 Attention Allocation Engine.
+function allocate(signals=[],budget=1){const ranked=[...signals].sort((a,b)=>Number(b.salience??0)-Number(a.salience??0));return {version:"V507000",allocations:ranked.map((s,i)=>({...s,attention:i===0?budget:0})),researchOnly:true};} module.exports={allocate};

@@ -1,0 +1,2 @@
+// V34600: regime-conditional OOS performance.
+function summarize(rows){const out={};for(const r of rows||[]){const k=r.regime??"UNKNOWN";(out[k]??=[]).push(Number(r.ret)||0)}return Object.fromEntries(Object.entries(out).map(([k,a])=>[k,{n:a.length,mean:a.reduce((s,x)=>s+x,0)/a.length}]))}module.exports={summarize};

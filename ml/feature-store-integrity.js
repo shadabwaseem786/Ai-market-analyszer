@@ -1,0 +1,2 @@
+// V28100: feature-store integrity and duplicate timestamp checks.
+function check(rows){const seen=new Set(),issues=[];for(const r of rows||[]){const k=(r.symbol||"")+"|"+r.timestamp;if(seen.has(k))issues.push({type:"duplicate",key:k});seen.add(k)}return {rows:(rows||[]).length,issues,passed:issues.length===0}}module.exports={check};

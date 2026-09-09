@@ -1,0 +1,2 @@
+// V677000 Gap & Overnight Risk.
+function assess(m={}){return {version:"V677000",gapRisk:Number(m.gapProbability??0)*Math.abs(Number(m.exposure??0)),overnightExposure:Math.abs(Number(m.exposure??0)),researchOnly:true};} module.exports={assess};

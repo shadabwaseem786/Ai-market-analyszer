@@ -1,0 +1,7 @@
+{
+  "outputs": [
+    "count",
+    "mean_pnl",
+    "positive_rate"
+  ]
+}

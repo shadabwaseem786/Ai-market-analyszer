@@ -1,0 +1,1 @@
+{"version":"V35000","status":"RESEARCH_ONLY","executionDisabled":true,"newLayers":["bootstrap_ci","block_bootstrap","calibration_drift","permutation_test","strategy_correlation","regime_performance","model_decay","data_contract","research_quality"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

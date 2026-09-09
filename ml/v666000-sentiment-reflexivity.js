@@ -1,0 +1,2 @@
+// V666000 Sentiment Reflexivity Engine.
+function assess(history=[]){const changes=history.slice(1).map((x,i)=>Number(x.sentiment??0)-Number(history[i].sentiment??0));return {version:"V666000",changes,reflexivity:changes.length?changes.at(-1):0,researchOnly:true};} module.exports={assess};

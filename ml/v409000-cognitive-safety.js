@@ -1,0 +1,2 @@
+// V409000 cognitive safety / unsupported-claim gate.
+function gate(x={}){const unsupported=Number(x.unsupportedClaims||0),contradictions=Number(x.unresolvedContradictions||0),evidence=Number(x.evidenceCount||0);const pass=unsupported===0&&contradictions===0&&evidence>0;return {version:"V409000",pass,status:pass?"CLEAR":"BLOCKED",unsupportedClaims:unsupported,unresolvedContradictions:contradictions,researchOnly:true};} module.exports={gate};

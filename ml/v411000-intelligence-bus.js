@@ -1,0 +1,2 @@
+// V411000 Unified Intelligence Bus — research only.
+function collect(engines={}){return {version:"V411000",engines:{...engines},engineCount:Object.keys(engines).length,researchOnly:true};} module.exports={collect};

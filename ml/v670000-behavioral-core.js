@@ -1,0 +1,3 @@
+// V670000 Behavioral Market Intelligence Core — no autonomous execution.
+const stages=["BEHAVIORAL_REGIME","FEAR_GREED","HERDING_CROWDING","TRAP_DETECTION","INSTITUTIONAL_RETAIL_DIVERGENCE","SENTIMENT_REFLEXIVITY","NARRATIVE_MOMENTUM","SENTIMENT_REVERSAL","BEHAVIORAL_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V670000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

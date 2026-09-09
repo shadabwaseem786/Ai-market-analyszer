@@ -1,0 +1,2 @@
+// V42600: feature ablation research contract.
+function rank(base,ablated){return Object.entries(ablated||{}).map(([k,v])=>({feature:k,delta:Number(base)-Number(v)})).sort((a,b)=>b.delta-a.delta)}module.exports={rank};

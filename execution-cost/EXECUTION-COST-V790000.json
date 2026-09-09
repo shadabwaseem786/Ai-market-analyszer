@@ -1,0 +1,8 @@
+{
+  "components": [
+    "slippage",
+    "fees",
+    "market impact"
+  ],
+  "output": "total execution cost"
+}

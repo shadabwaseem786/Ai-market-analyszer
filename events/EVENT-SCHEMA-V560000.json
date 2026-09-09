@@ -1,0 +1,29 @@
+{
+  "fields": [
+    "id",
+    "title",
+    "type",
+    "theme",
+    "source",
+    "sourceQuality",
+    "confirmation",
+    "freshness",
+    "specificity",
+    "entities",
+    "country",
+    "expected",
+    "actual",
+    "impact",
+    "direction",
+    "publishedAt"
+  ],
+  "outputs": [
+    "credibility",
+    "surprise",
+    "half_life",
+    "decayed_impact",
+    "propagation",
+    "reaction",
+    "escalation"
+  ]
+}

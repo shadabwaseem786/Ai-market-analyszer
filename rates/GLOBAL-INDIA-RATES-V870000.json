@@ -1,0 +1,7 @@
+{
+  "assets": [
+    "US 10Y",
+    "India 10Y"
+  ],
+  "output": "rate spread"
+}

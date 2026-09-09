@@ -1,0 +1,7 @@
+{
+  "metrics": [
+    "expected vs executed price",
+    "absolute slippage",
+    "percentage slippage"
+  ]
+}

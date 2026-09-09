@@ -1,0 +1,15 @@
+{
+  "entities": [
+    "people",
+    "companies",
+    "countries",
+    "commodities",
+    "indices"
+  ],
+  "outputs": [
+    "event type",
+    "trigger",
+    "expected impact",
+    "confidence"
+  ]
+}

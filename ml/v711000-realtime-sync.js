@@ -1,0 +1,2 @@
+// V711000 Real-Time Signal Synchronization — research only.
+function sync(signals=[]){const now=Date.now();return {version:"V711000",signals:signals.map(s=>({...s,ageMs:Math.max(0,now-Number(s.timestamp??now))})),researchOnly:true};} module.exports={sync};

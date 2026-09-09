@@ -1,0 +1,42 @@
+{
+  "version": "Recovery V6",
+  "source": "Recovery V5",
+  "api_routes": {
+    "api/omniscience.js": {
+      "has_handler": true,
+      "bytes": 147
+    },
+    "api/fo-scan.js": {
+      "has_handler": true,
+      "bytes": 143
+    },
+    "api/catalyst-feed.js": {
+      "has_handler": true,
+      "bytes": 149
+    },
+    "api/_adapter.js": {
+      "has_handler": true,
+      "bytes": 792
+    },
+    "api/ai-engine.js": {
+      "has_handler": true,
+      "bytes": 145
+    },
+    "api/market-data.js": {
+      "has_handler": true,
+      "bytes": 147
+    }
+  },
+  "frontend_api_references": [
+    "/api/catalyst-feed"
+  ],
+  "remaining_static_data_references": [
+    ").textContent=Math.round((data/100)*20)+",
+    ",base=Math.max(0,Math.min(100,raw));\n var regMult=/TRENDING/i.test(reg)?1.05:/HIGH|PANIC/i.test(risk)?0.82:1, trust=base*(data/100)*regMult, cal=Math.max(0,Math.min(100,50+(trust-50)*0.85)),unc=Math.round(100-Math.min(100,Math.abs(cal-50)*1.6));\n var band=unc<=25?",
+    ",signal:ctl.signal});clearTimeout(timer);const j=await r.json();const s=j.summary||{};catalystSummary={catalystBias:s.catalystBias||"
+  ],
+  "json_errors": [],
+  "esm_syntax_errors": [],
+  "missing_required": [],
+  "status": "AUDIT_PASS"
+}

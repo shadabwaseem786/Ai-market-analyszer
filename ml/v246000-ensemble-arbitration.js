@@ -1,0 +1,2 @@
+// V246000 Ensemble model arbitration.
+function arbitrate(models=[]){const valid=models.filter(m=>Number.isFinite(Number(m.score)));const winner=valid.sort((a,b)=>Number(b.score)-Number(a.score))[0]||null;return {version:"V246000",winner,ranked:valid,researchOnly:true};} module.exports={arbitrate};

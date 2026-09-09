@@ -1,0 +1,4 @@
+// V70600: 'alien technology' research layer — unconventional feature abstractions.
+// Examples: entropy, information flow, fractal/roughness, liquidity topology, phase-transition alerts.
+// These are research signals, not claims of literal physics or guaranteed prediction.
+function descriptors(series=[]){const a=series.map(Number).filter(Number.isFinite);if(a.length<2)return{};const d=a.slice(1).map((x,i)=>x-a[i]);const mean=d.reduce((s,x)=>s+x,0)/d.length;const entropy=d.filter(x=>x!==0).length/d.length;return{meanChange:mean,activityEntropy:entropy,phaseTransitionCandidate:entropy>.8}}module.exports={descriptors};

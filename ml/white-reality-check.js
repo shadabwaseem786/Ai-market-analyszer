@@ -1,0 +1,2 @@
+// V36200: White-style data-snooping reality-check contract.
+function evaluate(observed,nullStats,alpha=.05){const a=nullStats.filter(Number.isFinite),p=a.length?a.filter(x=>x>=observed).length/a.length:null;return{observed,p,significant:p!=null&&p<alpha,researchOnly:true}}module.exports={evaluate};

@@ -1,0 +1,2 @@
+// V43700: explainable signal attribution contract.
+function explain(factors=[]){return factors.filter(x=>x&&Number.isFinite(Number(x.contribution))).sort((a,b)=>Number(b.contribution)-Number(a.contribution)).map(x=>({...x,contribution:Number(x.contribution)}))}module.exports={explain};

@@ -1,0 +1,2 @@
+// V176000 Liquidity-Aware F&O Outcome Engine.
+function adjust(expected=0,x={}){const liq=Math.max(0,Math.min(100,Number(x.liquidity||100))),impact=Math.max(0,100-liq);return {version:"V176000",gross:Number(expected)||0,liquidityPenalty:+(impact*.01).toFixed(4),net:+((Number(expected)||0)-impact*.01).toFixed(4),researchOnly:true};} module.exports={adjust};

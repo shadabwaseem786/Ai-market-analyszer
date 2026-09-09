@@ -1,0 +1,10 @@
+{
+  "inputs": [
+    "flow",
+    "delivery",
+    "block/bulk activity",
+    "accumulation",
+    "persistence"
+  ],
+  "output": "institutional footprint score"
+}

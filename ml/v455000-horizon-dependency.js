@@ -1,0 +1,2 @@
+// V455000 Horizon Dependency Graph.
+function graph(predictions=[]){const nodes=predictions.map((p,i)=>({id:i+1,horizon:p.horizon,dependsOn:p.dependsOn||[]}));return {version:"V455000",nodes,researchOnly:true};} module.exports={graph};

@@ -1,0 +1,2 @@
+// V171000 Walk-Forward Validation — research-only.
+function run(samples=[],trainSize=100,testSize=25,step=25,evaluate=()=>({})){const folds=[];for(let s=0;s+trainSize+testSize<=samples.length;s+=step){const train=samples.slice(s,s+trainSize),test=samples.slice(s+trainSize,s+trainSize+testSize);folds.push({trainStart:train[0]?.timestamp||null,trainEnd:train.at(-1)?.timestamp||null,testStart:test[0]?.timestamp||null,testEnd:test.at(-1)?.timestamp||null,metrics:evaluate(train,test)});}return {version:"V171000",folds,researchOnly:true};} module.exports={run};

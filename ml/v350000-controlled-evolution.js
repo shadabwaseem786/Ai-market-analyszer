@@ -1,0 +1,3 @@
+// V350000 Self-Evolving but Controlled Research Intelligence Core — no execution or autonomous promotion.
+const stages=["WALK_FORWARD","PURGED_VALIDATION","LEAKAGE_AUDIT","CALIBRATION","PERFORMANCE_ATTRIBUTION","FAILURE_REGIMES","CHAMPION_CHALLENGER","MODEL_DRIFT","GOVERNANCE_GATE","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V350000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

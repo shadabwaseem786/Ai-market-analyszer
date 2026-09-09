@@ -1,0 +1,2 @@
+// V84000: regime-conditioned Monte Carlo scenario engine.
+function simulate(base={price:1,mu:0,sigma:.01},n=500,h=20){const out=[];for(let j=0;j<n;j++){let p=base.price;for(let i=0;i<h;i++)p*=1+Number(base.mu||0)+(Number(base.sigma)||.01)*Math.sin((i+j)*12.9898);out.push(p)}return out.sort((a,b)=>a-b)}function quantiles(a,qs=[.05,.5,.95]){return qs.map(q=>a[Math.min(a.length-1,Math.floor(q*a.length))])}module.exports={simulate,quantiles};

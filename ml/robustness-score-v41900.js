@@ -1,0 +1,2 @@
+// V41900: consolidated robustness score contract.
+function score(x={}){const keys=["oos","cost","drift","calibration","stability","risk"];const v=keys.map(k=>Number(x[k])).filter(Number.isFinite);return{score:v.length?v.reduce((s,z)=>s+z,0)/v.length:null,components:v.length}}module.exports={score};

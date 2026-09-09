@@ -1,0 +1,2 @@
+// V236000 Catalyst reaction-time model.
+function measure(catalysts=[]){return {version:"V236000",results:catalysts.map(c=>({id:c.id,latencyMs:c.firstReactionTimestamp&&c.timestamp?Math.max(0,new Date(c.firstReactionTimestamp)-new Date(c.timestamp)):null,magnitude:Number(c.magnitude||0)})),researchOnly:true};} module.exports={measure};

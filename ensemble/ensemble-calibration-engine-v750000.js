@@ -1,0 +1,17 @@
+/* V750000 ENSEMBLE + CALIBRATION + BACKTEST + DRIFT INTELLIGENCE */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ function normalizeWeights(models={}){const vals=Object.fromEntries(Object.entries(models).map(([k,v])=>[k,Math.max(0,n(v))]));const t=Object.values(vals).reduce((a,b)=>a+b,0)||1;return Object.fromEntries(Object.entries(vals).map(([k,v])=>[k,v/t]))}
+ function ensemble(predictions=[]){const usable=predictions.filter(p=>Number.isFinite(Number(p.probability)));const w=normalizeWeights(Object.fromEntries(usable.map(p=>[p.model,n(p.weight,1)])));const prob=usable.reduce((s,p)=>s+n(p.probability)*n(w[p.model]),0);return{probability:clamp(prob,0,1),direction:prob>.55?"BULLISH":prob<.45?"BEARISH":"NEUTRAL",weights:w,models:usable.length}}
+ function brier(y,p){return Math.pow(n(p)-n(y),2)}
+ function logLoss(y,p){const q=clamp(n(p),1e-6,1-1e-6);return -(n(y)*Math.log(q)+(1-n(y))*Math.log(1-q))}
+ function calibrationBucket(prob,bins=10){return Math.min(bins-1,Math.max(0,Math.floor(clamp(n(prob),0,.999999)*bins)))}
+ function calibrationReport(rows=[],bins=10){const out=Array.from({length:bins},()=>({count:0,pred:0,actual:0}));rows.forEach(r=>{const i=calibrationBucket(r.probability,bins);out[i].count++;out[i].pred+=n(r.probability);out[i].actual+=n(r.actual)});return out.map((x,i)=>({...x,bin:i,avgPrediction:x.count?x.pred/x.count:null,empiricalRate:x.count?x.actual/x.count:null,absGap:x.count?Math.abs(x.pred/x.count-x.actual/x.count):null}))}
+ function walkForward(series=[],train=100,test=20,step=20){const folds=[];for(let i=train;i+test<=series.length;i+=step)folds.push({trainStart:0,trainEnd:i,testStart:i,testEnd:i+test});return folds}
+ function metrics(rows=[]){const b=rows.length?rows.reduce((s,r)=>s+brier(r.actual,r.probability),0)/rows.length:null;const ll=rows.length?rows.reduce((s,r)=>s+logLoss(r.actual,r.probability),0)/rows.length:null;const acc=rows.length?rows.reduce((s,r)=>s+((n(r.probability)>=.5)===(n(r.actual)>=.5)?1:0),0)/rows.length:null;return{count:rows.length,brier:b,logLoss:ll,accuracy:acc}}
+ function drift(current=[],baseline=[]){const a=mean(current),b=mean(baseline);const sd=Math.sqrt(mean(current.map(x=>Math.pow(n(x)-a,2))))||1;return{meanCurrent:a,meanBaseline:b,z:(a-b)/sd,drifted:Math.abs(a-b)>2*sd}}
+ function mean(a){return a.length?a.reduce((s,x)=>s+n(x),0)/a.length:0}
+ function explain(decision={}){return{decision:decision.direction||"NEUTRAL",probability:n(decision.probability),topDrivers:(decision.drivers||[]).slice(0,8),contradictions:(decision.contradictions||[]).slice(0,5),riskFlags:(decision.riskFlags||[]).slice(0,8)}}
+ function learningGate(x={},cfg={}){const enough=n(x.sampleSize)>=n(cfg.minSampleSize,100),stable=!x.drifted,cal=n(x.calibrationScore,0);return{eligible:enough&&stable&&cal>=n(cfg.minCalibration,.55),reason:!enough?"INSUFFICIENT_SAMPLE":!stable?"DRIFT_DETECTED":cal<n(cfg.minCalibration,.55)?"CALIBRATION_WEAK":"ELIGIBLE"}}
+ global.AIValidationV750000={normalizeWeights,ensemble,brier,logLoss,calibrationBucket,calibrationReport,walkForward,metrics,drift,explain,learningGate};
+})(typeof globalThis!=="undefined"?globalThis:window);

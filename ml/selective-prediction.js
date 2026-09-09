@@ -1,0 +1,2 @@
+// V35200: selective prediction / abstention gate.
+function gate({confidence=0,uncertainty=1,minConfidence=.65,maxUncertainty=.25}={}){return{accept:confidence>=minConfidence&&uncertainty<=maxUncertainty,abstain:confidence<minConfidence||uncertainty>maxUncertainty}}module.exports={gate};

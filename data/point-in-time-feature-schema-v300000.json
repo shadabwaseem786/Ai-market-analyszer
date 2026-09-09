@@ -1,0 +1,17 @@
+{
+  "feature_record": {
+    "id": "string",
+    "name": "string",
+    "entity": "string",
+    "value": "number|string|object",
+    "eventTime": "ISO-8601",
+    "availableAt": "ISO-8601",
+    "source": "string",
+    "revision": "integer",
+    "revisedAt": "ISO-8601|null",
+    "transform": "string",
+    "hash": "string|null",
+    "maxAgeMs": "integer"
+  },
+  "rule": "A feature may be used for a prediction only when availableAt <= predictionTime."
+}

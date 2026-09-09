@@ -1,0 +1,2 @@
+// V22900: adversarial data-quality checks.
+function check(rows){const out={};out.negativeVolume=rows.filter(r=>(Number(r.volume)||0)<0).length;out.badRange=rows.filter(r=>Number(r.high)<Number(r.low)).length;out.futureTimestamp=rows.filter(r=>r.timestamp&&Date.parse(r.timestamp)>Date.now()+600000).length;return {...out,passed:Object.values(out).every(v=>v===0)}} module.exports={check};

@@ -1,0 +1,2 @@
+// V301000 Real-time event stream fusion — research only.
+function fuse(streams=[]){return {version:"V301000",events:streams.filter(Boolean).sort((a,b)=>new Date(a.timestamp||0)-new Date(b.timestamp||0)),researchOnly:true};} module.exports={fuse};

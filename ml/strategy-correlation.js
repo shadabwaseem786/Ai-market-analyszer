@@ -1,0 +1,2 @@
+// V34500: strategy return correlation diagnostics.
+function corr(a,b){const n=Math.min(a.length,b.length),x=a.slice(0,n),y=b.slice(0,n),mx=x.reduce((s,v)=>s+v,0)/n,my=y.reduce((s,v)=>s+v,0)/n;let xy=0,xx=0,yy=0;for(let i=0;i<n;i++){xy+=(x[i]-mx)*(y[i]-my);xx+=(x[i]-mx)**2;yy+=(y[i]-my)**2}return xx&&yy?xy/Math.sqrt(xx*yy):0}module.exports={corr};

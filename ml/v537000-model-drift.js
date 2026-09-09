@@ -1,0 +1,2 @@
+// V537000 Model Drift Detection.
+function detect(baseline=0,current=0,threshold=.2){const drift=Math.abs(Number(current)-Number(baseline));return {version:"V537000",drift,detected:drift>=threshold,researchOnly:true};} module.exports={detect};

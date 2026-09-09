@@ -1,0 +1,8 @@
+{
+  "states": [
+    "QUIET",
+    "EVENT-DRIVEN",
+    "SHOCK",
+    "BLACK-SWAN"
+  ]
+}

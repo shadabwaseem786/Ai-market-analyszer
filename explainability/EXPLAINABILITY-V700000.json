@@ -1,0 +1,11 @@
+{
+  "outputs": [
+    "top_evidence",
+    "contribution",
+    "direction",
+    "uncertainty",
+    "data_quality",
+    "agreement",
+    "risk"
+  ]
+}

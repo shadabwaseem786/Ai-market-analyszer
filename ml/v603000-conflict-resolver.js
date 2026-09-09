@@ -1,0 +1,2 @@
+// V603000 Conflicting Signal Resolver.
+function resolve(signals=[]){const pos=signals.filter(s=>Number(s.score??0)>0),neg=signals.filter(s=>Number(s.score??0)<0);return {version:"V603000",positive:pos,negative:neg,conflict:pos.length>0&&neg.length>0,researchOnly:true};} module.exports={resolve};

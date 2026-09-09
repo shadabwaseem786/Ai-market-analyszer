@@ -1,0 +1,2 @@
+// V70400: ensemble + distributional uncertainty contract.
+function summarize(xs=[]){const a=xs.map(Number).filter(Number.isFinite);if(!a.length)return{mean:null,variance:null};const m=a.reduce((s,x)=>s+x,0)/a.length;return{mean:m,variance:a.reduce((s,x)=>s+(x-m)**2,0)/a.length,min:Math.min(...a),max:Math.max(...a)}}module.exports={summarize};

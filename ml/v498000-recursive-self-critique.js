@@ -1,0 +1,2 @@
+// V498000 Recursive Self-Critique.
+function critique(conclusion="",rounds=3){const trace=[];let current=String(conclusion);for(let i=1;i<=Math.max(0,rounds);i++)trace.push({round:i,conclusion:current,critiqueRequired:true});return {version:"V498000",trace,researchOnly:true};} module.exports={critique};

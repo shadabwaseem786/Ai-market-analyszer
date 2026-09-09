@@ -1,0 +1,2 @@
+// V649000 Microstructure Integrity Gate.
+function gate(m={}){const pass=!m.liquidityVoid&&!m.extremeSpread&&!m.costFailure&&Number(m.entryQuality??0)>=Number(m.minimumEntryQuality??.6);return {version:"V649000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

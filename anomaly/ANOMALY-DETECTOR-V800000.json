@@ -1,0 +1,13 @@
+{
+  "signals": [
+    "z-score",
+    "volatility spike",
+    "gap"
+  ],
+  "states": [
+    "NORMAL",
+    "MODERATE",
+    "HIGH",
+    "SEVERE"
+  ]
+}

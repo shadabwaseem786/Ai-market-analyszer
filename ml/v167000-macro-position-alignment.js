@@ -1,0 +1,2 @@
+// V167000 FII/DII, index, sector and macro alignment.
+function align(packet={},rows=[]){return rows.map(r=>({...r,macro:packet.macro?.[r.timestamp]??null,fiiDii:packet.fiiDii?.[r.timestamp]??null,index:packet.index?.[r.timestamp]??null,sector:packet.sector?.[r.timestamp]??null}));} module.exports={align};

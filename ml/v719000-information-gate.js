@@ -1,0 +1,2 @@
+// V719000 Information Integrity Gate.
+function gate(m={}){const pass=!m.staleCritical&&!m.sourceConflict&&!m.qualityFailure&&Number(m.evidenceConfidence??0)>=Number(m.minimumConfidence??.6);return {version:"V719000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

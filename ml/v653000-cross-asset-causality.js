@@ -1,0 +1,2 @@
+// V653000 Cross-Asset Causal Mapping.
+function map(relations=[]){return {version:"V653000",relations:relations.map(r=>({...r,causalScore:Number(r.causalScore??r.correlation??0)})),researchOnly:true};} module.exports={map};

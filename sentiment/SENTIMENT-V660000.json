@@ -1,0 +1,9 @@
+{
+  "scale": "-1 to +1",
+  "labels": [
+    "NEGATIVE",
+    "NEUTRAL",
+    "POSITIVE"
+  ],
+  "note": "heuristic baseline; replace/augment with calibrated NLP/LLM"
+}

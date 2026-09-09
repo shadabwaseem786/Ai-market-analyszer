@@ -1,0 +1,8 @@
+{
+  "outputs": [
+    "p05",
+    "median",
+    "p95"
+  ],
+  "pathsMax": 5000
+}

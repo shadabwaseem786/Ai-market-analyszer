@@ -1,0 +1,2 @@
+// V721000 Order-Book State Engine — research only.
+function analyze(book={}){const bid=Number(book.bidDepth??0),ask=Number(book.askDepth??0),total=bid+ask;return {version:"V721000",bidDepth:bid,askDepth:ask,imbalance:total?(bid-ask)/total:0,researchOnly:true};} module.exports={analyze};

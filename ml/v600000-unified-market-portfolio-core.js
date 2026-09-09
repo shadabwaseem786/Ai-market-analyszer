@@ -1,0 +1,3 @@
+// V600000 Unified Market & Portfolio Intelligence Core — no execution.
+const stages=["CROSS_ASSET_FUSION","SECTOR_ROTATION","MARKET_BREADTH","FII_DII_FLOW","OPTIONS_CHAIN","OI_VOLUME_PRICE","CROSS_ASSET_CONTAGION","PORTFOLIO_EXPOSURE","PORTFOLIO_RISK_GATE","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V600000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

@@ -1,0 +1,2 @@
+// V82600: post-outcome error attribution for research memory.
+function attribute(pred,actual,features={}){const error=Number(actual)-Number(pred);return{error,absError:Math.abs(error),regime:features.regime||"UNKNOWN",featureSnapshot:features}}module.exports={attribute};

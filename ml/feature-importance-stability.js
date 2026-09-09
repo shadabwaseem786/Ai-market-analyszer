@@ -1,0 +1,2 @@
+// V28900: fold-wise importance stability.
+function stability(folds){const keys=[...new Set(folds.flatMap(f=>Object.keys(f||{})))];return Object.fromEntries(keys.map(k=>{const a=folds.map(f=>Number(f[k])).filter(Number.isFinite);if(a.length<2)return[k,0];const m=a.reduce((s,x)=>s+x,0)/a.length;const v=a.reduce((s,x)=>s+(x-m)**2,0)/a.length;return[k,Math.max(0,1-Math.sqrt(v)/(Math.abs(m)+1e-9))]}))}module.exports={stability};

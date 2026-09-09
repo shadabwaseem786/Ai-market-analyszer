@@ -1,0 +1,2 @@
+// V445000 Concept Drift Detection.
+function detect(reference=[],recent=[],threshold=.15){const mean=a=>a.length?a.reduce((s,x)=>s+Number(x),0)/a.length:0;const drift=Math.abs(mean(reference)-mean(recent));return {version:"V445000",drift,threshold,driftDetected:drift>threshold,researchOnly:true};} module.exports={detect};

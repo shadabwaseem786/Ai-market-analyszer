@@ -1,0 +1,2 @@
+// V404000 evidence contradiction detector.
+function detect(evidence=[]){const groups={};for(const e of evidence){const k=e.topic||"UNKNOWN";(groups[k]??=[]).push(e);}return {version:"V404000",contradictions:Object.fromEntries(Object.entries(groups).map(([k,a])=>[k,{items:a.length,conflict:a.some(x=>x.direction)&&new Set(a.filter(x=>x.direction).map(x=>x.direction)).size>1}])),researchOnly:true};} module.exports={detect};

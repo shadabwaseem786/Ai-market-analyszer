@@ -1,0 +1,22 @@
+{
+  "regimes": [
+    "TREND_UP",
+    "TREND_DOWN",
+    "RANGE",
+    "VOLATILE_TREND",
+    "PANIC_SELL",
+    "BULLISH_BREADTH",
+    "BEARISH_BREADTH",
+    "LOW_LIQUIDITY"
+  ],
+  "inputs": [
+    "trend",
+    "volatility",
+    "breadth",
+    "liquidity",
+    "fno_positioning",
+    "macro",
+    "geopolitical",
+    "catalyst"
+  ]
+}

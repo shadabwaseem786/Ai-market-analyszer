@@ -1,0 +1,12 @@
+{
+ "version":"V109000",
+ "name":"Temporal Market Brain",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V108000",
+ "layers":["event-time-reasoning","information-arrival","intraday-state-machine","catalyst-decay","cross-horizon-temporal","temporal-governor"],
+ "purpose":"Model when information arrives, how long catalyst effects persist, and whether signals remain temporally valid.",
+ "note":"Temporal freshness is an estimate and cannot establish causality by itself."
+}

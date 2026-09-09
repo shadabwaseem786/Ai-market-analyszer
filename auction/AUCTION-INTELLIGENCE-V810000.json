@@ -1,0 +1,9 @@
+{
+  "features": [
+    "opening location",
+    "closing location",
+    "acceptance",
+    "balance",
+    "range behavior"
+  ]
+}

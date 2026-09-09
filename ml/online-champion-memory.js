@@ -1,0 +1,2 @@
+// V84600: champion snapshots and rollback metadata.
+function snapshot(champion={}){return Object.freeze({...champion,snapshotAt:new Date().toISOString(),rollbackAvailable:true})}module.exports={snapshot};

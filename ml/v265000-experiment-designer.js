@@ -1,0 +1,2 @@
+// V265000 Research experiment designer.
+function design(hypothesis={},constraints={}){return {version:"V265000",hypothesis,design:{baseline:constraints.baseline||"current model",controls:constraints.controls||[],metrics:constraints.metrics||["accuracy","calibration","drawdown","stability"],split:constraints.split||"walk-forward"},researchOnly:true};} module.exports={design};

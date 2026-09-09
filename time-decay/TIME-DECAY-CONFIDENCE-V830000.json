@@ -1,0 +1,3 @@
+{
+  "purpose": "decay stale forecast confidence as the forecast horizon is consumed"
+}

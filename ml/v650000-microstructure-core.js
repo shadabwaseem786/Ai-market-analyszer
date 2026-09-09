@@ -1,0 +1,3 @@
+// V650000 Market Microstructure Intelligence Core — no autonomous execution.
+const stages=["ORDERBOOK_INTELLIGENCE","LIQUIDITY_IMPACT","BID_ASK_IMBALANCE","INSTITUTIONAL_FOOTPRINT","INTRADAY_FLOW_ACCELERATION","LIQUIDITY_VOID","ENTRY_QUALITY","SLIPPAGE_COST","MICROSTRUCTURE_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V650000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

@@ -1,0 +1,1 @@
+{"version":"V28000","status":"RESEARCH_ONLY","executionDisabled":true,"architecture":"adaptive_oos_first","requirements":["real_historical_data","timestamp_alignment","purged_walk_forward","CPCV","cost_stress","calibration","multiple_testing","drift","tail_risk","audit"],"auto_model_replacement":false,"auto_trading":false}

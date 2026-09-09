@@ -1,0 +1,11 @@
+{
+  "metrics": [
+    "price-vwap distance",
+    "ATR-normalized deviation"
+  ],
+  "states": [
+    "EXTENDED-UP",
+    "EXTENDED-DOWN",
+    "NORMAL"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "version":"V120000",
+  "requiredEvidence":["price","volume","technical","momentum"],
+  "preferredFNOEvidence":["foPositioning","optionSurface"],
+  "contextEvidence":["catalyst","sector","macro","crossAsset","historicalAnalog"],
+  "safetyFields":["risk","shockRisk","adversarialSurvival"],
+  "policy":"missing or stale critical evidence must produce NO-TRADE"
+}

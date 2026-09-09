@@ -1,0 +1,2 @@
+// V468000 Bull/Base/Bear Scenario Competition.
+function compare(scenarios=[]){return {version:"V468000",scenarios:[...scenarios].sort((a,b)=>Number(b.probability||0)-Number(a.probability||0)),leader:scenarios.reduce((a,b)=>Number(b.probability||0)>Number(a?.probability||0)?b:a,null),researchOnly:true};} module.exports={compare};

@@ -1,0 +1,2 @@
+// V252000 Point-in-time integrity checks.
+function audit(records=[]){let violations=[];for(const r of records){if(r.eventTime&&r.availableTime&&new Date(r.availableTime)<new Date(r.eventTime))violations.push(r)}return {version:"V252000",violations,count:violations.length,passed:!violations.length,researchOnly:true};} module.exports={audit};

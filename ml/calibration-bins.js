@@ -1,0 +1,2 @@
+// V82100: reliability diagram bins for probability calibration.
+function bins(rows=[],n=10){const out=[];for(let i=0;i<n;i++){const lo=i/n,hi=(i+1)/n,a=rows.filter(r=>r.p>=lo&&(i===n-1?r.p<=hi:r.p<hi));out.push({lo,hi,count:a.length,meanPred:a.length?a.reduce((s,r)=>s+r.p,0)/a.length:null,empirical:a.length?a.reduce((s,r)=>s+r.y,0)/a.length:null})}return out}module.exports={bins};

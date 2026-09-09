@@ -1,0 +1,2 @@
+// V489000 Memory-Augmented Prediction.
+function augment(prediction={},analogs=[]){const support=analogs.length?analogs.reduce((s,a)=>s+Number(a.outcomeScore??0),0)/analogs.length:0;return {version:"V489000",prediction,memorySupport:support,analogCount:analogs.length,researchOnly:true};} module.exports={augment};

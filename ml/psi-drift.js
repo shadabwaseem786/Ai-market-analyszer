@@ -1,0 +1,2 @@
+// V40200: population stability index contract.
+function psi(expected,actual,bins=10){const e=expected.filter(Number.isFinite),a=actual.filter(Number.isFinite);if(!e.length||!a.length)return null;const min=Math.min(...e,...a),max=Math.max(...e,...a)||min+1;let z=0;for(let i=0;i<bins;i++){const lo=min+(max-min)*i/bins,hi=i===bins-1?max+1:min+(max-min)*(i+1)/bins;const pe=Math.max(1e-6,e.filter(x=>x>=lo&&x<hi).length/e.length),pa=Math.max(1e-6,a.filter(x=>x>=lo&&x<hi).length/a.length);z+=(pa-pe)*Math.log(pa/pe)}return z}module.exports={psi};

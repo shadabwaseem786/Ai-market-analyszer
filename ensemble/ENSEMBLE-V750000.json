@@ -1,0 +1,7 @@
+{
+  "methods": [
+    "weighted ensemble",
+    "regime-aware weights",
+    "risk-gated fusion"
+  ]
+}

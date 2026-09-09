@@ -1,0 +1,2 @@
+// V168000 End-to-end historical replay runner.
+function replay(dataset=[],engine,opts={}){if(typeof engine!=="function")throw new Error("engine required");const out=[];for(const row of dataset){const prediction=engine(row,opts);out.push({timestamp:row.timestamp,symbol:row.symbol,prediction});}return {version:"V168000",count:out.length,results:out,researchOnly:true};} module.exports={replay};

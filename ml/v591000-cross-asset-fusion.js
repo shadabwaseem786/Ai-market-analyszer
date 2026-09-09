@@ -1,0 +1,2 @@
+// V591000 Cross-Asset Signal Fusion — research only.
+function fuse(signals=[]){const valid=signals.filter(s=>s.reliable!==false),score=valid.length?valid.reduce((a,s)=>a+Number(s.score??0),0)/valid.length:0;return {version:"V591000",score,contributors:valid.length,researchOnly:true};} module.exports={fuse};

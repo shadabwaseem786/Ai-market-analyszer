@@ -1,0 +1,2 @@
+// V31900: standardized model-card contract.
+function create(x={}){return {model:x.model,version:x.version,data:x.data,features:x.features,target:x.target,validation:x.validation,costs:x.costs,limitations:x.limitations||[],status:"RESEARCH_ONLY"}}module.exports={create};

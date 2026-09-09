@@ -1,0 +1,2 @@
+// V173000 Monte-Carlo / Bootstrap Robustness Lab.
+function bootstrap(values=[],iterations=1000){const v=values.map(Number).filter(Number.isFinite),means=[];for(let i=0;i<iterations;i++){let s=0;for(let j=0;j<v.length;j++)s+=v[Math.floor(Math.random()*v.length)];means.push(v.length?s/v.length:0)}means.sort((a,b)=>a-b);const q=p=>means[Math.floor((means.length-1)*p)]??null;return {version:"V173000",iterations,n:v.length,mean:v.length?v.reduce((a,b)=>a+b,0)/v.length:0,ci95:[q(.025),q(.975)],researchOnly:true};} module.exports={bootstrap};

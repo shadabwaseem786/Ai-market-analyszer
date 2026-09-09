@@ -1,0 +1,2 @@
+// V338000 model ensemble diversity.
+function analyze(predictions=[]){const dirs=predictions.map(x=>x?.direction).filter(Boolean),unique=new Set(dirs).size;return {version:"V338000",models:dirs.length,uniqueDirections:unique,diversity:dirs.length?unique/dirs.length:0,researchOnly:true};} module.exports={analyze};

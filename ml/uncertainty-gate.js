@@ -1,0 +1,2 @@
+// V43300: uncertainty/abstention gate.
+function gate(prediction,{maxUncertainty=.35,minConfidence=.65}={}){const u=Number(prediction.uncertainty),c=Number(prediction.confidence);const abstain=(Number.isFinite(u)&&u>maxUncertainty)||(Number.isFinite(c)&&c<minConfidence);return{...prediction,decision:abstain?"ABSTAIN":prediction.signal,abstain,executionDisabled:true}}module.exports={gate};

@@ -1,0 +1,8 @@
+{
+  "states": [
+    "CONFIRMING",
+    "DIVERGING",
+    "NEUTRAL"
+  ],
+  "purpose": "compare capital flow with price return"
+}

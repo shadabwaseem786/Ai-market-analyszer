@@ -1,0 +1,2 @@
+// V352000 regime-conditional calibration.
+function calibrate(records=[]){const out={};for(const r of records){const k=r.regime||"UNKNOWN";(out[k]??=[]).push(Math.abs(Number(r.probability||0)-Number(r.actual||0)))}return {version:"V352000",byRegime:Object.fromEntries(Object.entries(out).map(([k,a])=>[k,{mae:a.reduce((x,y)=>x+y,0)/a.length,samples:a.length}])),researchOnly:true};} module.exports={calibrate};

@@ -1,0 +1,12 @@
+{
+ "version":"V102000",
+ "name":"Unified Market State + Adversarial Scenario Intelligence",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V101000",
+ "layers":["market-state-tensor","scenario-consensus","adversarial-red-team","temporal-causal-chain","final-conviction-governor"],
+ "decisionStates":["HIGH_CONVICTION_WATCH","WATCH","WAIT","ABSTAIN"],
+ "note":"Higher conviction is not a guarantee of accuracy or profitability."
+}

@@ -1,0 +1,8 @@
+{
+  "metrics": [
+    "price strength",
+    "relative strength",
+    "flow strength"
+  ],
+  "output": "ranked sector rotation"
+}

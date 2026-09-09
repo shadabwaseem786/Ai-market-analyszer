@@ -1,0 +1,2 @@
+// V389000 temporal signal fusion.
+function fuse(signals=[]){const a=signals.filter(Boolean),score=a.reduce((s,x)=>s+Number(x.weight??1)*Number(x.score??x.persistence??0),0);return {version:"V389000",score,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",contributors:a.length,researchOnly:true};} module.exports={fuse};

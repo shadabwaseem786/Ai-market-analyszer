@@ -1,0 +1,7 @@
+{
+  "purpose": "rolling train/test validation",
+  "outputs": [
+    "train metrics",
+    "test metrics"
+  ]
+}

@@ -1,0 +1,2 @@
+// V618000 Forecast Decay Engine.
+function decay(confidence=1,age=0,halfLife=10){const c=Number(confidence)*Math.pow(.5,Number(age)/Math.max(Number(halfLife),1e-12));return {version:"V618000",originalConfidence:Number(confidence),age,decayedConfidence:c,researchOnly:true};} module.exports={decay};

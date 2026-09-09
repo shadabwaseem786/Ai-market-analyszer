@@ -1,0 +1,2 @@
+// V38700: redundant-source agreement contract.
+function agree(values,min=.67){const a=values.filter(Boolean);return{n:a.length,ratio:a.length?new Set(a).size===1?1:0:0,pass:a.length>0&&new Set(a).size===1&&a.length>=2}}module.exports={agree};

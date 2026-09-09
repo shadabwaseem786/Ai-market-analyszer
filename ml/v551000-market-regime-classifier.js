@@ -1,0 +1,2 @@
+// V551000 Market Regime Classifier — research only.
+function classify(f={}){const trend=Number(f.trend??0),vol=Number(f.volatility??0),liq=Number(f.liquidity??1);let regime="TRANSITION";if(Math.abs(trend)>.6&&vol<.7)regime=trend>0?"TREND_UP":"TREND_DOWN";else if(Math.abs(trend)<.3&&vol<.7)regime="RANGE";else if(vol>=.7)regime="HIGH_VOLATILITY";if(liq<.3)regime="LIQUIDITY_STRESS";return {version:"V551000",regime,features:f,researchOnly:true};} module.exports={classify};

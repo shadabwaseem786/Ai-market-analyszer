@@ -1,0 +1,2 @@
+// V60800: champion health summary.
+function health({oos=0,costAdjusted=0,brier=1,drift=1,stability=0}={}){return{score:Math.round(100*(.3*oos+.25*costAdjusted+.2*(1-brier)+.15*(1-drift)+.1*stability)),oos,costAdjusted,brier,drift,stability}}module.exports={health};

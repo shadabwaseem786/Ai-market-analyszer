@@ -1,0 +1,11 @@
+{
+  "version":"V18000",
+  "purpose":"Historical ML training and walk-forward research",
+  "primary_sources":[
+    {"name":"Indian-market-data-pipeline","url":"https://github.com/JATINDHURVE/Indian-market-data-pipeline","coverage":"2011-2026","assets":["NIFTY","BANKNIFTY","FINNIFTY","INDIA_VIX","NIFTY_FUT","BANKNIFTY_FUT","NIFTY_OPTIONS"],"grain":"1min"},
+    {"name":"nse-intraday-data","url":"https://github.com/gsidhu/nse-intraday-data","coverage":"historical","assets":["NIFTY","BANKNIFTY"],"grain":"1min"},
+    {"name":"BankNifty-Data","url":"https://github.com/sandeepkapri/BankNifty-Data","coverage":"2015-2026","assets":["BANKNIFTY"],"grain":"1min"}
+  ],
+  "validation":{"timezone":"Asia/Kolkata","deduplicate":true,"ohlc_check":true,"gap_detection":true,"cross_source_reconciliation":true},
+  "rule":"Do not train on a row unless timestamp, instrument, and required features pass quality checks."
+}

@@ -1,0 +1,8 @@
+{
+  "scenarios": [
+    "price_shock",
+    "volatility_shock",
+    "gap",
+    "liquidity"
+  ]
+}

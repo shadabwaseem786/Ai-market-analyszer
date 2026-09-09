@@ -1,0 +1,7 @@
+{
+  "outputs": [
+    "sentiment score",
+    "positive/negative/neutral"
+  ],
+  "note": "lexical baseline; replace/augment with production NLP model when connected"
+}

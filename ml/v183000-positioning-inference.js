@@ -1,0 +1,2 @@
+// V183000 Positioning inference. Probabilistic research signal, not dealer-identification.
+function infer(rows=[]){return rows.map(x=>{const d=Number(x.changeOI||0),p=Number(x.priceChangePct||0);let regime="NEUTRAL";if(d>0&&p>0)regime="LONG_BUILDUP";else if(d>0&&p<0)regime="SHORT_BUILDUP";else if(d<0&&p>0)regime="SHORT_COVERING";else if(d<0&&p<0)regime="LONG_UNWINDING";return {...x,positioningInference:regime,confidence:Math.min(1,Math.abs(d)/Math.max(1,Math.abs(d)+Math.abs(p)*100))}});} module.exports={infer};

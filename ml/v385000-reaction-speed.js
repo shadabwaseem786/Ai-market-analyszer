@@ -1,0 +1,2 @@
+// V385000 catalyst reaction-speed model.
+function analyze(events=[]){return {version:"V385000",events:events.length,medianLatency:events.length?events.map(e=>Number(e.latency||0)).sort((a,b)=>a-b)[Math.floor((events.length-1)/2)]:null,researchOnly:true};} module.exports={analyze};

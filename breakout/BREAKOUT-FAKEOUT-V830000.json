@@ -1,0 +1,12 @@
+{
+  "inputs": [
+    "breakout evidence",
+    "volume confirmation",
+    "retest",
+    "failure risk"
+  ],
+  "outputs": [
+    "breakout probability",
+    "fakeout probability"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "actions": [
+    "BUY",
+    "SELL",
+    "WAIT",
+    "NO-TRADE"
+  ],
+  "inputs": [
+    "signal",
+    "agreement",
+    "data_quality",
+    "uncertainty",
+    "risk"
+  ]
+}

@@ -1,0 +1,2 @@
+// V314000 rates/yield transmission.
+function analyze(x={}){const yieldChange=Number(x.yieldChange||0),sensitivity=Number(x.sensitivity||0);return {version:"V314000",yieldChange,sensitivity,impact:yieldChange*sensitivity,researchOnly:true};} module.exports={analyze};

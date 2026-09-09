@@ -1,0 +1,2 @@
+// V342000 Purged time-series validation scaffold.
+function validate(samples=[],purge=0,embargo=0){return {version:"V342000",samples:samples.length,purge,embargo,usable:Math.max(0,samples.length-purge-embargo),researchOnly:true};} module.exports={validate};

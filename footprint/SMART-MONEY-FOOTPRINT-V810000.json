@@ -1,0 +1,9 @@
+{
+  "components": [
+    "imbalance",
+    "delta",
+    "absorption",
+    "exhaustion"
+  ],
+  "output": "pressure classification"
+}

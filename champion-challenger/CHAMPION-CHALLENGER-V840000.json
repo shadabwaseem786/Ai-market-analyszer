@@ -1,0 +1,4 @@
+{
+  "purpose": "compare replacement models before promotion",
+  "defaultMetric": "brier"
+}

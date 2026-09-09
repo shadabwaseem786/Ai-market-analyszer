@@ -1,0 +1,9 @@
+{
+  "scenarios": [
+    "gap",
+    "volatility shock",
+    "underlying shock",
+    "liquidity shock",
+    "correlation shock"
+  ]
+}

@@ -1,0 +1,2 @@
+// V23100: ensemble stack contract for OOS probability blending.
+function stack(predictions,weights={}){const p=predictions.filter(x=>Number.isFinite(x.probability));if(!p.length)return null;let total=0,ws=0;for(const x of p){const w=Number(weights[x.id]??1);total+=x.probability*w;ws+=w}return ws?{probability:total/ws,models:p.length,weighted:true}:null}module.exports={stack};

@@ -1,0 +1,2 @@
+// V361000 Scenario State Engine — research only.
+function create(base={},variables=[]){return {version:"V361000",base,variables,states:variables.map(v=>v.name||String(v)),researchOnly:true};} module.exports={create};

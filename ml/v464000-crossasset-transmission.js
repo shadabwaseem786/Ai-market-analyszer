@@ -1,0 +1,2 @@
+// V464000 Commodity/FX transmission scenarios.
+function propagate(inputs=[]){return {version:"V464000",paths:inputs.map(x=>({from:x.from,to:x.to,elasticity:Number(x.elasticity??0),shock:Number(x.shock??0),transmitted:Number(x.shock??0)*Number(x.elasticity??0)})),researchOnly:true};} module.exports={propagate};

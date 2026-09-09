@@ -1,0 +1,8 @@
+{
+  "inputs": [
+    "anomaly score",
+    "shock score",
+    "liquidity"
+  ],
+  "action": "capital preservation / no-trade hook"
+}

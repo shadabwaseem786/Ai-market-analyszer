@@ -1,0 +1,2 @@
+// V36300: model-risk bootstrap envelope.
+function envelope(metrics){const a=metrics.filter(Number.isFinite);if(!a.length)return null;return{min:Math.min(...a),max:Math.max(...a),median:a.slice().sort((x,y)=>x-y)[Math.floor(a.length/2)],n:a.length}}module.exports={envelope};

@@ -1,0 +1,2 @@
+// V31300: OOS risk-adjusted return diagnostics.
+function sharpe(returns){const a=returns.filter(Number.isFinite);if(a.length<2)return null;const m=a.reduce((s,x)=>s+x,0)/a.length,v=a.reduce((s,x)=>s+(x-m)**2,0)/(a.length-1);return v>0?m/Math.sqrt(v):0}module.exports={sharpe};

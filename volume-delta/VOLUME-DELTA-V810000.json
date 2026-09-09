@@ -1,0 +1,8 @@
+{
+  "metrics": [
+    "aggressive buy volume",
+    "aggressive sell volume",
+    "delta",
+    "delta percentage"
+  ]
+}

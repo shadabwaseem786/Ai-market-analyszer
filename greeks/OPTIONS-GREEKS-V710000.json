@@ -1,0 +1,10 @@
+{
+  "metrics": [
+    "delta",
+    "gamma",
+    "vega",
+    "theta",
+    "vanna",
+    "charm"
+  ]
+}

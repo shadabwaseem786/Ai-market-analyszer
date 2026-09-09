@@ -1,0 +1,2 @@
+// V309000 real-time catalyst decision fusion.
+function fuse(inputs=[]){const usable=inputs.filter(Boolean);const score=usable.reduce((s,x)=>s+Number(x.weight||1)*Number(x.score||0),0);return {version:"V309000",score:+score.toFixed(6),contributors:usable.length,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",researchOnly:true};} module.exports={fuse};

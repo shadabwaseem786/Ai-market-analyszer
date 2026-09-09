@@ -1,0 +1,9 @@
+{
+  "features": [
+    "inflation surprise",
+    "growth surprise",
+    "rates surprise",
+    "liquidity"
+  ],
+  "output": "macro risk"
+}

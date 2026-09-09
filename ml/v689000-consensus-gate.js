@@ -1,0 +1,2 @@
+// V689000 Consensus Integrity Gate.
+function gate(m={}){const pass=!m.adversarialFailure&&!m.thesisConflict&&Number(m.agreement??0)>=Number(m.minimumAgreement??.6);return {version:"V689000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

@@ -1,0 +1,1 @@
+{"version":"V41000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["CUSUM_drift","PSI_drift","ROC_AUC","PR_AUC","cost_sensitive_threshold","probability_integrity","interaction_stability","ensemble_diversity","forecast_reconciliation"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

@@ -1,0 +1,14 @@
+{
+  "layers": [
+    "data_quality",
+    "catalyst",
+    "regime",
+    "microstructure",
+    "futures",
+    "options",
+    "ensemble",
+    "learning",
+    "risk"
+  ],
+  "method": "quality-weighted evidence aggregation"
+}

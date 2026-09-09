@@ -1,0 +1,2 @@
+// V627000 Controlled Self-Improvement Loop — proposal only.
+function propose(metrics={}){return {version:"V627000",proposal:{retrain:!!metrics.driftDetected,recalibrate:!!metrics.calibrationError,reviewRequired:true},automaticRetraining:false,researchOnly:true};} module.exports={propose};

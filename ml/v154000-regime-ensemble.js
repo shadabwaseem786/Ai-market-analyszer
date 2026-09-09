@@ -1,0 +1,2 @@
+// V154000 Regime-Conditional Model Ensemble.
+function combine(models=[],regime){const active=models.filter(m=>!m.regimes||m.regimes.includes(regime));const w=active.reduce((s,m)=>s+(Number(m.weight)||1),0);const p=w?active.reduce((s,m)=>s+(Number(m.probability)||.5)*(Number(m.weight)||1),0)/w:.5;return {version:"V154000",regime,models:active.map(m=>m.name||"MODEL"),probability:+p.toFixed(5),coverage:active.length,researchOnly:true};} module.exports={combine};

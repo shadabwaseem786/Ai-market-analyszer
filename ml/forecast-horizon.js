@@ -1,0 +1,2 @@
+// V38300: horizon-specific performance contract.
+function summarize(rows){const o={};for(const r of rows||[]){const h=r.horizon??"UNKNOWN";(o[h]??=[]).push(Number(r.ret)||0)}return Object.fromEntries(Object.entries(o).map(([k,a])=>[k,{n:a.length,mean:a.reduce((s,x)=>s+x,0)/a.length}]))}module.exports={summarize};

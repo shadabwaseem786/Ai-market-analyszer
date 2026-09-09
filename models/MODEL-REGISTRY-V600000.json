@@ -1,0 +1,21 @@
+{
+  "roles": [
+    "rule_engine",
+    "statistical",
+    "tree_boosting",
+    "sequence",
+    "anomaly",
+    "regime",
+    "catalyst",
+    "fno",
+    "microstructure",
+    "mtf"
+  ],
+  "states": [
+    "ACTIVE",
+    "SHADOW",
+    "FALLBACK",
+    "RETIRED"
+  ],
+  "promotion": "V590000 quality gate required"
+}

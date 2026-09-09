@@ -1,0 +1,3 @@
+// V560000 Unified Market Regime Intelligence Core — no execution.
+const stages=["REGIME_CLASSIFICATION","TRANSITION_PROBABILITY","HIDDEN_STATE_INFERENCE","REGIME_MEMORY","VOLATILITY_REGIME","TREND_RANGE_STATE","LIQUIDITY_REGIME","EVENT_REGIME","REGIME_CONFIDENCE_GATE","VALIDATION","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V560000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

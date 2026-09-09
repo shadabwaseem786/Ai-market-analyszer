@@ -1,0 +1,2 @@
+// V523000 Timestamp / Freshness Validator.
+function validate(records=[],now=Date.now(),maxAgeMs=3600000){return {version:"V523000",records:records.map(r=>{const age=now-Date.parse(r.capturedAt||0);return {...r,ageMs:age,fresh:age>=0&&age<=maxAgeMs};}),researchOnly:true};} module.exports={validate};

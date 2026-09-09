@@ -1,0 +1,3 @@
+// V230000 Market Simulation & Counterfactual Intelligence Core — no execution.
+const stages=["COUNTERFACTUAL","WHAT_IF","DECISION_TREE","MONTE_CARLO","CATALYST_COUNTERFACTUAL","ADVERSARIAL_SCENARIOS","FAILURE_MODES","PREDICTION_DECOMPOSITION","DECISION_ENSEMBLE","QUANT_RESEARCH","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V230000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={stages,run};

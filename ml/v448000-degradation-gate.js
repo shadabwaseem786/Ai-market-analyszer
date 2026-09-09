@@ -1,0 +1,2 @@
+// V448000 Model Degradation Gate.
+function gate(x={}){const pass=!x.conceptDrift&&!x.featureDrift&&!x.degraded&&Number(x.validationScore??0)>=Number(x.minimumScore??.6);return {version:"V448000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true,automaticPromotion:false};} module.exports={gate};

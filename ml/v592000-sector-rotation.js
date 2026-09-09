@@ -1,0 +1,2 @@
+// V592000 Sector Rotation Intelligence.
+function rank(sectors=[]){return {version:"V592000",sectors:[...sectors].sort((a,b)=>Number(b.score??0)-Number(a.score??0)),researchOnly:true};} module.exports={rank};

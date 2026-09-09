@@ -1,0 +1,7 @@
+{
+  "methods": [
+    "fixed-risk",
+    "fractional-kelly"
+  ],
+  "bounded": true
+}

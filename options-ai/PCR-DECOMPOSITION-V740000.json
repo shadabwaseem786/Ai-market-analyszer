@@ -1,0 +1,9 @@
+{
+  "components": [
+    "put OI",
+    "call OI",
+    "put volume",
+    "call volume"
+  ],
+  "note": "secondary signal only"
+}

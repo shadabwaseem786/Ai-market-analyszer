@@ -1,0 +1,2 @@
+// V243000 Prediction calibration engine.
+function calibrate(predictions=[]){const bins={};for(const x of predictions){const b=Math.min(9,Math.floor(Number(x.probability||0)*10));(bins[b]??=[]).push(x.outcome?1:0)}const report=Object.entries(bins).map(([b,a])=>({bin:Number(b)/10,count:a.length,empirical:a.reduce((s,v)=>s+v,0)/a.length}));return {version:"V243000",report,researchOnly:true};} module.exports={calibrate};

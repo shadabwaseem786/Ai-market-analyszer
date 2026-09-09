@@ -1,0 +1,4 @@
+{
+  "purpose": "update prior probability using new evidence",
+  "guardrail": "bounded probability"
+}

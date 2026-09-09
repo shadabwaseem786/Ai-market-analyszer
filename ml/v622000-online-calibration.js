@@ -1,0 +1,2 @@
+// V622000 Online Probability Calibration.
+function calibrate(predictions=[]){const valid=predictions.filter(p=>Number.isFinite(Number(p.probability))&&Number.isFinite(Number(p.outcome)));const error=valid.length?valid.reduce((s,p)=>s+Math.abs(Number(p.probability)-Number(p.outcome)),0)/valid.length:null;return {version:"V622000",meanAbsoluteCalibrationError:error,samples:valid.length,researchOnly:true};} module.exports={calibrate};

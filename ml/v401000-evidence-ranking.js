@@ -1,0 +1,2 @@
+// V401000 Evidence retrieval/ranking scaffold — research only.
+function rank(items=[]){return [...items].map(x=>({...x,score:Number(x.relevance||0)*Number(x.sourceReliability??1)*Number(x.freshness??1)})).sort((a,b)=>b.score-a.score);}; module.exports={rank};

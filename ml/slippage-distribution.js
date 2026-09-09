@@ -1,0 +1,2 @@
+// V30400: empirical slippage distribution contract.
+function quantiles(values){const a=values.filter(Number.isFinite).sort((x,y)=>x-y);if(!a.length)return null;const q=p=>a[Math.floor(p*(a.length-1))];return {p50:q(.5),p75:q(.75),p90:q(.9),p95:q(.95),p99:q(.99)}}module.exports={quantiles};

@@ -1,0 +1,6 @@
+{
+  "actions": [
+    "ROUTE_NORMALLY",
+    "REDUCE_WEIGHTS / WAIT"
+  ]
+}

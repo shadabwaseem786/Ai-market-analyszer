@@ -1,0 +1,2 @@
+// V24800: research alert severity policy.
+function classify({drift=0,confidence=1,drawdown=0}={}){if(drift>.25||drawdown>.2)return"CRITICAL";if(drift>.1||confidence<.55)return"WARNING";return"INFO"}module.exports={classify};

@@ -1,0 +1,8 @@
+{
+  "states": [
+    "STABLE",
+    "WATCH",
+    "DRIFT"
+  ],
+  "purpose": "detect changes in prediction distribution/performance"
+}

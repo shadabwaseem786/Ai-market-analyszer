@@ -1,0 +1,2 @@
+// V377000 IV surface/skew/term-structure scaffold.
+function analyze(points=[]){const calls=points.filter(x=>x.type==="CE"),puts=points.filter(x=>x.type==="PE");const avg=a=>a.length?a.reduce((s,x)=>s+Number(x.iv||0),0)/a.length:null;return {version:"V377000",callIV:avg(calls),putIV:avg(puts),skew:avg(puts)!=null&&avg(calls)!=null?avg(puts)-avg(calls):null,researchOnly:true};} module.exports={analyze};

@@ -1,0 +1,8 @@
+{
+  "inputs": [
+    "relative strength",
+    "flow",
+    "momentum"
+  ],
+  "purpose": "rank sector leadership/rotation"
+}

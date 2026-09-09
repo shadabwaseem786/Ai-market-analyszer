@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "regime_confidence",
+    "transition_detection",
+    "stressed_liquidity_gate"
+  ]
+}

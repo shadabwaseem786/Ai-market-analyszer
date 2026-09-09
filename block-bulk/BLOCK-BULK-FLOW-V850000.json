@@ -1,0 +1,7 @@
+{
+  "features": [
+    "transaction value",
+    "historical baseline"
+  ],
+  "purpose": "identify unusually large transaction activity"
+}

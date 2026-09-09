@@ -1,0 +1,10 @@
+{
+  "layers": [
+    "model probability",
+    "calibration adjustment",
+    "regime confidence",
+    "data quality",
+    "risk gate"
+  ],
+  "output": "calibrated confidence"
+}

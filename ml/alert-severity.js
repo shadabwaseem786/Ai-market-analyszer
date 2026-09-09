@@ -1,0 +1,2 @@
+// V31800: unified research alert severity.
+function severity(x={}){if(x.leakage||x.dataQuality===false)return"CRITICAL";if(x.drift||x.calibration===false)return"HIGH";if(x.risk===false||x.tailRisk===true)return"MEDIUM";return"LOW"}module.exports={severity};

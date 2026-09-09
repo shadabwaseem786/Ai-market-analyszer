@@ -1,0 +1,2 @@
+// V25800: immutable-style candidate model registry.
+function register(x){return {id:x.id,version:x.version,datasetHash:x.datasetHash,featureVersion:x.featureVersion,metrics:x.metrics,status:"CANDIDATE",createdAt:new Date().toISOString()}}function promote(x,gates){return {...x,status:Object.values(gates||{}).every(Boolean)?"VALIDATED":"BLOCKED"}}module.exports={register,promote};

@@ -1,0 +1,17 @@
+{
+  "fields": [
+    "decisionId",
+    "timestamp",
+    "symbol",
+    "decision",
+    "confidence",
+    "netScore",
+    "explanation",
+    "confidenceBreakdown",
+    "counterfactuals",
+    "whatWouldChange",
+    "modelVersion",
+    "regime"
+  ],
+  "purpose": "immutable-style audit record of why the Oracle made a decision"
+}

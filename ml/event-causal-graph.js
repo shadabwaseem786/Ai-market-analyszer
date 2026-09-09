@@ -1,0 +1,2 @@
+// V70200: event -> factor -> index causal evidence graph.
+function propagate(edges=[],events=[]){const active=new Set(events);const hits=[];for(const e of edges)if(active.has(e.from))hits.push(e);return hits}module.exports={propagate};

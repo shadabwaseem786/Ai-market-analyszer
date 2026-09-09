@@ -1,0 +1,1 @@
+{"version":"V28600","researchOnly":true,"executionDisabled":true,"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"horizons":[5,15,30,60],"newLayers":["integrity","timezone","cost_sensitivity","probability_bands","promotion_gate"],"principle":"OOS-first; no future leakage; no silent promotion"}

@@ -1,0 +1,2 @@
+// V634000 Counterfactual Scenario Engine.
+function compare(base={},alternatives=[]){return {version:"V634000",base,alternatives:alternatives.map(a=>({...a,delta:Number(a.score??0)-Number(base.score??0)})),researchOnly:true};} module.exports={compare};

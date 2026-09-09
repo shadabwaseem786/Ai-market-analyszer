@@ -1,0 +1,2 @@
+// V599000 Portfolio-Level Risk Gate.
+function gate(p={}){const pass=Number(p.grossExposure??0)<=Number(p.maxGrossExposure??Infinity)&&Number(p.concentration??0)<=Number(p.maxConcentration??1);return {version:"V599000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

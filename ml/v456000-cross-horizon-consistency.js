@@ -1,0 +1,2 @@
+// V456000 Cross-Horizon Consistency Engine.
+function check(predictions=[]){const dirs=predictions.map(p=>p.direction).filter(Boolean),bull=dirs.filter(d=>d==="BUY"||d==="BULLISH").length,bear=dirs.filter(d=>d==="SELL"||d==="BEARISH").length;return {version:"V456000",consistent:!(bull&&bear),bull,bear,directions:dirs,researchOnly:true};} module.exports={check};

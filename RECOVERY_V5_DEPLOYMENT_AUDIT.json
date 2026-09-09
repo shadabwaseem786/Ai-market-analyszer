@@ -1,0 +1,11 @@
+{
+  "version": "Recovery V5",
+  "esm_validation": "PASS",
+  "esm_files_checked": 1192,
+  "esm_errors": [],
+  "api_validation": "PASS",
+  "api_errors": [],
+  "required_files_missing": [],
+  "production_protection": "Existing V1253 deployment must remain untouched until smoke test passes.",
+  "status": "DEPLOY_CANDIDATE"
+}

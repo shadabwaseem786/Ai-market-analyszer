@@ -1,0 +1,2 @@
+// V605000 Information Gain Engine.
+function rank(signals=[]){return {version:"V605000",signals:[...signals].map(s=>({...s,informationGain:Number(s.informationGain??s.qualityScore??0)})).sort((a,b)=>b.informationGain-a.informationGain),researchOnly:true};} module.exports={rank};

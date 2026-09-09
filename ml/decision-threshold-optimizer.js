@@ -1,0 +1,2 @@
+// V84200: optimize thresholds against validation objective, not in-sample accuracy.
+function thresholds(rows=[]){let best={threshold:.5,utility:-Infinity};for(let t=.5;t<=.9;t+=.02){let u=0;for(const r of rows){const act=r.p>=t;if(act)u+=Number(r.y)*Number(r.reward||1)-(1-Number(r.y))*Number(r.cost||1)}if(u>best.utility)best={threshold:t,utility:u}}return best}module.exports={thresholds};

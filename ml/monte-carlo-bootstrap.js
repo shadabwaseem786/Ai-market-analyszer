@@ -1,0 +1,2 @@
+// V34100: bootstrap confidence intervals for OOS metrics.
+function ci(values,B=1000){const a=values.filter(Number.isFinite);if(!a.length)return null;const means=[];for(let b=0;b<B;b++){let s=0;for(let i=0;i<a.length;i++)s+=a[Math.floor(Math.random()*a.length)];means.push(s/a.length)}means.sort((x,y)=>x-y);return{n:a.length,lo:means[Math.floor(.025*means.length)],hi:means[Math.floor(.975*means.length)]}}module.exports={ci};

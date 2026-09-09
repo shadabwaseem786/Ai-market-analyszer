@@ -1,0 +1,2 @@
+// V70900: immutable governance rules.
+module.exports={rules:{noLeakage:true,oosRequired:true,costAdjusted:true,calibrationRequired:true,driftMonitored:true,redTeamRequired:true,humanReviewForPromotion:true,automaticExecution:false}};

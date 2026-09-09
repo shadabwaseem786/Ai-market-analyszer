@@ -1,0 +1,2 @@
+// V24700: model bootstrap aggregation contract.
+function aggregate(models){const valid=models.filter(x=>Number.isFinite(x.score));if(!valid.length)return null;return {mean:valid.reduce((s,x)=>s+x.score,0)/valid.length,min:Math.min(...valid.map(x=>x.score)),max:Math.max(...valid.map(x=>x.score)),n:valid.length}}module.exports={aggregate};

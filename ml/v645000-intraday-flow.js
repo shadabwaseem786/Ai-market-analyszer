@@ -1,0 +1,2 @@
+// V645000 Intraday Flow Acceleration.
+function analyze(points=[]){const flows=points.map(p=>Number(p.flow??0));const acceleration=flows.length>1?flows.at(-1)-flows.at(-2):0;return {version:"V645000",flows,acceleration,researchOnly:true};} module.exports={analyze};

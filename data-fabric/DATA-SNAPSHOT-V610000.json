@@ -1,0 +1,13 @@
+{
+  "snapshot": [
+    "symbol",
+    "timestamp",
+    "price",
+    "volume",
+    "oi",
+    "bid",
+    "ask",
+    "source"
+  ],
+  "principle": "point_in_time"
+}

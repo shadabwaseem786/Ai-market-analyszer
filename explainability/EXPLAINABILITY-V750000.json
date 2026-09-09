@@ -1,0 +1,9 @@
+{
+  "outputs": [
+    "decision",
+    "probability",
+    "top drivers",
+    "contradictions",
+    "risk flags"
+  ]
+}

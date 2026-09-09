@@ -1,0 +1,18 @@
+/* V800000 ADAPTIVE REGIME + MARKET STATE INTELLIGENCE */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const mean=a=>a.length?a.reduce((s,x)=>s+n(x),0)/a.length:0;
+ function volatilityRegime(vol,history=[]){const h=history.map(n).filter(Number.isFinite);const m=mean(h)||n(vol,.5),v=n(vol,.5);return{value:v,ratio:m?v/m:1,state:v>m*1.5?"EXTREME":v>m*1.15?"HIGH":v<m*.75?"LOW":"NORMAL"}}
+ function trendRegime(adx,trendStrength,rangeScore){const a=n(adx),t=n(trendStrength),r=n(rangeScore);if(a>30&&t>.65)return"BULL/BEAR-TREND";if(a<18&&r>.65)return"SIDEWAYS";if(t<.35&&r<.5)return"CHOPPY";return"TRANSITION"}
+ function liquidityRegime(score){const s=n(score,.5);return s<.3?"STRESSED":s<.5?"THIN":s>.75?"DEEP":"NORMAL"}
+ function correlationRegime(avgCorr){const c=Math.abs(n(avgCorr));return c>.8?"HIGH-CORRELATION":c>.55?"ELEVATED":"DIVERSIFIED"}
+ function eventRegime(shock,eventScore){const s=n(shock),e=n(eventScore);if(s>.8)return"BLACK-SWAN";if(s>.6)return"SHOCK";if(e>.7)return"EVENT-DRIVEN";return"QUIET"}
+ function marketState(x={}){return{trend:trendRegime(x.adx,x.trendStrength,x.rangeScore),volatility:volatilityRegime(x.vol,x.volHistory).state,liquidity:liquidityRegime(x.liquidity),correlation:correlationRegime(x.avgCorrelation),event:eventRegime(x.shock,x.eventScore)}}
+ function transitionProbability(current,next,history={}){const key=current+"->"+next;return clamp(n(history[key],0),0,1)}
+ function adaptiveWeights(regime,models={}){const base={...models};const map={TRENDING:{trend:.3,momentum:.2},SIDEWAYS:{meanReversion:.3,options:.2},CHOPPY:{microstructure:.3,risk:.25},SHOCK:{event:.35,macro:.25},BLACK_SWAN:{risk:.5,event:.35}};const adj=map[regime]||{};for(const k of Object.keys(adj))base[k]=n(base[k],0)+adj[k];const total=Object.values(base).reduce((a,b)=>a+n(b),0)||1;for(const k of Object.keys(base))base[k]=n(base[k])/total;return base}
+ function adaptiveThreshold(base,regime){const b=n(base,.6);const mult={TRENDING:.95,SIDEWAYS:1.08,CHOPPY:1.15,SHOCK:1.25,BLACK_SWAN:1.5}[regime]||1;return clamp(b*mult,0,1)}
+ function anomaly(x={}){const z=n(x.zScore);const vol=n(x.volSpike);const gap=n(x.gap);const score=clamp(.45*Math.min(1,Math.abs(z)/4)+.3*Math.min(1,vol/3)+.25*Math.min(1,gap/0.05),0,1);return{score,state:score>.8?"SEVERE":score>.6?"HIGH":score>.35?"MODERATE":"NORMAL"}}
+ function blackSwan(x={}){const a=n(x.anomaly),s=n(x.shock),l=n(x.liquidity);const score=clamp(.45*a+.4*s+.15*(1-l),0,1);return{score,active:score>.82,action:score>.82?"PRESERVE-CAPITAL":"NORMAL"}}
+ function controller(x={}){const state=marketState(x);const regime=state.event==="BLACK-SWAN"?"BLACK_SWAN":state.event==="SHOCK"?"SHOCK":state.trend==="BULL/BEAR-TREND"?"TRENDING":state.trend==="SIDEWAYS"?"SIDEWAYS":state.trend==="CHOPPY"?"CHOPPY":"TRANSITION";const confPenalty={BLACK_SWAN:.5,SHOCK:.25,CHOPPY:.15,TRANSITION:.1}[regime]||0;return{state,regime,confidenceMultiplier:1-confPenalty,weights:adaptiveWeights(regime,x.models||{}),threshold:adaptiveThreshold(x.baseThreshold,regime),tradeMode:regime==="BLACK_SWAN"?"NO-TRADE":regime==="SHOCK"?"DEFENSIVE":"NORMAL"}}
+ global.RegimeV800000={volatilityRegime,trendRegime,liquidityRegime,correlationRegime,eventRegime,marketState,transitionProbability,adaptiveWeights,adaptiveThreshold,anomaly,blackSwan,controller};
+})(typeof globalThis!=="undefined"?globalThis:window);

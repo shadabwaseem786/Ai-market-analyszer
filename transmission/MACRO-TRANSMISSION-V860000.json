@@ -1,0 +1,9 @@
+{
+  "channels": [
+    "oil\u2192inflation",
+    "FX\u2192inflation",
+    "rates\u2192equity",
+    "global risk\u2192India"
+  ],
+  "output": "transmission score"
+}

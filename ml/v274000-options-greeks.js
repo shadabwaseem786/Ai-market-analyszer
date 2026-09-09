@@ -1,0 +1,2 @@
+// V274000 Options Greeks intelligence.
+function aggregate(options=[]){const keys=["delta","gamma","theta","vega","rho"];const out={};for(const k of keys)out[k]=options.reduce((s,o)=>s+Number(o[k]||0),0);return {version:"V274000",greeks:out,count:options.length,researchOnly:true};} module.exports={aggregate};

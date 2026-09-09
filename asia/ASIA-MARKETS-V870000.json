@@ -1,0 +1,10 @@
+{
+  "assets": [
+    "Nikkei",
+    "Hang Seng",
+    "Shanghai",
+    "KOSPI",
+    "SGX/GIFT"
+  ],
+  "purpose": "Asian risk tone"
+}

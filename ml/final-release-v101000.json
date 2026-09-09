@@ -1,0 +1,12 @@
+{
+  "version":"V101000",
+  "name":"Unified Research Agent Orchestration Layer",
+  "status":"RESEARCH_ONLY",
+  "executionDisabled":true,
+  "automaticTrading":false,
+  "automaticPromotion":false,
+  "extends":"V100000",
+  "layers":["agent-orchestration","bounded-research-memory","hypothesis-lab","explainability-trace","safety-governor"],
+  "designPrinciples":["multi-agent style decomposition","evidence-first reasoning","bounded memory","counterfactual challenge","auditable provenance","hard execution firewall"],
+  "note":"AGI-style is architectural terminology; this is not literal AGI and does not guarantee market prediction accuracy."
+}

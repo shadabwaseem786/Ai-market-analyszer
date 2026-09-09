@@ -1,0 +1,2 @@
+// V363000 Monte Carlo simulation scaffold.
+function simulate(generator,runs=1000){const out=[];for(let i=0;i<runs;i++){const v=Number(generator(i));if(Number.isFinite(v))out.push(v)}const mean=out.length?out.reduce((a,b)=>a+b,0)/out.length:null;return {version:"V363000",runs:out.length,mean,values:out,researchOnly:true};} module.exports={simulate};

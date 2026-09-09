@@ -1,0 +1,13 @@
+{
+ "version":"V120000",
+ "name":"Catalyst Intelligence Engine",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V119000",
+ "layers":["event-impact-scoring","event-novelty","catalyst-half-life","priced-in-assessment","transmission-map","catalyst-governor"],
+ "eventTypes":["EARNINGS","CORPORATE_ACTION","MACRO","POLICY","GEOPOLITICAL","COMMODITY","FLOW","REGULATORY","ANALYST","UNEXPECTED"],
+ "purpose":"Evaluate catalyst surprise, materiality, priced-in state, decay and transmission into Indian F&O research.",
+ "note":"Catalyst scores are analytical estimates and not guarantees of market response."
+}

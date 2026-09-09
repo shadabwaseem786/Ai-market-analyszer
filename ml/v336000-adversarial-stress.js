@@ -1,0 +1,2 @@
+// V336000 adversarial feature stress testing.
+function stress(predict,base={},perturbations=[]){if(typeof predict!=="function")return {version:"V336000",error:"predict function required",researchOnly:true};const baseline=predict(base);const tests=perturbations.map(p=>({perturbation:p,output:predict({...base,...p})}));return {version:"V336000",baseline,tests,researchOnly:true};} module.exports={stress};

@@ -1,0 +1,2 @@
+// V194000 IV crush / expansion research detector.
+function detect(x={}){const before=Number(x.ivBefore||0),after=Number(x.ivAfter||0),realized=Number(x.realizedVol||0);const change=after-before;return {version:"V194000",ivChange:+change.toFixed(4),state:change>2?"EXPANSION":change<-2?"CRUSH":"STABLE",ivVsRealized:+(after-realized).toFixed(4),researchOnly:true};} module.exports={detect};

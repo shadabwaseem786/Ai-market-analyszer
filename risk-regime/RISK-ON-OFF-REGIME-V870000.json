@@ -1,0 +1,8 @@
+{
+  "states": [
+    "RISK-ON",
+    "MIXED",
+    "RISK-OFF"
+  ],
+  "purpose": "cross-asset regime classification"
+}

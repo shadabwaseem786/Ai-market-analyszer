@@ -1,0 +1,2 @@
+// V84800: final signal schema with hard safety gates.
+function finalize(x={}){const allowed=["STRONG_BUY","BUY","HOLD","SELL","STRONG_SELL","ABSTAIN"];const signal=allowed.includes(x.signal)?x.signal:"ABSTAIN";return{...x,signal,probability:Math.max(0,Math.min(.995,Number(x.probability)||0)),researchOnly:true,automaticExecution:false}}module.exports={finalize};

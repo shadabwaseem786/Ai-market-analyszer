@@ -1,0 +1,3 @@
+// V280000 India F&O Microstructure Intelligence Core — never executes trades.
+const stages=["MICROSTRUCTURE","ORDER_FLOW","LIQUIDITY","GREEKS","DEALER_POSITIONING","OI_PRICE_VOLUME","IV_SURFACE","EXPIRY_DYNAMICS","POSITIONING_SYNTHESIS","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V280000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={stages,run};

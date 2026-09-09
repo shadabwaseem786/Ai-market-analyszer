@@ -1,0 +1,2 @@
+// V40900: non-executing production-readiness checklist.
+function check(gates={}){const required=["data","oos","cost","risk","calibration","drift","ops"];const missing=required.filter(k=>gates[k]!==true);return{ready:missing.length===0,missing,executionDisabled:true}}module.exports={check};

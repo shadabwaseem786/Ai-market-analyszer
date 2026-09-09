@@ -1,0 +1,8 @@
+{
+  "methods": [
+    "ATR risk sizing",
+    "fractional Kelly",
+    "volatility targeting"
+  ],
+  "guardrail": "bounded by portfolio risk gates"
+}

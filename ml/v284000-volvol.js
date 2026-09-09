@@ -1,0 +1,2 @@
+// V284000 Volatility-of-volatility intelligence.
+function analyze(values=[]){const v=values.map(Number).filter(Number.isFinite);if(v.length<2)return {version:"V284000",volOfVol:null,researchOnly:true};const diffs=v.slice(1).map((x,i)=>x-v[i]);const mean=diffs.reduce((a,b)=>a+b,0)/diffs.length;const variance=diffs.reduce((s,x)=>s+(x-mean)**2,0)/diffs.length;return {version:"V284000",volOfVol:Math.sqrt(variance),researchOnly:true};} module.exports={analyze};

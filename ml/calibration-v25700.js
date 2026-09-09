@@ -1,0 +1,2 @@
+// V25700: validation-set calibration diagnostics.
+function bins(rows,buckets=10){const out=Array.from({length:buckets},()=>({n:0,p:0,y:0}));for(const r of rows){if(!Number.isFinite(r.p)||!Number.isFinite(r.y))continue;const i=Math.min(buckets-1,Math.floor(r.p*buckets));out[i].n++;out[i].p+=r.p;out[i].y+=r.y}return out.map(x=>x.n?{n:x.n,p:x.p/x.n,y:x.y/x.n}:x)}module.exports={bins};

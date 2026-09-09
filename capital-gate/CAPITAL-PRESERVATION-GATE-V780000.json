@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "drawdown",
+    "VaR ratio",
+    "concentration",
+    "risk of ruin"
+  ],
+  "states": [
+    "CAPITAL-OK",
+    "CAPITAL-PRESERVATION"
+  ]
+}

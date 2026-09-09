@@ -1,0 +1,11 @@
+{
+  "fields": [
+    "model_id",
+    "version",
+    "training_window",
+    "features",
+    "regime_scope",
+    "calibration",
+    "status"
+  ]
+}

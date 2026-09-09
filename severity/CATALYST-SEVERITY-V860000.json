@@ -1,0 +1,15 @@
+{
+  "states": [
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "inputs": [
+    "market reach",
+    "persistence",
+    "surprise",
+    "transmission",
+    "credibility"
+  ]
+}

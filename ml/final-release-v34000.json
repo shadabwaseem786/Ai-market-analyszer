@@ -1,0 +1,1 @@
+{"version":"V34000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["online_learning_guard","ensemble_voting","regime_transition","label_quality","missingness","outlier_robustness","feature_selection","regime_cost","risk_of_ruin"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

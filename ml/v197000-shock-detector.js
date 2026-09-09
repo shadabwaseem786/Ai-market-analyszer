@@ -1,0 +1,2 @@
+// V197000 Market shock / tail-event detector.
+function detect(x={}){const z=Math.abs(Number(x.zScore||0)),gap=Math.abs(Number(x.gapPct||0)),vol=Number(x.volatility||0);const risk=Math.min(100,z*15+gap*10+Math.max(0,vol-50));return {version:"V197000",tailRisk:+risk.toFixed(2),state:risk>=80?"EXTREME":risk>=50?"ELEVATED":"NORMAL",researchOnly:true};} module.exports={detect};

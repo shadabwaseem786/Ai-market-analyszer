@@ -1,0 +1,56 @@
+name: Refresh V730000 market data
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: v730000-refresh-deploy
+  cancel-in-progress: true
+
+jobs:
+  refresh-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Refresh static data
+        run: node scripts/build-static.mjs
+
+      - name: Prepare refreshed Pages site
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          rsync -a             --exclude='.git/'             --exclude='.github/'             --exclude='*.zip'             --exclude='netlify/'             --exclude='_site/'             ./ _site/
+          touch _site/.nojekyll
+          test -f _site/index.html
+          test -f _site/data/market-data.json
+          test -f _site/data/catalyst-feed.json
+          test -f _site/data/v730-runtime.json
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload refreshed Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy refreshed Pages site
+        id: deployment
+        uses: actions/deploy-pages@v4

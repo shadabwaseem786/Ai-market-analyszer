@@ -1,0 +1,3 @@
+// V210000 AGI-Style Market Reasoning Layer 2.0 — orchestration only; no trading.
+const stages=["AGENT_DEBATE","BULL_BEAR","INVALIDATION","CAUSAL_GRAPH","EVENT_CHAIN","REGIME_TRANSITION","HISTORICAL_ANALOGY","RED_TEAM","DECISION_QUALITY","REALITY_VALIDATION"];
+function reason(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V210000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={stages,reason};

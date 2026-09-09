@@ -1,0 +1,29 @@
+{
+  "fields": [
+    "signalId",
+    "symbol",
+    "decision",
+    "confidence",
+    "createdAt",
+    "entryRef",
+    "stopRef",
+    "targetRef",
+    "status",
+    "modelVersion",
+    "regime",
+    "catalystId",
+    "snapshots",
+    "outcome",
+    "outcomeTimestamp",
+    "pnl",
+    "returnR",
+    "tradeQuality"
+  ],
+  "states": [
+    "ACTIVE",
+    "ENTERED",
+    "CLOSED",
+    "INVALIDATED"
+  ],
+  "purpose": "track predictions and hypothetical trades without placing broker orders"
+}

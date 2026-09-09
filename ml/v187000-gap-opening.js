@@ -1,0 +1,2 @@
+// V187000 Gap / Opening-Range Intelligence.
+function analyze(x={}){const gap=Number(x.gapPct||0),or=Number(x.openingRangePct||0);return {version:"V187000",gapPct:gap,openingRangePct:or,gapClass:Math.abs(gap)>=2?"LARGE":Math.abs(gap)>=.75?"MODERATE":"SMALL",openingExpansion:Math.abs(or)>=1.5?"EXPANDED":"NORMAL",researchOnly:true};} module.exports={analyze};

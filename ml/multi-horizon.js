@@ -1,0 +1,2 @@
+// V43400: multi-horizon consensus.
+function consensus(horizons=[]){const a=horizons.filter(x=>x&&Number.isFinite(x.probability));if(!a.length)return{signal:"HOLD",confidence:0};const p=a.reduce((s,x)=>s+x.probability,0)/a.length;return{signal:p>=.67?"BUY":p<=.33?"SELL":"HOLD",confidence:Math.abs(p-.5)*2,averageProbability:p,horizons:a.length}}module.exports={consensus};

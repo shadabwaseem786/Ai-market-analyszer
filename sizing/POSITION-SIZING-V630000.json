@@ -1,0 +1,13 @@
+{
+  "inputs": [
+    "capital",
+    "risk_budget",
+    "stop_distance",
+    "price",
+    "confidence",
+    "liquidity",
+    "concentration",
+    "catalyst_risk"
+  ],
+  "principle": "risk-adjusted sizing"
+}

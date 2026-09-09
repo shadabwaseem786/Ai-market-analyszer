@@ -1,0 +1,2 @@
+// V521000 Data Provenance Engine — research only.
+function tag(records=[]){return {version:"V521000",records:records.map(r=>({...r,provenance:{source:r.source||"unknown",capturedAt:r.capturedAt||null}})),researchOnly:true};} module.exports={tag};

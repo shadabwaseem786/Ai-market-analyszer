@@ -1,0 +1,2 @@
+// V186000 Index -> Sector -> Stock propagation.
+function propagate(index={},sectors=[],stocks=[]){const sectorOut=sectors.map(s=>({...s,expectedImpact:Number(index.impact||0)*Number(s.beta??1)}));const stockOut=stocks.map(s=>{const sec=sectorOut.find(a=>a.sector===s.sector);return {...s,expectedImpact:Number(sec?.expectedImpact||0)*Number(s.beta??1)}});return {version:"V186000",index,sectors:sectorOut,stocks:stockOut,researchOnly:true};} module.exports={propagate};

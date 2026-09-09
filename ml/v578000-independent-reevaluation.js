@@ -1,0 +1,2 @@
+// V578000 Independent Re-Evaluation.
+function reevaluate(original={},alternative={}){return {version:"V578000",original,alternative,agreement:JSON.stringify(original)===JSON.stringify(alternative),researchOnly:true};} module.exports={reevaluate};

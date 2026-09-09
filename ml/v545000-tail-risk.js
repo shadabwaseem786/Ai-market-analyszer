@@ -1,0 +1,2 @@
+// V545000 Tail-Risk Detector.
+function detect(samples=[],threshold=.05){const v=samples.map(Number).filter(Number.isFinite).sort((a,b)=>a-b);const i=Math.max(0,Math.floor(v.length*threshold)-1);return {version:"V545000",lowerTail:v.length?v[i]:null,threshold,researchOnly:true};} module.exports={detect};

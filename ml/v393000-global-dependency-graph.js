@@ -1,0 +1,2 @@
+// V393000 Global dependency graph.
+function build(nodes=[],edges=[]){return {version:"V393000",nodes,edges:edges.map(e=>({...e,weight:Number(e.weight??1)})),researchOnly:true};} module.exports={build};

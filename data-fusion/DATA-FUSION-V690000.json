@@ -1,0 +1,8 @@
+{
+  "features": [
+    "multi_source_fusion",
+    "weighted_consensus",
+    "timestamp_normalization",
+    "cross_source_reconciliation"
+  ]
+}

@@ -1,0 +1,2 @@
+// V579000 Final Adversarial Gate.
+function gate(m={}){const pass=!m.biasDetected&&!m.falsificationTriggered&&!m.unresolvedAssumptions&&Number(m.confidence??0)>=Number(m.minimumConfidence??.7);return {version:"V579000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

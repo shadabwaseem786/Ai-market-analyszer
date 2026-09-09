@@ -1,0 +1,8 @@
+{
+  "methods": [
+    "weighted voting",
+    "stacking-ready architecture",
+    "consensus scoring"
+  ],
+  "output": "ensemble probability"
+}

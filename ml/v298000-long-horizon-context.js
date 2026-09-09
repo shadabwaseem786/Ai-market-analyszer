@@ -1,0 +1,2 @@
+// V298000 Long-horizon market context.
+function build(episodes=[],horizon=252){const recent=episodes.slice(-horizon);return {version:"V298000",horizon,episodes:recent.length,context:recent,researchOnly:true};} module.exports={build};

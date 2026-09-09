@@ -1,0 +1,2 @@
+// V397000 persistent world-state memory scaffold.
+function append(memory=[],state={},max=1000){const next=[...memory,state];return {version:"V397000",memory:next.slice(-max),size:Math.min(next.length,max),researchOnly:true};} module.exports={append};

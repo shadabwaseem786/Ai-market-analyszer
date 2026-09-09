@@ -1,0 +1,2 @@
+// V668000 Sentiment Reversal Predictor.
+function detect(series=[]){const n=series.length;if(n<3)return {version:"V668000",reversal:false,confidence:0,researchOnly:true};const a=Number(series[n-3]),b=Number(series[n-2]),c=Number(series[n-1]);const reversal=(b-a)*(c-b)<0;return {version:"V668000",reversal,confidence:reversal?Math.min(1,Math.abs(c-2*b+a)):0,researchOnly:true};} module.exports={detect};

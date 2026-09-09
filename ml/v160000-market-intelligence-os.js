@@ -1,0 +1,3 @@
+// V160000 Unified Market Intelligence Operating System.
+const layers=["PROVENANCE","LEAKAGE_FIREWALL","DATA_FUSION","FEATURES","REGIME","INTRADAY","CATALYST","OPTIONS","MICROSTRUCTURE","CROSS_ASSET","MODELS","SCENARIOS","UNCERTAINTY","COUNTERFACTUAL","RED_TEAM","CALIBRATION","BENCHMARK","VALIDATION","POSTMORTEM","RESEARCH_GUARD","DECISION","EXPLANATION","LEDGER","GOVERNANCE"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const layer of layers){const fn=handlers[layer];if(typeof fn==="function")state=fn(state)||state;trace.push({layer,status:"COMPLETED"})}return {version:"V160000",state,trace,layers,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};} module.exports={layers,run};

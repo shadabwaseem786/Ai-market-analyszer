@@ -1,0 +1,11 @@
+{
+  "targets": [
+    "stocks",
+    "indices",
+    "sectors",
+    "commodities",
+    "currencies",
+    "countries",
+    "themes"
+  ]
+}

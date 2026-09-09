@@ -1,0 +1,2 @@
+// V629000 Learning Integrity Gate.
+function gate(m={}){const pass=!m.driftDetected&&!m.dataLeakage&&!m.calibrationFailure&&m.walkForwardValid===true;return {version:"V629000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

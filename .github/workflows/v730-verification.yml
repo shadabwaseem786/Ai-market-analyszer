@@ -1,0 +1,95 @@
+name: V730000 Verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'netlify/functions/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'scripts/**'
+      - 'data/**'
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - 'netlify/functions/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'scripts/**'
+      - 'data/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+  schedule:
+    - cron: '*/15 * * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  v730-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate package manifest
+        run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json valid')"
+
+      - name: Validate runtime syntax
+        run: node --check netlify/functions/v730-runtime.js
+
+      - name: Validate smoke-test syntax
+        run: node --check tests/v730-runtime-smoke.js
+
+      - name: Run V730 runtime smoke test
+        run: npm run test:v730-runtime
+
+      - name: Validate static build script syntax
+        run: node --check scripts/build-static.mjs
+
+      - name: Validate required V730 data files
+        run: node -e "const fs=require('fs'); for (const p of ['data/v730-runtime.json','data/v730-market.json','data/v730-catalysts.json']) { if(!fs.existsSync(p)) throw new Error('Missing '+p); JSON.parse(fs.readFileSync(p,'utf8')); console.log('valid '+p); }"
+
+      - name: Run static refresh build
+        run: npm run refresh-data
+        env:
+          CI: true
+
+      - name: Validate published Pages endpoint
+        env:
+          PAGES_RUNTIME_URL: https://shadabwaseem786.github.io/Ai-market-analyszer/data/v730-runtime.json
+        run: |
+          node --input-type=module -e "
+            const url=process.env.PAGES_RUNTIME_URL;
+            const r=await fetch(url,{cache:'no-store'});
+            if(!r.ok) throw new Error('Pages HTTP '+r.status);
+            const j=await r.json();
+            if(!j || typeof j!=='object') throw new Error('Invalid Pages runtime JSON');
+            if(!Array.isArray(j.results)) throw new Error('Pages runtime results missing');
+            const allowed=['INTEGRATED','DEGRADED','CLOSED','UNKNOWN'];
+            if(j.status && !allowed.includes(String(j.status))) throw new Error('Unexpected runtime status '+j.status);
+            console.log('Pages runtime OK: HTTP '+r.status+' status='+String(j.status||'UNKNOWN')+' results='+j.results.length);
+          "
+
+  release-certification:
+    needs: v730-runtime
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Certification gate
+        env:
+          RUNTIME_RESULT: ${{ needs.v730-runtime.result }}
+        run: |
+          echo "V730000 verification job: $RUNTIME_RESULT"
+          if [ "$RUNTIME_RESULT" != "success" ]; then
+            echo "::error::V730000 is not certified because the runtime verification job did not succeed."
+            exit 1
+          fi
+          echo "V730000 verification gate passed."

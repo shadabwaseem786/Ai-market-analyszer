@@ -1,0 +1,7 @@
+{
+  "rules": [
+    "freeze learning on severe model degradation",
+    "freeze on strong concept drift",
+    "require validation before promotion"
+  ]
+}
