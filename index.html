@@ -247,7 +247,8 @@ function normalizeBackend(raw){
 async function load(){
  try{
   const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),10000);
-  const r=await fetch(V730_BACKEND+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); clearTimeout(timer);
+  const selectedMarket=String(localStorage.getItem("v730_market_universe")||"NSE").toUpperCase();
+  const r=await fetch(V730_BACKEND+"?market="+encodeURIComponent(selectedMarket)+"&t="+Date.now(),{cache:"no-store",signal:ctl.signal}); clearTimeout(timer);
   if(!r.ok)throw new Error("Backend HTTP "+r.status);
   const raw=await r.json(),state=normalizeBackend(raw); j=state; d=state.data;
   arr=Object.values(d).filter(x=>x&&x.quality===100);
@@ -259,7 +260,7 @@ async function load(){
    rows.innerHTML=arr.length?arr.map(x=>{const dec=decision(x)[0],stable=stabilityState(x);return "<tr data-instrument='"+esc(x.symbol)+"'><td>"+esc(x.symbol)+"</td><td>"+(Number.isFinite(x.price)?Number(x.price).toFixed(2):"—")+"</td><td>"+(Number.isFinite(x.movePct)?x.movePct.toFixed(2)+"%":"—")+"</td><td>"+esc(x.trend||"—")+"</td><td>"+(Number.isFinite(x.rsi)?x.rsi.toFixed(1):"—")+"</td><td>"+(Number.isFinite(x.atrPct)?x.atrPct.toFixed(2)+"%":"—")+"</td><td>"+(Number.isFinite(x.ret5)?x.ret5.toFixed(2)+"%":"—")+"</td><td>"+(Number.isFinite(x.ret20)?x.ret20.toFixed(2)+"%":"—")+"</td><td>"+(Number.isFinite(x.score)?x.score:"—")+"</td><td>"+(Number.isFinite(x.confidence)?x.confidence+"%":"—")+"</td><td>"+esc(x.regime||"—")+"</td><td>"+(Number.isFinite(x.ageMinutes)?x.ageMinutes+" min":"—")+"</td><td>"+esc(dec)+" • "+esc(stable)+"</td></tr>"}).join(""):"<tr><td colspan='13'>No validated market observations. WAIT / NO-TRADE is retained.</td></tr>";
    rows.querySelectorAll("tr[data-instrument]").forEach(tr=>{tr.onclick=()=>{selectedName=tr.dataset.instrument;localStorage.setItem("v730_selected_instrument",selectedName);renderSelected(selectedName);const z=d[selectedName];if(z&&z.quality===100&&typeof runAI==="function")runAI(z).catch(()=>{});}});
   }
-  document.getElementById("market").textContent=state.marketSession||"UNKNOWN"; document.getElementById("health").textContent=arr.length+"/3"; document.getElementById("healthSub").textContent=arr.length+" validated instrument feeds"; document.getElementById("feed").textContent=state.catalyst?.items?.length?"LIVE":"CHECKING";
+  document.getElementById("market").textContent=state.marketSession||selectedMarket; document.getElementById("health").textContent=arr.length+"/"+Object.keys(d).length; document.getElementById("healthSub").textContent=arr.length+" validated "+selectedMarket+" instrument feeds"; document.getElementById("feed").textContent=state.catalyst?.items?.length?"LIVE":"CHECKING";
   window.__V735_DATA_TS__=Date.parse(state.generatedAt)||Date.now(); renderSelected(selectedName);
   if(arr.length&&typeof runAI==="function")runAI(d[selectedName]||arr[0]).catch(()=>{}); arr.forEach(x=>learningLedger(x));
   document.getElementById("diag").textContent=state.errors.length?state.errors.join(" | "):"Backend market-data validation passed.";
@@ -504,28 +505,27 @@ function renderGodMode(){
 <script id="v730-market-selector-js">
 (function(){
  const KEY='v730_market_universe';
- const supported={NSE:true,NASDAQ:false,COMMODITY:false};
+ const supported={NSE:true,NASDAQ:true,COMMODITY:true};
  function setMarket(m){
    m=String(m||'NSE').toUpperCase();
-   if(!supported[m] && m!=='NASDAQ' && m!=='COMMODITY')m='NSE';
+   if(!supported[m])m='NSE';
    localStorage.setItem(KEY,m);
    document.querySelectorAll('.market-filter-shared .filter-active-label').forEach(x=>x.textContent=m==='NSE'?'ALL':m);
-   document.querySelectorAll('[data-v730-market]').forEach(b=>b.classList.toggle('active',b.dataset.v730Market===m));
+   document.querySelectorAll('[data-v730-market]').forEach(btn=>btn.classList.toggle('active',btn.dataset.v730Market===m));
    const st=document.getElementById('v730MarketSelectorStatus');
-   if(st)st.textContent=m==='NSE'?'NSE • India F&O':m+' • feed not configured yet';
-   if(m!=='NSE'){
-     const rows=document.getElementById('rows'); if(rows)rows.innerHTML='<tr><td colspan="13"><span class="pill warn">'+m+' data feed is not configured in this GitHub Pages build. No synthetic prices/signals are shown.</span></td></tr>';
-     const health=document.getElementById('health');if(health){health.textContent='NOT CONFIGURED';health.className='warn'}
-     const market=document.getElementById('market');if(market)market.textContent=m;
-     const d=document.getElementById('v730Decision');if(d)d.textContent='WAIT';
-     const conf=document.getElementById('v730Confidence');if(conf)conf.textContent='—';
-     const vm=document.getElementById('v730Market');if(vm)vm.textContent=m;
-     const vh=document.getElementById('v730Health');if(vh)vh.textContent='NO FEED';
-     const reason=document.getElementById('v730Reason');if(reason)reason.textContent=m+' feed is not configured. V730000 intentionally blocks BUY/SELL rather than inventing market data.';
-   }else{
-     if(typeof load==='function')load();
-     if(typeof news==='function')news();
-   }
+   if(st)st.textContent=m==='NSE'?'NSE • India F&O':m+' • live public feed';
+   const rows=document.getElementById('rows');
+   if(rows)rows.innerHTML='<tr><td colspan="13"><span class="pill">Loading '+m+' public market data…</span></td></tr>';
+   const health=document.getElementById('health');if(health){health.textContent='LOADING';health.className=''};
+   const market=document.getElementById('market');if(market)market.textContent=m;
+   const d=document.getElementById('v730Decision');if(d)d.textContent='WAIT';
+   const conf=document.getElementById('v730Confidence');if(conf)conf.textContent='—';
+   const vm=document.getElementById('v730Market');if(vm)vm.textContent=m;
+   const vh=document.getElementById('v730Health');if(vh)vh.textContent='LOADING';
+   const reason=document.getElementById('v730Reason');if(reason)reason.textContent='Loading validated '+m+' public market observations…';
+   if(typeof load==='function')load();
+   if(typeof news==='function')news();
+   if(typeof window.V1003RenderNewbieMarkets==='function')setTimeout(window.V1003RenderNewbieMarkets,700);
  }
  document.addEventListener('DOMContentLoaded',function(){
    document.querySelectorAll('[data-v730-market]').forEach(b=>b.addEventListener('click',()=>setMarket(b.dataset.v730Market)));
@@ -550,12 +550,6 @@ window.V730UI={
  },
  refresh:function(){
   var selectedMarket=String(localStorage.getItem('v730_market_universe')||'NSE').toUpperCase();
-  if(selectedMarket!=='NSE'){
-   var nd=document.getElementById('v730Decision'),nc=document.getElementById('v730Confidence'),nm=document.getElementById('v730Market'),nh=document.getElementById('v730Health'),nr=document.getElementById('v730Reason');
-   if(nd)nd.textContent='WAIT'; if(nc)nc.textContent='—'; if(nm)nm.textContent=selectedMarket; if(nh)nh.textContent='NO FEED';
-   if(nr)nr.textContent=selectedMarket+' feed is not configured. V730000 intentionally blocks BUY/SELL rather than inventing market data.';
-   return;
-  }
   var runtime=window.__V730_RUNTIME__;
   if(runtime&&Array.isArray(runtime.results)){
    var visibleRow=document.querySelector('#rows tr:not([data-market-filter-hidden="1"])');
@@ -566,11 +560,11 @@ window.V730UI={
     var d=selected.decision;
     document.getElementById('v730Decision').textContent=d.decision||'WAIT';
     document.getElementById('v730Confidence').textContent=(d.confidence??'—')+'%';
-    document.getElementById('v730Market').textContent=selected.symbol||'—';
+    document.getElementById('v730Market').textContent=selected.symbol||selectedMarket||'—';
     document.getElementById('v730Health').textContent=(d.inputs&&d.inputs.dataHealth!=null)?d.inputs.dataHealth+'%':'—';
     var intel=d.intelligence||{};
     var state=(d.gate!=='PASS'||d.decision==='WAIT')?'NO-TRADE':(Number(intel.uncertaintyBand||0)>=40?'ALERT':(Number(d.confidence||0)>=75?'ACTION':'FOCUS'));
-    var panel=document.getElementById('v730NewbiePanel'); if(panel){panel.classList.remove('v731-state-alert','v731-state-focus','v731-state-action','v731-state-no-trade');panel.classList.add('v731-state-'+state.toLowerCase().replace('-','-'));}
+    var panel=document.getElementById('v730NewbiePanel'); if(panel){panel.classList.remove('v731-state-alert','v731-state-focus','v731-state-action','v731-state-no-trade');panel.classList.add('v731-state-'+state.toLowerCase());}
     var set731=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v};
     set731('v731State',state); set731('v731Robustness',d.governance&&d.governance.counterfactualBreak?'LOW':'—'); set731('v731Uncertainty',intel.uncertaintyBand!=null?intel.uncertaintyBand+'%':'—'); set731('v731Regime',intel.regime||'UNKNOWN'); var inp=d.inputs||{}; set731('v731Tech',inp.technicalScore!=null?Math.round(inp.technicalScore):'—'); set731('v731Cat',inp.catalystConfidence!=null?Math.round(inp.catalystConfidence)+'%':'—'); set731('v731AI',inp.aiProbability!=null?Math.round(inp.aiProbability)+'%':'—'); set731('v731Reg',intel.regime||'UNKNOWN'); set731('v731Risk',d.riskScore!=null?Math.round(d.riskScore):'—'); set731('v731Data',inp.dataHealth!=null?Math.round(inp.dataHealth)+'%':'—');
     var inv=document.getElementById('v731Invalidation'); if(inv) inv.textContent=d.gate==='PASS'?'Signal invalidates if data quality, risk, uncertainty or cross-engine alignment deteriorates.':'NO-TRADE: actionable status requires valid data, acceptable risk, controlled uncertainty and aligned evidence.';
@@ -581,9 +575,9 @@ window.V730UI={
   var market=document.getElementById('market');
   document.getElementById('v730Decision').textContent='WAIT';
   document.getElementById('v730Confidence').textContent='—';
-  document.getElementById('v730Market').textContent=market?market.textContent:'—';
+  document.getElementById('v730Market').textContent=selectedMarket;
   document.getElementById('v730Health').textContent='—';
-  if(reason) reason.textContent=window.__V730_RUNTIME_ERROR__ ? 'Runtime unavailable — WAIT until data integrity is restored.' : 'Waiting for verified V730000 runtime evidence.';
+  if(reason) reason.textContent=window.__V730_RUNTIME_ERROR__ ? 'Runtime unavailable — WAIT until validated data returns.' : 'Validated '+selectedMarket+' market data is loading.';
  },
  init:function(){this.setMode(localStorage.getItem('fno_mode')||'NEWBIE');this.refresh();}
 };
