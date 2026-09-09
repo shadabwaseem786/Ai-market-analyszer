@@ -360,6 +360,7 @@ function renderSelected(name){
  set("v930Conf",Number.isFinite(z.confidence)?z.confidence+"%":"—");
  set("v930Cat",catalystSummary.catalystBias+" • "+catalystSummary.catalystConfidence+"%");
  const u=unifiedDecision(z);
+ const uai=window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[name];
  set("v970Signal",u.signal==="BUY"?"🟢 BUY":u.signal==="SELL"?"🔴 SELL":u.signal==="NO-TRADE"?"⛔ NO-TRADE":"🟡 WAIT");
  set("v1000Signal",u.signal==="BUY"?"🟢 BUY":u.signal==="SELL"?"🔴 SELL":u.signal==="NO-TRADE"?"⛔ NO-TRADE":"🟡 WAIT");
  set("v1000Score",u.score===null?"—":(u.score>0?"+":"")+u.score+"/100");
@@ -373,7 +374,6 @@ function renderSelected(name){
  set("v1000Why",why); set("v1000WhyTitle",u.signal==="BUY"?"WHY BUY?":u.signal==="SELL"?"WHY SELL?":u.signal==="NO-TRADE"?"WHY NO-TRADE?":"WHY WAIT?");
  set("v970Score",u.score===null?"—":(u.score>0?"+":"")+u.score+"/100"); set("v970Evidence",u.evidenceConfidence===undefined?"Evidence confidence —":"Evidence confidence "+u.evidenceConfidence+"%");
  set("v970Factor",u.factor===undefined?"—":(u.factor>0?"+":"")+Math.round(u.factor));
- const uai=window.__V730_AI_BY_SYMBOL&&window.__V730_AI_BY_SYMBOL[name];
  set("v970AI",uai&&Number.isFinite(uai.probability)?(uai.direction||"NEUTRAL")+" "+Math.round(uai.probability)+"%":"—");
  set("v970Catalyst",(catalystSummary.catalystBias||"NEUTRAL")+" "+(catalystSummary.catalystConfidence||0)+"%");
  set("v970Risk",(z.regime||"—")+" / "+(Number.isFinite(z.riskScore)?Math.round(z.riskScore):"—"));
