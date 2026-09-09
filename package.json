@@ -1,0 +1,6 @@
+{
+  "name":"ai-market-analyszer-master",
+  "private":true,
+  "type":"commonjs",
+  "engines":{"node":">=20"}
+}
