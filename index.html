@@ -1622,7 +1622,17 @@ function signal1069(x){try{return typeof decision==='function'?decision(x)[0]:'W
 function render1069(){
  var g=document.getElementById('v1069RecGrid');if(!g)return;
  var rows=Object.values(window.__V730_DATA__||d||{}).filter(x=>x&&x.quality===100&&Number.isFinite(x.price));
- rows.sort((a,b)=>(Number(b.confidence)||0)-(Number(a.confidence)||0)||(Number(b.score)||0)-(Number(a.score)||0));
+ function rank1069(x){
+   var dir=(String(x.bias||'').toUpperCase()==='BEARISH'?-1:1);
+   var move=Math.abs(Number(x.movePct)||0);
+   var ret5=Math.abs(Number(x.ret5)||0);
+   var ret20=Math.abs(Number(x.ret20)||0);
+   var agree=Number(x.agreementPct)||0;
+   var conf=Number(x.confidence)||0;
+   var risk=Number(x.riskScore)||0;
+   return move*8+ret5*3+ret20*2+agree*.08+conf*.04-risk*.03;
+ }
+ rows.sort((a,b)=>rank1069(b)-rank1069(a));
  if(!rows.length){
    g.innerHTML='<div class="v1069-empty">No validated stock/index observations are available right now. The safety gate is blocking directional recommendations rather than inventing signals.</div>';
    var note=document.getElementById('v1069RecNote');if(note)note.textContent=((j&&j.errors&&j.errors.length)?'Feed diagnostics: '+j.errors.slice(0,3).join(' • '):'Backend returned no quality=100 observations.')+' • WAIT / NO-TRADE retained.';
@@ -1630,7 +1640,8 @@ function render1069(){
  }
  var indices=rows.filter(x=>/^(NIFTY|BANKNIFTY|FINNIFTY)$/i.test(x.symbol||'')),stocks=rows.filter(x=>!indices.includes(x));
  const card=(x,i,kind)=>{var s=signal1069(x),cls=/BUY|WATCH-LONG/.test(s)?'🟢':/SELL|WATCH-SHORT/.test(s)?'🔴':/NO-TRADE/.test(s)?'⛔':'🟡';
- return '<div class="v1069-rec" data-v1069-symbol="'+esc1069(x.symbol||'')+'"><div class="v1069-rec-top"><span>#'+(i+1)+' '+esc1069(x.symbol||'Instrument')+'</span><span>'+kind+' • '+esc1069(x.regime||'—')+'</span></div><div class="v1069-rec-signal">'+cls+' '+esc1069(s)+'</div><div class="v1069-rec-meta"><span>Price '+Number(x.price).toFixed(2)+'</span><span>Move '+(Number.isFinite(x.movePct)?x.movePct.toFixed(2)+'%':'—')+'</span><span>Confidence '+(Number.isFinite(x.confidence)?x.confidence+'%':'—')+'</span><span>Quality '+x.quality+'</span></div></div>';};
+ var rationale=(x.rationale||'').split(' • ').slice(0,2).join(' • ');
+ return '<div class="v1069-rec" data-v1069-symbol="'+esc1069(x.symbol||'')+'"><div class="v1069-rec-top"><span>#'+(i+1)+' '+esc1069(x.symbol||'Instrument')+'</span><span>'+kind+' • '+esc1069(x.regime||'—')+'</span></div><div class="v1069-rec-signal">'+cls+' '+esc1069(s)+'</div><div class="v1069-rec-meta"><span>Price '+Number(x.price).toFixed(2)+'</span><span>Move '+(Number.isFinite(x.movePct)?x.movePct.toFixed(2)+'%':'—')+'</span><span>5D '+(Number.isFinite(x.ret5)?x.ret5.toFixed(2)+'%':'—')+'</span><span>Confidence '+(Number.isFinite(x.confidence)?x.confidence+'%':'—')+'</span><span>Risk '+(Number.isFinite(x.riskScore)?x.riskScore:'—')+'</span><span>Quality '+x.quality+'</span></div><div class="v1069-note">'+esc1069(rationale||'Multi-factor ranking')}</div>';};
  g.innerHTML='<div class="v1069-group-title">📊 TOP INDICES</div>'+indices.slice(0,3).map((x,i)=>card(x,i,'INDEX')).join('')+'<div class="v1069-group-title">🏢 TOP F&amp;O STOCKS</div>'+stocks.slice(0,6).map((x,i)=>card(x,i,'STOCK')).join('');
  g.querySelectorAll('.v1069-rec').forEach(el=>el.onclick=function(){var s=el.dataset.v1069Symbol;try{selectedName=s;localStorage.setItem('v730_selected_instrument',s);if(typeof renderSelected==='function')renderSelected(s);if(typeof runAI==='function'&&d[s])runAI(d[s]).catch(()=>{})}catch(e){}});
 }
