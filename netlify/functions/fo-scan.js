@@ -27,7 +27,7 @@ async function marketIsOpen(market){
  const mins=local.getHours()*60+local.getMinutes();
  if(market==='NSE')return mins>=555&&mins<=930;
  if(market==='NASDAQ')return mins>=570&&mins<960;
- if(market==='COMMODITY')return mins>=540&&mins<1440;
+ if(market==='COMMODITY')return true;
  return false;
 }
 async function fetchJson(url){
@@ -46,8 +46,11 @@ async function fetchSeries(symbol,range,interval,host){
 async function fetchOne(symbol,marketOpen){
  const hosts=['query1.finance.yahoo.com','query2.finance.yahoo.com'];
  let dailyRows,lastErr;
- for(const host of hosts){try{dailyRows=await fetchSeries(symbol,'6mo','1d',host);if(dailyRows.length>=60)break;}catch(e){lastErr=e;}}
+ for(const host of hosts){try{const candidate=await fetchSeries(symbol,'6mo','1d',host);if(candidate.length>=60){dailyRows=candidate;break;}}catch(e){lastErr=e;}}
  if(!dailyRows||dailyRows.length<60)throw new Error(lastErr?.message||'insufficient history');
+ if(!marketOpen && dailyRows.at(-1)?.t && (Date.now()-dailyRows.at(-1).t*1000)>24*60*60*1000){
+  try{const alt=await fetchSeries(symbol,'6mo','1d',hosts[1]);if(alt.length>=60 && alt.at(-1).t>dailyRows.at(-1).t)dailyRows=alt;}catch(e){}
+ }
  const closes=dailyRows.map(z=>z.x),volumes=dailyRows.map(z=>finite(z.v)?z.v:0),dailyTs=dailyRows.map(z=>z.t);
  let livePrice=null,liveTs=null,liveSource='daily-close';
  if(marketOpen){
