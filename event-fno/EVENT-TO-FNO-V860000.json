@@ -1,0 +1,9 @@
+{
+  "inputs": [
+    "severity",
+    "oil shock",
+    "volatility",
+    "index sensitivity"
+  ],
+  "output": "F&O impact"
+}

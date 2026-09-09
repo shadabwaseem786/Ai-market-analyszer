@@ -1,0 +1,9 @@
+{
+  "states": [
+    "COMPLACENT",
+    "NORMAL",
+    "ELEVATED",
+    "PANIC"
+  ],
+  "purpose": "volatility stress regime"
+}

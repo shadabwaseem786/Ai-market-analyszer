@@ -1,0 +1,2 @@
+// V239000 Causal decision confidence.
+function score(x={}){const temporal=Number(x.temporal||0),strength=Number(x.causalStrength||0),stability=Number(x.stability||0),confounders=Number(x.confounders||0);return {version:"V239000",score:+Math.max(0,Math.min(100,(temporal+strength+stability)/3-confounders*.2)).toFixed(2),components:{temporal,strength,stability,confounders},researchOnly:true};} module.exports={score};

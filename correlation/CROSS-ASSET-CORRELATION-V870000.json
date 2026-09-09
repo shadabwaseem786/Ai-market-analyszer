@@ -1,0 +1,4 @@
+{
+  "method": "rolling correlation",
+  "purpose": "detect changing cross-asset relationships"
+}

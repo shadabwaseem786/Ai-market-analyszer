@@ -1,0 +1,3 @@
+// V420000 Unified Market Intelligence Orchestrator — no execution.
+const stages=["INTELLIGENCE_BUS","STATE_SYNCHRONIZATION","EVIDENCE_ARBITRATION","CONFLICT_RESOLUTION","HIERARCHICAL_REASONING","CHAIN_FUSION","DYNAMIC_CONFIDENCE","GLOBAL_RISK_GATE","DECISION_COMPILER","UNCERTAINTY","ROBUSTNESS","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V420000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

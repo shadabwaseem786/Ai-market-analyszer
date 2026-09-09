@@ -1,0 +1,13 @@
+{
+  "rules": [
+    "long-term structural bias has priority for positional decisions",
+    "short-term bias remains tactical",
+    "conflict reduces conviction"
+  ],
+  "outputs": [
+    "LONG-BIAS",
+    "SHORT-BIAS",
+    "REDUCE-CONVICTION",
+    "WAIT"
+  ]
+}

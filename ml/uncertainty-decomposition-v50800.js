@@ -1,0 +1,2 @@
+// V50800: decomposes uncertainty into model/data/regime components.
+function decompose({model=.2,data=.2,regime=.2}={}){const a=[model,data,regime].map(Number);return{model:a[0],data:a[1],regime:a[2],total:Math.min(1,a.reduce((s,x)=>s+x,0)/3)}}module.exports={decompose};

@@ -1,0 +1,12 @@
+{
+  "features": [
+    "trend_strength",
+    "volatility",
+    "volatility_percentile",
+    "breadth",
+    "liquidity",
+    "event_intensity",
+    "breakout_score",
+    "mean_reversion_score"
+  ]
+}

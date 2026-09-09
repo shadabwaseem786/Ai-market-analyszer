@@ -1,0 +1,12 @@
+{
+  "outputs": [
+    "event_type",
+    "sentiment",
+    "uncertainty",
+    "novelty",
+    "severity",
+    "source_reliability",
+    "entities",
+    "fingerprint"
+  ]
+}

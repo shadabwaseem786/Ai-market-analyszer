@@ -1,0 +1,8 @@
+{
+  "outputs": [
+    "transition_probability",
+    "transition_alert",
+    "early_warning"
+  ],
+  "method": "rolling empirical transition frequencies"
+}

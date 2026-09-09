@@ -1,0 +1,5 @@
+/* V60000 Autonomous Research Lab: candidates are sandboxed and never auto-deployed. */
+function generateCandidates(base={}){return ["momentum","mean_reversion","options_flow","regime_moe","analog","sentiment","hybrid"].map((family,i)=>({id:"C"+(i+1),family,features:base.features||[],status:"CANDIDATE"}))}
+function evaluate(candidates=[],metrics={}){return candidates.map(c=>({...c,validation:metrics[c.family]||{walkForward:false,oos:null,costAdjusted:null,calibration:null}}))}
+function promote(champion,candidate){const m=candidate?.validation||{};const pass=!!m.walkForward&&Number(m.oos)>=Number(champion?.oos||-Infinity)&&Number(m.costAdjusted)>=Number(champion?.costAdjusted||-Infinity)&&Number(m.calibration)>=Number(champion?.calibration||-Infinity);return{selected:pass?"candidate":"champion",candidateAccepted:pass,requiresHumanReview:true,executionDisabled:true}}
+module.exports={generateCandidates,evaluate,promote};

@@ -1,0 +1,2 @@
+// V287000 Liquidity regime transition model.
+function detect(previous,current){return {version:"V287000",previous:previous||"UNKNOWN",current:current||"UNKNOWN",transition:(previous||"UNKNOWN")!==(current||"UNKNOWN"),researchOnly:true};} module.exports={detect};

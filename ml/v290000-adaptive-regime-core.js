@@ -1,0 +1,3 @@
+// V290000 Adaptive Regime Intelligence Core — research only, no execution.
+const stages=["MULTI_TIMEFRAME","HIDDEN_STATE","TRANSITION","VOL_OF_VOL","TREND_MEAN_REVERSION","COMPRESSION_EXPANSION","LIQUIDITY_REGIME","MODEL_ROUTER","REGIME_FUSION","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V290000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={stages,run};

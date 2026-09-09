@@ -1,0 +1,2 @@
+// V716000 Duplicate / Echo-News Detector.
+function dedupe(items=[]){const seen=new Set(),unique=[],duplicates=[];for(const x of items){const key=String(x.canonicalId??x.headline??"").toLowerCase().replace(/\\s+/g," ").trim();if(seen.has(key))duplicates.push(x);else{seen.add(key);unique.push(x);}}return {version:"V716000",unique,duplicates,researchOnly:true};} module.exports={dedupe};

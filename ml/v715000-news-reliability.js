@@ -1,0 +1,2 @@
+// V715000 News Reliability Ranking.
+function rank(items=[]){return {version:"V715000",items:[...items].map(x=>({...x,reliability:Number(x.reliability??0)})).sort((a,b)=>b.reliability-a.reliability),researchOnly:true};} module.exports={rank};

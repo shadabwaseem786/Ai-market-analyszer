@@ -1,0 +1,2 @@
+// V394000 Event–Entity knowledge graph.
+function link(events=[],entities=[]){return {version:"V394000",links:events.flatMap(e=>(e.entities||[]).map(id=>({event:e.id,entity:id,impact:e.impact||"UNKNOWN"}))),eventCount:events.length,entityCount:entities.length,researchOnly:true};} module.exports={link};

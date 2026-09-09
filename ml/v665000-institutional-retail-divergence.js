@@ -1,0 +1,2 @@
+// V665000 Institutional-vs-Retail Divergence.
+function detect(m={}){const divergence=Number(m.institutionalScore??0)-Number(m.retailScore??0);return {version:"V665000",divergence,institutionalDominant:divergence>0,retailDominant:divergence<0,researchOnly:true};} module.exports={detect};

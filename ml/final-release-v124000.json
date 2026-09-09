@@ -1,0 +1,13 @@
+{
+ "version":"V124000",
+ "name":"Probabilistic Ensemble & Model Council",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V123000",
+ "layers":["multi-model-ensemble","model-disagreement","regime-aware-routing","ensemble-calibration","abstention","model-council-governor"],
+ "modelFamilies":["STATISTICAL","ML_TABULAR","TIME_SERIES","OPTIONS_MICROSTRUCTURE","CAUSAL","WORLD_MODEL","ANALOGUE","REGIME_MODEL","SENTIMENT","RULE_BASED"],
+ "purpose":"Combine independent prediction families with regime-aware dynamic weighting, disagreement analysis and abstention.",
+ "note":"Ensemble probability is an analytical estimate, not a guaranteed outcome."
+}

@@ -1,0 +1,2 @@
+// V216000 Dynamic confidence recalibration.
+function recalibrate(x={}){const p=Math.max(0,Math.min(1,Number(x.probability??.5))),drift=Math.max(0,Math.min(1,Number(x.drift||0))),agreement=Math.max(0,Math.min(1,Number(x.agreement??1)));const adjusted=.5+(p-.5)*(1-drift)*agreement;return {version:"V216000",rawProbability:p,recalibratedProbability:+adjusted.toFixed(5),confidence:+(Math.abs(adjusted-.5)*200).toFixed(2),researchOnly:true};} module.exports={recalibrate};

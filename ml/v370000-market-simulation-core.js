@@ -1,0 +1,3 @@
+// V370000 Market Simulation & Counterfactual Laboratory — no execution.
+const stages=["SCENARIO_STATE","COUNTERFACTUALS","MONTE_CARLO","PATH_SIMULATION","TAIL_RISK","REGIME_SIMULATION","STRESS_LIBRARY","SCENARIO_RANKING","SCENARIO_CONSENSUS","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V370000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

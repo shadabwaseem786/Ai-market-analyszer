@@ -1,0 +1,2 @@
+// V33400: target-label quality diagnostics.
+function check(rows){const a=rows.filter(x=>Number.isFinite(x.y));const counts={};for(const x of a)counts[x.y]=(counts[x.y]||0)+1;return {samples:a.length,classes:Object.keys(counts).length,counts,imbalanced:Object.values(counts).length>1&&Math.max(...Object.values(counts))/Math.max(1,Math.min(...Object.values(counts)))>10}}module.exports={check};

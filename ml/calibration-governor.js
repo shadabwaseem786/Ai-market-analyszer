@@ -1,0 +1,2 @@
+// V90600: probability governor; blocks unsupported certainty.
+function govern(p,{calibration=.5,uncertainty=.5,dataQuality=.5}={}){const raw=Math.max(0,Math.min(1,Number(p)||0));const cap=Math.min(.995,.5+.495*Math.max(0,Math.min(1,calibration))*Math.max(0,Math.min(1,dataQuality))*(1-Math.max(0,Math.min(1,uncertainty))));return{raw,display:Math.min(raw,cap),cap,abstain:calibration<.65||dataQuality<.75||uncertainty>.35}}module.exports={govern};

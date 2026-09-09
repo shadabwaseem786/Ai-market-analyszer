@@ -1,0 +1,18 @@
+{
+  "supported_timeframes": [
+    "1m",
+    "5m",
+    "15m",
+    "30m",
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "outputs": [
+    "alignment",
+    "conflict",
+    "confluence_score",
+    "optimal_timeframe",
+    "decision_adjustment"
+  ]
+}

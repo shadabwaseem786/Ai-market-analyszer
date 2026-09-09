@@ -1,0 +1,8 @@
+{
+  "flags": [
+    "wide_spread",
+    "depth_anomaly",
+    "volume_price_anomaly"
+  ],
+  "action": "reduce confidence / fallback"
+}

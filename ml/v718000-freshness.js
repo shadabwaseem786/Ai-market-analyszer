@@ -1,0 +1,2 @@
+// V718000 Signal Freshness Engine.
+function score(signals=[],halfLifeMs=300000){return {version:"V718000",signals:signals.map(s=>({...s,freshness:Math.exp(-Math.max(0,Date.now()-Number(s.timestamp??0))/halfLifeMs)})),researchOnly:true};} module.exports={score};

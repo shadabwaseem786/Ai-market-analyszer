@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "feature distribution drift",
+    "prediction drift",
+    "performance drift"
+  ]
+}

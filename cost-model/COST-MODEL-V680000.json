@@ -1,0 +1,8 @@
+{
+  "components": [
+    "slippage",
+    "brokerage",
+    "taxes",
+    "market_impact"
+  ]
+}

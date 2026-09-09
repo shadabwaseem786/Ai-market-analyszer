@@ -1,0 +1,2 @@
+// V683000 Adversarial Thesis Challenger.
+function challenge(thesis={},attacks=[]){const surviving=attacks.filter(a=>Number(a.severity??0)<Number(thesis.maxSeverity??.7));return {version:"V683000",thesis,attacks,survivingAttacks:surviving.length,researchOnly:true};} module.exports={challenge};

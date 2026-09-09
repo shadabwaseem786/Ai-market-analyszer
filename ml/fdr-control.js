@@ -1,0 +1,2 @@
+// V42100: false-discovery-rate research control.
+function bh(pValues,q=.1){const a=pValues.map(Number).filter(Number.isFinite).map((p,i)=>({p,i})).sort((a,b)=>a.p-b.p);let k=-1;for(let i=0;i<a.length;i++)if(a[i].p<=q*(i+1)/a.length)k=i;return{cutoff:k>=0?a[k].p:null,rejections:k+1}}module.exports={bh};

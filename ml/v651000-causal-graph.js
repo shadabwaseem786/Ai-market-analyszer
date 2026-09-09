@@ -1,0 +1,2 @@
+// V651000 Causal Graph Intelligence — research only.
+function build(nodes=[],edges=[]){return {version:"V651000",nodes,edges,acyclic:!edges.some(e=>e.from===e.to),researchOnly:true};} module.exports={build};

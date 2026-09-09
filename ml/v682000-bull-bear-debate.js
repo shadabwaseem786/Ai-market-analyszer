@@ -1,0 +1,2 @@
+// V682000 Bull-vs-Bear AI Debate.
+function debate(bull={},bear={}){return {version:"V682000",bull,bear,netScore:Number(bull.score??0)-Number(bear.score??0),researchOnly:true};} module.exports={debate};

@@ -1,0 +1,2 @@
+// V633000 Explainable AI Attribution.
+function attribute(features=[]){const total=features.reduce((s,f)=>s+Math.abs(Number(f.contribution??0)),0);return {version:"V633000",features:features.map(f=>({...f,normalizedContribution:total?Number(f.contribution??0)/total:0})),researchOnly:true};} module.exports={attribute};

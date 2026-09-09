@@ -1,0 +1,7 @@
+{
+  "features": [
+    "USDINR level",
+    "change"
+  ],
+  "output": "FX stress"
+}

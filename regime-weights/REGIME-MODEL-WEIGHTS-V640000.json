@@ -1,0 +1,4 @@
+{
+  "principle": "regime-specific weights",
+  "fallback": "baseWeight"
+}

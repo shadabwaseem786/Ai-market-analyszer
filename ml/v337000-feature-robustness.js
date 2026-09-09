@@ -1,0 +1,2 @@
+// V337000 feature robustness analyzer.
+function analyze(results=[]){const grouped={};for(const r of results){const k=r.feature||"UNKNOWN";(grouped[k]??=[]).push(Number(r.sensitivity||0));}return {version:"V337000",features:Object.fromEntries(Object.entries(grouped).map(([k,a])=>[k,{meanSensitivity:a.reduce((x,y)=>x+y,0)/a.length,maxSensitivity:Math.max(...a)}])),researchOnly:true};} module.exports={analyze};

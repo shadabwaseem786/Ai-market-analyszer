@@ -1,0 +1,2 @@
+// V84100: validation-driven ensemble weights.
+function optimize(models=[]){const valid=models.filter(m=>Number.isFinite(m.oos)&&Number.isFinite(m.brier));const raw=valid.map(m=>Math.max(.01,(m.oos||0)-(m.brier||0)));const s=raw.reduce((a,b)=>a+b,0)||1;return valid.map((m,i)=>({...m,weight:raw[i]/s}))}module.exports={optimize};

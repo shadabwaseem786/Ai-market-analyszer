@@ -1,0 +1,2 @@
+// V428000 incremental intelligence updates.
+function apply(state={},delta={}){return {version:"V428000",state:{...state,...delta},changed:Object.keys(delta),researchOnly:true};} module.exports={apply};

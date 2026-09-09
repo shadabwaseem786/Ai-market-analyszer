@@ -1,6 +1,9 @@
 {
-  "name":"ai-market-analyszer-master",
+  "name":"india-fno-catalyst-monitor-github-pages",
   "private":true,
   "type":"commonjs",
+  "scripts":{
+    "refresh-data":"node scripts/build-static.mjs"
+  },
   "engines":{"node":">=20"}
 }

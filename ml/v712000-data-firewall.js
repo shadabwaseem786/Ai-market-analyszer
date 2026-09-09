@@ -1,0 +1,2 @@
+// V712000 Data Quality & Anomaly Firewall.
+function validate(records=[]){return {version:"V712000",accepted:records.filter(r=>r!=null&&r.valid!==false),rejected:records.filter(r=>r==null||r.valid===false),researchOnly:true};} module.exports={validate};

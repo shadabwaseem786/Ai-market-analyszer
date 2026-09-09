@@ -1,0 +1,6 @@
+{
+  "metrics": [
+    "expected_value",
+    "risk_adjusted_value"
+  ]
+}

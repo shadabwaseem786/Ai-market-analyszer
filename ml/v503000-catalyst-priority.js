@@ -1,0 +1,2 @@
+// V503000 Catalyst Priority Ranking.
+function rank(catalysts=[]){return {version:"V503000",catalysts:[...catalysts].sort((a,b)=>(Number(b.impact??0)*Number(b.urgency??1))-(Number(a.impact??0)*Number(a.urgency??1))),researchOnly:true};} module.exports={rank};

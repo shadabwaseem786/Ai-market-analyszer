@@ -1,0 +1,9 @@
+{
+  "outputs": [
+    "direct_impacts",
+    "multi_hop_paths",
+    "cascade_score",
+    "relationship_confidence",
+    "lifecycle_state"
+  ]
+}

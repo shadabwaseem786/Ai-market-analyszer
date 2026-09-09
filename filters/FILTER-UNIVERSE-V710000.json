@@ -1,0 +1,13 @@
+{
+  "default": "ALL",
+  "filters": [
+    "ALL",
+    "INDICES",
+    "STOCKS",
+    "STOCK F&O",
+    "INDEX F&O",
+    "OPTIONS",
+    "FUTURES",
+    "ETFS"
+  ]
+}

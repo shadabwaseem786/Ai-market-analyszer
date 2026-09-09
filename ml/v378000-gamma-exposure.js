@@ -1,0 +1,2 @@
+// V378000 gamma/dealer-exposure research scaffold.
+function estimate(options=[]){const total=options.reduce((s,o)=>s+Number(o.gamma||0)*Number(o.openInterest||0),0);return {version:"V378000",gammaExposure:total,options:options.length,researchOnly:true};} module.exports={estimate};

@@ -1,0 +1,2 @@
+// V569000 Causal Reliability Gate.
+function gate(m={}){const pass=!m.conflict&&Number(m.causalConfidence??0)>=Number(m.minimumConfidence??.7)&&Number(m.dataQuality??1)>=Number(m.minimumDataQuality??.7);return {version:"V569000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

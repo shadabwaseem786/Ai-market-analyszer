@@ -1,0 +1,2 @@
+// V509000 Cognitive State Synthesizer.
+function synthesize(inputs={}){return {version:"V509000",state:inputs.state||"UNCERTAIN",attention:inputs.attention||[],dominantCatalysts:inputs.dominantCatalysts||[],uncertainty:Number(inputs.uncertainty??1),researchOnly:true};} module.exports={synthesize};

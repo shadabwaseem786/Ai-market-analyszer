@@ -1,0 +1,2 @@
+// V564000 Counterfactual Scenario Engine.
+function generate(base={},interventions=[]){return {version:"V564000",base,scenarios:interventions.map(i=>({...i,counterfactual:true,result:i.result??null})),researchOnly:true};} module.exports={generate};

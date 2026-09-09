@@ -1,0 +1,2 @@
+// V475000 Catalyst Propagation Graph.
+function propagate(catalyst,paths=[]){return {version:"V475000",catalyst,paths:paths.map(p=>({...p,impact:Number(p.weight??1)*Number(p.catalystShock??0)})),researchOnly:true};} module.exports={propagate};

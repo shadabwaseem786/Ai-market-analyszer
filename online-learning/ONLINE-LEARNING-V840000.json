@@ -1,0 +1,7 @@
+{
+  "purpose": "adapt model weights from rolling performance",
+  "guardrails": [
+    "bounded weights",
+    "minimum contribution"
+  ]
+}

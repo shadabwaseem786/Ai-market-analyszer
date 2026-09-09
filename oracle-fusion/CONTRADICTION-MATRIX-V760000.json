@@ -1,0 +1,4 @@
+{
+  "purpose": "detect conflicting evidence before final decision",
+  "action": "penalize confidence / WAIT"
+}

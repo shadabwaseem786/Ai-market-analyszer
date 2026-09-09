@@ -1,0 +1,2 @@
+// V302000 multi-source news intelligence adapter.
+function normalize(items=[]){return {version:"V302000",items:items.map(x=>({title:x.title||"",source:x.source||"UNKNOWN",timestamp:x.timestamp||null,entities:x.entities||[],text:x.text||""})),researchOnly:true};} module.exports={normalize};

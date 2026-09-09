@@ -1,0 +1,6 @@
+{
+  "version": "V730000-RECOVERY",
+  "status": "DEGRADED",
+  "gate": "HOLD",
+  "error": "No valid market feeds"
+}

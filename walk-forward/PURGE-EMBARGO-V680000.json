@@ -1,0 +1,3 @@
+{
+  "purpose": "reduce temporal leakage around overlapping labels"
+}

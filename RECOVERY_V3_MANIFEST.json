@@ -1,0 +1,11 @@
+{
+  "version": "Recovery V3",
+  "baseline": "V1253-era master",
+  "enhancement": "V870 cross-asset/intermarket intelligence",
+  "changes": [
+    "Frontend catalyst feed routed to /api/catalyst-feed",
+    "Retained Vercel API compatibility adapters",
+    "Retained Netlify source implementations",
+    "Preserved V1253 production as rollback reference"
+  ]
+}

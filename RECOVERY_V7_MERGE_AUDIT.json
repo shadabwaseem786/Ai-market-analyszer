@@ -1,0 +1,10 @@
+{
+  "version": "V7",
+  "status": "PASS",
+  "realtime_present": true,
+  "js_errors": [],
+  "removed_obsolete": [],
+  "realtime_source": "FLAT ZIP api/realtime.js",
+  "frontend_wiring": "/api/realtime",
+  "routing": "api/*.js"
+}

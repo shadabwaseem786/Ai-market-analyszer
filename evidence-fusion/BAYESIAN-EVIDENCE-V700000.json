@@ -1,0 +1,4 @@
+{
+  "feature": "likelihood-ratio posterior helper",
+  "note": "requires calibrated likelihood ratios"
+}

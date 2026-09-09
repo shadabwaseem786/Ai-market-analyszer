@@ -1,0 +1,2 @@
+// V581000 Decision Fusion Engine — research only.
+function fuse(inputs=[]){return {version:"V581000",inputs,validInputs:inputs.filter(x=>x.reliable!==false),researchOnly:true};} module.exports={fuse};

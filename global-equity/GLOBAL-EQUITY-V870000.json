@@ -1,0 +1,8 @@
+{
+  "assets": [
+    "S&P 500",
+    "Nasdaq",
+    "Dow"
+  ],
+  "purpose": "global equity breadth"
+}

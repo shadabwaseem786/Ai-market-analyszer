@@ -1,0 +1,2 @@
+// V30600: execution-latency sensitivity model for research only.
+function scenarios(base={}){return [0,100,250,500,1000].map(latency=>({...base,latencyMs:latency,executionDisabled:true}))}module.exports={scenarios};

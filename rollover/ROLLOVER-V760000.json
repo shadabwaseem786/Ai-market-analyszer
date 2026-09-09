@@ -1,0 +1,9 @@
+{
+  "states": [
+    "LONG-BUILDUP",
+    "SHORT-BUILDUP",
+    "SHORT-COVERING",
+    "LONG-UNWINDING",
+    "MIXED"
+  ]
+}

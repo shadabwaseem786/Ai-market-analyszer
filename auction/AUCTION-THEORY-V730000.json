@@ -1,0 +1,9 @@
+{
+  "states": [
+    "OPENING-GAP",
+    "PRICE-DISCOVERY",
+    "ACCEPTANCE",
+    "REJECTION",
+    "BALANCED-AUCTION"
+  ]
+}

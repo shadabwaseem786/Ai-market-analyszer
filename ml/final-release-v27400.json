@@ -1,0 +1,1 @@
+{"version":"V27400","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["meta_labeling","uncertainty","calibration_drift","cross_asset_risk","market_shift"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"no_auto_execution":true}

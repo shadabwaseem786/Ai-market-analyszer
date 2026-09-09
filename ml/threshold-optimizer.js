@@ -1,0 +1,2 @@
+// V23200: threshold selection on validation/OOS only.
+function optimize(rows,{minSamples=100}={}){const r=rows.filter(x=>Number.isFinite(x.probability)&&Number.isFinite(x.actual));if(r.length<minSamples)return null;let best=null;for(let t=.5;t<=.8;t+=.01){let tp=0,fp=0,fn=0;for(const x of r){const y=x.probability>=t?1:0;if(y&&x.actual)tp++;else if(y&&!x.actual)fp++;else if(!y&&x.actual)fn++}const f1=tp/(tp+.5*(fp+fn)||1);if(!best||f1>best.f1)best={threshold:+t.toFixed(2),f1}}return best}module.exports={optimize};

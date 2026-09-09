@@ -1,0 +1,2 @@
+// V254000 Survivorship-bias detector.
+function audit(universe=[],history=[]){const historical=new Set(history.map(x=>x.symbol));const missing=universe.filter(s=>!historical.has(s));return {version:"V254000",missingHistoricalCoverage:missing,count:missing.length,researchOnly:true};} module.exports={audit};

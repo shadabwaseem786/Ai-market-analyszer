@@ -1,0 +1,2 @@
+// V583000 Risk/Reward Engine.
+function evaluate(entry=0,target=0,stop=0){const reward=Math.abs(Number(target)-Number(entry)),risk=Math.abs(Number(entry)-Number(stop));return {version:"V583000",reward,risk,ratio:risk?reward/risk:null,researchOnly:true};} module.exports={evaluate};

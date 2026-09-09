@@ -1,0 +1,2 @@
+// V535000 Online Performance Tracking — research only.
+function track(models=[],observations=[]){return {version:"V535000",models:models.map(m=>({...m,recentObservations:observations.filter(o=>o.modelId===m.id)})),researchOnly:true};} module.exports={track};

@@ -1,0 +1,2 @@
+// V375000 large-participant flow detector.
+function detect(trades=[],threshold=100000){const large=trades.filter(t=>Number(t?.quantity||0)>=threshold);return {version:"V375000",largeTrades:large,count:large.length,notional:large.reduce((s,t)=>s+Number(t.price||0)*Number(t.quantity||0),0),researchOnly:true};} module.exports={detect};

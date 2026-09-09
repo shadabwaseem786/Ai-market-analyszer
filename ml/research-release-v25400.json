@@ -1,0 +1,1 @@
+{"version":"V25400","status":"RESEARCH_ONLY","executionDisabled":true,"contracts":["data","labels","purged_folds","oos_metrics"],"requiredEvidence":["real_historical_data","walk_forward","cost_stress","calibration","multiple_testing","audit"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"]}

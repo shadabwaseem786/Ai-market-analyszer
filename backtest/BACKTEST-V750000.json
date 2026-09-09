@@ -1,0 +1,11 @@
+{
+  "metrics": [
+    "accuracy",
+    "Brier",
+    "log loss",
+    "hit rate",
+    "drawdown hooks",
+    "profit factor hooks"
+  ],
+  "note": "results depend on supplied historical data and costs"
+}

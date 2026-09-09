@@ -1,0 +1,9 @@
+{
+  "inputs": [
+    "delta divergence",
+    "volume spike",
+    "range failure",
+    "reversal"
+  ],
+  "output": "exhaustion score"
+}

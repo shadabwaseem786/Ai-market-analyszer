@@ -1,0 +1,1 @@
+{"version":"V26900","status":"RESEARCH_ONLY","executionDisabled":true,"controls":["ensemble_diversity","regime_confidence","tail_risk","stress_scenarios","drift","abstention","OOS_validation","cost_stress","audit"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"horizons":[5,15,30,60]}

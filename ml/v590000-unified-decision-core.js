@@ -1,0 +1,3 @@
+// V590000 Unified Decision Intelligence Core — no execution.
+const stages=["DECISION_FUSION","SIGNAL_CONSENSUS","RISK_REWARD","EXPECTED_VALUE","INVALIDATION","POSITION_SIZING_RESEARCH","TIME_HORIZON","SCENARIO_MATRIX","DECISION_RELIABILITY_GATE","UNCERTAINTY","EXPLAINABILITY"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V590000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

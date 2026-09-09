@@ -1,0 +1,2 @@
+// V31100: interaction stability diagnostics.
+function pairwise(rows){const keys=Object.keys(rows?.[0]||{}).filter(k=>Number.isFinite(rows[0][k]));const out=[];for(let i=0;i<keys.length;i++)for(let j=i+1;j<keys.length;j++)out.push([keys[i],keys[j]]);return out}module.exports={pairwise};

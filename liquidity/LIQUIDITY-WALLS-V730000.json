@@ -1,0 +1,7 @@
+{
+  "features": [
+    "bid_walls",
+    "ask_walls",
+    "relative_size"
+  ]
+}

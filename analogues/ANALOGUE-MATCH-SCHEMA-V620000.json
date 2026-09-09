@@ -1,0 +1,10 @@
+{
+  "features": [
+    "type",
+    "theme",
+    "direction",
+    "regime",
+    "sector"
+  ],
+  "minimum_similarity": 0.6
+}

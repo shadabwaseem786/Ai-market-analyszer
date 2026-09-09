@@ -1,0 +1,19 @@
+/* V730000 MICROSTRUCTURE + ORDER FLOW INTELLIGENCE */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const mean=a=>a.length?a.reduce((s,x)=>s+n(x),0)/a.length:0;
+ function imbalance(bidVol=0,askVol=0){const b=Math.max(0,n(bidVol)),a=Math.max(0,n(askVol));return{ratio:a?b/a:null,score:(b+a)?(b-a)/(b+a):0}}
+ function tradeAggressor(trades=[]){let buy=0,sell=0,unknown=0;for(const t of trades){const q=Math.abs(n(t.qty));const p=n(t.price),bid=n(t.bid),ask=n(t.ask);if(p>=ask&&ask>0)buy+=q;else if(p<=bid&&bid>0)sell+=q;else unknown+=q}const total=buy+sell+unknown||1;return{buy,sell,unknown,buyShare:buy/total,sellShare:sell/total,delta:buy-sell,coverage:(buy+sell)/total}}
+ function cumulativeDelta(trades=[]){let d=0;return trades.map(t=>{d+=n(t.delta,n(t.buyVolume)-n(t.sellVolume));return{ts:t.ts,delta:d}})}
+ function liquidityWalls(book=[],threshold=2){const rows=book.filter(x=>Math.max(n(x.bidVolume),n(x.askVolume))>0);const avg=mean(rows.flatMap(x=>[n(x.bidVolume),n(x.askVolume)]))||1;return rows.filter(x=>Math.max(n(x.bidVolume),n(x.askVolume))>=avg*n(threshold,2)).map(x=>({...x,side:n(x.bidVolume)>=n(x.askVolume)?"BID":"ASK"}))}
+ function absorption(trades=[],book=[]){const agg=tradeAggressor(trades),walls=liquidityWalls(book,1.5);const wall=walls.length?mean(walls.map(w=>Math.max(n(w.bidVolume),n(w.askVolume)))):0;return{absorptionScore:clamp((agg.coverage*.4)+(wall>0?.6:0),0,1),possible:agg.coverage>.5&&walls.length>0}}
+ function exhaustion(trades=[],window=20){const a=tradeAggressor(trades.slice(-window)),direction=Math.abs(a.delta)/(a.buy+a.sell||1);return{score:clamp(direction*(1-a.coverage*.25),0,1),possible:direction>.7}}
+ function vwap(bars=[]){let pv=0,v=0;for(const x of bars){const tp=(n(x.high)+n(x.low)+n(x.close))/3;pv+=tp*n(x.volume);v+=n(x.volume)}return v?pv/v:null}
+ function avwap(bars=[],anchorIndex=0){return vwap(bars.slice(Math.max(0,anchorIndex)))}
+ function volumeProfile(bars=[],bins=20){if(!bars.length)return[];const lo=Math.min(...bars.map(x=>n(x.low))),hi=Math.max(...bars.map(x=>n(x.high)));const step=(hi-lo)/(bins||1)||1;const out=Array.from({length:bins},(_,i)=>({low:lo+i*step,high:lo+(i+1)*step,volume:0}));for(const x of bars){const p=n(x.close),i=Math.min(bins-1,Math.max(0,Math.floor((p-lo)/step)));out[i].volume+=n(x.volume)}return out}
+ function anomaly(x={}){const z=Math.abs(n(x.zScore)),spread=n(x.spreadPct),latency=n(x.latencyMs);return{score:clamp(z/4*.5+spread/2*.3+latency/5000*.2,0,1),flag:z>4||spread>.02||latency>5000}}
+ function auctionState(f={}){if(n(f.openingGap)>0.02)return"OPENING-GAP";if(n(f.rangeExpansion)>1.8)return"PRICE-DISCOVERY";if(n(f.volumeAcceptance)>.7)return"ACCEPTANCE";if(n(f.rejection)>.7)return"REJECTION";return"BALANCED-AUCTION"}
+ function microRegime(f={}){const im=Math.abs(n(f.imbalance)),del=Math.abs(n(f.deltaScore)),liq=n(f.liquidity,.7),abs=n(f.absorptionScore),ex=n(f.exhaustionScore);if(liq<.3)return"LIQUIDITY-STRESSED";if(abs>.75&&im>.5)return"ABSORPTION";if(ex>.75)return"EXHAUSTION";if(im>.65&&del>.55)return"AGGRESSIVE-FLOW";if(im<.2&&del<.2)return"BALANCED-FLOW";return"TRANSITION"} 
+ function flowSignal(f={}){const score=clamp(.3*n(f.imbalanceScore,.5)+.3*n(f.deltaScore,.5)+.2*n(f.absorptionScore,.5)+.2*(1-n(f.exhaustionScore,.2)),0,1);return{score,direction:score>.58?"BULLISH":score<.42?"BEARISH":"NEUTRAL"}}
+ global.MicrostructureV730000={imbalance,tradeAggressor,cumulativeDelta,liquidityWalls,absorption,exhaustion,vwap,avwap,volumeProfile,anomaly,auctionState,microRegime,flowSignal};
+})(typeof globalThis!=="undefined"?globalThis:window);

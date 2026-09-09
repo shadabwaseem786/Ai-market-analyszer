@@ -1,0 +1,22 @@
+{
+  "version":"V18200",
+  "horizons_minutes":[5,15,30,60],
+  "labels":{
+    "forward_return":"close(t+h)/close(t)-1",
+    "direction_after_cost":"sign(forward_return - round_trip_cost)",
+    "mfe":"max future favorable excursion within horizon",
+    "mae":"max future adverse excursion within horizon",
+    "target_hit":"future_high reaches target before stop",
+    "stop_hit":"future_low reaches stop before target"
+  },
+  "cost_model":{
+    "brokerage":"configurable",
+    "stt":"configurable",
+    "exchange_charges":"configurable",
+    "sebi_charges":"configurable",
+    "gst":"configurable",
+    "stamp_duty":"configurable",
+    "slippage_bps":[0.5,1,2,3]
+  },
+  "leakage_rule":"Never use future labels or post-entry prices as input features."
+}

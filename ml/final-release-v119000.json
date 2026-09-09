@@ -1,0 +1,13 @@
+{
+ "version":"V119000",
+ "name":"Cross-Asset Intelligence Nexus",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V118000",
+ "layers":["cross-asset-normalization","lead-lag-engine","cross-asset-divergence","global-risk-transmission","cross-asset-regime","nexus-governor"],
+ "assets":["NIFTY","BANKNIFTY","FINNIFTY","SECTOR","INDIA_VIX","USDINR","CRUDE","GOLD","US_INDICES","BOND_YIELDS","ASIA","GLOBAL_VOL","FII_FLOW","DII_FLOW"],
+ "purpose":"Model cross-asset relationships and detect dislocations relevant to Indian F&O research.",
+ "note":"Cross-asset relationships are dynamic and must be validated against current data."
+}

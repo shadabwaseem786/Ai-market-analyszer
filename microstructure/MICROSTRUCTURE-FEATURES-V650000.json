@@ -1,0 +1,13 @@
+{
+  "features": [
+    "spread",
+    "depth",
+    "order_imbalance",
+    "volume_imbalance",
+    "VWAP_deviation",
+    "liquidity_pressure",
+    "absorption",
+    "exhaustion",
+    "breakout_quality"
+  ]
+}

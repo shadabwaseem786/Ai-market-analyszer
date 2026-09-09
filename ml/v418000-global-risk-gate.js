@@ -1,0 +1,2 @@
+// V418000 global risk gate.
+function gate(x={}){const pass=!x.criticalRisk&&!x.ood&&!x.leakage&&!x.unresolvedContradictions&&Number(x.confidence??0)>=Number(x.minimumConfidence??.6);return {version:"V418000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

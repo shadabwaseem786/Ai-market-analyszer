@@ -1,0 +1,17 @@
+{
+  "grades": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "inputs": [
+    "probability",
+    "calibration",
+    "regime",
+    "microstructure",
+    "options",
+    "institutional",
+    "risk"
+  ]
+}

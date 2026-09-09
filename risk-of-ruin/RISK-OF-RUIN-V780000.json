@@ -1,0 +1,9 @@
+{
+  "inputs": [
+    "win probability",
+    "win/loss ratio",
+    "risk per trade",
+    "trade count"
+  ],
+  "purpose": "capital preservation flag"
+}

@@ -1,0 +1,2 @@
+// V227000 Failure-Mode Intelligence.
+function audit(model={},tests=[]){const failures=tests.filter(t=>t.failed||t.status==="FAIL");return {version:"V227000",model:model.name||"MODEL",failures,count:failures.length,severity:failures.length>=3?"HIGH":failures.length?"MEDIUM":"LOW",researchOnly:true};} module.exports={audit};

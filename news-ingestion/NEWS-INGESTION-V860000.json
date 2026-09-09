@@ -1,0 +1,9 @@
+{
+  "pipeline": [
+    "headline",
+    "timestamp",
+    "source",
+    "article metadata"
+  ],
+  "purpose": "normalized event feed"
+}

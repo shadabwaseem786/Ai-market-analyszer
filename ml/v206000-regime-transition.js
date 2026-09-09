@@ -1,0 +1,2 @@
+// V206000 Regime-transition predictor.
+function predict(history=[]){const last=history.at(-1)?.regime||"UNKNOWN",prev=history.at(-2)?.regime||last,transition=last!==prev;return {version:"V206000",current:last,previous:prev,transitionDetected:transition,transitionRisk:transition?75:25,researchOnly:true};} module.exports={predict};

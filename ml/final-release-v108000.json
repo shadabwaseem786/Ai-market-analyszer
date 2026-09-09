@@ -1,0 +1,12 @@
+{
+ "version":"V108000",
+ "name":"Probabilistic Market Brain",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V107000",
+ "layers":["probabilistic-fusion","bayesian-updating","probability-calibration","scenario-distribution","expected-value-risk","probabilistic-governor"],
+ "principles":["calibration","sequential evidence","distributional reasoning","uncertainty-aware decisions","abstention"],
+ "note":"Probabilities are estimates, not guarantees or promises of profitability."
+}

@@ -1,0 +1,2 @@
+// V598000 Portfolio Correlation & Exposure Engine.
+function analyze(positions=[]){const gross=positions.reduce((s,p)=>s+Math.abs(Number(p.exposure??0)),0);return {version:"V598000",grossExposure:gross,positions,researchOnly:true};} module.exports={analyze};

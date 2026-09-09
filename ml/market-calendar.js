@@ -1,0 +1,2 @@
+// V24500: exchange-session validation contract.
+function validSession(ts,{tz="Asia/Kolkata"}={}){const d=new Date(ts);if(!Number.isFinite(d.getTime()))return false;const day=d.getUTCDay();return day!==0&&day!==6}module.exports={validSession};

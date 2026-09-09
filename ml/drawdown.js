@@ -1,0 +1,2 @@
+// V23600: path-wise drawdown diagnostics.
+function analyze(returns){let equity=1,peak=1,maxDD=0;for(const r of returns.filter(Number.isFinite)){equity*=1+r;peak=Math.max(peak,equity);maxDD=Math.max(maxDD,1-equity/peak)}return {endingEquity:equity,maxDrawdown:maxDD}}module.exports={analyze};

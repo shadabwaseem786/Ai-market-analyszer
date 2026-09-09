@@ -1,0 +1,2 @@
+// V41300: population stability index diagnostic.
+function psi(expected,actual){let s=0;for(const k of Object.keys(expected||{})){const e=Math.max(Number(expected[k])||0,1e-9),a=Math.max(Number(actual?.[k])||0,1e-9);s+=(a-e)*Math.log(a/e)}return s}module.exports={psi};

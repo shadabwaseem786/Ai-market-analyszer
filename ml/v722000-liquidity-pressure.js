@@ -1,0 +1,2 @@
+// V722000 Liquidity-Pressure Detector.
+function detect(m={}){const p=Number(m.liquidityPressure??0);return {version:"V722000",pressure:p,state:p>.6?"BUY_PRESSURE":p<-.6?"SELL_PRESSURE":"BALANCED",researchOnly:true};} module.exports={detect};

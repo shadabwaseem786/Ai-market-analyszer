@@ -1,0 +1,3 @@
+// V310000 Real-Time Market Event Intelligence Core — never executes trades.
+const stages=["EVENT_STREAM","NEWS_INTELLIGENCE","ENTITY_RESOLUTION","CATALYST_SEVERITY","ASSET_MAPPING","REACTION_FORECAST","GLOBAL_TRANSMISSION","EVENT_SCENARIOS","CATALYST_FUSION","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V310000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={stages,run};

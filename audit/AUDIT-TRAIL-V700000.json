@@ -1,0 +1,9 @@
+{
+  "fields": [
+    "timestamp",
+    "version",
+    "event",
+    "sequence"
+  ],
+  "purpose": "decision traceability"
+}

@@ -1,0 +1,2 @@
+// V524000 Missing-Data Recovery.
+function recover(records=[],fallbacks={}){return {version:"V524000",records:records.map(r=>{const key=r.key||r.id;return r.value==null&&fallbacks[key]!=null?{...r,value:fallbacks[key],recovered:true}:r;}),researchOnly:true};} module.exports={recover};

@@ -1,0 +1,2 @@
+// V36800: volatility-surface consistency contract.
+function check(points){const a=(points||[]).filter(x=>Number.isFinite(x.iv)&&Number.isFinite(x.strike));return{points:a.length,nonNegative:a.every(x=>x.iv>=0),sorted:a.every((x,i)=>i===0||x.strike>=a[i-1].strike)}}module.exports={check};

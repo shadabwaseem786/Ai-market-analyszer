@@ -1,0 +1,7 @@
+{
+  "metrics": [
+    "spot-futures basis",
+    "basis percentage",
+    "contango/backwardation"
+  ]
+}

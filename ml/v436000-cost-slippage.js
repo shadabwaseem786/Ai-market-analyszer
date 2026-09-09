@@ -1,0 +1,2 @@
+// V436000 transaction-cost/slippage research model; does not place orders.
+function estimate(trades=[],p={}){const brokerage=Number(p.brokerage||0),slippageBps=Number(p.slippageBps||0),taxBps=Number(p.taxBps||0);let gross=0,cost=0;for(const t of trades){const notional=Math.abs(Number(t.price||0)*Number(t.quantity||0));gross+=Number(t.pnl||0);cost+=notional*((slippageBps+taxBps)/10000)+brokerage;}return {version:"V436000",grossPnL:gross,estimatedCosts:cost,netPnL:gross-cost,researchOnly:true,executionDisabled:true};} module.exports={estimate};

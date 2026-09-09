@@ -1,0 +1,8 @@
+{
+  "inputs": [
+    "credibility",
+    "primary_evidence",
+    "freshness"
+  ],
+  "output": "reliability_score"
+}

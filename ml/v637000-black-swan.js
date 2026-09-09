@@ -1,0 +1,2 @@
+// V637000 Tail/Black-Swan Anomaly Detector — research only.
+function detect(observations=[],threshold=3){return {version:"V637000",alerts:observations.map((x,i)=>Math.abs(Number(x.zScore??0))>=threshold?{index:i,zScore:Number(x.zScore)}:null).filter(Boolean),threshold,researchOnly:true};} module.exports={detect};

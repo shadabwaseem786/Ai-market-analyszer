@@ -1,0 +1,2 @@
+// V40400: precision-recall area contract.
+function prAuc(rows){const a=rows.filter(x=>Number.isFinite(x.p)&&Number.isFinite(x.y)).sort((x,y)=>y.p-x.p);let tp=0,fp=0,pos=a.filter(x=>x.y).length,area=0,prevR=0;for(const r of a){r.y?tp++:fp++;const rec=pos?tp/pos:0,prec=tp/(tp+fp);area+=prec*Math.max(0,rec-prevR);prevR=rec}return area}module.exports={prAuc};

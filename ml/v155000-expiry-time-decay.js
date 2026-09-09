@@ -1,0 +1,2 @@
+// V155000 F&O Expiry & Time-Decay Intelligence.
+function analyze(x={}){const dte=Math.max(0,Number(x.dte||0)),iv=Math.max(0,Number(x.iv||0)),theta=Math.max(0,Number(x.theta||0));return {version:"V155000",dte,iv,theta,expiryRisk:dte<=1?"EXTREME":dte<=3?"HIGH":dte<=7?"ELEVATED":"NORMAL",timeDecayAcceleration:dte>0?+(theta/Math.sqrt(dte)).toFixed(5):null,researchOnly:true};} module.exports={analyze};

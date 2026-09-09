@@ -1,0 +1,2 @@
+// V32400: adversarial perturbation sensitivity contract.
+function test(base,perturbed){if(!Number.isFinite(base)||!Number.isFinite(perturbed))return null;return {base,perturbed,delta:perturbed-base,stable:Math.abs(perturbed-base)<.1}}module.exports={test};

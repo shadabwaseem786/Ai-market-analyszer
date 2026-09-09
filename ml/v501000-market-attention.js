@@ -1,0 +1,2 @@
+// V501000 Market Attention Engine — research only.
+function allocate(signals=[]){return {version:"V501000",signals:[...signals].sort((a,b)=>Number(b.salience??0)-Number(a.salience??0)),researchOnly:true};} module.exports={allocate};

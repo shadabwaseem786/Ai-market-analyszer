@@ -1,0 +1,2 @@
+// V43200: dynamic ensemble weighting from validated recent performance.
+function weights(models={}){const a=Object.entries(models).map(([name,x])=>({name,score:Number(x.score)||0}));const s=a.reduce((t,x)=>t+Math.max(0,x.score),0)||1;return Object.fromEntries(a.map(x=>[x.name,Math.max(0,x.score)/s]))}module.exports={weights};

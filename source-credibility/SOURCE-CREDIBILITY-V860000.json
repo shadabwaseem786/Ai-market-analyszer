@@ -1,0 +1,14 @@
+{
+  "features": [
+    "track record",
+    "primary source",
+    "specificity",
+    "independent confirmation",
+    "transparency"
+  ],
+  "states": [
+    "HIGH",
+    "MEDIUM",
+    "LOW"
+  ]
+}

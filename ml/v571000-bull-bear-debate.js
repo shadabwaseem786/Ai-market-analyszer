@@ -1,0 +1,2 @@
+// V571000 Bull/Bear Debate Engine — research only.
+function debate(signal={},bull=[],bear=[]){return {version:"V571000",signal,bullArguments:bull,bearArguments:bear,researchOnly:true};} module.exports={debate};

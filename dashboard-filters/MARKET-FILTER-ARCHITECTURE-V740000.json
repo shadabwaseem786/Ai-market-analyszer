@@ -1,0 +1,16 @@
+{
+  "location": "directly above main market table",
+  "filters": [
+    "ALL",
+    "INDICES",
+    "STOCKS",
+    "STOCK F&O",
+    "INDEX F&O",
+    "OPTIONS",
+    "FUTURES",
+    "ETFS"
+  ],
+  "default": "ALL",
+  "single_table": true,
+  "persistent": true
+}

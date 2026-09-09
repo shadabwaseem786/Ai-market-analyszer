@@ -1,0 +1,2 @@
+// V33300: regime transition risk matrix contract.
+function risk(matrix,current){const row=matrix?.[current]||{};return {current,transitions:row,highest:Object.entries(row).sort((a,b)=>b[1]-a[1])[0]||null}}module.exports={risk};

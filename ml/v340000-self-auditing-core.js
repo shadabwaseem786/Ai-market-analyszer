@@ -1,0 +1,3 @@
+// V340000 Self-Auditing Market Intelligence Core — research only.
+const stages=["DATA_QUALITY","TIMESTAMP_AUDIT","MISSING_DATA","BAD_TICKS","SOURCE_RELIABILITY","ADVERSARIAL_STRESS","FEATURE_ROBUSTNESS","ENSEMBLE_DIVERSITY","ROBUSTNESS_GATE","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V340000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={stages,run};

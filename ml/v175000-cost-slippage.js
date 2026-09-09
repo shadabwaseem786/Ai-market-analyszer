@@ -1,0 +1,2 @@
+// V175000 Transaction-Cost & Slippage Simulator — analytical only.
+function estimate(x={}){const notional=Math.abs(Number(x.notional||0)),brokerage=Number(x.brokerage||0),fees=Number(x.fees||0),slippageBps=Math.max(0,Number(x.slippageBps||0));const slippage=notional*slippageBps/10000;return {version:"V175000",notional,brokerage,fees,slippage,totalCost:+(brokerage+fees+slippage).toFixed(4),researchOnly:true,executionDisabled:true};} module.exports={estimate};

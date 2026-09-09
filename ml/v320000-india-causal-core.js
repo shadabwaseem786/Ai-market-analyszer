@@ -1,0 +1,3 @@
+// V320000 India Market Causal Intelligence Core — no execution.
+const stages=["CROSS_ASSET_GRAPH","USDINR","COMMODITIES","RATES","SAFE_HAVEN","GLOBAL_CORRELATION","SECTOR_CONTAGION","CAUSAL_SHOCK","CROSS_ASSET_FUSION","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V320000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={stages,run};

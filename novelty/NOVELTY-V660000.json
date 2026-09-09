@@ -1,0 +1,8 @@
+{
+  "method": "token-set similarity baseline",
+  "outputs": [
+    "novelty",
+    "duplicate",
+    "best_similarity"
+  ]
+}

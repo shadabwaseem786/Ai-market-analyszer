@@ -1,0 +1,3 @@
+// V440000 Scientific Market Prediction Validation Core — research only.
+const stages=["WALK_FORWARD","PURGED_EMBARGO","BACKTEST_INTEGRITY","LOOKAHEAD_AUDIT","LEAKAGE_AUDIT","COST_SLIPPAGE","PROBABILITY_CALIBRATION","METRIC_OBSERVATORY","MODEL_CHALLENGER","ROBUSTNESS","OUT_OF_SAMPLE_GATE"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V440000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

@@ -1,0 +1,15 @@
+{
+  "record": [
+    "featureId",
+    "symbol",
+    "timestamp",
+    "value",
+    "source",
+    "version"
+  ],
+  "requirements": [
+    "timestamped",
+    "versioned",
+    "point-in-time retrievable"
+  ]
+}

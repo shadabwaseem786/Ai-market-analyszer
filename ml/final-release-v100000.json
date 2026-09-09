@@ -1,0 +1,13 @@
+{
+  "version":"V100000",
+  "name":"AGI-style Market Reasoning Layer",
+  "status":"RESEARCH_ONLY",
+  "executionDisabled":true,
+  "automaticTrading":false,
+  "automaticPromotion":false,
+  "certaintyPolicy":"Probabilistic and uncertainty-aware; no guaranteed accuracy",
+  "preserved":"V91000 Autonomous Market Intelligence Core and prior governed layers",
+  "layers":["world-model","causal-reasoning","bull-bear-counterfactual-debate","uncertainty-fusion","regime-transition-forecast","conservative-decision-policy"],
+  "universes":["NIFTY","BANKNIFTY","FINNIFTY"],
+  "buildDate":"2026-09-05"
+}

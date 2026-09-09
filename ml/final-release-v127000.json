@@ -1,0 +1,12 @@
+{
+ "version":"V127000",
+ "name":"Market Digital Twin Replay Engine",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V126000",
+ "layers":["point-in-time-replay","look-ahead-protection","historical-scoring","friction-simulation","determinism-check","digital-twin-governor"],
+ "purpose":"Replay historical markets using only information available at each historical timestamp and evaluate predictive decisions without live execution.",
+ "note":"Replay results are historical research evidence and do not guarantee future performance."
+}

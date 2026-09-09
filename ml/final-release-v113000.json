@@ -1,0 +1,13 @@
+{
+ "version":"V113000",
+ "name":"Neural Market World Model",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V112000",
+ "layers":["unified-latent-market-state","state-transition-engine","scenario-tree","latent-regime-detector","world-model-consistency","world-model-governor"],
+ "dimensions":["price","volatility","liquidity","options","breadth","macro","catalyst","sentiment","regime","crossAsset"],
+ "purpose":"Represent the market as a unified evolving state and generate bounded research scenarios.",
+ "note":"The latent representation is an analytical abstraction and does not establish predictive certainty or causality."
+}

@@ -1,0 +1,2 @@
+// V701000 Global Market Regime Engine — research only.
+function detect(m={}){const score=Number(m.globalRiskScore??0);return {version:"V701000",score,regime:score>.6?"RISK_ON":score<-.6?"RISK_OFF":"NEUTRAL",researchOnly:true};} module.exports={detect};

@@ -1,0 +1,2 @@
+// V43900: prediction audit trail contract.
+function record(x={}){return{timestamp:x.timestamp||new Date().toISOString(),instrument:x.instrument,signal:x.signal,probabilities:x.probabilities,confidence:x.confidence,uncertainty:x.uncertainty,modelConsensus:x.modelConsensus,dataVersion:x.dataVersion,modelVersion:x.modelVersion,executionDisabled:true}}module.exports={record};

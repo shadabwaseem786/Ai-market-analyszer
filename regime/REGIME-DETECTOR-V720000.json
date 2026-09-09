@@ -1,0 +1,14 @@
+{
+  "regimes": [
+    "TRENDING",
+    "RANGE",
+    "HIGH-VOLATILITY",
+    "LOW-VOLATILITY",
+    "BREAKOUT",
+    "MEAN-REVERSION",
+    "EVENT-DRIVEN",
+    "PANIC/HIGH-VOL",
+    "LIQUIDITY-STRESSED",
+    "BALANCED"
+  ]
+}

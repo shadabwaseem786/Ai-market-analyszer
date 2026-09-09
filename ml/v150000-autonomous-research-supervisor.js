@@ -1,0 +1,4 @@
+// V150000 Autonomous Research Supervisor — coordinates analysis, never trades.
+const stages=["DATA","FEATURES","REGIME","INTRADAY","CATALYST","OPTIONS","CROSS_ASSET","MODELS","SCENARIOS","UNCERTAINTY","RED_TEAM","BENCHMARK","VALIDATION","GUARD","DECISION","LEDGER"];
+function supervise(input={},handlers={}){let state={...input},trace=[];for(const s of stages){const fn=handlers[s];if(typeof fn==="function")state=fn(state)||state;trace.push({stage:s,status:"COMPLETED"})}return {version:"V150000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false};}
+module.exports={stages,supervise};

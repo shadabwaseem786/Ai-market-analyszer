@@ -1,0 +1,2 @@
+// V655000 Catalyst Authenticity Detector.
+function assess(c={}){const score=Number(c.sourceQuality??0)*.35+Number(c.marketReaction??0)*.35+Number(c.confirmation??0)*.3;return {version:"V655000",authenticityScore:score,authentic:score>=Number(c.threshold??.65),researchOnly:true};} module.exports={assess};

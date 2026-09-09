@@ -1,0 +1,2 @@
+// V159000 Research Experiment Registry.
+function register(registry=[],experiment={}){const id=experiment.id||"EXP-"+Date.now();return {version:"V159000",registry:[...registry,{...experiment,id,status:"REGISTERED",createdAt:experiment.createdAt||new Date().toISOString()}],id,researchOnly:true};} module.exports={register};

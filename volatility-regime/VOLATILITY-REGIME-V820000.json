@@ -1,0 +1,8 @@
+{
+  "states": [
+    "NORMAL",
+    "VOL-PREMIUM",
+    "VOL-SPIKE",
+    "VOL-COMPRESSED"
+  ]
+}

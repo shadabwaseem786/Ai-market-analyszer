@@ -1,0 +1,2 @@
+// V35600: permutation feature importance contract.
+function rank(features){return Object.entries(features||{}).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1])).map(([feature,importance])=>({feature,importance}))}module.exports={rank};

@@ -1,0 +1,2 @@
+// V70700: high-integrity abstention. No forced signal when evidence conflicts.
+function decide({prob=.5,uncertainty=.5,agreement=0,quality=0}={}){if(quality<.7||uncertainty>.35||agreement<.6)return"ABSTAIN";return prob>=.67?"BUY":prob<=.33?"SELL":"HOLD"}module.exports={decide};

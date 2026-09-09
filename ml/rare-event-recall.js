@@ -1,0 +1,2 @@
+// V40700: rare-event detection metrics.
+function metrics(y,p){let tp=0,fn=0,fp=0;for(let i=0;i<y.length;i++){if(y[i]&&p[i])tp++;else if(y[i]&&!p[i])fn++;else if(!y[i]&&p[i])fp++}return{recall:tp/(tp+fn||1),precision:tp/(tp+fp||1)}}module.exports={metrics};

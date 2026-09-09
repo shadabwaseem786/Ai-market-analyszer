@@ -1,0 +1,2 @@
+// V38200: triple-barrier labeling contract.
+function label(path,upper,lower,horizon){for(let i=0;i<path.length&&i<horizon;i++){if(path[i]>=upper)return"UP";if(path[i]<=lower)return"DOWN"}return"TIME"}module.exports={label};

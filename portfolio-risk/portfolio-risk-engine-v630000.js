@@ -1,0 +1,19 @@
+/* V630000 PORTFOLIO + RISK INTELLIGENCE */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const sum=a=>a.reduce((s,x)=>s+n(x),0);
+ function exposure(positions=[]){const gross=sum(positions.map(p=>Math.abs(n(p.notional)))),net=sum(positions.map(p=>n(p.notional))),sector={};for(const p of positions){const k=p.sector||"UNKNOWN";sector[k]=(sector[k]||0)+Math.abs(n(p.notional))}return{gross,net,sector,netToGross:gross?net/gross:0}}
+ function concentration(positions=[]){const ex=exposure(positions),g=ex.gross||1;const shares=Object.entries(ex.sector).map(([k,v])=>[k,v/g]).sort((a,b)=>b[1]-a[1]);return{herfindahl:shares.reduce((s,x)=>s+x[1]*x[1],0),topSector:shares[0]||null,sectors:shares}}
+ function portfolioVol(returns=[]){if(returns.length<2)return 0;const m=sum(returns)/returns.length;return Math.sqrt(sum(returns.map(x=>(n(x)-m)**2))/returns.length)}
+ function varHistorical(returns=[],alpha=.95){if(!returns.length)return 0;const a=[...returns].map(n).sort((x,y)=>x-y),i=Math.max(0,Math.min(a.length-1,Math.floor((1-alpha)*a.length)));return Math.abs(a[i])}
+ function cvarHistorical(returns=[],alpha=.95){if(!returns.length)return 0;const a=[...returns].map(n).sort((x,y)=>x-y),cut=Math.max(1,Math.floor((1-alpha)*a.length)),tail=a.slice(0,cut);return Math.abs(sum(tail)/tail.length)}
+ function correlationRisk(positions=[]){const vals=positions.map(p=>Math.abs(n(p.notional)));const total=sum(vals)||1;return clamp(vals.reduce((s,v)=>s+(v/total)**2,0),0,1)}
+ function catalystConcentration(positions=[]){const m={};for(const p of positions){const k=p.catalystTheme||"NONE";m[k]=(m[k]||0)+Math.abs(n(p.notional))}const total=sum(Object.values(m))||1;return Object.fromEntries(Object.entries(m).map(([k,v])=>[k,v/total]))}
+ function stress(positions=[],shocks={}){return positions.map(p=>{const sector=p.sector||"UNKNOWN",shock=n(shocks[sector],n(shocks.DEFAULT,-.1));return{symbol:p.symbol,sector,notional:n(p.notional),shock,loss:n(p.notional)*shock}})}
+ function stressSummary(positions=[],shocks={}){const a=stress(positions,shocks);return{loss:sum(a.map(x=>x.loss)),absLoss:sum(a.map(x=>Math.abs(x.loss))),details:a}}
+ function dynamicSize(input={}){const capital=n(input.capital),riskBudget=n(input.riskBudget,.01),stopDistance=Math.abs(n(input.stopDistance)),price=Math.abs(n(input.price)),confidence=clamp(n(input.confidence,.5),0,1),liquidity=clamp(n(input.liquidity,.5),.05,1),concentration=clamp(n(input.concentration,0),0,1),catalystRisk=clamp(n(input.catalystRisk,0),0,1);if(!capital||!stopDistance||!price)return{quantity:0,reason:"INSUFFICIENT_INPUT"};const riskCapital=capital*riskBudget*confidence*(1-concentration*.6)*(1-catalystRisk*.5)*liquidity;return{quantity:Math.floor(riskCapital/stopDistance),riskCapital,notional:Math.floor(riskCapital/stopDistance)*price}}
+ function riskGate(input={}){const v=n(input.varR),cv=n(input.cvarR),dd=n(input.drawdownR),stress=n(input.stressR),conc=n(input.concentration);const flags=[];if(v>n(input.varLimitR,2))flags.push("VAR_LIMIT");if(cv>n(input.cvarLimitR,3))flags.push("CVAR_LIMIT");if(dd>n(input.drawdownLimitR,5))flags.push("DRAWDOWN_LIMIT");if(stress>n(input.stressLimitR,5))flags.push("STRESS_LIMIT");if(conc>n(input.concentrationLimit,.35))flags.push("CONCENTRATION_LIMIT");return{pass:flags.length===0,flags,action:flags.length?"WAIT":"PASS"}}
+ function scenarioMatrix(base={},scenarios=[]){return scenarios.map(s=>({...s,impact:n(s.portfolioShock)*n(base.portfolioValue)}))}
+ function riskBudget(totalCapital=.0,segments={}){return Object.fromEntries(Object.entries(segments).map(([k,v])=>[k,totalCapital*clamp(n(v),0,1)]))}
+ global.PortfolioRiskV630000={exposure,concentration,portfolioVol,varHistorical,cvarHistorical,correlationRisk,catalystConcentration,stress,stressSummary,dynamicSize,riskGate,scenarioMatrix,riskBudget};
+})(typeof globalThis!=="undefined"?globalThis:window);

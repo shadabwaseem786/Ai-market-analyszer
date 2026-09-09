@@ -1,0 +1,8 @@
+{
+  "branches": [
+    "bull",
+    "base",
+    "bear"
+  ],
+  "purpose": "probability-normalized scenario tree"
+}

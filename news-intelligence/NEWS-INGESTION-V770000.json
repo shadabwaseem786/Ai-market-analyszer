@@ -1,0 +1,11 @@
+{
+  "inputs": [
+    "headlines",
+    "timestamps",
+    "source",
+    "url"
+  ],
+  "outputs": [
+    "normalized events"
+  ]
+}

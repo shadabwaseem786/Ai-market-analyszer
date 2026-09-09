@@ -1,0 +1,17 @@
+{
+  "fields": [
+    "trade_id",
+    "signal_time",
+    "symbol",
+    "decision",
+    "confidence",
+    "entry_reference",
+    "exit_reference",
+    "pnl",
+    "regime",
+    "catalyst_id",
+    "model_version",
+    "outcome_timestamp"
+  ],
+  "purpose": "prediction-to-outcome feedback without live order placement"
+}

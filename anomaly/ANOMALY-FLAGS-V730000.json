@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "zscore",
+    "spread",
+    "latency"
+  ]
+}

@@ -1,0 +1,2 @@
+// V242000 Probability distribution fusion.
+function fuse(distributions=[]){const d=distributions.filter(x=>Array.isArray(x.values)&&x.values.length);const n=d.length?Math.min(...d.map(x=>x.values.length)):0;const values=Array.from({length:n},(_,i)=>d.reduce((s,x)=>s+Number(x.values[i]||0),0)/d.length||0);return {version:"V242000",values,contributors:d.length,researchOnly:true};} module.exports={fuse};

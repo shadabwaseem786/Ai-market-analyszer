@@ -1,0 +1,2 @@
+// V658000 Shock Propagation Simulator.
+function simulate(origin={},network=[]){return {version:"V658000",origin,propagation:network.map(n=>({...n,impact:Number(origin.shock??0)*Number(n.transmission??0)})),researchOnly:true};} module.exports={simulate};

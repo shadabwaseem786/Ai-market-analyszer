@@ -1,0 +1,2 @@
+// V92500: options surface feature contract.
+function features(x={}){return{ivSkew:Number(x.ivCall)-Number(x.ivPut),termSlope:Number(x.ivFar)-Number(x.ivNear),pcr:Number(x.pcr)||null}}module.exports={features};

@@ -1,0 +1,2 @@
+// V313000 commodity transmission.
+function analyze(x={}){const crude=Number(x.crudeChange||0),gold=Number(x.goldChange||0);return {version:"V313000",crude,gold,commodityShock:Math.abs(crude)+Math.abs(gold),researchOnly:true};} module.exports={analyze};

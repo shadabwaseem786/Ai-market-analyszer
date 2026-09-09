@@ -1,0 +1,10 @@
+{
+  "fields": [
+    "timestamp",
+    "prediction",
+    "outcome",
+    "regime",
+    "horizon"
+  ],
+  "purpose": "retain structured error history"
+}

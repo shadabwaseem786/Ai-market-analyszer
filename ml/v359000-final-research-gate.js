@@ -1,0 +1,2 @@
+// V359000 final research gate.
+function gate(x={}){const pass=Boolean(x.dataValid)&&Boolean(x.validationPass)&&Boolean(x.calibrated)&&!Boolean(x.leakage)&&!Boolean(x.ood)&&Number(x.uncertainty||0)<.5;return {version:"V359000",pass,decision:pass?(x.direction||"WAIT"):"ABSTAIN",reason:pass?"PASS":"INTEGRITY_OR_UNCERTAINTY_FAILURE",researchOnly:true};} module.exports={gate};

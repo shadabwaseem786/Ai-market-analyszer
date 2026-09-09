@@ -1,0 +1,8 @@
+{
+  "record": [
+    "timestamp",
+    "regime",
+    "confidence",
+    "inputs_version"
+  ]
+}

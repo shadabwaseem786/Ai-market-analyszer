@@ -1,0 +1,2 @@
+// V90900: unified signal quality score.
+function calculate(x={}){const a=["calibration","oos","stability","dataQuality","stressSurvival","agreement"].map(k=>Number(x[k])).filter(Number.isFinite);return a.length?a.reduce((s,v)=>s+Math.max(0,Math.min(1,v)),0)/a.length:0}module.exports={calculate};

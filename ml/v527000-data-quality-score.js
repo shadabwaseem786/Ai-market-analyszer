@@ -1,0 +1,2 @@
+// V527000 Data Quality Score.
+function score(m={}){const parts=["completeness","freshness","integrity","agreement","reliability"].map(k=>Number(m[k]??0));const quality=parts.reduce((a,b)=>a+b,0)/parts.length;return {version:"V527000",quality,components:m,researchOnly:true};} module.exports={score};

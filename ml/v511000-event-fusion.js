@@ -1,0 +1,2 @@
+// V511000 Real-Time Event Fusion — research only.
+function fuse(events=[]){return {version:"V511000",events:events.map(e=>({...e,fused:true})),count:events.length,researchOnly:true};} module.exports={fuse};

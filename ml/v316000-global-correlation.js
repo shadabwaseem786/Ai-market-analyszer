@@ -1,0 +1,2 @@
+// V316000 global index correlation engine.
+function correlate(a=[],b=[]){const n=Math.min(a.length,b.length);if(n<2)return {version:"V316000",correlation:null,researchOnly:true};const x=a.slice(0,n).map(Number),y=b.slice(0,n).map(Number),mx=x.reduce((s,v)=>s+v,0)/n,my=y.reduce((s,v)=>s+v,0)/n;const num=x.reduce((s,v,i)=>s+(v-mx)*(y[i]-my),0),dx=Math.sqrt(x.reduce((s,v)=>s+(v-mx)**2,0)),dy=Math.sqrt(y.reduce((s,v)=>s+(v-my)**2,0));return {version:"V316000",correlation:dx&&dy?num/(dx*dy):null,researchOnly:true};} module.exports={correlate};

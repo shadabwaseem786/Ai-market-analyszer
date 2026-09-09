@@ -1,0 +1,8 @@
+{
+  "rules": [
+    "minimum sample",
+    "stable distribution",
+    "acceptable calibration"
+  ],
+  "action": "permit candidate update only after validation"
+}

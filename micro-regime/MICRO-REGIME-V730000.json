@@ -1,0 +1,10 @@
+{
+  "states": [
+    "LIQUIDITY-STRESSED",
+    "ABSORPTION",
+    "EXHAUSTION",
+    "AGGRESSIVE-FLOW",
+    "BALANCED-FLOW",
+    "TRANSITION"
+  ]
+}

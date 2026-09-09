@@ -1,0 +1,10 @@
+{
+  "components": [
+    "signal edge",
+    "slippage",
+    "fees",
+    "market impact",
+    "timing",
+    "net after costs"
+  ]
+}

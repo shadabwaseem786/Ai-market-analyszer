@@ -1,0 +1,2 @@
+// V152000 Leakage / Look-Ahead Firewall.
+function inspect(features=[],cutoff){const t=new Date(cutoff).getTime();const violations=features.filter(f=>new Date(f.availableAt||f.timestamp||0).getTime()>t).map(f=>({id:f.id||null,key:f.key||null,availableAt:f.availableAt||f.timestamp}));return {version:"V152000",safe:violations.length===0,violations,blocked:violations.length>0,researchOnly:true};} module.exports={inspect};

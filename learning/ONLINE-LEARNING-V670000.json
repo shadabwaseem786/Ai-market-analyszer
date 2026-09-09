@@ -1,0 +1,8 @@
+{
+  "modes": [
+    "weight_update",
+    "performance_tracking",
+    "regime_tracking"
+  ],
+  "guardrail": "validation-gated"
+}

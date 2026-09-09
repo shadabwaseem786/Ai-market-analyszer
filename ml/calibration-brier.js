@@ -1,0 +1,2 @@
+// V31200: Brier score and reliability contract.
+function brier(rows){const a=rows.filter(x=>Number.isFinite(x.p)&&Number.isFinite(x.y));return a.length?a.reduce((s,x)=>s+(x.p-x.y)**2,0)/a.length:null}module.exports={brier};

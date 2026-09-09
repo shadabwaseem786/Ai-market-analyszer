@@ -1,0 +1,2 @@
+// V382000 intraday phase detection.
+function detect(x={}){const m=Number(x.minutesFromOpen||0);const total=Number(x.sessionMinutes||375);const p=total?m/total:0;const phase=p<.15?"OPEN":p>.85?"CLOSE":p<.5?"MID_EARLY":"MID_LATE";return {version:"V382000",phase,progress:p,researchOnly:true};} module.exports={detect};

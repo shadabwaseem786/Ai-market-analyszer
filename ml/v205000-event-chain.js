@@ -1,0 +1,2 @@
+// V205000 Event-chain prediction.
+function chain(events=[]){return {version:"V205000",chain:events.map((e,i)=>({...e,sequence:i+1,conditionalOn:i?events[i-1].id||i:null})),researchOnly:true};} module.exports={chain};

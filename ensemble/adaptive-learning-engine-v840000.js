@@ -1,0 +1,20 @@
+/* V840000 AI ENSEMBLE + ADAPTIVE LEARNING + CALIBRATION */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const mean=a=>a.length?a.reduce((s,x)=>s+n(x),0)/a.length:0;
+ function weightedVote(models=[]){let sw=0,s=0;for(const m of models){const w=Math.max(0,n(m.weight,1)),p=clamp(n(m.prob,.5),0,1);s+=w*p;sw+=w}const p=sw?s/sw:.5;return{probability:p,consensus:Math.abs(p-.5)*2,models:models.length}}
+ function bayesianUpdate(prior,likelihood){const p=clamp(n(prior,.5)),l=clamp(n(likelihood,.5));const num=p*l,den=num+(1-p)*(1-l);return den?num/den:p}
+ function brier(pred,outcome){const p=clamp(n(pred,.5)),y=n(outcome);return(p-y)**2}
+ function logLoss(pred,outcome){const p=clamp(n(pred,.5),1e-6,1-1e-6),y=n(outcome);return-(y*Math.log(p)+(1-y)*Math.log(1-p))}
+ function calibrate(preds=[],outcomes=[]){const L=Math.min(preds.length,outcomes.length);if(!L)return{count:0,brier:null,accuracy:null};let correct=0,bs=0,ll=0;for(let i=0;i<L;i++){const p=clamp(n(preds[i],.5)),y=n(outcomes[i]);correct+=(p>=.5)===(y>=.5);bs+=brier(p,y);ll+=logLoss(p,y)}return{count:L,accuracy:correct/L,brier:bs/L,logLoss:ll/L}}
+ function reliabilityBin(preds=[],outcomes=[],bins=10){const out=[];for(let b=0;b<bins;b++){const lo=b/bins,hi=(b+1)/bins,idx=[];for(let i=0;i<Math.min(preds.length,outcomes.length);i++){const p=n(preds[i]);if(p>=lo&&(p<hi||(b===bins-1&&p<=hi)))idx.push(i)}out.push({lo,hi,count:idx.length,predicted:idx.length?mean(idx.map(i=>n(preds[i]))):null,observed:idx.length?mean(idx.map(i=>n(outcomes[i]))):null})}return out}
+ function adaptiveWeights(models=[],performance={}){const scores=models.map(m=>{const s=n(performance[m.id],.5);return{...m,adaptiveWeight:Math.max(.01,s)}});const t=scores.reduce((a,m)=>a+m.adaptiveWeight,0)||1;return scores.map(m=>({...m,weight:m.adaptiveWeight/t}))}
+ function drift(history=[],recent=[]){const a=mean(history),b=mean(recent),scale=Math.sqrt(Math.max(1e-9,mean(history.map(x=>(n(x)-a)**2))));const z=(b-a)/scale;return{z,score:Math.min(1,Math.abs(z)/3),state:Math.abs(z)>2?"DRIFT":Math.abs(z)>1.2?"WATCH":"STABLE"}}
+ function modelHealth(x={}){const b=n(x.brier,.25),ll=n(x.logLoss,.7),acc=n(x.accuracy,.5),dr=n(x.drift,0);const score=clamp(.35*(1-b)+.3*Math.max(0,1-ll)+.25*acc+.1*(1-dr),0,1);return{score,state:score>.75?"HEALTHY":score>.55?"WATCH":"DEGRADED"}}
+ function championChallenger(champion,challenger,metric="brier"){const c=n(champion?.[metric],1),q=n(challenger?.[metric],1);return{champion,challenger,winner:q<c?"CHALLENGER":"CHAMPION",improvement:q<c?c-q:0}}
+ function walkForward(preds=[],outcomes=[],train=100,test=20){const windows=[];for(let i=0;i+train+test<=Math.min(preds.length,outcomes.length);i+=test){const tr=calibrate(preds.slice(i,i+train),outcomes.slice(i,i+train)),te=calibrate(preds.slice(i+train,i+train+test),outcomes.slice(i+train,i+train+test));windows.push({train:tr,test:te})}return windows}
+ function errorMemory(records=[]){return records.map(r=>({timestamp:r.timestamp,error:Math.abs(n(r.pred,.5)-n(r.outcome)),directional:n(r.pred,.5)>=.5?1:0,regime:r.regime||"UNKNOWN",horizon:r.horizon||"UNKNOWN"}))}
+ function governedUpdate(x={}){const health=modelHealth(x.health||{}),d=drift(x.history||[],x.recent||[]);const frozen=health.state==="DEGRADED"||d.state==="DRIFT";return{updateAllowed:!frozen,reason:frozen?"LEARNING-FROZEN":"LEARNING-ALLOWED",health,drift:d}}
+ function consensus(models=[]){const v=weightedVote(models);return{...v,label:v.probability>.65?"BULLISH":v.probability<.35?"BEARISH":"NEUTRAL",confidence:v.consensus}}
+ global.LearningV840000={weightedVote,bayesianUpdate,brier,logLoss,calibrate,reliabilityBin,adaptiveWeights,drift,modelHealth,championChallenger,walkForward,errorMemory,governedUpdate,consensus};
+})(typeof globalThis!=="undefined"?globalThis:window);

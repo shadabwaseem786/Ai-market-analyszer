@@ -1,0 +1,2 @@
+// V37400: ensemble-weight stability diagnostic.
+function compare(a,b){const keys=[...new Set([...Object.keys(a||{}),...Object.keys(b||{})])];const d=keys.reduce((s,k)=>s+Math.abs((a?.[k]||0)-(b?.[k]||0)),0);return{l1:d,stable:d<=.25}}module.exports={compare};

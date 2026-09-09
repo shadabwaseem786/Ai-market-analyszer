@@ -1,0 +1,2 @@
+// V286000 Market compression / expansion engine.
+function analyze(x={}){const ratio=Number(x.currentRange||0)/(Number(x.baselineRange||1));return {version:"V286000",rangeRatio:ratio,state:ratio<.7?"COMPRESSION":ratio>1.3?"EXPANSION":"NORMAL",researchOnly:true};} module.exports={analyze};

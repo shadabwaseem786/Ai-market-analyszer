@@ -1,0 +1,2 @@
+// V303000 entity/event resolution.
+function resolve(events=[]){return events.map(e=>({...e,entityKey:(e.entityKey||e.symbol||e.company||"UNKNOWN").toString().toUpperCase(),eventKey:e.eventKey||e.type||"UNKNOWN"}));} module.exports={resolve};

@@ -1,0 +1,7 @@
+{
+  "purpose": "detect heavy participation with limited price progress",
+  "output": [
+    "ABSORPTION",
+    "NO-ABSORPTION"
+  ]
+}

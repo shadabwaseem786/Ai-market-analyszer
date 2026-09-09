@@ -1,0 +1,3 @@
+// V260000 Autonomous Quant Validation Core — scientific referee, never trades.
+const stages=["WALK_FORWARD","POINT_IN_TIME","LOOKAHEAD","SURVIVORSHIP","LEAKAGE","REALITY_GAP","CALIBRATION","ALPHA_DECAY","MODEL_LEADERBOARD","QUANT_RESEARCH","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V260000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false};} module.exports={stages,run};

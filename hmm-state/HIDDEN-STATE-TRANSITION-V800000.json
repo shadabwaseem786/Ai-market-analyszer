@@ -1,0 +1,4 @@
+{
+  "purpose": "estimate transition probabilities from historical state transitions",
+  "note": "framework supports HMM/state-model replacement"
+}

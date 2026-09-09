@@ -1,0 +1,2 @@
+// V92200: ensemble probability calibration contract.
+function average(ps=[]){const a=ps.map(Number).filter(Number.isFinite);return a.length?a.reduce((s,x)=>s+x,0)/a.length:null}module.exports={average};

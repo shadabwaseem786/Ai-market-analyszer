@@ -1,0 +1,6 @@
+{
+  "features": [
+    "price_bins",
+    "volume_distribution"
+  ]
+}

@@ -1,0 +1,2 @@
+// V31600: multiple-testing warning contract.
+function warning(experiments,selected){return {experiments:Number(experiments)||0,selected,warning:(Number(experiments)||0)>1,message:"Treat in-sample selection as multiple testing; require untouched OOS confirmation."}}module.exports={warning};

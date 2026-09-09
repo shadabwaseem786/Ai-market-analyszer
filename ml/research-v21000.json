@@ -1,0 +1,10 @@
+{
+ "version":"V21000",
+ "research_layers":["ablation","hyperparameter_search","bootstrap_ci","experiment_tracking","oos_ensemble_weighting","circuit_breaker"],
+ "selection_rule":"OOS evidence only",
+ "models":["logistic_baseline","gradient_boosting","random_forest","mlp","ensemble"],
+ "universes":["NIFTY","BANKNIFTY","FINNIFTY"],
+ "horizons":[5,15,30,60],
+ "execution":"disabled",
+ "promotion":"requires independent OOS validation and robustness gates"
+}

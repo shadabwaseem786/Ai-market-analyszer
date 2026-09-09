@@ -1,0 +1,1 @@
+{"version":"V24400","researchStatus":"RESEARCH_ONLY","executionDisabled":true,"validation":["purged_walk_forward","CPCV","multiple_testing","bootstrap","cost_stress","regime_stability"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"horizons":[5,15,30,60],"governance":"OOS-first; no silent model replacement"}

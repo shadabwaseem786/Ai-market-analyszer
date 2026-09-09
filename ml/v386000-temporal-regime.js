@@ -1,0 +1,2 @@
+// V386000 temporal regime transition.
+function detect(history=[]){const regimes=history.map(x=>x.regime).filter(Boolean);const current=regimes.at(-1)||"UNKNOWN",previous=regimes.at(-2)||current;return {version:"V386000",current,previous,transition:current!==previous,researchOnly:true};} module.exports={detect};

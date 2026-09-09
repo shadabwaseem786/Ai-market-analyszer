@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "entry quality",
+    "liquidity",
+    "slippage",
+    "news shock"
+  ],
+  "outputs": [
+    "EXECUTION-ELIGIBLE",
+    "WAIT/CANCEL"
+  ]
+}

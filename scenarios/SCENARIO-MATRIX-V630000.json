@@ -1,0 +1,9 @@
+{
+  "examples": [
+    "market_selloff",
+    "volatility_spike",
+    "sector_shock",
+    "gap_risk",
+    "catalyst_reversal"
+  ]
+}

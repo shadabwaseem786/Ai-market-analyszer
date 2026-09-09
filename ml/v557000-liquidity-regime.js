@@ -1,0 +1,2 @@
+// V557000 Liquidity Regime Engine.
+function classify(liquidity=1,stress=.3){liquidity=Number(liquidity);return {version:"V557000",state:liquidity<=stress?"STRESS":liquidity<.7?"THIN":"HEALTHY",liquidity,researchOnly:true};} module.exports={classify};

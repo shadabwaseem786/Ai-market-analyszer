@@ -1,0 +1,13 @@
+{
+  "components": [
+    "cross-index",
+    "VIX",
+    "FX",
+    "commodities",
+    "rates",
+    "global equity",
+    "transmission",
+    "contagion"
+  ],
+  "output": "F&O context"
+}

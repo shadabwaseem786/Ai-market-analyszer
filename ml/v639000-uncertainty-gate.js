@@ -1,0 +1,2 @@
+// V639000 Uncertainty Integrity Gate.
+function gate(m={}){const pass=!m.blackSwan&&!m.counterfactualFailure&&!m.calibrationFailure&&Number(m.uncertainty??0)<=Number(m.maxUncertainty??.8);return {version:"V639000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

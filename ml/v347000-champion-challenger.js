@@ -1,0 +1,2 @@
+// V347000 champion-challenger research comparison.
+function compare(champion,challengers=[]){return {version:"V347000",champion,challengers:challengers.map(c=>({...c,delta:Number(c.score||0)-Number(champion?.score||0)})),researchOnly:true};} module.exports={compare};

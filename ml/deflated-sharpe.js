@@ -1,0 +1,2 @@
+// V23700: deflated-Sharpe research placeholder; requires trials, sample size and benchmark moments.
+function estimate({sharpe=0,trials=1,samples=1}={}){const penalty=Math.sqrt(Math.max(0,2*Math.log(Math.max(1,trials)))/Math.max(1,samples));return {rawSharpe:sharpe,selectionPenalty:penalty,adjustedSharpe:sharpe-penalty,method:"deflated-sharpe-approximation"}}module.exports={estimate};

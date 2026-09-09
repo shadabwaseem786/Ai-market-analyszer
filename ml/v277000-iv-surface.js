@@ -1,0 +1,2 @@
+// V277000 IV surface / volatility regime engine.
+function analyze(points=[]){const iv=points.map(p=>Number(p.iv)).filter(Number.isFinite);const mean=iv.length?iv.reduce((a,b)=>a+b,0)/iv.length:0;return {version:"V277000",meanIV:+mean.toFixed(5),minIV:iv.length?Math.min(...iv):null,maxIV:iv.length?Math.max(...iv):null,regime:mean>25?"HIGH_VOL":mean<12?"LOW_VOL":"NORMAL_VOL",researchOnly:true};} module.exports={analyze};

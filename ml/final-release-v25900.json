@@ -1,0 +1,1 @@
+{"version":"V25900","status":"RESEARCH_ONLY","executionDisabled":true,"pipeline":["data_contract","label_contract","purged_walk_forward","experiment_runner","cost_model","calibration","model_registry","robustness_gate"],"promotion":"validated-candidate-only","auto_trading":false}

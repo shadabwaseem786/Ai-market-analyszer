@@ -1,0 +1,2 @@
+// V547000 Black-Swan Stress Engine.
+function stress(base=0,scenarios=[]){return {version:"V547000",base,stressed:scenarios.map(s=>({...s,loss:Number(base)-Number(s.value??base)})),researchOnly:true};} module.exports={stress};

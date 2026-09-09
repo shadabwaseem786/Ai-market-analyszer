@@ -1,0 +1,2 @@
+// V706000 Institutional Flow Regime.
+function classify(m={}){const x=Number(m.institutionalFlowScore??0);return {version:"V706000",score:x,regime:x>.6?"ACCUMULATION":x<-.6?"DISTRIBUTION":"MIXED",researchOnly:true};} module.exports={classify};

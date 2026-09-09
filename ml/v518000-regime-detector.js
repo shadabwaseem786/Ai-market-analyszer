@@ -1,0 +1,2 @@
+// V518000 Emerging Regime Detector.
+function detect(features=[],threshold=.7){const score=features.length?features.reduce((s,f)=>s+Number(f.changeScore??0),0)/features.length:0;return {version:"V518000",regimeTransition:score>=threshold,transitionScore:score,researchOnly:true};} module.exports={detect};

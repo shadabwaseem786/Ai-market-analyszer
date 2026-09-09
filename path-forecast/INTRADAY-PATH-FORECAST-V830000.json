@@ -1,0 +1,9 @@
+{
+  "outputs": [
+    "up probability",
+    "down probability",
+    "neutral probability",
+    "upper path",
+    "lower path"
+  ]
+}

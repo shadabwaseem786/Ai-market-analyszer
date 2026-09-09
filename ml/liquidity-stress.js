@@ -1,0 +1,2 @@
+// V42900: liquidity stress ladder.
+function ladder(size,adv,multipliers=[.5,1,2,4]){return multipliers.map(m=>({multiplier:m,participation:Math.abs(size)/(Math.abs(adv)*m||1)}))}module.exports={ladder};

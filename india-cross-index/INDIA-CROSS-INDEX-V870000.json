@@ -1,0 +1,12 @@
+{
+  "assets": [
+    "NIFTY",
+    "BANKNIFTY",
+    "FINNIFTY"
+  ],
+  "outputs": [
+    "alignment",
+    "dispersion",
+    "composite score"
+  ]
+}

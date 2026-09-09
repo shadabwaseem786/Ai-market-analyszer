@@ -1,0 +1,2 @@
+// V247000 Prediction reliability memory.
+function record(memory=[],result={},limit=500){return {version:"V247000",memory:[...memory,{timestamp:result.timestamp||new Date().toISOString(),model:result.model,probability:result.probability,outcome:result.outcome}].slice(-limit),researchOnly:true};} module.exports={record};

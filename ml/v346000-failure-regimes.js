@@ -1,0 +1,2 @@
+// V346000 failure / drawdown regime analysis.
+function analyze(records=[]){const out={};for(const r of records){if(r.outcome==="FAIL"||Number(r.drawdown||0)>0){const k=r.regime||"UNKNOWN";out[k]=(out[k]||0)+1}}return {version:"V346000",failuresByRegime:out,researchOnly:true};} module.exports={analyze};

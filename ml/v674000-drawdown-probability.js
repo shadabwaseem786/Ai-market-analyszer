@@ -1,0 +1,2 @@
+// V674000 Drawdown Probability Engine.
+function estimate(m={}){const volatility=Math.max(Number(m.volatility??0),0),leverage=Math.max(Number(m.leverage??1),0);return {version:"V674000",drawdownProxy:Math.min(1,volatility*leverage),researchOnly:true};} module.exports={estimate};

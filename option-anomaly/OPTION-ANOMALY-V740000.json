@@ -1,0 +1,7 @@
+{
+  "metrics": [
+    "IV z-score",
+    "OI z-score",
+    "volume z-score"
+  ]
+}

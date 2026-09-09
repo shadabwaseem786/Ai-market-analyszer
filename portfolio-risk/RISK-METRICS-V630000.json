@@ -1,0 +1,12 @@
+{
+  "metrics": [
+    "gross_exposure",
+    "net_exposure",
+    "VaR",
+    "CVaR",
+    "volatility",
+    "drawdown",
+    "concentration",
+    "stress_loss"
+  ]
+}

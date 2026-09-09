@@ -1,0 +1,2 @@
+// V333000 Missing-data / imputation auditor.
+function audit(rows=[],fields=[]){const missing={};for(const f of fields)missing[f]=rows.filter(r=>r?.[f]==null).length;return {version:"V333000",rows:rows.length,missing,researchOnly:true};} module.exports={audit};

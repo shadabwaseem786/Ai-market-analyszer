@@ -1,0 +1,2 @@
+// V662000 Fear/Greed State Engine.
+function assess(m={}){const components=["volatility","breadth","flow","sentiment"].map(k=>Number(m[k]??0));const score=components.length?components.reduce((a,b)=>a+b,0)/components.length:0;return {version:"V662000",score,state:score>.6?"GREED":score<-.6?"FEAR":"NEUTRAL",researchOnly:true};} module.exports={assess};

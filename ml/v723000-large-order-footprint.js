@@ -1,0 +1,2 @@
+// V723000 Large-Order / Institutional Footprint.
+function detect(trades=[],threshold=100000){return {version:"V723000",largeOrders:trades.filter(t=>Math.abs(Number(t.notional??0))>=threshold),researchOnly:true};} module.exports={detect};

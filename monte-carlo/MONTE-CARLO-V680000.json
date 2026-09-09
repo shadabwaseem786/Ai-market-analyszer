@@ -1,0 +1,9 @@
+{
+  "outputs": [
+    "median_equity",
+    "p05_equity",
+    "p95_equity",
+    "worst_drawdown"
+  ],
+  "default_runs": 1000
+}

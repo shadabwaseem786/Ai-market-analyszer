@@ -1,0 +1,11 @@
+{
+  "metrics": [
+    "accuracy",
+    "Brier score",
+    "log loss"
+  ],
+  "outputs": [
+    "calibration statistics",
+    "reliability bins"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "metrics": [
+    "order-book depth",
+    "spread",
+    "volume ratio",
+    "book stability"
+  ],
+  "output": "liquidity score"
+}

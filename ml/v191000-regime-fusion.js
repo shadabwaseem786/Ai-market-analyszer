@@ -1,0 +1,2 @@
+// V191000 Real-time regime fusion — research-only.
+function fuse(states=[]){const valid=states.filter(Boolean),score=valid.length?valid.reduce((s,x)=>s+Number(x.score||0),0)/valid.length:0;return {version:"V191000",state:score>25?"BULL":score<-25?"BEAR":"NEUTRAL",score:+score.toFixed(4),sources:valid.length,researchOnly:true};} module.exports={fuse};

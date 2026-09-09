@@ -1,0 +1,2 @@
+// V344000 probability calibration monitor.
+function monitor(predictions=[]){const p=predictions.filter(x=>Number.isFinite(Number(x.probability))&&Number.isFinite(Number(x.actual)));const error=p.length?p.reduce((s,x)=>s+Math.abs(Number(x.probability)-Number(x.actual)),0)/p.length:null;return {version:"V344000",sampleSize:p.length,meanAbsoluteCalibrationError:error,researchOnly:true};} module.exports={monitor};

@@ -1,0 +1,2 @@
+// V612000 Temporal Signal Alignment.
+function align(signals=[]){return {version:"V612000",signals:[...signals].sort((a,b)=>Number(a.timestamp??0)-Number(b.timestamp??0)),researchOnly:true};} module.exports={align};

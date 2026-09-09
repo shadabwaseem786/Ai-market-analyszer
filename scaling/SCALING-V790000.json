@@ -1,0 +1,8 @@
+{
+  "features": [
+    "scale-in",
+    "partial entry",
+    "confirmation triggers"
+  ],
+  "note": "framework only; no automatic order placement"
+}

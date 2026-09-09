@@ -1,0 +1,2 @@
+// V259000 Research model leaderboard.
+function rank(models=[]){return models.map(m=>({...m,score:Number(m.score||0)})).sort((a,b)=>b.score-a.score).map((m,i)=>({...m,rank:i+1}));} module.exports={rank};

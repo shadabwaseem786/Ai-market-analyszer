@@ -1,0 +1,2 @@
+// V28800: causal-feature sanity contract; flags suspicious contemporaneous predictors.
+function audit(features,allow=[]){const s=new Set(allow);return Object.keys(features||{}).filter(k=>!s.has(k)&&/(future|next|target|label|close_t\+|return_t\+)/i.test(k))}module.exports={audit};

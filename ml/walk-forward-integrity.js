@@ -1,0 +1,2 @@
+// V31700: fold chronology integrity check.
+function check(folds){let last=-Infinity,ok=true;for(const f of folds||[]){const s=Number(f.testStart);if(Number.isFinite(s)&&s<last)ok=false;last=Math.max(last,s)}return {chronological:ok,folds:(folds||[]).length}}module.exports={check};

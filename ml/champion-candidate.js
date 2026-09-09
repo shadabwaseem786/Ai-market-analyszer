@@ -1,0 +1,2 @@
+// V43800: champion-vs-candidate governance.
+function select(champion,candidate){if(!candidate)return{selected:"champion",candidateAccepted:false};const pass=candidate.oos>=champion.oos&&candidate.costAdjusted>=champion.costAdjusted&&candidate.drift<=champion.drift;return{selected:pass?"candidate":"champion",candidateAccepted:pass,executionDisabled:true}}module.exports={select};

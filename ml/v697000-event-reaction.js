@@ -1,0 +1,2 @@
+// V697000 Event-Time Reaction Model.
+function analyze(events=[]){return {version:"V697000",events:events.map(e=>({...e,reactionLag:Number(e.reactionLag??0),reactionMagnitude:Number(e.reactionMagnitude??0)})),researchOnly:true};} module.exports={analyze};

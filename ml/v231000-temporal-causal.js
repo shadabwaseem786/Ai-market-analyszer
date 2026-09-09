@@ -1,0 +1,2 @@
+// V231000 Temporal causal reasoning — research only.
+function infer(events=[],links=[]){const ordered=[...events].sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));return {version:"V231000",timeline:ordered,links:links.filter(l=>ordered.some(e=>e.id===l.from)&&ordered.some(e=>e.id===l.to)),researchOnly:true};} module.exports={infer};

@@ -1,0 +1,1 @@
+{"version":"V42000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["page_hinkley","adaptive_window","psi","ks_drift","monte_carlo_paths","max_drawdown","sharpe_sensitivity","calmar_sensitivity","robustness_score"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

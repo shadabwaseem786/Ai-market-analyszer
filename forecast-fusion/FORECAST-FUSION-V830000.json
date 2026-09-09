@@ -1,0 +1,9 @@
+{
+  "components": [
+    "multi-timeframe alignment",
+    "conflict resolution",
+    "horizon probability",
+    "time decay"
+  ],
+  "output": "unified confidence"
+}

@@ -1,0 +1,1 @@
+{"version":"V37000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["CPCV","reality_check","model_risk_bootstrap","cost_frontier","greek_sanity","expiry_regime","gap_risk","volatility_surface","uncertainty_budget"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

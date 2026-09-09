@@ -1,0 +1,13 @@
+{
+  "states": [
+    "FLAT",
+    "SIGNAL",
+    "ENTRY_PENDING",
+    "OPEN",
+    "PARTIAL",
+    "EXIT_PENDING",
+    "STOP",
+    "TARGET",
+    "CLOSED"
+  ]
+}

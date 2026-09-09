@@ -1,0 +1,2 @@
+// V446000 Feature Drift Detection.
+function detect(reference={},recent={},threshold=.15){const keys=new Set([...Object.keys(reference),...Object.keys(recent)]),out={};for(const k of keys){const a=Number(reference[k]),b=Number(recent[k]);if(Number.isFinite(a)&&Number.isFinite(b))out[k]={delta:b-a,drift:Math.abs(b-a)>threshold};}return {version:"V446000",features:out,researchOnly:true};} module.exports={detect};

@@ -1,0 +1,2 @@
+// V164000 Expiry-aware dataset builder.
+function build(rows=[],cutoff){return rows.filter(x=>!cutoff||new Date(x.timestamp)<=new Date(cutoff)).map(x=>({...x,dte:x.expiry&&x.timestamp?Math.max(0,Math.ceil((new Date(x.expiry)-new Date(x.timestamp))/86400000)):null}));} module.exports={build};

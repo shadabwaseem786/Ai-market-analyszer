@@ -1,0 +1,14 @@
+{
+  "states": [
+    "TRENDING",
+    "SIDEWAYS",
+    "CHOPPY",
+    "TRANSITION"
+  ],
+  "dimensions": [
+    "trend",
+    "range",
+    "ADX",
+    "strength"
+  ]
+}

@@ -1,0 +1,2 @@
+// V698000 Temporal Reversal Engine.
+function detect(series=[]){const n=series.length;if(n<3)return {version:"V698000",reversal:false,researchOnly:true};const a=Number(series[n-3]),b=Number(series[n-2]),c=Number(series[n-1]);return {version:"V698000",reversal:(b-a)*(c-b)<0,researchOnly:true};} module.exports={detect};

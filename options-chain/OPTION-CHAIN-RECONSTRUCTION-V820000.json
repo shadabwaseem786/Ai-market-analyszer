@@ -1,0 +1,13 @@
+{
+  "fields": [
+    "strike",
+    "expiry",
+    "call/put",
+    "OI",
+    "volume",
+    "IV",
+    "Greeks",
+    "spot"
+  ],
+  "purpose": "normalized option-chain model"
+}

@@ -1,0 +1,2 @@
+// V619000 Temporal Reliability Gate.
+function gate(m={}){const pass=!m.stale&&!m.breakpoint&&Number(m.persistence??0)>=Number(m.minimumPersistence??.5)&&Number(m.confidence??0)>=Number(m.minimumConfidence??.7);return {version:"V619000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

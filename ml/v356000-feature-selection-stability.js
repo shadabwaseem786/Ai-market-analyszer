@@ -1,0 +1,2 @@
+// V356000 feature selection stability.
+function analyze(runs=[]){const counts={};for(const run of runs)for(const f of run.features||[])counts[f]=(counts[f]||0)+1;const n=runs.length||1;return {version:"V356000",stability:Object.fromEntries(Object.entries(counts).map(([k,v])=>[k,v/n])),researchOnly:true};} module.exports={analyze};

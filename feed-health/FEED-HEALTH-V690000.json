@@ -1,0 +1,11 @@
+{
+  "states": [
+    "HEALTHY",
+    "DEGRADED",
+    "NO_DATA"
+  ],
+  "outputs": [
+    "source_quality",
+    "overall_health"
+  ]
+}

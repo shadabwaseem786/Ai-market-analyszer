@@ -1,0 +1,2 @@
+// V623000 Model Drift Detector.
+function detect(baseline=[],recent=[],threshold=.1){const mean=a=>a.length?a.reduce((s,x)=>s+Number(x),0)/a.length:0;const drift=Math.abs(mean(baseline)-mean(recent));return {version:"V623000",drift,detected:drift>=threshold,threshold,researchOnly:true};} module.exports={detect};

@@ -1,0 +1,8 @@
+{
+ "version":"V22000",
+ "robustness":["permutation_importance","stability_by_fold","PBO_CSCV_ready","regime_specific_routing","dataset_lineage"],
+ "promotion":{"oosOnly":true,"requireStableFolds":true,"requireCostRobustness":true,"requireLineage":true},
+ "universes":["NIFTY","BANKNIFTY","FINNIFTY"],
+ "horizons":[5,15,30,60],
+ "execution":"disabled"
+}

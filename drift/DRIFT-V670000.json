@@ -1,0 +1,8 @@
+{
+  "method": "PSI baseline",
+  "states": [
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ]
+}

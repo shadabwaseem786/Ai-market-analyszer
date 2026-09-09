@@ -1,0 +1,2 @@
+// V594000 FII/DII Flow Intelligence.
+function analyze(fii=0,dii=0){return {version:"V594000",fii:Number(fii),dii:Number(dii),netInstitutionalFlow:Number(fii)+Number(dii),researchOnly:true};} module.exports={analyze};

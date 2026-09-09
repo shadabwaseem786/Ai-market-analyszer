@@ -1,0 +1,2 @@
+// V349000 controlled model governance gate.
+function gate(x={}){const pass=Boolean(x.validationPass)&&Boolean(x.noLeakage)&&Boolean(x.calibrated)&&!Boolean(x.drift)&&Number(x.minimumScore??0)>=Number(x.threshold??0);return {version:"V349000",pass,status:pass?"ELIGIBLE_FOR_REVIEW":"REJECTED",automaticPromotion:false,humanReviewRequired:true,researchOnly:true};} module.exports={gate};

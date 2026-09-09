@@ -1,0 +1,2 @@
+// V601000 Meta-Signal Arbitration Engine — research only.
+function arbitrate(signals=[]){const ranked=[...signals].sort((a,b)=>Number(b.reliability??0)-Number(a.reliability??0));return {version:"V601000",ranked,researchOnly:true};} module.exports={arbitrate};

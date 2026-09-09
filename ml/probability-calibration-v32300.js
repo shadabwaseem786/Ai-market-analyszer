@@ -1,0 +1,2 @@
+// V32300: calibration curve contract.
+function curve(rows,bins=10){const out=[];for(let i=0;i<bins;i++){const g=rows.filter(x=>Number.isFinite(x.p)&&x.p>=i/bins&&x.p<(i+1)/bins);if(g.length)out.push({bin:i,n:g.length,p:g.reduce((s,x)=>s+x.p,0)/g.length,y:g.reduce((s,x)=>s+x.y,0)/g.length})}return out}module.exports={curve};

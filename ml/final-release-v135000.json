@@ -1,0 +1,15 @@
+{
+ "version":"V135000",
+ "name":"Integrated Scenario, Risk, Data & UI Research Stack",
+ "status":"RESEARCH_ONLY",
+ "extends":"V129000",
+ "batch":["V130000","V131000","V132000","V133000","V134000","V135000"],
+ "outputs":["BUY","SELL","WAIT","ABSTAIN"],
+ "uiModes":["NEWBIE","EXPERT"],
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "brokerIntegration":"DISABLED",
+ "layers":["scenario-paths","uncertainty-risk","provider-neutral-data","ui-decision-contract","observability","production-research-governor"],
+ "purpose":"Unify scenario reasoning, uncertainty, data abstraction, UI presentation and safety governance for research-only F&O intelligence."
+}

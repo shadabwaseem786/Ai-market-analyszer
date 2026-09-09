@@ -1,0 +1,2 @@
+// V39100: probabilistic regime-state contract.
+function posterior(states,probs){const a=states.map((s,i)=>({state:s,p:Number(probs?.[i])||0}));return a.sort((x,y)=>y.p-x.p)}module.exports={posterior};

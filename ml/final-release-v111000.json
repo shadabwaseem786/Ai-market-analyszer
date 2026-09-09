@@ -1,0 +1,12 @@
+{
+ "version":"V111000",
+ "name":"Causal Discovery & Counterfactual Laboratory",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V110000",
+ "layers":["causal-hypothesis-graph","counterfactual-lab","causal-invariance","causal-break-detection","causal-governor"],
+ "principle":"Generate and challenge causal hypotheses without treating correlation or simulation as causal proof.",
+ "note":"Causal discovery is exploratory; observational evidence alone does not prove causality."
+}

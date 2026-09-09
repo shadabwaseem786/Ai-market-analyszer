@@ -1,0 +1,3 @@
+// V690000 Multi-Agent Market Intelligence Core — no autonomous execution.
+const stages=["MULTI_MODEL_ENSEMBLE","BULL_BEAR_DEBATE","ADVERSARIAL_CHALLENGER","BULL_CASE","BEAR_CASE","THESIS_BALANCE","CONSENSUS_NETWORK","MODEL_AUTHORITY","CONSENSUS_INTEGRITY_GATE","HUMAN_REVIEW"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V690000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

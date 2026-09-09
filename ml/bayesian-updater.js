@@ -1,0 +1,2 @@
+// V80200: Bayesian evidence update with bounded odds.
+function update(prior,evidence=[]){let odds=Number(prior)/(1-Number(prior));if(!Number.isFinite(odds)||odds<=0)odds=1;for(const e of evidence){const lr=Math.max(.05,Math.min(20,Number(e.likelihoodRatio)||1));odds*=lr}return odds/(1+odds)}module.exports={update};

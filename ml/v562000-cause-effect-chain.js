@@ -1,0 +1,2 @@
+// V562000 Cause-Effect Chain Mapper.
+function map(edges=[]){const chains=[];for(const e of edges)chains.push({from:e.from,to:e.to,mechanism:e.mechanism||"unspecified",strength:Number(e.strength??0)});return {version:"V562000",chains,researchOnly:true};} module.exports={map};

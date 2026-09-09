@@ -1,0 +1,4 @@
+{
+  "output": "current state -> next state probability",
+  "use": "adaptive model weighting"
+}

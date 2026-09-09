@@ -1,0 +1,2 @@
+// V204000 Causal Graph Reasoning abstraction.
+function propagate(graph={},observed={}){const edges=graph.edges||[],out={...observed};for(let pass=0;pass<5;pass++)for(const e of edges){if(out[e.from]!=null)out[e.to]=Number(out[e.to]||0)+Number(out[e.from])*Number(e.weight||0);}return {version:"V204000",state:out,edgesProcessed:edges.length,researchOnly:true};} module.exports={propagate};

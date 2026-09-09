@@ -1,0 +1,2 @@
+// V24600: feature/label leakage audit contract.
+function audit(features,labels){const labelKeys=new Set(Object.keys(labels||{}));return Object.keys(features||{}).filter(k=>labelKeys.has(k)).map(k=>({feature:k,collision:true}))}module.exports={audit};

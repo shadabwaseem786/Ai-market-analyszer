@@ -1,0 +1,2 @@
+// V317000 sector contagion network.
+function propagate(source,relations=[]){return {version:"V317000",source,affected:relations.filter(r=>r&&r.asset).map(r=>({...r,transmission:Number(r.transmission||0)})).sort((a,b)=>b.transmission-a.transmission),researchOnly:true};} module.exports={propagate};

@@ -1,0 +1,2 @@
+// V258000 Model/alpha decay monitor.
+function detect(history=[],window=20){const h=history.slice(-window);const first=h.slice(0,Math.ceil(h.length/2)),last=h.slice(Math.floor(h.length/2));const mean=a=>a.length?a.reduce((s,x)=>s+Number(x.alpha||0),0)/a.length:0;const decay=mean(first)-mean(last);return {version:"V258000",decay:+decay.toFixed(6),window:h.length,decayed:decay>0,researchOnly:true};} module.exports={detect};

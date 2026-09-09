@@ -1,0 +1,2 @@
+// V29800: explicit failure-mode classification.
+function classify(x={}){if(x.dataQuality===false)return"DATA_FAILURE";if(x.leakage===true)return"LEAKAGE_FAILURE";if(x.drift===true)return"DRIFT_FAILURE";if(x.calibration===false)return"CALIBRATION_FAILURE";if(x.risk===false)return"RISK_FAILURE";return"NO_KNOWN_FAILURE"}module.exports={classify};

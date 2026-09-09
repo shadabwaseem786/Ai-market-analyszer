@@ -1,0 +1,2 @@
+// V636000 Stress-Test & Shock Simulator — research only.
+function simulate(base={},shocks=[]){return {version:"V636000",results:shocks.map(s=>({...s,simulatedImpact:Number(base.exposure??0)*Number(s.shock??0)})),researchOnly:true};} module.exports={simulate};

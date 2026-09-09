@@ -1,0 +1,2 @@
+// V399000 world-model decision fusion.
+function fuse(inputs=[]){const valid=inputs.filter(Boolean);const score=valid.reduce((s,x)=>s+Number(x.weight??1)*Number(x.score??0),0);return {version:"V399000",score,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",contributors:valid.length,researchOnly:true};} module.exports={fuse};

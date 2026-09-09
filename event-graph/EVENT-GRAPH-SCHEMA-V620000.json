@@ -1,0 +1,23 @@
+{
+  "node_types": [
+    "EVENT",
+    "ENTITY",
+    "SECTOR",
+    "INDEX",
+    "COMMODITY",
+    "CURRENCY",
+    "FNO_INSTRUMENT",
+    "REGIME",
+    "ANALOGUE"
+  ],
+  "edge_types": [
+    "AFFECTS",
+    "PROPAGATES_TO",
+    "CORRELATED_WITH",
+    "HISTORICAL_ANALOGUE",
+    "CONFIRMS",
+    "CONTRADICTS",
+    "CAUSED_BY",
+    "REACTED_TO"
+  ]
+}

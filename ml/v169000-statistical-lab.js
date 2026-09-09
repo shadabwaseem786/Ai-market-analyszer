@@ -1,0 +1,2 @@
+// V169000 Statistical Performance Laboratory.
+function evaluate(results=[]){const n=results.length,ys=results.map(x=>Number(x.correct||0));const accuracy=n?ys.reduce((a,b)=>a+b,0)/n:0;const brier=n?results.reduce((s,x)=>{const p=Number(x.probability??.5),y=Number(x.outcome??0);return s+(p-y)**2},0)/n:null;return {version:"V169000",n,accuracy:+accuracy.toFixed(5),brier:brier==null?null:+brier.toFixed(5),researchOnly:true};} module.exports={evaluate};

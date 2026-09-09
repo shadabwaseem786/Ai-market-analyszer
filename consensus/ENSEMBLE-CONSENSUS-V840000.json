@@ -1,0 +1,8 @@
+{
+  "labels": [
+    "BULLISH",
+    "NEUTRAL",
+    "BEARISH"
+  ],
+  "purpose": "combine model probabilities without false certainty"
+}

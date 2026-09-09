@@ -1,0 +1,2 @@
+// V157000 Counterfactual Event Simulator.
+function simulate(base={},changes=[]){return changes.map(c=>{const next={...base,[c.key]:c.value};return {scenario:c.name||c.key,state:next,assumption:c.assumption||"USER_DEFINED"}});} module.exports={simulate};

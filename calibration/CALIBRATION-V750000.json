@@ -1,0 +1,8 @@
+{
+  "metrics": [
+    "Brier score",
+    "log loss",
+    "reliability gap"
+  ],
+  "bins": 10
+}

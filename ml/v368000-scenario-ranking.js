@@ -1,0 +1,2 @@
+// V368000 scenario probability ranking.
+function rank(scenarios=[]){return [...scenarios].sort((a,b)=>Number(b.probability||0)-Number(a.probability||0)).map((s,i)=>({...s,rank:i+1}));} module.exports={rank};

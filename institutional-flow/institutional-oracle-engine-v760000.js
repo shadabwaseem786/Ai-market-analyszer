@@ -1,0 +1,16 @@
+/* V760000 INSTITUTIONAL FLOW + CROSS-ASSET + CATALYST INTELLIGENCE */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const z=(x,m,s)=>s?((n(x)-n(m))/n(s)):0;
+ function flowBalance(fii,dii){const f=n(fii),d=n(dii);return{fii:f,dii:d,net:f+d,leader:Math.abs(f)>=Math.abs(d)?"FII":"DII"}}
+ function futuresBasis(spot,future){const s=n(spot),f=n(future);return{s,f,basis:f-s,basisPct:s?(f-s)/s:0,state:f>s?"CONTANGO":"BACKWARDATION"}}
+ function rollover(prevOI,currentOI,prevPrice,currentPrice){const oi=prevOI?currentOI/prevOI-1:0;const px=prevPrice?currentPrice/prevPrice-1:0;return{oiChange:oi,priceChange:px,quality:oi>0&&px>0?"LONG-BUILDUP":oi>0&&px<0?"SHORT-BUILDUP":oi<0&&px>0?"SHORT-COVERING":oi<0&&px<0?"LONG-UNWINDING":"MIXED"}}
+ function participantSignal(x={}){const score=clamp(.3*n(x.fiiScore,.5)+.2*n(x.diiScore,.5)+.2*n(x.futuresScore,.5)+.15*n(x.rolloverScore,.5)+.15*n(x.deliveryScore,.5),0,1);return{score,direction:score>.6?"RISK-ON":score<.4?"RISK-OFF":"NEUTRAL"}}
+ function breadth(adv,dec,unch){const a=n(adv),d=n(dec),u=n(unch);return{advance:a,decline:d,unchanged:u,ratio:d?a/d:null,score:(a+d)?(a-d)/(a+d):0}}
+ function sectorRotation(sectors=[]){return sectors.map(s=>({...s,score:clamp(.5*n(s.priceScore,.5)+.3*n(s.relativeStrength,.5)+.2*n(s.flowScore,.5),0,1)})).sort((a,b)=>b.score-a.score)}
+ function crossAsset(f={}){const keys=["usd","rates","crude","gold","globalEquity","vix","bond","crypto"];const vals=keys.map(k=>n(f[k],0));const avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;return{score:clamp(.5+n(avg)*.5,0,1),signals:Object.fromEntries(keys.map(k=>[k,n(f[k])]))}}
+ function catalyst(items=[]){return items.map(x=>{const impact=clamp(.35*n(x.magnitude,.5)+.25*n(x.surprise,.5)+.2*n(x.marketRelevance,.5)+.2*n(x.transmission,.5),0,1);return{...x,impact,priority:impact>.75?"HIGH":impact>.5?"MEDIUM":"LOW"}}).sort((a,b)=>b.impact-a.impact)}
+ function fuse(x={}){const parts=[n(x.technical,.5),n(x.options,.5),n(x.microstructure,.5),n(x.institutional,.5),n(x.crossAsset,.5),n(x.catalyst,.5)];const score=parts.reduce((a,b)=>a+b,0)/parts.length;return{score:clamp(score,0,1),direction:score>.58?"BULLISH":score<.42?"BEARISH":"NEUTRAL",components:{technical:n(x.technical),options:n(x.options),microstructure:n(x.microstructure),institutional:n(x.institutional),crossAsset:n(x.crossAsset),catalyst:n(x.catalyst)}}}
+ function contradiction(x={}){const vals=Object.entries(x).filter(([,v])=>Number.isFinite(Number(v))).map(([k,v])=>[k,n(v)]);const bull=vals.filter(([,v])=>v>.65).map(([k])=>k),bear=vals.filter(([,v])=>v<.35).map(([k])=>k);return{bullish:bull,bearish:bear,conflict:bull.length>0&&bear.length>0,severity:bull.length&&bear.length?Math.min(1,(bull.length+bear.length)/6):0}}
+ global.InstitutionalV760000={flowBalance,futuresBasis,rollover,participantSignal,breadth,sectorRotation,crossAsset,catalyst,fuse,contradiction};
+})(typeof globalThis!=="undefined"?globalThis:window);

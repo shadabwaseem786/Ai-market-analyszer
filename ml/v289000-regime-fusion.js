@@ -1,0 +1,2 @@
+// V289000 Regime-aware decision fusion.
+function fuse(inputs=[]){const usable=inputs.filter(x=>x&&x.direction);const scores={BUY:0,SELL:0,WAIT:0,ABSTAIN:0};for(const x of usable)scores[x.direction]=(scores[x.direction]||0)+Number(x.weight??1)*Number(x.confidence??1);const direction=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0]?.[0]||"ABSTAIN";return {version:"V289000",direction,scores,contributors:usable.length,researchOnly:true};} module.exports={fuse};

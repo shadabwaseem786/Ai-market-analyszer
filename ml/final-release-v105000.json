@@ -1,0 +1,13 @@
+{
+ "version":"V105000",
+ "name":"Market Intelligence Hive Mind",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V104000",
+ "agents":["Catalyst","Options","Macro","Regime","Technical","Breadth","Liquidity","News","Risk","Adversarial"],
+ "layers":["specialist-hive","chief-reasoning","structured-debate","evidence-ledger","hive-governor"],
+ "principle":"Independent specialist analysis followed by adversarial synthesis and conservative abstention.",
+ "note":"Hive Mind is an architectural metaphor; it is not literal AGI and provides no guarantee of profitability."
+}

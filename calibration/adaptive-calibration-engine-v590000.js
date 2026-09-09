@@ -1,0 +1,20 @@
+/* V590000 ADAPTIVE CALIBRATION + WALK-FORWARD + MODEL GOVERNANCE */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const mean=a=>a.length?a.reduce((s,x)=>s+n(x),0)/a.length:0;
+ function confusion(pred=[],actual=[]){let tp=0,tn=0,fp=0,fn=0;for(let i=0;i<Math.min(pred.length,actual.length);i++){const p=!!pred[i],a=!!actual[i];if(p&&a)tp++;else if(!p&&!a)tn++;else if(p&&!a)fp++;else fn++}return{tp,tn,fp,fn,precision:tp/(tp+fp||1),recall:tp/(tp+fn||1),specificity:tn/(tn+fp||1),accuracy:(tp+tn)/(tp+tn+fp+fn||1)}}
+ function brier(probs=[],actual=[]){const m=Math.min(probs.length,actual.length);if(!m)return null;return probs.slice(0,m).reduce((s,p,i)=>s+(n(p)-n(actual[i]))**2,0)/m}
+ function calibration(probs=[],actual=[],bins=10){const out=[];for(let b=0;b<bins;b++){const lo=b/bins,hi=(b+1)/bins;const ix=[];for(let i=0;i<Math.min(probs.length,actual.length);i++)if(n(probs[i])>=lo&&n(probs[i])<(b===bins-1?hi+1e-9:hi))ix.push(i);out.push({bin:`${lo.toFixed(1)}-${hi.toFixed(1)}`,count:ix.length,predicted:ix.length?mean(ix.map(i=>n(probs[i]))):null,actual:ix.length?mean(ix.map(i=>n(actual[i]))):null})}return out}
+ function expectancy(trades=[]){if(!trades.length)return 0;return mean(trades.map(t=>n(t.pnlR)))}
+ function sharpe(trades=[]){const a=trades.map(t=>n(t.pnlR)),m=mean(a),sd=Math.sqrt(mean(a.map(x=>(x-m)**2)))||1;return m/sd}
+ function sortino(trades=[]){const a=trades.map(t=>n(t.pnlR)),m=mean(a),down=a.filter(x=>x<0),sd=Math.sqrt(mean(down.map(x=>x*x)))||1;return m/sd}
+ function maxDrawdown(trades=[]){let eq=0,peak=0,max=0;for(const t of trades){eq+=n(t.pnlR);peak=Math.max(peak,eq);max=Math.max(max,peak-eq)}return max}
+ function maeMfe(trades=[]){return{avgMAE:mean(trades.map(t=>n(t.maeR))),avgMFE:mean(trades.map(t=>n(t.mfeR))),maxMFE:Math.max(0,...trades.map(t=>n(t.mfeR)))}} 
+ function walkForward(data=[],train=200,test=50,step=50){const folds=[];for(let i=0;i+train+test<=data.length;i+=step)folds.push({trainStart:i,trainEnd:i+train,testStart:i+train,testEnd:i+train+test});return folds}
+ function regimeStats(trades=[]){const g={};for(const t of trades){const k=t.regime||"UNKNOWN";g[k]??=[];g[k].push(t)}return Object.fromEntries(Object.entries(g).map(([k,v])=>[k,{count:v.length,expectancy:expectancy(v),winRate:v.filter(t=>n(t.pnlR)>0).length/v.length,sharpe:sharpe(v),maxDrawdown:maxDrawdown(v)}]))}
+ function signalDecay(trades=[]){const buckets={};for(const t of trades){const h=n(t.horizonHours,0);const k=h<=1?"0-1h":h<=4?"1-4h":h<=24?"4-24h":">24h";buckets[k]??=[];buckets[k].push(t)}return Object.fromEntries(Object.entries(buckets).map(([k,v])=>[k,{count:v.length,expectancy:expectancy(v),winRate:v.filter(t=>n(t.pnlR)>0).length/v.length}]))}
+ function scoreModel(m={}){return .3*clamp(n(m.expectancyR,.0)/.5,0,1)+.25*clamp(n(m.sharpe,0)/2,0,1)+.2*clamp(n(m.winRate,.5),0,1)+.15*clamp(1-n(m.maxDrawdownR,0)/5,0,1)+.1*clamp(1-n(m.brier,.25),0,1)}
+ function championChallenger(champion={},challenger={},minImprovement=.05){const c=scoreModel(champion),q=scoreModel(challenger);return{championScore:c,challengerScore:q,challengerWins:q>=c*(1+minImprovement),decision:q>=c*(1+minImprovement)?"PROMOTE_CHALLENGER":"RETAIN_CHAMPION"}}
+ function qualityGate(m={}){return{pass:n(m.sampleSize)<100?false:(n(m.oosExpectancyR)>0&&n(m.brier,.5)<.25&&n(m.maxDrawdownR,999)<5),reasons:[n(m.sampleSize)<100&&"INSUFFICIENT_SAMPLE",n(m.oosExpectancyR)<=0&&"NEGATIVE_OOS_EXPECTANCY",n(m.brier,.5)>=.25&&"POOR_CALIBRATION",n(m.maxDrawdownR,999)>=5&&"DRAWDOWN_LIMIT"].filter(Boolean)}}
+ global.AdaptiveCalibrationV590000={confusion,brier,calibration,expectancy,sharpe,sortino,maxDrawdown,maeMfe,walkForward,regimeStats,signalDecay,scoreModel,championChallenger,qualityGate};
+})(typeof globalThis!=="undefined"?globalThis:window);

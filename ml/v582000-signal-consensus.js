@@ -1,0 +1,2 @@
+// V582000 Signal Consensus Engine.
+function consensus(signals=[]){const s=signals.filter(x=>x.reliable!==false),score=s.length?s.reduce((a,x)=>a+Number(x.score??0),0)/s.length:0;return {version:"V582000",consensusScore:score,count:s.length,researchOnly:true};} module.exports={consensus};

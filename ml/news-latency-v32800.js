@@ -1,0 +1,2 @@
+// V32800: event/news timestamp latency contract.
+function validate(eventTime,featureTime){const e=new Date(eventTime).getTime(),f=new Date(featureTime).getTime();return {valid:Number.isFinite(e)&&Number.isFinite(f)&&f>=e,latencyMs:f-e}}module.exports={validate};

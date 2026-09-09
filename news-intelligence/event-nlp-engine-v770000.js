@@ -1,0 +1,18 @@
+/* V770000 REAL-TIME EVENT + NEWS NLP INTELLIGENCE */
+(function(global){
+ const n=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const mean=a=>a.length?a.reduce((s,x)=>s+n(x),0)/a.length:0;
+ function sentiment(text=""){const t=String(text).toLowerCase();const pos=["beat","surge","growth","profit","upgrade","strong","record","bullish","positive","approval","inflow"];const neg=["miss","fall","drop","loss","downgrade","weak","warning","bearish","negative","outflow","cut"];let p=0,q=0;pos.forEach(w=>{if(t.includes(w))p++});neg.forEach(w=>{if(t.includes(w))q++});const s=(p-q)/Math.max(1,p+q);return{score:clamp(.5+s*.5,0,1),label:s>.15?"POSITIVE":s<-.15?"NEGATIVE":"NEUTRAL"}}
+ function entities(text=""){const out=[];const patterns=[/\bNIFTY(?:\s*50)?\b/ig,/\bBANK\s*NIFTY\b/ig,/\bSENSEX\b/ig,/\bFII\b|\bDII\b/ig,/\bRBI\b/ig,/\bSEBI\b/ig,/\bFED\b/ig];patterns.forEach(r=>{let m;while((m=r.exec(text)))out.push(m[0].toUpperCase())});return[...new Set(out)]}
+ function classify(text=""){const t=text.toLowerCase();let type="GENERAL";if(/earnings|results|profit|revenue|guidance/.test(t))type="EARNINGS";else if(/rbi|fed|rate|inflation|cpi|gdp|policy/.test(t))type="MACRO";else if(/war|missile|sanction|tariff|geopolit|conflict/.test(t))type="GEOPOLITICAL";else if(/merger|acquisition|stake|order|contract|approval/.test(t))type="CORPORATE";else if(/fii|dii|fund flow|foreign investor/.test(t))type="FLOWS";else if(/results|dividend|buyback|split/.test(t))type="CORPORATE_ACTION";return type}
+ function reliability(source={},history={}){return clamp(.6*n(source.baseScore,.5)+.4*n(history.accuracy,.5),0,1)}
+ function dedupe(items=[]){const seen=new Set();return items.filter(x=>{const k=String(x.canonical||x.title||"").toLowerCase().replace(/\W/g,"").slice(0,180);if(!k||seen.has(k))return false;seen.add(k);return true})}
+ function velocity(events=[],windowMs=3600000){const now=Date.now();const c=events.filter(e=>now-n(e.ts,now)<=windowMs).length;return c/(windowMs/3600000)}
+ function decay(ageMinutes,halfLife=60){return Math.exp(-Math.max(0,n(ageMinutes))/Math.max(1,n(halfLife))*Math.LN2)}
+ function impact(e={}){return clamp(.25*n(e.magnitude,.5)+.2*n(e.surprise,.5)+.2*n(e.reliability,.5)+.2*n(e.transmission,.5)+.15*n(e.velocityScore,.5),0,1)}
+ function mapImpact(e={}){const type=e.type||"GENERAL";const maps={EARNINGS:["STOCK","SECTOR"],MACRO:["INDICES","BANKS","BONDS"],GEOPOLITICAL:["INDICES","CRUDE","GOLD","DEFENCE"],CORPORATE:["STOCK","SECTOR"],FLOWS:["INDICES","F&O"],CORPORATE_ACTION:["STOCK"]};return maps[type]||["MARKET"]}
+ function shock(e={}){const sev=clamp(.4*n(e.impact,.5)+.3*n(e.surprise,.5)+.3*n(e.transmission,.5),0,1);return{severity:sev,state:sev>.8?"SEVERE":sev>.6?"HIGH":sev>.35?"MODERATE":"LOW",haltNormalRegime:sev>.8}}
+ function eventRegime(events=[]){if(!events.length)return"QUIET";const m=mean(events.map(e=>n(e.impact)));const geo=events.filter(e=>e.type==="GEOPOLITICAL").length;const macro=events.filter(e=>e.type==="MACRO").length;if(geo>0&&m>.65)return"GEOPOLITICAL-SHOCK";if(m>.75)return"EVENT-DRIVEN";if(m>.55||macro>2)return"MACRO-ELEVATED";return"CATALYST-ACTIVE"}
+ function fuse(x={}){const vals=[n(x.news,.5),n(x.sentiment,.5),n(x.reliability,.5),n(x.impact,.5),n(x.shockSafety,1)];const score=vals.reduce((a,b)=>a+b,0)/vals.length;return{score:clamp(score,0,1),direction:score>.6?"BULLISH":score<.4?"BEARISH":"NEUTRAL"}}
+ global.EventNLPV770000={sentiment,entities,classify,reliability,dedupe,velocity,decay,impact,mapImpact,shock,eventRegime,fuse};
+})(typeof globalThis!=="undefined"?globalThis:window);

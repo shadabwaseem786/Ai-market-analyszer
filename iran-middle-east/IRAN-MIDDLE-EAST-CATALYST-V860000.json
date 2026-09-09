@@ -1,0 +1,15 @@
+{
+  "features": [
+    "military escalation",
+    "oil shock",
+    "shipping disruption",
+    "sanctions",
+    "regional spread"
+  ],
+  "states": [
+    "NORMAL",
+    "ELEVATED",
+    "HIGH",
+    "CRITICAL"
+  ]
+}

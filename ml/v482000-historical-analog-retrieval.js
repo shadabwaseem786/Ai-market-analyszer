@@ -1,0 +1,2 @@
+// V482000 Historical Analog Retrieval.
+function retrieve(query={},records=[],k=10){const score=r=>Number(r.similarity??0);return {version:"V482000",matches:[...records].sort((a,b)=>score(b)-score(a)).slice(0,k),researchOnly:true};} module.exports={retrieve};

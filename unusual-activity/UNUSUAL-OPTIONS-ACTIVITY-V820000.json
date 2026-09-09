@@ -1,0 +1,7 @@
+{
+  "triggers": [
+    "volume spike",
+    "OI change"
+  ],
+  "output": "unusual score"
+}

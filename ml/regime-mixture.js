@@ -1,0 +1,2 @@
+// V50400: mixture-of-experts regime weighting.
+function mix(experts,probs){let out=0,w=0;for(const [k,v] of Object.entries(experts||{})){const p=Number(probs?.[k])||0;out+=Number(v)*p;w+=p}return w?out/w:null}module.exports={mix};

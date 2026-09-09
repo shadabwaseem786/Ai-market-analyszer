@@ -1,0 +1,10 @@
+{
+  "regimes": [
+    "TRENDING",
+    "SIDEWAYS",
+    "CHOPPY",
+    "SHOCK",
+    "BLACK_SWAN"
+  ],
+  "purpose": "regime-specific ensemble weighting"
+}

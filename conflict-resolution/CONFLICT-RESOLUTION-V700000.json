@@ -1,0 +1,4 @@
+{
+  "purpose": "detect bullish/bearish evidence conflict",
+  "action": "reduce confidence / WAIT / NO-TRADE"
+}

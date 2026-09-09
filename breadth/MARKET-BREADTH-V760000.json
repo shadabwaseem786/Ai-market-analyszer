@@ -1,0 +1,9 @@
+{
+  "metrics": [
+    "advancers",
+    "decliners",
+    "unchanged",
+    "advance/decline ratio",
+    "breadth score"
+  ]
+}

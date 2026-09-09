@@ -1,0 +1,2 @@
+// V158000 Prediction Attribution & Post-Mortem Lab.
+function analyze(prediction={},outcome={}){const actual=Number(outcome.value||0),expected=Number(prediction.probability??.5),error=expected-actual;return {version:"V158000",predictionId:prediction.id||null,error:+error.toFixed(5),absoluteError:+Math.abs(error).toFixed(5),drivers:prediction.drivers||[],invalidatorsTriggered:outcome.invalidatorsTriggered||[],lesson:Math.abs(error)>=.5?"MAJOR_ERROR":"NORMAL_ERROR",researchOnly:true};} module.exports={analyze};

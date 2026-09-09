@@ -1,0 +1,2 @@
+// V179000 Model Champion/Challenger Framework.
+function compare(champion={},challengers=[]){const score=m=>Number(m.score||-Infinity);const all=[champion,...challengers].sort((a,b)=>score(b)-score(a));return {version:"V179000",champion:all[0]?.name||null,ranked:all.map((m,i)=>({rank:i+1,name:m.name||"MODEL",score:score(m)})),promotionRequired:false,automaticPromotion:false,researchOnly:true};} module.exports={compare};

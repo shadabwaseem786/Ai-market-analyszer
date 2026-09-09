@@ -1,0 +1,9 @@
+{
+  "variants": [
+    "regime",
+    "cost",
+    "slippage",
+    "parameter"
+  ],
+  "output": "stability_score"
+}

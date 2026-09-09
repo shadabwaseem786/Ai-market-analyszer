@@ -1,0 +1,10 @@
+{
+  "components": [
+    "aleatoric",
+    "epistemic",
+    "data_quality",
+    "model_disagreement",
+    "calibration",
+    "drift"
+  ]
+}

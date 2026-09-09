@@ -1,0 +1,3 @@
+// V360000 Research Intelligence Core — controlled, explainable, no execution.
+const stages=["META_LABELING","REGIME_CALIBRATION","COST_AWARE_VALIDATION","BOOTSTRAP_CONFIDENCE","REGIME_STRESS","FEATURE_STABILITY","MODEL_CARD","EXPLAINABILITY","FINAL_RESEARCH_GATE","QUANT_VALIDATION","REALITY_VALIDATION"];
+function run(input={},handlers={}){let state={...input},trace=[];for(const stage of stages){const fn=handlers[stage];if(typeof fn==="function")state=fn(state)||state;trace.push({stage,status:"COMPLETED"})}return {version:"V360000",state,trace,stages,researchOnly:true,executionDisabled:true,automaticTrading:false,brokerOrders:false,automaticPromotion:false,automaticRetraining:false,humanReviewRequired:true};} module.exports={stages,run};

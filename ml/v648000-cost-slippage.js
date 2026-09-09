@@ -1,0 +1,2 @@
+// V648000 Slippage & Transaction-Cost Model.
+function estimate(m={}){const spread=Math.max(Number(m.spread??0),0),slippage=Math.max(Number(m.slippage??0),0),fees=Math.max(Number(m.fees??0),0);return {version:"V648000",totalCost:spread+slippage+fees,spread,slippage,fees,researchOnly:true};} module.exports={estimate};

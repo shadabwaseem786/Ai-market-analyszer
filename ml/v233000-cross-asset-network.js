@@ -1,0 +1,2 @@
+// V233000 Cross-asset causal network abstraction.
+function map(edges=[],assets=[]){return {version:"V233000",assets,edges:edges.map(e=>({...e,normalizedWeight:Math.max(-1,Math.min(1,Number(e.weight||0)))})),researchOnly:true};} module.exports={map};

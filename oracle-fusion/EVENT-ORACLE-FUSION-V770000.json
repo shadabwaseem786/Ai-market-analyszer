@@ -1,0 +1,9 @@
+{
+  "components": [
+    "news",
+    "sentiment",
+    "source reliability",
+    "impact",
+    "shock safety"
+  ]
+}

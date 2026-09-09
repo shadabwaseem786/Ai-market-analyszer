@@ -1,0 +1,2 @@
+// V293000 Similarity / analog market search.
+function search(episodes=[],features={},limit=10){const ks=Object.keys(features);const sim=e=>ks.length?ks.reduce((s,k)=>s+(Number.isFinite(Number(e[k]))&&Number.isFinite(Number(features[k]))?1/(1+Math.abs(Number(e[k])-Number(features[k]))):0),0)/ks.length:0;return {version:"V293000",matches:episodes.map(e=>({...e,_similarity:sim(e)})).sort((a,b)=>b._similarity-a._similarity).slice(0,limit),researchOnly:true};} module.exports={search};

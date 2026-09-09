@@ -1,0 +1,2 @@
+// V441000 Regime-Specific Model Registry — research only.
+function select(regime,registry={}){const models=registry[regime]||registry.DEFAULT||[];return {version:"V441000",regime,models,researchOnly:true};} module.exports={select};

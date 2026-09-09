@@ -1,0 +1,2 @@
+// V80800: drift-aware weighting controller; bounded and auditable.
+function adjust(weights={},drift=0){const factor=Math.max(.5,Math.min(1,1-Math.max(0,Number(drift)||0)));return Object.fromEntries(Object.entries(weights).map(([k,v])=>[k,(Number(v)||0)*factor]))}module.exports={adjust};

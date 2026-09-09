@@ -1,0 +1,27 @@
+{
+  "inputs": [
+    "bidVolume",
+    "askVolume",
+    "priceChange",
+    "oiChange",
+    "bars",
+    "currentVolume",
+    "baselineVolume",
+    "returns",
+    "prices",
+    "spreadBps",
+    "depthScore",
+    "priceImpact"
+  ],
+  "outputs": [
+    "imbalance",
+    "oi_price_interpretation",
+    "vwap",
+    "volume_anomaly",
+    "volatility_state",
+    "intraday_regime",
+    "liquidity_score",
+    "price_acceleration",
+    "entry_quality"
+  ]
+}

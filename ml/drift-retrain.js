@@ -1,0 +1,2 @@
+// V22600: drift-triggered retraining candidate policy.
+function decide({psi=0,oosHealthy=false}={}){if(psi>.25)return "FREEZE_AND_REVIEW";if(psi>.1)return "SHADOW_RETRAIN";if(oosHealthy)return "RETRAIN_CANDIDATE";return "HOLD"} module.exports={decide};

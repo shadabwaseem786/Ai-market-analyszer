@@ -1,0 +1,8 @@
+{
+  "method": "ATR-scaled expected range",
+  "outputs": [
+    "lower bound",
+    "upper bound",
+    "range"
+  ]
+}

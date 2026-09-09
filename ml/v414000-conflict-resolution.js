@@ -1,0 +1,2 @@
+// V414000 signal conflict resolution.
+function resolve(signals=[]){const score=signals.reduce((s,x)=>s+Number(x.weight??1)*Number(x.score??0),0);return {version:"V414000",score,bias:score>.2?"BULLISH":score<-.2?"BEARISH":"NEUTRAL",conflict:new Set(signals.map(x=>x.direction).filter(Boolean)).size>1,researchOnly:true};} module.exports={resolve};

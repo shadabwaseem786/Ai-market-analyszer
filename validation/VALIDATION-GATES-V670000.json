@@ -1,0 +1,9 @@
+{
+  "requirements": [
+    "point_in_time_data",
+    "minimum_sample_size",
+    "out_of_sample_validation",
+    "calibration_check",
+    "drift_check"
+  ]
+}

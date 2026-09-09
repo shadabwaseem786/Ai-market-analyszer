@@ -1,0 +1,14 @@
+{
+ "version":"V129000",
+ "name":"F&O Decision Intelligence Matrix",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V128000",
+ "layers":["factor-matrix","evidence-weighting","thesis-invalidators","auditable-explanation","newbie-expert-presentation","decision-governor"],
+ "factors":["CATALYST","REGIME","TREND","OPTIONS_CHAIN","OI","IV","GREEKS","FUTURES_BASIS","VOLUME","BREADTH","CROSS_ASSET","FII_DII","TEMPORAL","ANALOGUES","MODEL_COUNCIL","UNCERTAINTY","RED_TEAM"],
+ "outputs":["BUY","SELL","WAIT","ABSTAIN"],
+ "purpose":"Fuse validated evidence into an auditable instrument-level F&O research decision while preserving Newbie and Expert modes.",
+ "note":"BUY/SELL are analytical directional outputs only and do not place or authorize trades."
+}

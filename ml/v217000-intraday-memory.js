@@ -1,0 +1,2 @@
+// V217000 Intraday state continuity / bounded memory.
+function update(memory=[],event={},limit=100){const next=[...memory,event].slice(-limit);return {version:"V217000",memory:next,stateHash:next.length?JSON.stringify(next.at(-1)):"",researchOnly:true};} module.exports={update};

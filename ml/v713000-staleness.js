@@ -1,0 +1,2 @@
+// V713000 Timestamp / Staleness Detector.
+function check(records=[],maxAgeMs=300000){return {version:"V713000",records:records.map(r=>({...r,stale:Date.now()-Number(r.timestamp??0)>maxAgeMs})),researchOnly:true};} module.exports={check};

@@ -1,0 +1,2 @@
+// V538000 Forecast Combination.
+function combine(forecasts=[]){const valid=forecasts.filter(f=>Number.isFinite(Number(f.value))),total=valid.reduce((s,f)=>s+Math.max(0,Number(f.weight??1)),0)||1,value=valid.reduce((s,f)=>s+Number(f.value)*Math.max(0,Number(f.weight??1)),0)/total;return {version:"V538000",value,contributors:valid.length,researchOnly:true};} module.exports={combine};

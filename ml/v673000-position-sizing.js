@@ -1,0 +1,2 @@
+// V673000 Position Sizing Intelligence — research only.
+function size(m={}){const capital=Math.max(Number(m.capital??0),0),risk=Math.max(Number(m.riskBudget??0),0),unitRisk=Math.max(Number(m.unitRisk??0),0);return {version:"V673000",recommendedQuantity:unitRisk?Math.floor(capital*risk/unitRisk):0,researchOnly:true};} module.exports={size};

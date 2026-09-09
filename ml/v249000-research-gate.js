@@ -1,0 +1,2 @@
+// V249000 Research decision gate.
+function gate(x={}){const quality=Number(x.quality||0),confidence=Number(x.confidence||0),falseRisk=Number(x.falseConfidenceRisk||0),validation=Number(x.validation||0);let decision="ABSTAIN";if(quality>=70&&confidence>=65&&falseRisk<35&&validation>=60)decision=x.direction==="BUY"?"BUY":x.direction==="SELL"?"SELL":"WAIT";else if(quality>=45)decision="WAIT";return {version:"V249000",decision,quality,confidence,falseConfidenceRisk:falseRisk,validation,researchOnly:true};} module.exports={gate};

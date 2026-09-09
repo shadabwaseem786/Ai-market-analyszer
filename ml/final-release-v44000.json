@@ -1,0 +1,1 @@
+{"version":"V44000","name":"AI Prediction Brain","status":"RESEARCH_ONLY","executionDisabled":true,"primaryOutput":["BUY","HOLD","SELL","ABSTAIN"],"features":["signal_fusion","dynamic_ensemble","uncertainty_gate","multi_horizon","scenario_engine","counterfactuals","explainability","champion_candidate_governance","prediction_audit"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"]}

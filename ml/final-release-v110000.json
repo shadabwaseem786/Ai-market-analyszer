@@ -1,0 +1,12 @@
+{
+ "version":"V110000",
+ "name":"Market Memory & Analog Engine",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V109000",
+ "layers":["historical-analog-search","regime-conditioned-memory","outcome-trajectories","memory-model-conflict-resolution","episodic-memory-governor"],
+ "purpose":"Compare current market states with historical analogues while conditioning on regime and catalyst context.",
+ "note":"Historical similarity does not imply future causality; analogues are evidence, not guarantees."
+}

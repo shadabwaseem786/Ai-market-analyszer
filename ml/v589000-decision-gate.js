@@ -1,0 +1,2 @@
+// V589000 Decision Reliability Gate.
+function gate(m={}){const pass=!m.adversarialFail&&!m.regimeUncertain&&!m.dataWeak&&Number(m.expectedValue??0)>0&&Number(m.consensusScore??0)>=Number(m.minimumConsensus??.6);return {version:"V589000",pass,status:pass?"CLEAR":"BLOCKED",researchOnly:true};} module.exports={gate};

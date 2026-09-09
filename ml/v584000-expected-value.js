@@ -1,0 +1,2 @@
+// V584000 Expected-Value Engine.
+function calculate(outcomes=[]){return {version:"V584000",expectedValue:outcomes.reduce((s,o)=>s+Number(o.probability??0)*Number(o.payoff??0),0),outcomes,researchOnly:true};} module.exports={calculate};

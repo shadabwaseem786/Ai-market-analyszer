@@ -1,0 +1,2 @@
+// V39500: forecast combination stability.
+function combine(forecasts,weights){const n=Math.min(forecasts.length,weights.length);let s=0,w=0;for(let i=0;i<n;i++){s+=forecasts[i]*(weights[i]||0);w+=weights[i]||0}return w?s/w:null}module.exports={combine};

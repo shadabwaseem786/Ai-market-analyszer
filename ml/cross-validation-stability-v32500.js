@@ -1,0 +1,2 @@
+// V32500: cross-fold performance dispersion.
+function summarize(scores){const a=scores.filter(Number.isFinite);if(!a.length)return null;const m=a.reduce((s,x)=>s+x,0)/a.length;const sd=Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/a.length);return {n:a.length,mean:m,std:sd,cv:Math.abs(m)>1e-9?sd/Math.abs(m):Infinity}}module.exports={summarize};

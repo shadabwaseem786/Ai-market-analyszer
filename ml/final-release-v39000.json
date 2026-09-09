@@ -1,0 +1,1 @@
+{"version":"V39000","status":"RESEARCH_ONLY","executionDisabled":true,"layers":["meta_labeling","triple_barrier","horizon_performance","conditional_drawdown","tail_dependence","feature_freshness","source_redundancy","data_reconciliation","experiment_registry"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

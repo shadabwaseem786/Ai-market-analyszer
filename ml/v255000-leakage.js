@@ -1,0 +1,2 @@
+// V255000 Data leakage detector.
+function scan(dataset=[]){const suspicious=dataset.filter(x=>x.leakage===true||x.sourceRole==="future");return {version:"V255000",suspicious,count:suspicious.length,detected:suspicious.length>0,researchOnly:true};} module.exports={scan};

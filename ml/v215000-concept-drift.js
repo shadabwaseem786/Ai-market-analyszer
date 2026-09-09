@@ -1,0 +1,2 @@
+// V215000 Concept-drift adaptation gate.
+function gate(drift={}){const d=Number(drift.drift||0);return {version:"V215000",action:d>.5?"RETRAIN_RESEARCH":d>.2?"REDUCE_CONFIDENCE":"CONTINUE",drift:d,automaticRetraining:false,researchOnly:true};} module.exports={gate};

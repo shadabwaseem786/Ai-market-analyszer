@@ -1,0 +1,2 @@
+// V542000 Prediction Distribution Engine.
+function distribution(samples=[]){const v=samples.map(Number).filter(Number.isFinite).sort((a,b)=>a-b);const q=p=>v.length?v[Math.min(v.length-1,Math.floor((v.length-1)*p))]:null;return {version:"V542000",p10:q(.1),p25:q(.25),p50:q(.5),p75:q(.75),p90:q(.9),n:v.length,researchOnly:true};} module.exports={distribution};

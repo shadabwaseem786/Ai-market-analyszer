@@ -1,0 +1,2 @@
+// V33200: robust weighted voting with abstention.
+function vote(models,minAgreement=.6){const a=models.filter(x=>Number.isFinite(x.p)&&Number.isFinite(x.w)&&x.w>0);const w=a.reduce((s,x)=>s+x.w,0);if(!w)return{decision:"ABSTAIN"};const p=a.reduce((s,x)=>s+x.p*x.w,0)/w;const agree=a.filter(x=>x.p>=.5===p>=.5).reduce((s,x)=>s+x.w,0)/w;return {probability:p,agreement:agree,decision:agree>=minAgreement?(p>=.5?"LONG_BIAS":"SHORT_BIAS"):"ABSTAIN"}}module.exports={vote};

@@ -1,0 +1,10 @@
+{
+  "release": "FINAL V7 CORRECTED",
+  "source": "V7 realtime merged master",
+  "file_count": 1723,
+  "required_missing": [],
+  "json_errors": [],
+  "frontend_realtime_references": 1,
+  "removed_obsolete": [],
+  "status": "PASS"
+}

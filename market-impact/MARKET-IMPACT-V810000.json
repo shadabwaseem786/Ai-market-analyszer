@@ -1,0 +1,4 @@
+{
+  "method": "depth/volatility-aware impact estimate",
+  "output": "estimated impact"
+}

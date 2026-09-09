@@ -1,0 +1,2 @@
+// V60100: research-only feature discovery. Candidate features require OOS validation.
+function discover(pool=[],used=[]){const u=new Set(used);return pool.filter(x=>x&&x.name&&!u.has(x.name)).map(x=>({...x,status:"CANDIDATE",requiresOOS:true}))}module.exports={discover};

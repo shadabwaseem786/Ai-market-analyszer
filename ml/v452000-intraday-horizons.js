@@ -1,0 +1,2 @@
+// V452000 Intraday horizon models.
+function evaluate(predictions=[]){return {version:"V452000",predictions:predictions.filter(p=>/min|intraday/i.test(String(p.horizon||""))),researchOnly:true};} module.exports={evaluate};

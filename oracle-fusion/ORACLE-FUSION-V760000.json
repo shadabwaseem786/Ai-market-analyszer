@@ -1,0 +1,15 @@
+{
+  "components": [
+    "technical",
+    "options",
+    "microstructure",
+    "institutional",
+    "cross-asset",
+    "catalyst"
+  ],
+  "outputs": [
+    "direction",
+    "score",
+    "component contributions"
+  ]
+}

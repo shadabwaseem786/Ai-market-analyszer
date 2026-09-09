@@ -1,0 +1,2 @@
+// V288000 Regime-specific model router.
+function route(regime,models={}){const key=String(regime||"UNKNOWN");return {version:"V288000",regime:key,selected:models[key]||models.DEFAULT||[],available:Object.keys(models),researchOnly:true};} module.exports={route};

@@ -1,0 +1,2 @@
+// V563000 Causal Strength Estimator.
+function estimate(observations=[]){return {version:"V563000",relations:observations.map(o=>({...o,causalStrength:Number(o.effect??0)*Number(o.identificationConfidence??0)})),researchOnly:true};} module.exports={estimate};

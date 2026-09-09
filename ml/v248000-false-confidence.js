@@ -1,0 +1,2 @@
+// V248000 False-confidence detector.
+function detect(x={}){const c=Number(x.confidence||0),agreement=Number(x.agreement||0),calibration=Number(x.calibration||0),drift=Number(x.drift||0);const risk=Math.min(100,Math.max(0,c*.45+(1-agreement)*30+(1-calibration)*25+drift*30));return {version:"V248000",falseConfidenceRisk:+risk.toFixed(2),flag:risk>=50,researchOnly:true};} module.exports={detect};

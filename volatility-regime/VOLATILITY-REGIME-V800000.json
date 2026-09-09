@@ -1,0 +1,9 @@
+{
+  "states": [
+    "LOW",
+    "NORMAL",
+    "HIGH",
+    "EXTREME"
+  ],
+  "method": "relative volatility regime"
+}

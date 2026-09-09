@@ -1,0 +1,1 @@
+{"version":"V29100","status":"RESEARCH_ONLY","executionDisabled":true,"newControls":["uncertainty_decomposition","causal_sanity","feature_stability","exposure_concentration","reproducibility"],"universes":["NIFTY","BANKNIFTY","FINNIFTY"],"auto_trading":false}

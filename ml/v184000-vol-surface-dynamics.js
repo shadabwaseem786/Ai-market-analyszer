@@ -1,0 +1,2 @@
+// V184000 IV skew and volatility-surface dynamics.
+function analyze(current=[],previous=[]){const key=x=>String(x.strike)+"|"+String(x.expiry)+"|"+String(x.optionType);const p=new Map(previous.map(x=>[key(x),Number(x.iv||0)]));return current.map(x=>({...x,iv:Number(x.iv||0),ivChange:Number(x.iv||0)-(p.get(key(x))??Number(x.iv||0))}));} module.exports={analyze};

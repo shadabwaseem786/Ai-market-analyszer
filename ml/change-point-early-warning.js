@@ -1,0 +1,2 @@
+// V50500: early warning for structural breaks.
+function score(series,window=20){if(series.length<window*2)return null;const a=series.slice(-window),b=series.slice(-2*window,-window);const mean=x=>x.reduce((s,v)=>s+v,0)/x.length;return Math.abs(mean(a)-mean(b))}module.exports={score};

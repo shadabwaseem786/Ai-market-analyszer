@@ -1,0 +1,2 @@
+// V486000 Market Narrative Memory.
+function index(items=[]){return {version:"V486000",items:items.map((x,i)=>({...x,id:x.id||"N"+(i+1),timestamp:x.timestamp||null})),researchOnly:true};} module.exports={index};

@@ -1,0 +1,12 @@
+{
+ "version":"V115000",
+ "name":"Adversarial Red-Team 2.0",
+ "status":"RESEARCH_ONLY",
+ "executionDisabled":true,
+ "automaticTrading":false,
+ "automaticPromotion":false,
+ "extends":"V114000",
+ "layers":["multi-axis-adversarial-attacks","thesis-falsification","tail-shock-stress","robustness-scoring","red-team-governor"],
+ "purpose":"Actively challenge the dominant scenario before presenting a high-conviction research conclusion.",
+ "note":"Passing adversarial tests does not imply profitability or immunity to unforeseen market events."
+}

@@ -1,0 +1,2 @@
+// V189000 Multi-Horizon Forecast Ensemble.
+function combine(predictions={}){const horizons=Object.entries(predictions).filter(([,v])=>Number.isFinite(Number(v)));const weights={short:.5,medium:.3,long:.2};let sw=0,sp=0;for(const [h,v] of horizons){const w=weights[h]??1;sw+=w;sp+=w*Number(v)}return {version:"V189000",horizons:Object.fromEntries(horizons),ensembleProbability:sw?+(sp/sw).toFixed(5):null,researchOnly:true};} module.exports={combine};

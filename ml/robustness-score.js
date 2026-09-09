@@ -1,0 +1,2 @@
+// V24200: composite robustness score.
+function score({oos=0,cost=0,stability=0,calibration=0,drift=0,drawdown=0}={}){return .25*oos+.2*cost+.2*stability+.15*calibration+.1*drift+.1*(1-drawdown)}module.exports={score};

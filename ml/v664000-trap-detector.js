@@ -1,0 +1,2 @@
+// V664000 Retail-Trap / Bull-Trap Detector.
+function detect(m={}){const bull=Number(m.bullTrapScore??0),bear=Number(m.bearTrapScore??0);return {version:"V664000",bullTrap:bull>=.7,bearTrap:bear>=.7,bullTrapScore:bull,bearTrapScore:bear,researchOnly:true};} module.exports={detect};

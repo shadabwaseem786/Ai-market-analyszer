@@ -1,0 +1,2 @@
+// V294000 Event Memory Graph.
+function build(events=[],links=[]){const nodes=events.map((e,i)=>({id:e.id||String(i),type:e.type||"EVENT",timestamp:e.timestamp||null,...e}));return {version:"V294000",nodes,links,researchOnly:true};} module.exports={build};

@@ -1,0 +1,10 @@
+{
+  "fields": [
+    "eventId",
+    "type",
+    "source",
+    "timestamp",
+    "payload"
+  ],
+  "ordering": "event-time preferred"
+}

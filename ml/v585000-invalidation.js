@@ -1,0 +1,2 @@
+// V585000 Stop/Invalidation Intelligence.
+function evaluate(thesis={},conditions=[]){return {version:"V585000",thesis,conditions:conditions.map(c=>({condition:c,invalidates:true})),researchOnly:true};} module.exports={evaluate};

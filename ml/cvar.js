@@ -1,0 +1,2 @@
+// V35400: conditional value-at-risk diagnostic.
+function cvar(returns,alpha=.05){const a=returns.filter(Number.isFinite).sort((x,y)=>x-y),n=Math.max(1,Math.ceil(a.length*alpha));return a.length?a.slice(0,n).reduce((s,x)=>s+x,0)/n:null}module.exports={cvar};

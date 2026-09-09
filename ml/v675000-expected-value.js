@@ -1,0 +1,2 @@
+// V675000 Expected Value / Risk-Reward Optimizer.
+function optimize(m={}){const win=Number(m.winProbability??0),gain=Number(m.gain??0),loss=Math.abs(Number(m.loss??0));return {version:"V675000",expectedValue:win*gain-(1-win)*loss,researchOnly:true};} module.exports={optimize};

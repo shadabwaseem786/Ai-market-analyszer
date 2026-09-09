@@ -1,0 +1,2 @@
+// V492000 Evidence Arbitration Engine.
+function arbitrate(items=[]){return {version:"V492000",items:[...items].sort((a,b)=>(Number(b.quality??0)*Number(b.independence??1))-(Number(a.quality??0)*Number(a.independence??1))),researchOnly:true};} module.exports={arbitrate};

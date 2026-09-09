@@ -1,0 +1,2 @@
+// V457000 Probabilistic Forecast Distribution.
+function distribution(outcomes=[]){const total=outcomes.reduce((s,o)=>s+Number(o.probability||0),0);return {version:"V457000",outcomes:outcomes.map(o=>({...o,normalizedProbability:total?Number(o.probability||0)/total:0})),probabilityMass:total,researchOnly:true};} module.exports={distribution};

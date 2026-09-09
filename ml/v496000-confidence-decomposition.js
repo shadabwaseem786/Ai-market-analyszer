@@ -1,0 +1,2 @@
+// V496000 Confidence Decomposition.
+function decompose(parts={}){const vals=Object.values(parts).map(Number).filter(Number.isFinite);const confidence=vals.length?vals.reduce((a,b)=>a*b,1)**(1/vals.length):0;return {version:"V496000",parts,confidence,researchOnly:true};} module.exports={decompose};

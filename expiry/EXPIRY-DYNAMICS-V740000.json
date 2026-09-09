@@ -1,0 +1,8 @@
+{
+  "metrics": [
+    "OI concentration",
+    "gamma concentration",
+    "IV compression",
+    "days-to-expiry"
+  ]
+}

@@ -1,0 +1,2 @@
+// V305000 catalyst-to-asset mapping.
+function map(catalyst={},relations=[]){return {version:"V305000",catalyst,assets:relations.filter(r=>r&&r.asset).sort((a,b)=>Number(b.exposure||0)-Number(a.exposure||0)),researchOnly:true};} module.exports={map};

@@ -1,0 +1,2 @@
+// V724000 Order-Flow Imbalance.
+function calculate(m={}){const buy=Number(m.aggressiveBuyVolume??0),sell=Number(m.aggressiveSellVolume??0),t=buy+sell;return {version:"V724000",imbalance:t?(buy-sell)/t:0,researchOnly:true};} module.exports={calculate};

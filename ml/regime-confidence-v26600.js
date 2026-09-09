@@ -1,0 +1,2 @@
+// V26600: regime-conditional confidence adjustment.
+function adjust(confidence,regimeStats={}){const s=regimeStats?.stability;const factor=Number.isFinite(s)?Math.max(.5,Math.min(1.1,s)):1;return Math.max(0,Math.min(1,confidence*factor))}module.exports={adjust};

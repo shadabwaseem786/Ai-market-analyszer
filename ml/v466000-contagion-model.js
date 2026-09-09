@@ -1,0 +1,2 @@
+// V466000 Cross-Asset Contagion Model.
+function map(edges=[]){return {version:"V466000",edges:edges.map(e=>({...e,transmission:Number(e.weight??1)*Number(e.shock??0)})),researchOnly:true};} module.exports={map};

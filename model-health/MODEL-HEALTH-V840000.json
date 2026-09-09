@@ -1,0 +1,13 @@
+{
+  "states": [
+    "HEALTHY",
+    "WATCH",
+    "DEGRADED"
+  ],
+  "metrics": [
+    "Brier",
+    "log loss",
+    "accuracy",
+    "drift"
+  ]
+}

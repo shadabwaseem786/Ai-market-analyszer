@@ -1,0 +1,2 @@
+// V654000 Root-Cause Attribution.
+function rank(causes=[]){return {version:"V654000",causes:[...causes].sort((a,b)=>Number(b.contribution??0)-Number(a.contribution??0)),researchOnly:true};} module.exports={rank};

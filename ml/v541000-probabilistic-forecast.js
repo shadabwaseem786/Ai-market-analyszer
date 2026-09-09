@@ -1,0 +1,2 @@
+// V541000 Probabilistic Forecast Engine — research only.
+function forecast(samples=[]){const v=samples.map(Number).filter(Number.isFinite);const mean=v.length?v.reduce((a,b)=>a+b,0)/v.length:null;return {version:"V541000",mean,samples:v.length,distribution:v,researchOnly:true};} module.exports={forecast};
