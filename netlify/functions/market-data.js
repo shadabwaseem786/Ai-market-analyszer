@@ -80,5 +80,5 @@ exports.handler=async(event)=>{
    data[name]=value;if(error)errors.push(name+": "+error);
  }
  const valid=Object.values(data).filter(x=>x.quality===100).length;
- return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store","access-control-allow-origin":"*"},body:JSON.stringify({version:"V14000",generatedAt:now.toISOString(),validCount:valid,total:3,marketSession:sessionOpen?"OPEN":"CLOSED",data,errors,guardrails:["finite-values","history>=60","timestamp-freshness<=48h","same-day-close-validity","no-zero-price","FINNIFTY-fallback","anomaly-move-gate","dual-yahoo-host-fallback","regime-classification","raw-vs-adjusted-score","factor-consensus","confidence-calibration","feed-metadata","regime-quality"]})}
+ return {statusCode:200,headers:{"content-type":"application/json","cache-control":"no-store","access-control-allow-origin":"*"},body:JSON.stringify({version:"V14000",generatedAt:now.toISOString(),validCount:valid,total:Object.keys(data).length,marketSession:sessionOpen?"OPEN":"CLOSED",data,errors,guardrails:["finite-values","history>=60","timestamp-freshness<=48h","same-day-close-validity","no-zero-price","FINNIFTY-fallback","anomaly-move-gate","dual-yahoo-host-fallback","regime-classification","raw-vs-adjusted-score","factor-consensus","confidence-calibration","feed-metadata","regime-quality"]})}
 };
